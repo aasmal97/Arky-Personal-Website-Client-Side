@@ -1,0 +1,18 @@
+@use "../src/utilities/utilitiesBreakpoints" as util;
+@media (min-width: 992px) {
+}
+
+@media (max-width: 992px) {
+  @include util.utilities-lg;
+}
+
+@media (max-width: 768px) {
+  @include util.utilities-md;
+}
+
+@media (max-width: 575px) {
+  @include util.utilities-sm;
+}
+
+@media (any-hover: hover) {
+}

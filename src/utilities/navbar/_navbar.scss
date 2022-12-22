@@ -1,0 +1,25 @@
+@use "../../../public/variables" as v;
+$namespace: "navbar";
+##{$namespace} {
+  height: v.$navbar-height;
+  display: flex;
+  justify-content: flex-end;
+  justify-content: end;
+  button,
+  a {
+    @include v.remove-btn-default;
+    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    height: 100%;
+    color: v.$white;
+    padding: 0 1.5em;
+    &:last-child {
+      background: v.$dark-red;
+    }
+  }
+}

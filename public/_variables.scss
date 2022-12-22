@@ -1,0 +1,33 @@
+$red: #d24040;
+$dark-red: #AE0000;
+$blue: #3ac2ff;
+$yellow: #ffc83a;
+$gray: #afafaf;
+$lighter-black: #5a5a5a;
+$light-black: #4e4e4e;
+$dark-black: #2e2e2e;
+$black: #313131;
+$darkest-black: #161616;
+$white: #FFFFFF;
+$off-white: #f2f2f2 ;
+$corner-gradient: linear-gradient(
+  138.2deg,
+  #ffc83a 1.06%,
+  #ff5050 49.26%,
+  #3ac2ff 93.61%
+);
+$horizontal-gradient: linear-gradient(
+  90deg,
+  #ffc83a 10.37%,
+  #ff5050 50.21%,
+  #3ac2ff 90.43%
+);
+$navbar-height: 3.5em;
+@mixin remove-btn-default {
+    cursor: pointer;
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  color: inherit;
+}

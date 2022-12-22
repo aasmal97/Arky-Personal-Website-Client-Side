@@ -1,0 +1,10 @@
+@use "../utilities/navbar/navbarBreakpoints" as nav;
+
+@mixin utilities-lg {
+}
+@mixin utilities-md {
+  @include nav.navbar-md;
+}
+@mixin utilities-sm {
+  @include nav.navbar-sm;
+}

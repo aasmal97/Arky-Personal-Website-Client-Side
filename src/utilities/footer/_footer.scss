@@ -1,0 +1,29 @@
+@use "../../../public/variables" as v;
+$namespace: "footer";
+##{$namespace} {
+  display: flex;
+  width: 100%;
+  background-color: v.$darkest-black;
+  color: v.$white;
+  justify-content: center;
+  padding: 2em 0;
+}
+##{$namespace}-inner {
+  max-width: 1000px;
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+##{$namespace}-bottom-footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  span {
+    padding-top: 0.8em;
+  }
+  &:after{
+    
+  }
+}

@@ -1,0 +1,13 @@
+@mixin navbar-md {
+}
+
+@mixin navbar-sm {
+  $namespace: "navbar";
+  ##{$namespace} {
+    justify-content: center;
+    button,
+    a {
+      width: 100%;
+    }
+  }
+}
