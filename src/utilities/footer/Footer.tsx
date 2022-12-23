@@ -5,7 +5,7 @@ import { GithubRepoData } from "../types/GithubTypes";
 import {
   getGithubApiData,
   getPast90DaysContributons,
-  getHistoricalContributions
+  getHistoricalContributions,
 } from "../asyncActions/GithubActions";
 const namespace = "footer";
 const currDate = new Date();
@@ -24,9 +24,11 @@ const GitHubRow = () => {
     // getPast90DaysContributons().then((data) => {
     //   if (Array.isArray(data)) setNinetyDaysCount(data.length);
     // });
-    getHistoricalContributions("users/aasmal97/contributions", {
-      to: dateToLocale,
-    }).then((data) => console.log(data));
+    // getHistoricalContributions("users/aasmal97/contributions", {
+    //   to: dateToLocale,
+    // }).then((data) => {
+    //   if (Array.isArray(data)) setCountributionsCount(data.length);
+    // });
   }, []);
   return (
     <div className={`${namespace}-github-row`}>
@@ -65,4 +67,4 @@ const Footer = () => {
     </footer>
   );
 };
-export default Footer
+export default Footer;

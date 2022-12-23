@@ -52,7 +52,7 @@ export const getHistoricalContributions = async (
   params: {
     [key: string]: any;
   }
-): Promise<JSX.Element | ErrorObject> => {
+): Promise<any[] | ErrorObject> => {
   try {
     const request = await axios({
       method: "get",
