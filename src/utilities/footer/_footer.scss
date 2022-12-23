@@ -7,6 +7,7 @@ $namespace: "footer";
   color: v.$white;
   justify-content: center;
   padding: 2em 0;
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 ##{$namespace}-inner {
   max-width: 1000px;
@@ -15,15 +16,44 @@ $namespace: "footer";
   width: 100%;
   align-items: center;
 }
+.#{$namespace}-github-row,
+.#{$namespace}-stackoverflow-row {
+  display: flex;
+  width: 30%;
+  min-width: 200px;
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 ##{$namespace}-bottom-footer {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   text-align: center;
+  $spacing: 1em;
   span {
-    padding-top: 0.8em;
+    padding-top: $spacing;
   }
-  &:after{
-    
+  span:first-child {
+    position: relative;
+    margin-top: calc(#{$spacing} + 0.2em);
+    padding-top: calc(#{$spacing} + 0.2em);
+    &:after {
+      $line-width: 100%;
+      position: absolute;
+      top: -0.5px;
+      left: calc((100% - #{$line-width}) / 2);
+      width: $line-width;
+      content: "";
+      height: 1px;
+      background-color: v.$light-black;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: v.$yellow;
   }
 }
