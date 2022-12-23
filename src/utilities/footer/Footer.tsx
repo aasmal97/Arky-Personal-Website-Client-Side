@@ -1,43 +1,36 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import GithubIcon from "../icons/Github";
 import StackOverflowIcon from "../icons/StackOverflow";
-import { GithubRepoData, ErrorObject } from "../types/GithubTypes";
+import { GithubRepoData } from "../types/GithubTypes";
+import {
+  getGithubApiData,
+  getPast90DaysContributons,
+  getHistoricalContributions
+} from "../asyncActions/GithubActions";
 const namespace = "footer";
-const getGithubApiData = async (
-  route: string
-): Promise<GithubRepoData | ErrorObject> => {
-  try {
-    const request = await axios({
-      method: "get",
-      url: `https://api.github.com/${route}`,
-      params: {
-        per_page: 100,
-      },
-    });
-    return request.data;
-  } catch (e) {
-    return {
-      err: true,
-      message: "Something went wrong with Github API",
-    };
-  }
-};
+const currDate = new Date();
+const dateToLocale = currDate.toISOString().slice(0, 10);
 const GitHubRow = () => {
   const [repoData, setRepoData] = useState<GithubRepoData>([]);
+  const [ninetyDaysCount, setNinetyDaysCount] = useState(0);
+  const [countributionsCount, setCountributionsCount] = useState(0);
   const repoCount = repoData.length < 100 ? repoData.length.toString() : "100+";
+  console.log(dateToLocale);
+  //const contributionsCount =
   useEffect(() => {
-    // getGithubApiData("users/aasmal97/repos").then((data) =>
-    //   Array.isArray(data) ? setRepoData(data) : []
-    // );
+    // getGithubApiData("users/aasmal97/repos", {
+    //   per_page: 100,
+    // }).then((data) => (Array.isArray(data) ? setRepoData(data) : []));
+    // getPast90DaysContributons().then((data) => {
+    //   if (Array.isArray(data)) setNinetyDaysCount(data.length);
+    // });
+    getHistoricalContributions("users/aasmal97/contributions", {
+      to: dateToLocale,
+    }).then((data) => console.log(data));
   }, []);
-  console.log(repoData);
   return (
     <div className={`${namespace}-github-row`}>
-      <a>
-        <GithubIcon />
-      </a>
-      
+      <GithubIcon />
     </div>
   );
 };
@@ -72,4 +65,4 @@ const Footer = () => {
     </footer>
   );
 };
-export default Footer;
+export default Footer

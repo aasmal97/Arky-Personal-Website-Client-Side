@@ -23,10 +23,10 @@
   },
   "devDependencies": {
     "cross-env": "=7.0.3",
-    "node-sass": "=7.0.3"
+    "dart-sass": "=1.25.0"
   },
   "scripts": {
-    "scss": "node-sass ./public/main.scss ./public/main.css",
+    "scss": "dart-sass ./public/main.scss ./public/main.css",
     "start": "npm run scss && cross-env BROWSER=none react-scripts start",
     "build": "npm run scss && react-scripts build",
     "test": "react-scripts test",

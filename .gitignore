@@ -25,3 +25,5 @@ yarn-error.log*
 *.vscode
 *main.css
 *main.css.map
+*.env
+*env
