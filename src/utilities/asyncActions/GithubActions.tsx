@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import { GithubRepoData, ErrorObject, EventData } from "../types/GithubTypes";
 export const getGithubApiData = async (
   route: string,

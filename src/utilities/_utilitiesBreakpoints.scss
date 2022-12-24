@@ -1,5 +1,5 @@
 @use "../utilities/navbar/navbarBreakpoints" as nav;
-
+@use "../utilities/footer/footerBreakpoints" as footer;
 @mixin utilities-lg {
 }
 @mixin utilities-md {
@@ -7,4 +7,5 @@
 }
 @mixin utilities-sm {
   @include nav.navbar-sm;
+  @include footer.footer-sm;
 }
