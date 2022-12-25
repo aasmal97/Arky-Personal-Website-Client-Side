@@ -1,0 +1,55 @@
+@use "./introBanner" as i;
+@use "../../../../../public/variables" as v;
+$namespace: i.$namespace;
+@mixin intro-banner-spacing($font-size) {
+  .#{$namespace}-content {
+    $unitless-size: $font-size;
+    $font-size: #{$unitless-size}vw;
+    .#{$namespace}-title {
+      h2 {
+        font-size: $font-size;
+      }
+      h3 {
+        font-size: calc(#{$font-size} * 0.64);
+      }
+    }
+    p {
+      margin-top: calc(#{$font-size} / 2);
+      font-size: calc(#{$font-size} * 0.28);
+      line-height: calc(#{$font-size} / 1.8);
+    }
+    button {
+      font-size: calc(#{$font-size} * 0.28);
+      margin-top: calc(#{$font-size} / 2);
+      padding: 0.5em 1em;
+    }
+  }
+}
+@mixin intro-lg {
+  @include intro-banner-spacing(7);
+  ##{$namespace} {
+    flex-direction: column;
+  }
+  .#{$namespace}-img-container {
+    max-width: unset;
+    @include v.abs-pos-fill(0);
+  }
+  .#{$namespace}-content {
+    padding: calc(#{v.$navbar-height}* 1.5) 0;
+    p,
+    div,
+    button {
+      z-index: 1;
+    }
+    @include v.bg-fill(rgba(0, 0, 0, 0.6), 0);
+  }
+}
+@mixin intro-md {
+  @include intro-banner-spacing(9);
+}
+@mixin intro-sm {
+  @include intro-banner-spacing(12);
+  .#{$namespace}-content {
+    padding: calc(#{v.$navbar-height}) 0;
+  }
+}

@@ -1,11 +1,11 @@
 @use "./variables" as v;
-@use "../src/utilities/navbar/navbar";
-@use "../src/utilities/footer/footer";
-@use "../src/utilities/loadingIcon/loadingIcon";
+@use "../src/utilities/utilities";
+@use "../src/pages/homePage/homePage";
 //last import since it must override previous styles
 @use "./mediaQueries";
-html,body{
-    padding: 0;
-    margin: 0;
-    background-color: v.$light-black;
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: v.$light-black;
 }

@@ -1,5 +1,6 @@
+$light-red: #ff5050;
 $red: #d24040;
-$dark-red: #AE0000;
+$dark-red: #ae0000;
 $blue: #3ac2ff;
 $yellow: #ffc83a;
 $gray: #afafaf;
@@ -8,8 +9,8 @@ $light-black: #4e4e4e;
 $dark-black: #2e2e2e;
 $black: #313131;
 $darkest-black: #161616;
-$white: #FFFFFF;
-$off-white: #f2f2f2 ;
+$white: #ffffff;
+$off-white: #f2f2f2;
 $corner-gradient: linear-gradient(
   138.2deg,
   #ffc83a 1.06%,
@@ -24,10 +25,38 @@ $horizontal-gradient: linear-gradient(
 );
 $navbar-height: 3.5em;
 @mixin remove-btn-default {
-    cursor: pointer;
+  cursor: pointer;
   border: none;
   background: transparent;
   margin: 0;
   padding: 0;
   color: inherit;
+}
+@mixin img-fill {
+  .lazy-load-image-background {
+    width: 100%;
+    height: 100%;
+  }
+  img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+@mixin abs-pos-fill($zIndex: 0) {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: $zIndex;
+}
+@mixin bg-fill($bgColor, $zIndex: 0) {
+  position: relative;
+  &:after {
+    @include abs-pos-fill($zIndex);
+    background: $bgColor;
+  }
 }

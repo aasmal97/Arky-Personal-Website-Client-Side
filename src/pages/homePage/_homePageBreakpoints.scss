@@ -1,0 +1,10 @@
+@use "./components/introBanner/introBannerBreakpoints" as intro;
+@mixin home-lg {
+  @include intro.intro-lg;
+}
+@mixin home-md {
+  @include intro.intro-md;
+}
+@mixin home-sm {
+  @include intro.intro-sm;
+}

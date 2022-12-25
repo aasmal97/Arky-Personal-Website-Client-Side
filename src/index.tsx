@@ -9,9 +9,12 @@ import {
 } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import Root from "./root";
+const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
+      <Route index element={<HomePage />} />
+      <Route path="home/*" element={<HomePage />} />
       <Route path="projects" element={<></>} />
       <Route path="projects/:id" element={<></>} />
       <Route path="about" element={<></>}>

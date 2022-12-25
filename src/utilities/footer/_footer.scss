@@ -105,6 +105,10 @@ $namespace: "footer";
       background-color: v.$light-black;
     }
   }
+  span:last-child{
+    color: v.$gray;
+    font-size: 0.85em;
+  }
   a {
     text-decoration: none;
     color: v.$yellow;

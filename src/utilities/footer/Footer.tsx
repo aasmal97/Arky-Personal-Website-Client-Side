@@ -117,6 +117,7 @@ const Footer = () => {
               here
             </a>
           </span>
+          <span>By Arky Asmal</span>
         </div>
       </div>
     </footer>

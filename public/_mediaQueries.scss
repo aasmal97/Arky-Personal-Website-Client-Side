@@ -1,17 +1,23 @@
 @use "../src/utilities/utilitiesBreakpoints" as util;
+@use "../src/pages/homePage/homePageBreakpoints" as home;
 @media (min-width: 992px) {
 }
 
 @media (max-width: 992px) {
   @include util.utilities-lg;
+  @include home.home-lg;
 }
 
 @media (max-width: 768px) {
   @include util.utilities-md;
+    @include home.home-md;
+
 }
 
 @media (max-width: 575px) {
   @include util.utilities-sm;
+    @include home.home-sm;
+
 }
 
 @media (any-hover: hover) {

@@ -1,10 +1,15 @@
 @use "../../../public/variables" as v;
 $namespace: "navbar";
 ##{$namespace} {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
   height: v.$navbar-height;
   display: flex;
   justify-content: flex-end;
   justify-content: end;
+  z-index: 10;
   button,
   a {
     @include v.remove-btn-default;
