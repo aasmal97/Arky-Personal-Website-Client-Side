@@ -1,0 +1,57 @@
+import LineDividerSVG from "../../../../utilities/lineDivider/LineDivider";
+import useElementSize from "../../../../hooks/useElementSize";
+import { Link } from "react-router-dom";
+const namespace = "project-banner";
+const WaveSvg = () => {
+  return (
+    <div className={`${namespace}-wave`}>
+      <svg viewBox="0 0 287 339" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M2.96232 339L9.92325 329.583C16.8042 320.167 30.726 301.333 26.4054 282.5C22.1649 263.667 -0.238117 244.833 0.0019145 226C0.321957 207.167 23.205 188.333 36.5668 169.5C49.9286 150.667 53.609 131.833 48.7284 113C43.7677 94.1667 30.1659 75.3333 26.5654 56.5C22.965 37.6667 29.3658 18.8333 32.5662 9.41667L35.7667 0H287V9.41667C287 18.8333 287 37.6667 287 56.5C287 75.3333 287 94.1667 287 113C287 131.833 287 150.667 287 169.5C287 188.333 287 207.167 287 226C287 244.833 287 263.667 287 282.5C287 301.333 287 320.167 287 329.583V339H2.96232Z"
+          fill="#3AC2FF"
+        />
+      </svg>
+    </div>
+  );
+};
+
+const TextContent = () => {
+  const [squareRef, { width, height }] = useElementSize();
+
+  return (
+    <div className={`${namespace}-text-content`}>
+      <h2 ref={squareRef}>Impactful Projects</h2>
+      <LineDividerSVG
+        width={width + width * 0.05}
+        styles={{
+          lineHeight: height / 20,
+          lineColor: "white",
+          circleColors: ["#3ac2ff", "#ff5050", "#FFC83A"],
+        }}
+        circleRadius={height / 7.5}
+      />
+      <p style={{ width: width + width * 0.05 }}>
+        My dream is to one day create something that can change and greatly
+        impact the world. That’s why I love working on meaningful projects,
+        especially related to education.
+      </p>
+      <Link to="/projects">See Projects</Link>
+    </div>
+  );
+};
+const Carousel = () => {
+  return (
+    <div className={`${namespace}-carousel`}>
+      <WaveSvg />
+    </div>
+  );
+};
+const ProjectBanner = () => {
+  return (
+    <div id={`${namespace}`}>
+      <TextContent />
+      <Carousel />
+    </div>
+  );
+};
+export default ProjectBanner;

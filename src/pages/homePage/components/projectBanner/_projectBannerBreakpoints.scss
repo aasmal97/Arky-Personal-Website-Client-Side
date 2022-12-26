@@ -1,0 +1,10 @@
+@use "./projectBanner" as p;
+@use "../../../../../public/variables" as v;
+$namespace: p.$namespace;
+@mixin project-lg {
+}
+@mixin project-md {
+}
+
+@mixin project-sm {
+}

@@ -1,0 +1,70 @@
+@use "../../../../../public/variables" as v;
+$namespace: "project-banner";
+$wave-width: 100%;
+##{$namespace} {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  background-color: v.$dark-black;
+  &>*{
+      padding: v.$navbar-height 0;
+
+  }
+}
+.#{$namespace}-carousel {
+  position: relative;
+  width: 60%;
+  &::after {
+    @include v.abs-pos-fill(0);
+    left: unset;
+    right: 0;
+    width: $wave-width;
+    background-color: v.$blue;
+  }
+}
+.#{$namespace}-wave {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: $wave-width;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  svg {
+    background-color: v.$dark-black;
+    fill: v.$dark-black;
+    height: 100%;
+  }
+}
+.#{$namespace}-text-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: v.$white;
+
+  $unitless-size: 5.2;
+  $font-size: calc(min(#{$unitless-size}vw, 5.5em));
+  h2 {
+    font-size: calc(#{$font-size} * 0.61);
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    margin-bottom: calc(#{$font-size} / 2);
+  }
+  p {
+    margin-top: calc(#{$font-size} / 2);
+    font-size: calc(#{$font-size} * 0.28);
+    line-height: calc(#{$font-size} / 1.7);
+  }
+  a {
+    text-decoration: none;
+    font-size: calc(#{$font-size} * 0.28);
+    color: v.$blue;
+    border: 1px solid v.$blue;
+    border-radius: 0.2em;
+    padding: calc(#{$font-size} * 0.28 / 3) calc(#{$font-size} * 0.28);
+  }
+}

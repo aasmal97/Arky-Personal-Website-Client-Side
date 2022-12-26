@@ -1,10 +1,15 @@
 @use "./components/introBanner/introBannerBreakpoints" as intro;
+@use "./components/projectBanner/projectBannerBreakpoints" as project;
+
 @mixin home-lg {
   @include intro.intro-lg;
+  @include project.project-lg;
 }
 @mixin home-md {
   @include intro.intro-md;
+  @include project.project-md;
 }
 @mixin home-sm {
   @include intro.intro-sm;
+  @include project.project-sm;
 }

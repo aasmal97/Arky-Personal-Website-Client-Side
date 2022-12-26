@@ -22,8 +22,7 @@ $namespace: "home-pg-intro-banner";
   align-items: center;
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: v.$white;
-    padding: calc(#{v.$navbar-height} * 2) 0;
-
+  padding: calc(#{v.$navbar-height} * 2) 0;
   $unitless-size: 5.2;
   $font-size: calc(min(#{$unitless-size}vw, 5.5em));
   .#{$namespace}-title {
@@ -41,7 +40,7 @@ $namespace: "home-pg-intro-banner";
     }
     h3 {
       font-weight: 400;
-      font-size: calc(#{$font-size} * 0.64);
+      font-size: calc(#{$font-size} * 0.61);
       &:last-child {
         margin-bottom: 0;
         color: v.$gray;

@@ -1,9 +1,10 @@
 import IntroBanner from "./components/introBanner/IntroBanner";
-
+import ProjectBanner from "./components/projectBanner/ProjectBanner";
 const HomePage = () => {
   return (
     <div className={"home-pg-container"}>
-      <IntroBanner />
+      {/* <IntroBanner /> */}
+      <ProjectBanner />
     </div>
   );
 };
