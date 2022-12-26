@@ -58,6 +58,20 @@ $wave-width: 100%;
     margin-top: calc(#{$font-size} / 2);
     font-size: calc(#{$font-size} * 0.28);
     line-height: calc(#{$font-size} / 1.7);
+    .#{$namespace}-ani-container{
+      position: relative;
+      height: calc(#{$font-size} / 1.7);
+      width: 100%;
+      &::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        right: calc(#{$font-size} * -0.05);
+        height: 100%;
+        width: 1px;
+        background: v.$white;
+      }
+    }
   }
   a {
     text-decoration: none;

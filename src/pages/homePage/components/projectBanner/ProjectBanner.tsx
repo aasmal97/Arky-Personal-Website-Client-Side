@@ -2,6 +2,7 @@ import LineDividerSVG from "../../../../utilities/lineDivider/LineDivider";
 import useElementSize from "../../../../hooks/useElementSize";
 import { Link } from "react-router-dom";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
+import useTypingAnimation from "../../../../hooks/useTypingAnimation";
 const namespace = "project-banner";
 const WaveSvg = ({
   orientation = "right",
@@ -31,7 +32,16 @@ const WaveSvg = ({
     </div>
   );
 };
-
+const TypingAnimation = () => {
+  const { ref, currWord } = useTypingAnimation({
+    strArr: ["education.", "health.", "technology."],
+  });
+  return (
+    <span style={{ display: "inline-block", width: "100%" }}>
+      <span className={`${namespace}-ani-container`} ref={ref}>{currWord}</span>
+    </span>
+  );
+};
 const TextContent = () => {
   const [squareRef, { width, height }] = useElementSize();
 
@@ -50,7 +60,7 @@ const TextContent = () => {
       <p style={{ width: width + width * 0.05 }}>
         My dream is to one day create something that can change and greatly
         impact the world. That’s why I love working on meaningful projects,
-        especially related to education.
+        especially related to <TypingAnimation />
       </p>
       <Link to="/projects">See Projects</Link>
     </div>
@@ -58,7 +68,6 @@ const TextContent = () => {
 };
 const Carousel = () => {
   const smallWindowWidth = useWindowWidth(992);
-  console.log(smallWindowWidth)
   return (
     <div className={`${namespace}-carousel`}>
       <WaveSvg orientation={smallWindowWidth ? "right" : "bottom"} />
