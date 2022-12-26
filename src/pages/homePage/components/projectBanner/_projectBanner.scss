@@ -13,7 +13,7 @@ $wave-width: 100%;
 }
 .#{$namespace}-carousel {
   position: relative;
-  width: 60%;
+  width: 55%;
   &::after {
     @include v.abs-pos-fill(0);
     left: unset;
@@ -41,7 +41,7 @@ $wave-width: 100%;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 40%;
+  width: 45%;
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: v.$white;
 

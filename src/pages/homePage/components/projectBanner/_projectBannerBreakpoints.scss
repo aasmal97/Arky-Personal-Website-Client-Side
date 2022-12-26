@@ -1,10 +1,52 @@
 @use "./projectBanner" as p;
 @use "../../../../../public/variables" as v;
 $namespace: p.$namespace;
+@mixin project-spacing($font-size-unit) {
+  .#{$namespace}-text-content {
+    $unitless-size: $font-size-unit;
+    $font-size: calc(min(#{$unitless-size}vw, 5.5em));
+    h2 {
+      font-size: calc(#{$font-size} * 0.61);
+      margin-bottom: calc(#{$font-size} / 2);
+    }
+    p {
+      margin-top: calc(#{$font-size} / 2);
+      font-size: calc(#{$font-size} * 0.28);
+      line-height: calc(#{$font-size} / 1.7);
+    }
+    a {
+      font-size: calc(#{$font-size} * 0.28);
+      padding: calc(#{$font-size} * 0.28 / 3) calc(#{$font-size} * 0.28);
+    }
+  }
+}
 @mixin project-lg {
+  @include project-spacing((8));
+  ##{$namespace} {
+    flex-direction: column;
+  }
+  .#{$namespace}-carousel {
+    position: relative;
+    width: 100%;
+    min-height: calc(35vh - 7em);
+  }
+  .#{$namespace}-text-content {
+    min-height: calc(65vh - 7em);
+    width: 100%;
+  }
+  .#{$namespace}-wave {
+    svg {
+      width: 100%;
+      height: auto;
+    }
+    //   width: $wave-width;
+    //   height: 100%;
+  }
 }
 @mixin project-md {
+      @include project-spacing((10));
 }
 
 @mixin project-sm {
+      @include project-spacing((12));
 }
