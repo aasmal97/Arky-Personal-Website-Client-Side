@@ -1,5 +1,6 @@
 @use "./components/introBanner/introBanner";
 @use "./components/projectBanner/projectBanner";
+@use "./components/skillsBanner/skillsBanner";
 .home-pg-container {
   display: flex;
   flex-direction: column;

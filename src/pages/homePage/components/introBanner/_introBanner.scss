@@ -54,10 +54,10 @@ $namespace: "home-pg-intro-banner";
   }
   button {
     @include v.remove-btn-default;
-    font-size: calc(#{$font-size} * 0.28);
+    font-size: calc(#{$font-size} * 0.25);
     margin-top: calc(#{$font-size} / 2);
     border: 1px solid v.$light-red;
-    border-radius: 0.3em;
+    border-radius: 0.2em;
     color: v.$light-red;
     padding: 0.5em 1em;
   }

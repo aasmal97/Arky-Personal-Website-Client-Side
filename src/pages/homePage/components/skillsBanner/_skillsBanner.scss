@@ -1,0 +1,66 @@
+@use "../../../../../public/variables" as v;
+$namespace: "skills-banner";
+
+##{$namespace} {
+  $width: min(5vw, 4em);
+  position: relative;
+  width: calc(100% - (#{$width} * 2));
+  display: flex;
+  padding: 0 $width;
+  min-height: 100vh;
+  background-color: v.$darkest-black;
+  & > svg {
+    @include v.abs-pos-fill(0);
+    height: auto;
+    width: $width;
+    &:first-child {
+      left: unset;
+      top: $width;
+      right: $width;
+    }
+    &:last-child {
+      top: unset;
+      left: $width;
+      bottom: $width;
+    }
+  }
+}
+##{$namespace}-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: calc(#{v.$navbar-height} * 2) 0;
+}
+.#{$namespace}-media-content,
+.#{$namespace}-text-content {
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 1;
+  width: 50%;
+}
+.#{$namespace}-text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  $unitless-size: 5.2;
+  $font-size: calc(min(#{$unitless-size}vw, 5.5em));
+  p {
+    color: v.$white;
+    font-size: calc(#{$font-size} * 0.5);
+    line-height: calc(#{$font-size} * 1.1);
+    max-width: 15em;
+  }
+  button,
+  a {
+    @include v.remove-btn-default;
+    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none;
+    color: v.$yellow;
+    border: 1px solid v.$yellow;
+    border-radius: 0.2em;
+    font-size: calc(#{$font-size} * 0.25);
+    margin-top: calc(#{$font-size} / 2);
+    padding: calc(#{$font-size} * 0.28 / 3) calc(#{$font-size} * 0.28);
+  }
+}

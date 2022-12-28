@@ -1,0 +1,39 @@
+@use "./skillsBanner" as s;
+$namespace: s.$namespace;
+@mixin skills-spacing($font-size) {
+  .#{$namespace}-media-content {
+    min-height: 10em;
+  }
+  .#{$namespace}-text-content {
+    $unitless-size: $font-size;
+    $font-size: calc(min(#{$unitless-size}vw, 5.5em));
+    p {
+      font-size: calc(#{$font-size} * 0.5);
+      line-height: calc(#{$font-size} * 1.1);
+    }
+    button,
+    a {
+      font-size: calc(#{$font-size} * 0.25);
+      margin-top: calc(#{$font-size} / 2);
+      padding: calc(#{$font-size} * 0.28 / 3) calc(#{$font-size} * 0.28);
+    }
+  }
+}
+@mixin skills-lg {
+  @include skills-spacing(7);
+  ##{$namespace}-inner {
+    flex-direction: column;
+  }
+  .#{$namespace}-text-content {
+    width: 100%;
+    // p {
+    //   max-width: unset;
+    // }
+  }
+}
+@mixin skills-md {
+  @include skills-spacing(10);
+}
+@mixin skills-sm {
+  @include skills-spacing(12);
+}
