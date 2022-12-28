@@ -1,0 +1,56 @@
+@use "./aboutMeBanner" as a;
+$namespace: a.$namespace;
+@mixin about-spacing($font-size) {
+  $unitless-size: $font-size;
+  $font-size: calc(min(#{$unitless-size}vw, 5.5em));
+  .#{$namespace}-wave {
+    height: calc(#{$font-size} * 5.5);
+  }
+  .#{$namespace}-text-content {
+    width: calc(#{$font-size} * 4.2);
+    padding: calc(#{$font-size} / 1.7);
+    border-radius: calc(#{$font-size} / 2);
+
+    h2 {
+      font-size: calc(#{$font-size} * 0.61);
+    }
+    & > span {
+      margin-top: calc(#{$font-size} / 4);
+      font-size: calc(#{$font-size} * 0.28);
+    }
+    p {
+      margin-top: calc(#{$font-size} / 4);
+      font-size: calc(#{$font-size} * 0.22);
+      line-height: calc(#{$font-size} / 2.6);
+      span {
+        font-size: calc(#{$font-size} * 0.61);
+      }
+    }
+  }
+}
+@mixin about-lg {
+  @include about-spacing(10);
+  ##{$namespace} {
+    display: flex;
+    flex-direction: column;
+  }
+  .#{$namespace}-wave {
+    width: 100%;
+    max-width: unset;
+    svg {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: auto;
+    }
+  }
+  .#{$namespace}-text-container {
+    width: 100%;
+  }
+}
+@mixin about-md {
+  @include about-spacing(13);
+}
+@mixin about-sm {
+  @include about-spacing(15);
+}

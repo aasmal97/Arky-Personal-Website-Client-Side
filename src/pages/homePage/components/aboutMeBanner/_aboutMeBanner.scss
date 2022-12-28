@@ -1,0 +1,87 @@
+@use "../../../../../public/variables" as v;
+$namespace: "about-me-pg";
+$text-width: 50%;
+$unitless-size: 5.2;
+$font-size: calc(min(#{$unitless-size}vw, 5.5em));
+##{$namespace} {
+  position: relative;
+  display: flex;
+  background-color: v.$lighter-black;
+  min-height: 100vh;
+}
+.#{$namespace}-text-container {
+  padding: calc(#{v.$navbar-height} * 2) 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $text-width;
+}
+.#{$namespace}-wave {
+  width: 70%;
+  max-width: calc(#{$font-size} * 8.8);
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  svg {
+    position: relative;
+    height: 100%;
+    z-index: 1;
+    background-color: v.$lighter-black;
+    fill: v.$lighter-black;
+  }
+  &::after {
+    @include v.abs-pos-fill(0);
+    background-color: v.$yellow;
+  }
+}
+.#{$namespace}-text-content {
+  width: calc(#{$font-size} * 4.2);
+  padding: calc(#{$font-size} / 1.7);
+  background-color: v.$black;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: v.$white;
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: calc(#{$font-size} / 2);
+  h2 {
+    font-size: calc(#{$font-size} * 0.61);
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+  }
+  & > span {
+    margin-top: calc(#{$font-size} / 4);
+
+    color: v.$gray;
+    font-weight: 500;
+    font-size: calc(#{$font-size} * 0.28);
+    a {
+      text-decoration: none;
+      cursor: pointer;
+      color: v.$yellow;
+    }
+  }
+  p {
+    margin: 0;
+    font-weight: 300;
+    margin-top: calc(#{$font-size} / 4);
+    font-size: calc(#{$font-size} * 0.22);
+    line-height: calc(#{$font-size} / 2.6);
+    span {
+      font-size: calc(#{$font-size} * 0.61);
+      color: v.$yellow;
+      font-family: "Tinos", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
+}
+.#{$namespace}-media-content {
+  flex-grow: 1;
+}
