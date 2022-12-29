@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
+import KUTE from "kute.js";
+import { url } from "inspector";
 const namespace = "about-me-pg";
 const WaveSVG = ({
   orientation = "right",
@@ -28,16 +31,49 @@ const WaveSVG = ({
     </div>
   );
 };
+const BlobSVG = () => {
+  useEffect(() => {
+    const animation = KUTE.fromTo(
+      `#${namespace}-blob-1`,
+      { path: `#${namespace}-blob-1` },
+      { path: `#${namespace}-blob-2` },
+      {
+        repeat: Infinity,
+        duration: 5000,
+        yoyo: true,
+        easing: "easingCubicInOut",
+      }
+    );
+    animation.start();
+  }, []);
+  return (
+    <>
+      <svg viewBox="0 0 211 180" xmlns="http://www.w3.org/2000/svg">
+        <path
+          id={`${namespace}-blob-1`}
+          d="M188.256 156.067C175.232 172.88 147.099 178.374 118.019 179.321C88.9392 180.269 58.9119 176.669 37.5992 159.856C16.2865 143.042 3.6883 113.015 11.1714 90.4711C18.6546 67.927 46.219 52.866 67.5317 41.2624C88.8444 29.6588 103.905 21.5126 126.165 14.3137C148.425 7.1147 177.932 0.81561 190.956 12.4192C203.98 24.0228 200.523 53.5291 199.86 82.3249C199.197 111.121 201.281 139.254 188.256 156.067Z"
+          fill="#FFC83A"
+        />
+        <path
+          style={{ visibility: "hidden" }}
+          id={`${namespace}-blob-2`}
+          d="M175.919 166.604C154.607 177.308 127.705 171.908 105.919 166.746C84.1799 161.631 67.556 156.8 46.2906 146.049C25.0726 135.298 -0.786777 118.674 0.0183706 102.808C0.776156 86.9891 28.1985 71.9281 49.4165 51.1364C70.6819 30.392 85.7428 3.91686 104.309 0.412099C122.922 -3.09266 144.992 16.3256 166.305 37.07C187.618 57.8617 208.173 79.9322 210.541 104.466C212.956 128.951 197.232 155.853 175.919 166.604Z"
+          fill="#FFC83A"
+        />
+      </svg>
+    </>
+  );
+};
+
 const TextContent = () => {
   const smallWindowWidth = useWindowWidth(992);
-
   return (
     <div className={`${namespace}-text-container`}>
       <WaveSVG orientation={smallWindowWidth ? "right" : "top"} />
       <div className={`${namespace}-text-content`}>
         <h2>I’m also human!</h2>
         <span>
-          (no not a Killers{" "}
+          ( no not a Killers{" "}
           <a
             href="https://www.youtube.com/watch?v=RIZdjT1472Y"
             rel="noopener noreferrer"
@@ -58,8 +94,92 @@ const TextContent = () => {
     </div>
   );
 };
+const ImageInCollage = ({
+  id,
+  children,
+}: {
+  id: string;
+//   placeholderSrc: string;
+//   src: string;
+  children: JSX.Element;
+}) => {
+  const [placeholderLoaded, setPlaceholderLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const { x, y, height, width } = children.props;
+  const onPlaceHolderLoad = (
+    e: React.SyntheticEvent<SVGImageElement, Event>
+  ) => {
+    setPlaceholderLoaded(true);
+  };
+  const onLoad = (e: React.SyntheticEvent<SVGImageElement, Event>) => {
+    setLoaded(true);
+  };
+  return (
+    <>
+      <clipPath id={`${namespace}-clip-path-${id}`}>
+        <>{children}</>
+      </clipPath>
+      {!loaded && children}
+      <image
+        onLoad={onPlaceHolderLoad}
+        clipPath={`url(#${namespace}-clip-path-${id})`}
+        href={""}
+        style={{ visibility: placeholderLoaded ? "visible" : "hidden" }}
+        x={x}
+        y={y}
+        height={height}
+        width={width}
+        preserveAspectRatio="xMidYMid meet"
+      />
+      <image
+        onLoad={onLoad}
+        clipPath={`url(#${namespace}-clip-path-${id})`}
+        href={""}
+        style={{ visibility: loaded ? "visible" : "hidden" }}
+        x={x}
+        y={y}
+        height={height}
+        width={width}
+        preserveAspectRatio="xMidYMid meet"
+      />
+    </>
+  );
+};
+const MediaCollage = () => {
+  const pathArr: { rect: JSX.Element }[] = [
+    {
+      rect: (
+        <rect x={0} y={21.21} width={62.11} height={95.04} fill="#D9D9D9" />
+      ),
+    },
+    { rect: <rect x={62} y={0} width={78} height={58} fill="black" /> },
+    { rect: <rect x={41} y={58} width={71} height={58} fill="#E73131" /> },
+    { rect: <rect x={112} y={58} width={56} height={58} fill="#BBB7B7" /> },
+    { rect: <rect x={0} y={116} width={31} height={59} fill="#4F4F4F" /> },
+    { rect: <rect x={31} y={116} width={81} height={59} fill="black" /> },
+  ];
+
+  return (
+    <svg viewBox="0 0 167 175" xmlns="http://www.w3.org/2000/svg">
+      {pathArr.map((el, idx) => (
+        <ImageInCollage key={idx} id={idx.toString() }>
+          {el.rect}
+        </ImageInCollage>
+      ))}
+    </svg>
+  );
+};
 const MediaContent = () => {
-  return <div className={`${namespace}-media-content`}></div>;
+  return (
+    <div className={`${namespace}-media-content`}>
+      <MediaCollage />
+      <div className={`${namespace}-media-inner`}>
+        <div className={`${namespace}-blob`}>
+          <BlobSVG />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 const AboutMeBanner = () => {

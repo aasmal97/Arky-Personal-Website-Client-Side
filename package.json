@@ -16,6 +16,7 @@
     "@types/react-dom": "=18.0.9",
     "axios": "^1.2.1",
     "date-fns": "^2.29.3",
+    "kute.js": "^2.2.4",
     "localforage": "=1.10.0",
     "lodash": "^4.17.21",
     "match-sorter": "=6.3.1",

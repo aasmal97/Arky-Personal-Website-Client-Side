@@ -1,4 +1,5 @@
 @use "./aboutMeBanner" as a;
+@use "../../../../../public/variables" as v;
 $namespace: a.$namespace;
 @mixin about-spacing($font-size) {
   $unitless-size: $font-size;
@@ -21,15 +22,14 @@ $namespace: a.$namespace;
     p {
       margin-top: calc(#{$font-size} / 4);
       font-size: calc(#{$font-size} * 0.22);
-      line-height: calc(#{$font-size} / 2.6);
+      line-height: calc(#{$font-size} / 2.8);
       span {
-        font-size: calc(#{$font-size} * 0.61);
+        font-size: calc(#{$font-size} * 0.55);
       }
     }
   }
 }
 @mixin about-lg {
-  @include about-spacing(10);
   ##{$namespace} {
     display: flex;
     flex-direction: column;
@@ -45,10 +45,25 @@ $namespace: a.$namespace;
     }
   }
   .#{$namespace}-text-container {
+    padding-bottom: 0;
     width: 100%;
   }
+  .#{$namespace}-media-content {
+    padding: calc(#{v.$navbar-height} * 2);
+  }
+  @include about-spacing(10);
 }
 @mixin about-md {
+  .#{$namespace}-text-container,
+  .#{$namespace}-media-content {
+    padding: 0;
+  }
+  .#{$namespace}-text-container {
+    padding-top: calc(#{v.$navbar-height} * 2);
+  }
+  .#{$namespace}-media-content {
+    padding: calc(#{v.$navbar-height} * 2);
+  }
   @include about-spacing(13);
 }
 @mixin about-sm {
