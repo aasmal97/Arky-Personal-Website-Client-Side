@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
 import KUTE from "kute.js";
-import { url } from "inspector";
 const namespace = "about-me-pg";
 const WaveSVG = ({
   orientation = "right",
@@ -31,20 +30,35 @@ const WaveSVG = ({
     </div>
   );
 };
+const animation = () =>
+  KUTE.fromTo(
+    `#${namespace}-blob-1`,
+    { path: `#${namespace}-blob-1` },
+    { path: `#${namespace}-blob-2` },
+    {
+      repeat: Infinity,
+      duration: 5000,
+      yoyo: true,
+      easing: "easingCubicInOut",
+    }
+  );
 const BlobSVG = () => {
   useEffect(() => {
-    const animation = KUTE.fromTo(
-      `#${namespace}-blob-1`,
-      { path: `#${namespace}-blob-1` },
-      { path: `#${namespace}-blob-2` },
-      {
-        repeat: Infinity,
-        duration: 5000,
-        yoyo: true,
-        easing: "easingCubicInOut",
+    const startAsync = async () => {
+      const ani = animation();
+      ani.start();
+      return ani;
+    };
+    let ani: any;
+    startAsync().then((a) => {
+      ani = a;
+    });
+    return () => {
+      if (ani) {
+        ani.stop();
+        ani.close();
       }
-    );
-    animation.start();
+    };
   }, []);
   return (
     <>
@@ -77,6 +91,7 @@ const TextContent = () => {
           <a
             href="https://www.youtube.com/watch?v=RIZdjT1472Y"
             rel="noopener noreferrer"
+            target={"_blank"}
           >
             reference
           </a>{" "}
@@ -99,8 +114,8 @@ const ImageInCollage = ({
   children,
 }: {
   id: string;
-//   placeholderSrc: string;
-//   src: string;
+  //   placeholderSrc: string;
+  //   src: string;
   children: JSX.Element;
 }) => {
   const [placeholderLoaded, setPlaceholderLoaded] = useState(false);
@@ -162,7 +177,7 @@ const MediaCollage = () => {
   return (
     <svg viewBox="0 0 167 175" xmlns="http://www.w3.org/2000/svg">
       {pathArr.map((el, idx) => (
-        <ImageInCollage key={idx} id={idx.toString() }>
+        <ImageInCollage key={idx} id={idx.toString()}>
           {el.rect}
         </ImageInCollage>
       ))}
@@ -181,14 +196,14 @@ const MediaContent = () => {
     </div>
   );
 };
-
 const AboutMeBanner = () => {
   const smallWindowWidth = useWindowWidth(992);
+  const media = <MediaContent />;
   return (
     <div id={namespace}>
-      {smallWindowWidth && <MediaContent />}
+      {smallWindowWidth && media}
       <TextContent />
-      {!smallWindowWidth && <MediaContent />}
+      {!smallWindowWidth && media}
     </div>
   );
 };
