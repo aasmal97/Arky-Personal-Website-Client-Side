@@ -51,6 +51,9 @@ $namespace: a.$namespace;
   .#{$namespace}-media-content {
     padding: calc(#{v.$navbar-height} * 2);
   }
+  .#{$namespace}-blob {
+    width: calc(100% - (#{v.$navbar-height} * 4));
+  }
   @include about-spacing(10);
 }
 @mixin about-md {
@@ -67,5 +70,15 @@ $namespace: a.$namespace;
   @include about-spacing(13);
 }
 @mixin about-sm {
+    .#{$namespace}-media-content {
+    padding: calc(#{v.$navbar-height});
+    // & > svg {
+    //   transform: translateX(6%);
+    //   width: 100%;
+    // }
+  }
+  .#{$namespace}-blob {
+    width: calc(100% - (#{v.$navbar-height} * 2));
+  }
   @include about-spacing(15);
 }
