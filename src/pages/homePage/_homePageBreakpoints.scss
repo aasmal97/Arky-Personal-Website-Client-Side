@@ -2,22 +2,25 @@
 @use "./components/projectBanner/projectBannerBreakpoints" as project;
 @use "./components/skillsBanner/skillsBannerBreakpoints" as skills;
 @use "./components/aboutMeBanner/aboutMeBannerBreakpoints" as about;
-
+@use "./components/contactBanner/contactMeBannerBreakpoints" as contact-me;
 @mixin home-lg {
   @include intro.intro-lg;
   @include project.project-lg;
   @include skills.skills-lg;
   @include about.about-lg;
+  @include contact-me.contact-me-lg
 }
 @mixin home-md {
   @include intro.intro-md;
   @include project.project-md;
   @include skills.skills-md;
   @include about.about-md;
+  @include contact-me.contact-me-md;
 }
 @mixin home-sm {
   @include intro.intro-sm;
   @include project.project-sm;
   @include skills.skills-sm;
   @include about.about-sm;
+  @include contact-me.contact-me-sm
 }

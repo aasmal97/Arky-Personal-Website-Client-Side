@@ -1,0 +1,21 @@
+@use "./contactMeBanner" as c;
+$namespace: c.$namespace;
+$font-size: c.$font-size;
+$circle-width: c.$circle-width;
+@mixin contact-me-lg {
+  ##{$namespace} {
+    flex-direction: column;
+    justify-content: center;
+  }
+  ##{$namespace}-profile {
+    width: 100%;
+    h2{
+        font-size: calc(#{$font-size}* 1.3);
+    }
+  }
+  
+}
+@mixin contact-me-md {
+}
+@mixin contact-me-sm {
+}

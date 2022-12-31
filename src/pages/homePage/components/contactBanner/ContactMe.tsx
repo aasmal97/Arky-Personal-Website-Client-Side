@@ -1,10 +1,9 @@
-import { Link } from "react-router-dom";
 import LazyImage from "../../../../utilities/lazyComponents/LazyImg";
 import Gmail from "../../../../utilities/icons/Gmail";
 import Facebook from "../../../../utilities/icons/Facebook";
 import LinkedIn from "../../../../utilities/icons/LinkedIn";
 
-const namespace = "contact-us-banner";
+const namespace = "contact-me-banner";
 const SoundLines = () => {
   return (
     <svg viewBox="0 0 30 47" xmlns="http://www.w3.org/2000/svg">
@@ -34,27 +33,34 @@ const SoundLines = () => {
     </svg>
   );
 };
+const socialMedia = [
+  {
+    id: "linkedIn",
+    children: <LinkedIn />,
+    url: "https://www.linkedin.com/in/arky-asmal",
+  },
+  {
+    id: "facebook",
+    children: <Facebook />,
+    url: "https://www.facebook.com/arky.asmal/",
+  },
+  { id: "gmail", children: <Gmail />, url: "mailto:arkyasmal@gmail.com" },
+];
 const Profile = () => {
-  const socialMedia = [
-    {
-      id: "linkedIn",
-      children: <LinkedIn />,
-      url: "https://www.linkedin.com/in/arky-asmal",
-    },
-    {
-      id: "facebook",
-      children: <Facebook />,
-      url: "https://www.facebook.com/arky.asmal/",
-    },
-    { id: "gmail", children: <Gmail />, url: "mailto:arkyasmal@gmail.com" },
-  ];
   return (
     <div id={`${namespace}-profile`}>
+      <h2>Let's Connect</h2>
       <div id={`${namespace}-circle`}>
         <SoundLines />
         <LazyImage src="" placeholderSrc="" alt="" />
       </div>
-      <div id={`${namespace}-social-media`}></div>
+      <div id={`${namespace}-social-media`}>
+        {socialMedia.map((m) => (
+          <a key={m.id} href={m.url} target="_blank" rel="noopener noreferrer">
+            {m.children}
+          </a>
+        ))}
+      </div>
     </div>
   );
 };
@@ -64,8 +70,8 @@ const MessageBox = () => {
 const ContactMeBanner = () => {
   return (
     <div id={`${namespace}`}>
-      <h2>Let's Connect</h2>
       <Profile />
+
       <MessageBox />
     </div>
   );

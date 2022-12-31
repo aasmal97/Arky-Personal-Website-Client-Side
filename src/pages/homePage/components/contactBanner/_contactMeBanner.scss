@@ -1,0 +1,60 @@
+@use "../../../../../public/variables" as v;
+$namespace: "contact-me-banner";
+$unitless-size: 5.2;
+$font-size: calc(min(#{$unitless-size}vw, 5.5em));
+##{$namespace} {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: v.$dark-black;
+  min-height: 100vh;
+}
+##{$namespace}-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  h2 {
+    margin: 0;
+    padding: 0;
+    padding: 8% 0;
+    color: v.$white;
+    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: calc(#{$font-size} * 0.85);
+    font-weight: 500;
+
+  }
+}
+$circle-width: 50%;
+##{$namespace}-circle {
+  position: relative;
+  width: $circle-width;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: v.$corner-gradient;
+  & > svg {
+    transform: rotate(-7deg) translateX(15%);
+    position: absolute;
+    width: 20%;
+    top: 0;
+    right: 0;
+  }
+  @include v.img-fill;
+}
+##{$namespace}-social-media {
+  padding: 8% 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $circle-width - 8%;
+  min-height: 100%;
+  a {
+    display: flex;
+    padding: 0 7%;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+}
