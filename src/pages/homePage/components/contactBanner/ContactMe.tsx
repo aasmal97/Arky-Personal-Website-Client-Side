@@ -2,8 +2,20 @@ import LazyImage from "../../../../utilities/lazyComponents/LazyImg";
 import Gmail from "../../../../utilities/icons/Gmail";
 import Facebook from "../../../../utilities/icons/Facebook";
 import LinkedIn from "../../../../utilities/icons/LinkedIn";
-
 const namespace = "contact-me-banner";
+const socialMedia = [
+  {
+    id: "linkedIn",
+    children: <LinkedIn />,
+    url: "https://www.linkedin.com/in/arky-asmal",
+  },
+  {
+    id: "facebook",
+    children: <Facebook />,
+    url: "https://www.facebook.com/arky.asmal/",
+  },
+  { id: "gmail", children: <Gmail />, url: "mailto:arkyasmal@gmail.com" },
+];
 const SoundLines = () => {
   return (
     <svg viewBox="0 0 30 47" xmlns="http://www.w3.org/2000/svg">
@@ -33,19 +45,36 @@ const SoundLines = () => {
     </svg>
   );
 };
-const socialMedia = [
-  {
-    id: "linkedIn",
-    children: <LinkedIn />,
-    url: "https://www.linkedin.com/in/arky-asmal",
-  },
-  {
-    id: "facebook",
-    children: <Facebook />,
-    url: "https://www.facebook.com/arky.asmal/",
-  },
-  { id: "gmail", children: <Gmail />, url: "mailto:arkyasmal@gmail.com" },
-];
+const MessageBoxLine = () => {
+  return (
+    <svg viewBox="0 0 262 189" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M16.6774 188C34.7012 142.053 56.7303 6.15691 16.6774 1.28047C-7.35416 -1.6453 -0.845672 19.1607 16.6774 24.579C32.041 30.8005 249.875 8.05286 261 1.28047"
+        stroke="#909090"
+      />
+    </svg>
+  );
+};
+const FormInput = ({
+  inputType,
+  name,
+  className,
+}: {
+  name: string;
+  inputType?: "text" | "textarea";
+  className?: string;
+}) => {
+  return (
+    <>
+      {(inputType === "text" || !inputType) && (
+        <input className={className} name={name} type={inputType} />
+      )}
+      {inputType === "textarea" && (
+        <textarea className={className} name={name} />
+      )}
+    </>
+  );
+};
 const Profile = () => {
   return (
     <div id={`${namespace}-profile`}>
@@ -65,13 +94,30 @@ const Profile = () => {
   );
 };
 const MessageBox = () => {
-  return <div id={`${namespace}-message`}></div>;
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+  return (
+    <div id={`${namespace}-message`}>
+      <div id={`${namespace}-message-inner`}>
+        {/* <div id={`${namespace}-message-container`}> */}
+        <form onSubmit={onSubmit} id={`${namespace}-message-form`}>
+          <MessageBoxLine />
+          <FormInput name="message-subject" inputType="text" />
+          <FormInput name="message-content" inputType="textarea" />
+          <button type="submit">Send</button>
+          <div id={`${namespace}-message-urgent`}>
+            For urgent requests contact me at <br />
+            347-424-3939
+          </div>
+        </form>
+        {/* </div> */}
+      </div>
+    </div>
+  );
 };
 const ContactMeBanner = () => {
   return (
     <div id={`${namespace}`}>
       <Profile />
-
       <MessageBox />
     </div>
   );

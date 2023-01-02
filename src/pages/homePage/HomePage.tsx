@@ -6,10 +6,10 @@ import ContactMeBanner from "./components/contactBanner/ContactMe";
 const HomePage = () => {
   return (
     <div className={"home-pg-container"}>
-      {/* <IntroBanner /> */}
-      {/* <ProjectBanner /> */}
-      {/* <SkillsBanner /> */}
-      {/* <AboutMeBanner /> */}
+      {/* <IntroBanner />
+      <ProjectBanner />
+      <SkillsBanner />
+      <AboutMeBanner /> */}
       <ContactMeBanner />
     </div>
   );
