@@ -2,12 +2,12 @@ import { useCallback, useState } from "react";
 
 import { useEventListener, useIsomorphicLayoutEffect } from "usehooks-ts";
 
-interface Size {
+export interface Size {
   width: number;
   height: number;
 }
 
-function useElementSize<T extends HTMLElement = HTMLDivElement>(): [
+function useElementSize<T extends HTMLElement = HTMLDivElement >(): [
   (node: T | null) => void,
   Size
 ] {
@@ -39,5 +39,6 @@ function useElementSize<T extends HTMLElement = HTMLDivElement>(): [
 
   return [setRef, size];
 }
+
 
 export default useElementSize;

@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState } from "react";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
 import KUTE from "kute.js";
 const namespace = "about-me-pg";
@@ -30,7 +30,7 @@ const WaveSVG = ({
     </div>
   );
 };
-const animation = () =>
+const animation = async() =>
   KUTE.fromTo(
     `#${namespace}-blob-1`,
     { path: `#${namespace}-blob-1` },
@@ -42,10 +42,13 @@ const animation = () =>
       easing: "easingCubicInOut",
     }
   );
+// const animation = async () => {
+
+// }
 const BlobSVG = () => {
   useEffect(() => {
     const startAsync = async () => {
-      const ani = animation();
+      const ani = await animation();
       ani.start();
       return ani;
     };
