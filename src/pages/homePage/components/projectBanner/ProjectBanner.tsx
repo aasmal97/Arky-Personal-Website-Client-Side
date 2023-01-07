@@ -2,7 +2,10 @@ import LineDividerSVG from "../../../../utilities/lineDivider/LineDivider";
 import useElementSize from "../../../../hooks/useElementSize";
 import { Link } from "react-router-dom";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
-import useTypingAnimation from "../../../../hooks/useTypingAnimation";
+import { useEffect } from "react";
+import anime from "animejs";
+import TypingAnimation from "../../../../utilities/typingAnimation/TypingAnimation";
+import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
 const namespace = "project-banner";
 const WaveSvg = ({
   orientation = "right",
@@ -32,22 +35,46 @@ const WaveSvg = ({
     </div>
   );
 };
-const TypingAnimation = () => {
-  const { ref, currWord } = useTypingAnimation({
-    strArr: ["education.", "health.", "technology."],
-  });
-  return (
-    <span style={{ display: "inline-block", width: "100%" }}>
-      <span className={`${namespace}-ani-container`} ref={ref}>{currWord}</span>
-    </span>
-  );
-};
-const TextContent = () => {
-  const [squareRef, { width, height }] = useElementSize();
 
+const TextContent = () => {
+  const { ref: textRef, isVisible } = useIntersectionWrapper();
+  const [squareRef, { width, height }] = useElementSize();
+  const title = "Impactful Projects";
+  useEffect(() => {
+    if (isVisible)
+      anime.timeline().add({
+        targets: `.${namespace}-letter`,
+        opacity: [0, 1],
+        easing: "easeInOutQuad",
+        duration: 1000,
+        delay: (el, i) => 50 * (i + 1),
+      });
+    return () => anime.remove(`.${namespace}-letter`);
+  }, [isVisible]);
   return (
     <div className={`${namespace}-text-content`}>
-      <h2 ref={squareRef}>Impactful Projects</h2>
+      <h2
+        ref={(el) => {
+          squareRef(el);
+          textRef.current = el;
+        }}
+        aria-label={title}
+      >
+        {Array(title.length)
+          .fill(0)
+          .map((e, idx) => {
+            return title[idx] ? (
+              <span
+                key={`${title[idx]}-${idx}`}
+                className={`${namespace}-letter`}
+              >
+                {title[idx]}
+              </span>
+            ) : (
+              <span key={`${title[idx]}-${idx}`}>{title[idx]}</span>
+            );
+          })}
+      </h2>
       <LineDividerSVG
         width={width + width * 0.05}
         styles={{
@@ -57,10 +84,17 @@ const TextContent = () => {
         }}
         circleRadius={height / 7.5}
       />
-      <p style={{ width: width + width * 0.05 }}>
+      <p
+        style={{ width: width + width * 0.05 }}
+        className={isVisible ? "visible" : ""}
+      >
         My dream is to one day create something that can change and greatly
         impact the world. That’s why I love working on meaningful projects,
-        especially related to <TypingAnimation />
+        especially related to{" "}
+        <TypingAnimation
+          namespace={namespace}
+          strArr={["education.", "health.", "technology."]}
+        />
       </p>
       <Link to="/projects">See Projects</Link>
     </div>

@@ -1,6 +1,8 @@
 @use "../../../../../public/variables" as v;
 @use "sass:math";
 $namespace: "home-pg-intro-banner";
+$unitless-size: 5.2;
+$font-size: calc(min(#{$unitless-size}vw, 5.5em));
 ##{$namespace} {
   max-width: none;
   background-color: v.$light-black;
@@ -23,30 +25,46 @@ $namespace: "home-pg-intro-banner";
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: v.$white;
   padding: calc(#{v.$navbar-height} * 2) 0;
-  $unitless-size: 5.2;
-  $font-size: calc(min(#{$unitless-size}vw, 5.5em));
-  .#{$namespace}-title {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    & > * {
-      margin: 0;
-      padding: 0;
-      margin-bottom: 5%;
-    }
-    h2 {
-      font-size: $font-size;
-      font-weight: 400;
-    }
-    h3 {
-      font-weight: 400;
-      font-size: calc(#{$font-size} * 0.61);
-      &:last-child {
-        margin-bottom: 0;
-        color: v.$gray;
-      }
+  overflow: hidden;
+}
+.#{$namespace}-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  & > * {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 5%;
+  }
+  h2 {
+    font-size: $font-size;
+    font-weight: 400;
+  }
+  h3 {
+    font-weight: 400;
+    font-size: calc(#{$font-size} * 0.61);
+    &:last-child {
+      margin-bottom: 0;
+      color: v.$gray;
     }
   }
+}
+.#{$namespace}-sub-content {
+  @keyframes fade-up {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    30% {
+      opacity: 0;
+      transform: translateY(50%);
+    }
+    100% {
+      transform: translateY(0%);
+      opacity: 1;
+    }
+  }
+  animation: 2s ease-in-out 0s fade-up;
   p {
     margin-top: calc(#{$font-size} / 2);
     font-size: calc(#{$font-size} * 0.28);
