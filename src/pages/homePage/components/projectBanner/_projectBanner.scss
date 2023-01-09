@@ -10,17 +10,6 @@ $wave-width: 100%;
     padding: v.$navbar-height 0;
   }
 }
-.#{$namespace}-carousel {
-  position: relative;
-  width: 55%;
-  &::after {
-    @include v.abs-pos-fill(0);
-    left: unset;
-    right: 0;
-    width: $wave-width;
-    background-color: v.$blue;
-  }
-}
 .#{$namespace}-wave {
   position: absolute;
   top: 0;
@@ -35,6 +24,55 @@ $wave-width: 100%;
     height: 100%;
   }
 }
+.#{$namespace}-carousel {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 55%;
+  &::after {
+    @include v.abs-pos-fill(0);
+    left: unset;
+    right: 0;
+    width: $wave-width;
+    background-color: v.$blue;
+  }
+}
+.#{$namespace}-carousel-wrapper {
+  $paddingLeft: 23%;
+  $paddingRight: 8%;
+  padding-left: $paddingLeft;
+  padding-right: $paddingRight;
+  width: 100% - $paddingLeft - $paddingRight;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.#{$namespace}-carousel-inner-wrapper {
+  min-height: 20em;
+  overflow: hidden;
+  .swiper-pagination{
+    height: auto;
+  }
+  .swiper-pagination-bullet{
+    width: 1.5vw;
+    height: 1.5vw;
+    aspect-ratio: 1/1;
+  }
+  .swiper-pagination-bullet-active{
+    background-color: v.$yellow !important;
+  }
+}
+.#{$namespace}-slide-inner {
+  display: flex;
+  border-radius: 0.5vw;
+  justify-content: center;
+  background-color: gray;
+  margin-bottom: 5vw;
+  width: 100%;
+  aspect-ratio: 4/3;
+}
+
 .#{$namespace}-text-content {
   display: flex;
   align-items: center;
@@ -52,7 +90,7 @@ $wave-width: 100%;
     padding: 0;
     font-weight: 500;
     margin-bottom: calc(#{$font-size} / 2);
-    .#{$namespace}-letter{
+    .#{$namespace}-letter {
       opacity: 0;
     }
   }

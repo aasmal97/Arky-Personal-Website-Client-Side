@@ -30,7 +30,7 @@ const AnimateHeaders = ({
     return () => {
       anime.remove(`.${namespace}-header .${namespace}-letter-${id}`);
     };
-  }, []);
+  }, [id]);
   const el = createElement(
     htmlTag,
     { className: `${namespace}-header` },

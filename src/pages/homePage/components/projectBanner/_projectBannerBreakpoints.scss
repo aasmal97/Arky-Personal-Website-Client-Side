@@ -1,5 +1,6 @@
 @use "./projectBanner" as p;
 @use "../../../../../public/variables" as v;
+@use "sass:math";
 $namespace: p.$namespace;
 @mixin project-spacing($font-size-unit) {
   .#{$namespace}-text-content {
@@ -33,20 +34,75 @@ $namespace: p.$namespace;
   .#{$namespace}-text-content {
     min-height: calc(65vh - 7em);
     width: 100%;
+    flex-grow: 1;
   }
   .#{$namespace}-wave {
     svg {
       width: 100%;
       height: auto;
     }
-    //   width: $wave-width;
-    //   height: 100%;
+  }
+  .#{$namespace}-carousel-wrapper {
+    $paddingLeft: 8%;
+    $paddingRight: 8%;
+    $paddingTop: 5em;
+    padding-top: $paddingTop;
+    padding-left: $paddingLeft;
+    padding-right: $paddingRight;
+    width: 100% - $paddingLeft - $paddingRight;
+  }
+  .#{$namespace}-carousel-inner-wrapper {
+    min-height: 10em;
+    .swiper-pagination-bullet {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+  .#{$namespace}-slide-inner {
+    display: flex;
+    border-radius: 0.5vw;
+    justify-content: center;
+    background-color: gray;
+    margin-bottom: 4.5em;
+    width: 100%;
+    aspect-ratio: 4/3;
   }
 }
 @mixin project-md {
-      @include project-spacing((10));
+  @include project-spacing((10));
+  .#{$namespace}-carousel {
+    position: relative;
+    width: 100%;
+    min-height: calc(20vh - 7em);
+    padding: 0;
+    // padding-top: v.$navbar-height;
+  }
 }
 
 @mixin project-sm {
-      @include project-spacing((12));
+  @include project-spacing((12));
+  ##{$namespace} {
+    & > * {
+      padding: math.div(v.$navbar-height, 2) 0;
+    }
+  }
+
+  .#{$namespace}-carousel {
+    position: relative;
+    width: 100%;
+    min-height: calc(10vh - 7em);
+    // padding-top: v.$navbar-height;
+  }
+  .#{$namespace}-carousel-wrapper {
+    $paddingLeft: 8%;
+    $paddingRight: 8%;
+    $paddingTop: 3em;
+    padding-top: $paddingTop;
+  }
+  .#{$namespace}-carousel-inner-wrapper {
+    min-height: 8em;
+  }
+  .#{$namespace}-slide-inner {
+    margin-bottom: 3.5em;
+  }
 }

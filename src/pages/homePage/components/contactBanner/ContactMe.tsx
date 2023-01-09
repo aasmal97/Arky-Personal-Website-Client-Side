@@ -4,7 +4,7 @@ import Facebook from "../../../../utilities/icons/Facebook";
 import LinkedIn from "../../../../utilities/icons/LinkedIn";
 import useElementSize, { Size } from "../../../../hooks/useElementSize";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
-import { useEffect, useRef } from "react";
+import { useEffect} from "react";
 import anime from "animejs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";

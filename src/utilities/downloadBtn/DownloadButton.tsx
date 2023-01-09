@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 
 function DownloadButton({
   children,
@@ -43,7 +43,9 @@ function DownloadButton({
       </button>
 
       {/* render the hidden link element */}
-      <a ref={linkRef} style={{ display: "none" }} />
+      <a ref={linkRef} href=" " style={{ display: "none" }}>
+        {children}
+      </a>
     </>
   );
 }
