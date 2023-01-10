@@ -3,7 +3,6 @@ import { Autoplay, Keyboard, EffectFade, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
-
 import "swiper/css/pagination";
 import { v4 as uuid } from "uuid";
 import useIntersectionWrapper from "../../hooks/useIntersectionWrapper";
