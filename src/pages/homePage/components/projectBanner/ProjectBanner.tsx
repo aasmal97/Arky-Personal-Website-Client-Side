@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Carousel from "../../../../utilities/carousel/Carousel";
 import { useEffect } from "react";
 import anime from "animejs";
-import WaveSvg from "./utilities/WaveSVG";
+import WaveSvg from "../../../../utilities/waveSvg/WaveSVG";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
 import TypingAnimation from "../../../../utilities/typingAnimation/TypingAnimation";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";

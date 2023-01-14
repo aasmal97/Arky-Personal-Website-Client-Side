@@ -1,6 +1,7 @@
 @use "./variables" as v;
 @use "../src/utilities/utilities";
 @use "../src/pages/homePage/homePage";
+@use "../src/pages/aboutPage/about";
 //last import since it must override previous styles
 @use "./mediaQueries";
 html,

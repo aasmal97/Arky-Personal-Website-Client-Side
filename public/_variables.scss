@@ -13,15 +13,21 @@ $white: #ffffff;
 $off-white: #f2f2f2;
 $corner-gradient: linear-gradient(
   138.2deg,
-  #ffc83a 1.06%,
-  #ff5050 49.26%,
-  #3ac2ff 93.61%
+  $yellow 1.06%,
+  $light-red 49.26%,
+  $blue 93.61%
+);
+$corner-gradient-reverse: linear-gradient(
+  138.2deg,
+  $blue 1.06%,
+  $light-red 49.26%,
+  $yellow 93.61%
 );
 $horizontal-gradient: linear-gradient(
   90deg,
-  #ffc83a 10.37%,
-  #ff5050 50.21%,
-  #3ac2ff 90.43%
+  $yellow 10.37%,
+  $light-red 50.21%,
+  $blue 90.43%
 );
 
 $navbar-height: 3.5em;
