@@ -1,24 +1,27 @@
 @use "../src/utilities/utilitiesBreakpoints" as util;
 @use "../src/pages/homePage/homePageBreakpoints" as home;
+@use "../src/pages/aboutPage/aboutBreakpoints" as about;
 @media (min-width: 992px) {
 }
 
 @media (max-width: 992px) {
   @include util.utilities-lg;
   @include home.home-lg;
+  @include about.about-lg;
 }
 
 @media (max-width: 768px) {
   @include util.utilities-md;
-    @include home.home-md;
-
+  @include home.home-md;
+  @include about.about-md;
 }
 
 @media (max-width: 575px) {
   @include util.utilities-sm;
-    @include home.home-sm;
-
+  @include home.home-sm;
+  @include about.about-sm;
 }
 
 @media (any-hover: hover) {
+  @include about.about-hover;
 }

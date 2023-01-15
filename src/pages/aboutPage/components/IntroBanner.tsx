@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import text from "./introTextContent.txt";
 import useLoadingState from "../../../hooks/useLoadingState";
 import { v4 as uuid } from "uuid";
+import LoadingIcon from "../../../utilities/loadingIcon/LoadingIcon";
 const namespace = "about-pg";
 
 const WaveBg = () => {
@@ -72,12 +73,23 @@ const extractLinksFromText = (text: string) => {
         return word;
       })
     : [];
-  const links = extractWords.map((w) => (
+  const extractLinks = matches
+    ? matches.map((a) => {
+        const removeBrackets = a.replace(/[\[\]]/g, "");
+        const word = removeBrackets.replace(/\(.+\)/g, "");
+        return word;
+      })
+    : [];
+  const links = extractWords.map((w, idx) => (
     <a
       key={uuid()}
       target="_blank"
       rel="noopener noreferrer"
-      href={`https://www.google.com/search?q=${w}`}
+      href={
+        extractLinks[idx] === "google query"
+          ? `https://www.google.com/search?q=${w}`
+          : extractLinks[idx]
+      }
     >
       {w}
     </a>
@@ -108,7 +120,6 @@ const extractLinksFromText = (text: string) => {
 };
 const IntroParagraph = ({ text }: { text: string }) => {
   const result = extractLinksFromText(text);
-  console.log(result[0]);
   return (
     <p>
       {result[0] && typeof result[0] === "string" && (
@@ -170,13 +181,16 @@ const IntroBanner = () => {
         </div>
         <IntroLineDivider />
       </div>
-      <div id={`${namespace}-intro-text-content`}>
-        {Array.isArray(textResult) &&
-          textResult.map((e) => {
-            if (typeof e === "string")
-              return <IntroParagraph key={e} text={e} />;
-          })}
-      </div>
+      {textStatus === "loading" && <LoadingIcon />}
+      {textStatus === "success" && (
+        <div id={`${namespace}-intro-text-content`}>
+          {Array.isArray(textResult) &&
+            textResult.map((e) => {
+              if (typeof e === "string")
+                return <IntroParagraph key={e} text={e} />;
+            })}
+        </div>
+      )}
     </div>
   );
 };

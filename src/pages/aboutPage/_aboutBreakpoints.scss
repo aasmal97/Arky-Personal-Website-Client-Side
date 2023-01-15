@@ -1,0 +1,28 @@
+@use "../../../public/variables" as v;
+@use "./about" as a;
+$namespace: a.$namespace;
+$intro-namespace: a.$intro-namespace;
+$education-namespace: a.$education-namespace;
+
+@mixin about-lg {
+}
+@mixin about-md {
+}
+@mixin about-sm {
+}
+@mixin hover-action {
+  transition: transform ease-out 0.2s;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+@mixin about-hover {
+  ##{$education-namespace}-action {
+    a {
+      @include hover-action();
+    }
+  }
+  .#{$education-namespace}-explore-item {
+    @include hover-action();
+  }
+}

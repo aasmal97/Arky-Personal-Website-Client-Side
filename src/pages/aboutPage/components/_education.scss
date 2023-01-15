@@ -1,0 +1,123 @@
+@use "../../../../public/variables" as v;
+@use "sass:math";
+$namespace: "about-pg-education";
+##{$namespace} {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 80vh;
+  position: relative;
+}
+##{$namespace}-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  background-color: v.$black;
+}
+##{$namespace}-container-inner {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 1100px;
+  height: 100%;
+  justify-content: space-between;
+}
+##{$namespace}-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: v.$white;
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 3.7em;
+  font-weight: 500;
+  margin: 0;
+  padding-top: 1em;
+  span {
+    margin-left: 0.5em;
+  }
+  svg {
+    font-size: 1.3em;
+    color: v.$blue;
+  }
+}
+##{$namespace}-action {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: v.$white;
+  font-size: 1.5em;
+  a{
+    margin-top: 1.5em;
+    text-decoration: none;
+    color: v.$red;
+    border: 1px solid v.$red;
+    border-radius: 0.2em;
+    padding: 0.4em 0.7em;
+  }
+}
+##{$namespace}-explore {
+  display: flex;
+  flex-direction: column;
+  h3 {
+    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    color: v.$white;
+    width: 100%;
+    margin: 0;
+    font-size: 2.5em;
+    margin-left: 3%;
+  }
+}
+##{$namespace}-explore-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.#{$namespace}-explore-item {
+  cursor: pointer;
+  width: 40%;
+  min-height: 6em;
+  min-width: 20em;
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  margin: 3%;
+  border-radius: 0.3rem;
+}
+.#{$namespace}-explore-item-icon {
+  border-radius: 0.3rem 0 0 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+  height: 100%;
+  aspect-ratio: 1/1;
+}
+.#{$namespace}-explore-item-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 70%;
+  padding-left: 7%;
+  h4 {
+    margin: 0;
+    font-size: 1.7em;
+    font-weight: 500;
+  }
+  p {
+    font-weight: 600;
+    margin: 0;
+    color: v.$gray;
+    font-size: 0.9em;
+  }
+}
