@@ -5,7 +5,7 @@ $namespace: "about-pg-education";
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 80vh;
+  min-height: calc(max(80vh, 40em));
   position: relative;
 }
 ##{$namespace}-container {
@@ -40,6 +40,9 @@ $namespace: "about-pg-education";
   padding-top: 1em;
   span {
     margin-left: 0.5em;
+    display: flex;
+    justify-content: center;
+    max-width: 85vw;
   }
   svg {
     font-size: 1.3em;
@@ -54,7 +57,8 @@ $namespace: "about-pg-education";
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: v.$white;
   font-size: 1.5em;
-  a{
+  text-align: center;
+  a {
     margin-top: 1.5em;
     text-decoration: none;
     color: v.$red;
@@ -70,7 +74,6 @@ $namespace: "about-pg-education";
     font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
     color: v.$white;
-    width: 100%;
     margin: 0;
     font-size: 2.5em;
     margin-left: 3%;
@@ -83,9 +86,9 @@ $namespace: "about-pg-education";
 }
 .#{$namespace}-explore-item {
   cursor: pointer;
-  width: 40%;
+  width: calc(max(40%, 23em));
   min-height: 6em;
-  min-width: 20em;
+  max-width: 90vw;
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-decoration: none;
   display: flex;

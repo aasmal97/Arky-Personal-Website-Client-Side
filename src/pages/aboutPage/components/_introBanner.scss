@@ -50,7 +50,7 @@ $intro-wave-bg-height: math.div($intro-bg-height * 2, 3);
   margin-bottom: calc(max($intro-bg-height/12, $intro-bg-min-height/12) * 1.5);
 }
 ##{$namespace}-intro-divider {
-  width: 30%;
+  width: 40%;
   padding-bottom: calc(max($intro-bg-height/12, $intro-bg-min-height/12) * 1.5);
 }
 ##{$namespace}-intro-text-content {

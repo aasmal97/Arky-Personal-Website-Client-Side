@@ -5,7 +5,6 @@ $namespace: "about-pg-hobbies";
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh;
   background: v.$corner-gradient-reverse;
   padding-top: 15vh;
   align-items: center;
@@ -18,7 +17,7 @@ $namespace: "about-pg-hobbies";
   align-items: center;
   max-width: 1100px;
   height: 100%;
-  padding: 2em;
+  padding: 2em 0;
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   h2 {
     font-weight: 500;
@@ -37,9 +36,12 @@ $namespace: "about-pg-hobbies";
   }
 }
 ##{$namespace}-image-collage {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  flex-grow: 1;
+  $padding: 3%;
+  width: 100% - $padding * 2;
+  height: 100%;
+  padding: 5% $padding;
+  svg {
+    width: 100%;
+    margin: auto;
+  }
 }

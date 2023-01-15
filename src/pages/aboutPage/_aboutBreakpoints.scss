@@ -3,12 +3,58 @@
 $namespace: a.$namespace;
 $intro-namespace: a.$intro-namespace;
 $education-namespace: a.$education-namespace;
+$hobbies-namespace: a.$hobbies-namespace;
 
 @mixin about-lg {
+  ##{$intro-namespace}-intro-divider {
+    width: 60%;
+  }
 }
 @mixin about-md {
+  ##{$education-namespace}-explore {
+    align-items: center;
+    h3 {
+      margin-bottom: 0.5em;
+      margin-left: 0;
+    }
+  }
+  ##{$education-namespace}-explore-inner {
+    justify-content: center;
+  }
 }
 @mixin about-sm {
+  ##{$intro-namespace}-intro {
+    h2 {
+      font-size: 3.5em;
+    }
+  }
+  ##{$intro-namespace}-intro-divider {
+    width: 80%;
+  }
+  ##{$intro-namespace}-intro-text-content {
+    $font-size: 1.2em;
+    font-size: $font-size;
+    line-height: $font-size * 1.5;
+    p {
+      margin-bottom: $font-size * 2;
+    }
+
+    .#{$namespace}-text-first-letter {
+      font-size: $font-size * 2;
+    }
+  }
+
+  ##{$education-namespace}-header {
+    text-align: center;
+    font-size: 2.5em;
+  }
+  ##{$hobbies-namespace}-inner {
+    h2 {
+      span {
+        font-size: 2em;
+      }
+    }
+  }
 }
 @mixin hover-action {
   transition: transform ease-out 0.2s;
