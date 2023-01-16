@@ -4,14 +4,13 @@ $namespace: "about-pg";
 $intro-bg-height: 100vh;
 $intro-bg-min-height: 50rem;
 $intro-wave-bg-height: math.div($intro-bg-height * 2, 3);
-
-##{$namespace}-intro-rotate {
-  background: v.$corner-gradient-reverse;
-}
 ##{$namespace}-wave-bg {
   height: $intro-wave-bg-height;
   min-height: 20em;
   max-height: 25em;
+  #wave-bg-rotate-wave-intro-wave {
+    background: v.$corner-gradient-reverse;
+  }
 }
 ##{$namespace}-intro {
   $padding: 10%;

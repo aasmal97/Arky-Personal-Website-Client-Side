@@ -1,0 +1,72 @@
+@use "../../../public/variables" as v;
+@use "sass:math";
+$namespace: "project-pg";
+$project-bg-height: 100vh;
+$project-wave-bg-height: math.div($project-bg-height * 2, 3);
+##{$namespace} {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  background-color: v.$dark-black;
+}
+##{$namespace}-wave-bg {
+  height: $project-wave-bg-height;
+  min-height: 25em;
+  max-height: 30em;
+  #wave-bg-rotate-wave-project-wave {
+    background: v.$blue;
+  }
+}
+##{$namespace}-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  h2 {
+    padding: 1em 0;
+    margin: 0;
+    color: v.$white;
+    font-weight: 500;
+    font-size: 4.5em;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+}
+##{$namespace}-carousel {
+  width: 80%;
+  //height: 100%;
+  .#{$namespace}-carousel-wrapper {
+    width: 100%;
+    height: 100%;
+  }
+  .#{$namespace}-carousel-inner-wrapper {
+    height: 100%;
+    width: 100%;
+  }
+  $pagination-height: calc(min(1.5vw, 1.3rem));
+  .swiper-slide {
+    height: calc(100% - (#{$pagination-height} * 3));
+    background-color: black;
+  }
+  .swiper-pagination {
+    height: auto;
+  }
+  .swiper-pagination-bullet {
+    width: $pagination-height;
+    height: $pagination-height;
+    aspect-ratio: 1/1;
+    border: 1px solid v.$blue;
+    background: transparent;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: v.$blue !important;
+  }
+}

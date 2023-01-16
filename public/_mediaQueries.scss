@@ -1,6 +1,7 @@
 @use "../src/utilities/utilitiesBreakpoints" as util;
 @use "../src/pages/homePage/homePageBreakpoints" as home;
 @use "../src/pages/aboutPage/aboutBreakpoints" as about;
+@use "../src/pages/projectPage/projectBreakpoints" as projects;
 @media (min-width: 992px) {
 }
 
@@ -8,18 +9,21 @@
   @include util.utilities-lg;
   @include home.home-lg;
   @include about.about-lg;
+  @include projects.project-lg;
 }
 
 @media (max-width: 768px) {
   @include util.utilities-md;
   @include home.home-md;
   @include about.about-md;
+  @include projects.project-md;
 }
 
 @media (max-width: 575px) {
   @include util.utilities-sm;
   @include home.home-sm;
   @include about.about-sm;
+  @include projects.project-sm;
 }
 
 @media (any-hover: hover) {

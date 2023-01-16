@@ -2,6 +2,7 @@
 @use "../src/utilities/utilities";
 @use "../src/pages/homePage/homePage";
 @use "../src/pages/aboutPage/about";
+@use "../src/pages/projectPage/project";
 //last import since it must override previous styles
 @use "./mediaQueries";
 html,

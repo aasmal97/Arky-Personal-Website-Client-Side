@@ -2,6 +2,7 @@ import useElementSize from "../../../hooks/useElementSize";
 import LazyImage from "../../../utilities/lazyComponents/LazyImg";
 import LineDividerSVG from "../../../utilities/lineDivider/LineDivider";
 import WaveSvg from "../../../utilities/waveSvg/WaveSVG";
+import WaveBg from "../../../utilities/waveBg/WaveBg";
 import { useState, useEffect } from "react";
 import text from "./introTextContent.txt";
 import useLoadingState from "../../../hooks/useLoadingState";
@@ -9,45 +10,6 @@ import { v4 as uuid } from "uuid";
 import LoadingIcon from "../../../utilities/loadingIcon/LoadingIcon";
 const namespace = "about-pg";
 
-const WaveBg = () => {
-  return (
-    <>
-      <WaveSvg
-        namespace={namespace}
-        orientation="top"
-        clipPathId={`${namespace}-intro-wave`}
-        id={`${namespace}-intro-wave`}
-        styles={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          left: "0",
-          bottom: "0",
-        }}
-        svgStyles={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          left: "0",
-          bottom: "0",
-          zIndex: "-1",
-        }}
-      />
-      <div
-        id={`${namespace}-intro-rotate`}
-        style={{
-          clipPath: `url(#${namespace}-intro-wave)`,
-          transform: "rotate(180deg)",
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          top: "0",
-          left: "0",
-        }}
-      />
-    </>
-  );
-};
 const IntroLineDivider = () => (
   <div id={`${namespace}-intro-divider`}>
     <LineDividerSVG
@@ -181,7 +143,9 @@ const IntroBanner = () => {
           zIndex: 0,
         }}
       >
-        <WaveBg />
+        <WaveBg 
+          id={"intro-wave"}
+        />
       </div>
       <div id={`${namespace}-intro-inner`}>
         <h2 ref={headerRef}>About</h2>
