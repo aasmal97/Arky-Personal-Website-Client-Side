@@ -10,7 +10,7 @@ type LinkData = {
   ) => void;
 };
 const linkData: LinkData[] = [
-  { name: "Project", link: "/projects" },
+  { name: "Projects", link: "/projects" },
   { name: "About", link: "/about" },
   { name: "Contact", hashLink: "/#contact-me-banner" },
 ];

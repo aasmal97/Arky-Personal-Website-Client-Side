@@ -57,6 +57,7 @@ const Carousel = ({
             dynamicMainBullets: 2,
             clickable: true,
           }}
+          allowTouchMove
           loop={true}
           spaceBetween={spaceBetween}
           slidesPerView={slidesPerView}
