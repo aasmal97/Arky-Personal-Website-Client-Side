@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 
 const useLoadingState = ({
@@ -10,7 +10,7 @@ const useLoadingState = ({
     "loading"
   );
   const [result, setResult] = useState<any>();
-  const callFunction: <T>(e?: T) => Promise<void> = async (e) => {
+  const callbackFunction: <T>(e?: T) => Promise<void> = async (e) => {
     setStatus("loading");
     try {
       const result = await asyncFunc(e);
@@ -23,6 +23,7 @@ const useLoadingState = ({
       setStatus("error");
     }
   };
+  const callFunction = useCallback(callbackFunction, [asyncFunc])
   return { status, result, callFunction };
 };
 export default useLoadingState;

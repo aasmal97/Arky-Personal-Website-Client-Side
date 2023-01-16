@@ -9,8 +9,13 @@ $hobbies-namespace: a.$hobbies-namespace;
   ##{$intro-namespace}-intro-divider {
     width: 60%;
   }
-}
-@mixin about-md {
+  ##{$intro-namespace}-intro-text-content {
+    $intro-bg-height: 100vh;
+    $intro-bg-min-height: 50rem;
+    padding-bottom: calc(
+      max($intro-bg-height/12, $intro-bg-min-height/12) * 1.5 + min(15vh, 2.5em)
+    );
+  }
   ##{$education-namespace}-explore {
     align-items: center;
     h3 {
@@ -21,6 +26,11 @@ $hobbies-namespace: a.$hobbies-namespace;
   ##{$education-namespace}-explore-inner {
     justify-content: center;
   }
+  ##{$hobbies-namespace} {
+    padding-top: min(15vh, 2.5em);
+  }
+}
+@mixin about-md {
 }
 @mixin about-sm {
   ##{$intro-namespace}-intro {

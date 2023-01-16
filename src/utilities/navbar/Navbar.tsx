@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 const namespace = "navbar";
 type LinkData = {
   name: string;
   link?: string;
+  hashLink?: string;
   onClick?: (
     e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement, MouseEvent>
   ) => void;
@@ -10,7 +12,7 @@ type LinkData = {
 const linkData: LinkData[] = [
   { name: "Project", link: "/projects" },
   { name: "About", link: "/about" },
-  { name: "Contact", onClick: () => {} },
+  { name: "Contact", hashLink: "/#contact-me-banner" },
 ];
 const Navbar = () => {
   return (
@@ -20,6 +22,10 @@ const Navbar = () => {
           <Link key={l.name} to={l.link} onClick={l.onClick}>
             {l.name}
           </Link>
+        ) : l.hashLink ? (
+          <HashLink key={l.name} to={l.hashLink}>
+            {l.name}
+          </HashLink>
         ) : (
           <button key={l.name} onClick={l.onClick}>
             {l.name}

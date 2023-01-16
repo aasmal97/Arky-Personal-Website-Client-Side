@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import useElementSize from "../../../hooks/useElementSize";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import useWindowWidth from "../../../hooks/useWindowWidth";
 const namespace = "about-pg-education";
 export type EducationInstitution = {
   name: string;
@@ -18,16 +19,18 @@ export type EducationInstitution = {
 };
 const educationData: EducationInstitution[] = [];
 const Ellipse = ({
-  className,
   setRef,
   orientation,
   height,
+  heightUnit,
   style,
+  maxHeight,
 }: {
-  className: string;
   setRef?: (node: HTMLDivElement | null) => void;
   orientation: "top" | "bottom";
   height: number;
+  heightUnit: string;
+  maxHeight?: string;
   style?: { [key: string]: string };
 }) => {
   const styles: {
@@ -36,12 +39,21 @@ const Ellipse = ({
     position: "absolute",
     borderRadius: "50%",
     width: "100%",
-    height: `${height}vh`,
+    height: `${height}${heightUnit}`,
+    maxHeight: maxHeight ? maxHeight : "",
     zIndex: "0",
     ...style,
   };
-  if (orientation === "top") styles["top"] = `-${height / 2}vh`;
-  else styles["bottom"] = `-${height / 2}vh`;
+  
+  const position = `${height / 2}${heightUnit}`;
+  if (orientation === "top")
+    styles["top"] = maxHeight
+      ? `calc(max(-${position}, -${maxHeight}/2))`
+      : `-${position}`;
+  else
+    styles["bottom"] = maxHeight
+      ? `calc(max(-${position}, -${maxHeight}/2))`
+      : `-${position}`;
   return (
     <>
       <div ref={setRef} style={styles} />
@@ -55,7 +67,7 @@ const EducationAction = () => {
   return (
     <div id={`${namespace}-action`}>
       <div>Interested in working together?</div>
-      <HashLink to="/#contact-me-banner" >
+      <HashLink to="/#contact-me-banner">
         <span>Contact Me</span>
       </HashLink>
     </div>
@@ -138,7 +150,10 @@ const EducationBanner = () => {
   const [ellipseRef, ellipseSize] = useElementSize();
   const [headerRef, headerSize] = useElementSize();
   const [mounted, setMounted] = useState(false);
+  const mediumWindowWidth = useWindowWidth(992);
   const ellipseHeight = 30;
+  const ellipseUnit = "vh";
+  const ellipseMaxHeight = !mediumWindowWidth ? "6em" : "";
   const paddingTop = headerSize.height - ellipseSize.height / 2;
   //we do this to ensure that refs are attached
   useEffect(() => {
@@ -147,7 +162,8 @@ const EducationBanner = () => {
   return (
     <div id={`${namespace}`}>
       <Ellipse
-        className={`${namespace}-ellipse`}
+        maxHeight={ellipseMaxHeight}
+        heightUnit={ellipseUnit}
         setRef={ellipseRef}
         orientation="top"
         height={ellipseHeight}
@@ -181,7 +197,8 @@ const EducationBanner = () => {
         </div>
       </div>
       <Ellipse
-        className={`${namespace}-ellipse`}
+        maxHeight={ellipseMaxHeight}
+        heightUnit={ellipseUnit}
         orientation="bottom"
         height={ellipseHeight}
         style={{

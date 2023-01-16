@@ -65,17 +65,23 @@ const calculateImgHeight = (waveHeight: number, headerHeight: number) => {
   return (waveHeight - headerHeight) * 1.8;
 };
 const extractLinksFromText = (text: string) => {
+  // eslint-disable-next-line
   const matches = text.match(/\([^\(\)]+\)\[[^\[\]]+\]/g);
+  // eslint-disable-next-line
   const extractWords = matches
     ? matches.map((a) => {
+        // eslint-disable-next-line
         const removePara = a.replace(/[\(\)]/g, "");
+        // eslint-disable-next-line
         const word = removePara.replace(/\[.+\]/g, "");
         return word;
       })
     : [];
   const extractLinks = matches
     ? matches.map((a) => {
+        // eslint-disable-next-line
         const removeBrackets = a.replace(/[\[\]]/g, "");
+        // eslint-disable-next-line
         const word = removeBrackets.replace(/\(.+\)/g, "");
         return word;
       })
@@ -88,6 +94,8 @@ const extractLinksFromText = (text: string) => {
       href={
         extractLinks[idx] === "google query"
           ? `https://www.google.com/search?q=${w}`
+          : extractLinks[idx] === "google maps"
+          ? `https://www.google.com/maps/search/?api=1&query=${w}`
           : extractLinks[idx]
       }
     >
@@ -139,6 +147,7 @@ const fetchTextFile = () =>
   fetch(text)
     .then((res) => res.text())
     .then((res) => res.split(/\n/));
+
 const IntroBanner = () => {
   const [waveRef, waveSize] = useElementSize();
   const [headerRef, headerSize] = useElementSize();
@@ -157,7 +166,7 @@ const IntroBanner = () => {
   }, [waveSize.height, headerSize.height]);
   useEffect(() => {
     textCallFunction();
-  }, []);
+  }, [textCallFunction]);
   return (
     <div id={`${namespace}-intro`}>
       <div
@@ -188,6 +197,7 @@ const IntroBanner = () => {
             textResult.map((e) => {
               if (typeof e === "string")
                 return <IntroParagraph key={e} text={e} />;
+              else return null;
             })}
         </div>
       )}

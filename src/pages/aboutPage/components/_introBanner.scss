@@ -10,6 +10,8 @@ $intro-wave-bg-height: math.div($intro-bg-height * 2, 3);
 }
 ##{$namespace}-wave-bg {
   height: $intro-wave-bg-height;
+  min-height: 20em;
+  max-height: 25em;
 }
 ##{$namespace}-intro {
   $padding: 10%;
@@ -59,7 +61,9 @@ $intro-wave-bg-height: math.div($intro-bg-height * 2, 3);
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: $font-size;
   line-height: $font-size * 1.5;
-  padding-bottom: calc(max($intro-bg-height/12, $intro-bg-min-height/12) * 1.5 + 15vh);
+  padding-bottom: calc(
+    max($intro-bg-height/12, $intro-bg-min-height/12) * 1.5 + 15vh
+  );
   p {
     margin-bottom: $font-size * 2;
     margin-top: 0;
