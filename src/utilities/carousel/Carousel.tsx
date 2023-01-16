@@ -51,7 +51,7 @@ const Carousel = ({
           effect={!mediumWindowWidth ? "cards" : "fade"}
           keyboard={{ enabled: true }}
           autoplay={{
-            delay: 5000,
+            delay: 15000,
             disableOnInteraction: false,
           }}
           pagination={{

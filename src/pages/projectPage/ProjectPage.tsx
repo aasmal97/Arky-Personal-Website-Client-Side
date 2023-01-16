@@ -1,5 +1,6 @@
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import useElementSize from "../../hooks/useElementSize";
 import Carousel from "../../utilities/carousel/Carousel";
 import GithubIcon from "../../utilities/icons/Github";
@@ -22,41 +23,50 @@ export type ProjectCardProps = {
 };
 
 const ProjectCard = ({
-  generalURL,
   appURL,
   imgURL,
   placeholderURL,
   projectName,
   githubURL,
-  id,
   description,
 }: ProjectCardProps) => {
   return (
     <div className={`${namespace}-project-card`}>
-      <LazyImage
-        alt={description ? description : ""}
-        placeholderSrc={placeholderURL}
-        src={imgURL}
-      />
-      <div className={`${namespace}-project-urls`}>
-        <a href={githubURL} target="_blank" rel="noopener noreferrer">
-          <GithubIcon />
-        </a>
-        <a href={appURL} target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faLink} />
-        </a>
+      <div className={`${namespace}-project-card-img`}>
+        <LazyImage alt={""} placeholderSrc={placeholderURL} src={imgURL} />
       </div>
       <div className={`${namespace}-text-content`}>
-        <h4>{projectName}</h4>
-        <p>{description}</p>
+        <div className={`${namespace}-project-urls`}>
+          <a href={githubURL} target="_blank" rel="noopener noreferrer">
+            <GithubIcon />
+          </a>
+          <a href={appURL} target="_blank" rel="noopener noreferrer">
+            <FontAwesomeIcon icon={faLink} />
+          </a>
+        </div>
+        <div className={`${namespace}-text-content-inner`}>
+          <h4>{projectName}</h4>
+          <p>{description}</p>
+        </div>
       </div>
     </div>
   );
 };
+const initialSlides: ProjectCardProps[] = [
+  {
+    projectName: "Window Actions",
+    imgURL: " ",
+    placeholderURL: " ",
+    description: "This app does the following",
+    githubURL: "https://github.com/aasmal97",
+    id: "dwedw",
+  },
+];
 const ProjectPage = () => {
   const [waveRef, waveSize] = useElementSize();
   const [headerRef, headerSize] = useElementSize();
   const caroHeight = calculateImgHeight(waveSize.height, headerSize.height);
+  const [slides, setSlides] = useState<ProjectCardProps[]>(initialSlides);
   return (
     <div id={`${namespace}`}>
       <div
@@ -78,8 +88,12 @@ const ProjectPage = () => {
         <div id={`${namespace}-carousel`} style={{ minHeight: caroHeight }}>
           <Carousel numSlidesPerView={1} namespace={namespace} />
         </div>
-        <h3>Explore More</h3>
-        <div id={`${namespace}-explore-more`}></div>
+        <h3 id={`${namespace}-explore-more-header`}>Explore All</h3>
+        <div id={`${namespace}-explore-more`}>
+          {slides.map((slide) => {
+            return <ProjectCard key={slide.id} {...slide} />;
+          })}
+        </div>
       </div>
     </div>
   );
