@@ -1,12 +1,21 @@
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import useElementSize from "../../hooks/useElementSize";
 import Carousel from "../../utilities/carousel/Carousel";
 import GithubIcon from "../../utilities/icons/Github";
 import LazyImage from "../../utilities/lazyComponents/LazyImg";
 import WaveBg from "../../utilities/waveBg/WaveBg";
 const namespace = "project-pg";
+const waveStyles: { [key: string]: string } = {
+  top: "0",
+  left: "0",
+  position: "absolute",
+  width: "100%",
+  overflow: "hidden",
+  zIndex: "0",
+};
 const calculateImgHeight = (waveHeight: number, headerHeight: number) => {
   return (waveHeight - headerHeight) * 1.8;
 };
@@ -54,6 +63,15 @@ const ProjectCard = ({
 };
 const initialSlides: ProjectCardProps[] = [
   {
+    projectName: "Window Actions the world may never know",
+    imgURL: " ",
+    placeholderURL: " ",
+    description:
+      "This app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the following",
+    githubURL: "https://github.com/aasmal97",
+    id: "dwedw",
+  },
+  {
     projectName: "Window Actions",
     imgURL: " ",
     placeholderURL: " ",
@@ -62,25 +80,35 @@ const initialSlides: ProjectCardProps[] = [
     id: "dwedw",
   },
 ];
+const ExploreAllBanner = ({ slides }: { slides: ProjectCardProps[] }) => {
+  return (
+    <>
+      <h3 id={`${namespace}-explore-more-header`}>Explore All</h3>
+      <div id={`${namespace}-explore-more`}>
+        {slides.map((slide) => {
+          return <ProjectCard key={slide.id} {...slide} />;
+        })}
+      </div>
+    </>
+  );
+};
 const ProjectPage = () => {
   const [waveRef, waveSize] = useElementSize();
   const [headerRef, headerSize] = useElementSize();
+  const [paginationIdx, setPaginationIdx] = useState(0);
+  const navigate = useNavigate();
+  const params = useParams();
   const caroHeight = calculateImgHeight(waveSize.height, headerSize.height);
   const [slides, setSlides] = useState<ProjectCardProps[]>(initialSlides);
+  useEffect(() => {
+    const idx = params.page ? parseInt(params.page) : 0;
+    //we return to default settings
+    if (Number.isNaN(idx)) navigate("/projects");
+    else setPaginationIdx(idx);
+  }, [params.page, navigate]);
   return (
     <div id={`${namespace}`}>
-      <div
-        ref={waveRef}
-        id={`${namespace}-wave-bg`}
-        style={{
-          top: "0",
-          left: "0",
-          position: "absolute",
-          width: "100%",
-          overflow: "hidden",
-          zIndex: 0,
-        }}
-      >
+      <div ref={waveRef} id={`${namespace}-wave-bg`} style={waveStyles}>
         <WaveBg id="project-wave" />
       </div>
       <div id={`${namespace}-inner`}>
@@ -88,13 +116,9 @@ const ProjectPage = () => {
         <div id={`${namespace}-carousel`} style={{ minHeight: caroHeight }}>
           <Carousel numSlidesPerView={1} namespace={namespace} />
         </div>
-        <h3 id={`${namespace}-explore-more-header`}>Explore All</h3>
-        <div id={`${namespace}-explore-more`}>
-          {slides.map((slide) => {
-            return <ProjectCard key={slide.id} {...slide} />;
-          })}
-        </div>
+        <ExploreAllBanner slides={slides} />
       </div>
+      <div id={`${namespace}-pagination`}></div>
     </div>
   );
 };

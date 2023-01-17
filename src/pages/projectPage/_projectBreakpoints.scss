@@ -1,3 +1,11 @@
+@use "./project" as p;
+$namespace: p.$namespace;
+@mixin hover-effect {
+  transition: transform 0.3s ease-out;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
 @mixin project-lg {
 }
 @mixin project-md {
@@ -5,4 +13,9 @@
 @mixin project-sm {
 }
 @mixin project-hover {
+  .#{$namespace}-project-urls {
+    a {
+      @include hover-effect();
+    }
+  }
 }

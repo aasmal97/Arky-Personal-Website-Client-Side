@@ -3,8 +3,8 @@ $red: #d24040;
 $dark-red: #ae0000;
 $blue: #3ac2ff;
 $yellow: #ffc83a;
-$dark-yellow: #d47c00 ;
-$dark-blue:#0068e0 ;
+$dark-yellow: #d47c00;
+$dark-blue: #0068e0;
 $gray: #afafaf;
 $lighter-black: #5a5a5a;
 $light-black: #4e4e4e;
@@ -68,5 +68,16 @@ $navbar-height: 3.5em;
   &:after {
     @include abs-pos-fill($zIndex);
     background: $bgColor;
+  }
+}
+@mixin scrollbar-styles($color, $width) {
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color;
+    outline: 1px solid $color;
+    border-radius: $width;
   }
 }

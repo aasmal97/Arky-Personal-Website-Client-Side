@@ -28,4 +28,5 @@
 
 @media (any-hover: hover) {
   @include about.about-hover;
+  @include projects.project-hover;
 }
