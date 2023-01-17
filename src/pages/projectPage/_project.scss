@@ -167,7 +167,6 @@ $width: 3em;
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   @include v.scrollbar-styles(v.$blue, 0.3em);
   h4 {
-    // padding-top: 0 math.div($width, 2);
     position: sticky;
     background-color: v.$light-black;
     top: 0;
