@@ -1,7 +1,6 @@
 import useElementSize from "../../../hooks/useElementSize";
 import LazyImage from "../../../utilities/lazyComponents/LazyImg";
 import LineDividerSVG from "../../../utilities/lineDivider/LineDivider";
-import WaveSvg from "../../../utilities/waveSvg/WaveSVG";
 import WaveBg from "../../../utilities/waveBg/WaveBg";
 import { useState, useEffect } from "react";
 import text from "./introTextContent.txt";
@@ -24,7 +23,7 @@ const IntroLineDivider = () => (
   </div>
 );
 const calculateImgHeight = (waveHeight: number, headerHeight: number) => {
-  return (waveHeight - headerHeight) * 1.8;
+  return (waveHeight - headerHeight) * 1.5;
 };
 const extractLinksFromText = (text: string) => {
   // eslint-disable-next-line

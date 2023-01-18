@@ -8,13 +8,18 @@ $namespace: p.$namespace;
   }
 }
 @mixin project-lg {
+  ##{$namespace}-carousel {
+    width: 90%;
+  }
 }
 @mixin project-md {
+  ##{$namespace}-carousel {
+    width: 95%;
+  }
   ##{$namespace}-wave-bg {
     // height: $project-wave-bg-height;
     min-height: 25em;
     max-height: 30em;
-
   }
   ##{$namespace}-explore-more-header {
     display: flex;
@@ -44,12 +49,14 @@ $namespace: p.$namespace;
   ##{$namespace}-wave-bg {
     min-height: 20em;
     max-height: 25em;
-
   }
   ##{$namespace}-inner {
     h2 {
       font-size: 3em;
     }
+  }
+  ##{$namespace}-carousel {
+    width: 100%;
   }
   ##{$namespace}-explore-more-header {
     font-size: 2em;

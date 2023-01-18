@@ -6,8 +6,8 @@ $intro-bg-min-height: 50rem;
 $intro-wave-bg-height: math.div($intro-bg-height * 2, 3);
 ##{$namespace}-wave-bg {
   height: $intro-wave-bg-height;
-  min-height: 20em;
-  max-height: 25em;
+  min-height: 25em;
+  max-height: 30em;
   #wave-bg-rotate-wave-intro-wave {
     background: v.$corner-gradient-reverse;
   }
@@ -15,6 +15,7 @@ $intro-wave-bg-height: math.div($intro-bg-height * 2, 3);
 ##{$namespace}-intro {
   $padding: 10%;
   padding: 0 $padding;
+  padding-top: v.$navbar-height;
   background-color: v.$darkest-black;
   position: relative;
   width: 100% - ($padding * 2);
@@ -27,12 +28,14 @@ $intro-wave-bg-height: math.div($intro-bg-height * 2, 3);
     z-index: 1;
   }
   h2 {
-    padding: calc(max($intro-bg-height/12, $intro-bg-min-height/12));
+    padding: 1em 0;
+
+    // padding: calc(max($intro-bg-height/12, $intro-bg-min-height/12));
     font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     position: relative;
     font-weight: 400;
     margin: 0;
-    font-size: 5em;
+    font-size: 4.5em;
     color: v.$white;
   }
 }

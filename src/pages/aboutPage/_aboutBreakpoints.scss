@@ -31,11 +31,16 @@ $hobbies-namespace: a.$hobbies-namespace;
   }
 }
 @mixin about-md {
+  ##{$intro-namespace}-wave-bg {
+    min-height: 20em;
+    max-height: 25em;
+
+  }
 }
 @mixin about-sm {
   ##{$intro-namespace}-intro {
     h2 {
-      font-size: 3.5em;
+      font-size: 3em;
     }
   }
   ##{$intro-namespace}-intro-divider {
