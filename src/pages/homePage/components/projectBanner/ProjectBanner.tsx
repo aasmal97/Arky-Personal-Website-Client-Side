@@ -81,7 +81,7 @@ const ProjectCaro = () => {
         namespace={namespace}
         orientation={smallWindowWidth ? "right" : "bottom"}
       />
-      <Carousel namespace={namespace} slides={[]} />
+      <Carousel namespace={namespace} />
     </div>
   );
 };

@@ -6,22 +6,16 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import { v4 as uuid } from "uuid";
 import useIntersectionWrapper from "../../hooks/useIntersectionWrapper";
-import { ProjectCardProps } from "../asyncActions/ProjectActions";
-const slidesEx = Array(9)
-  .fill(0)
-  .map(() => uuid());
 
-export type Slides = ProjectCardProps[];
 const swiperKeys = [uuid(), uuid()];
 const Carousel = ({
   namespace,
-  slides = slidesEx,
+  children,
   numSlidesPerView,
 }: {
   namespace: string;
-  slides?: string[];
+  children?: JSX.Element[];
   numSlidesPerView?: number;
-  //slides: Slides;
 }) => {
   const { ref: caroRef, isVisible } = useIntersectionWrapper();
   const mediumWindowWidth = useWindowWidth(992);
@@ -34,9 +28,9 @@ const Carousel = ({
     ? 3
     : 1;
   const spaceBetween = !smallWindowWidth ? 20 : !mediumWindowWidth ? 30 : 50;
-  const children = slides.map((slide) => {
+  const mappedChildren = children?.map((slide) => {
     return (
-      <SwiperSlide key={slide} className={`${namespace}-slide`}>
+      <SwiperSlide key={slide.key} className={`${namespace}-slide`}>
         <div className={`${namespace}-slide-inner`}>{slide}</div>
       </SwiperSlide>
     );
@@ -64,7 +58,7 @@ const Carousel = ({
           spaceBetween={spaceBetween}
           slidesPerView={slidesPerView}
         >
-          {children}
+          {mappedChildren}
         </Swiper>
       )}
     </div>

@@ -13,6 +13,12 @@ import {
   ProjectCardProps,
   fetchProjectData,
 } from "../../utilities/asyncActions/ProjectActions";
+const toLocale = (date: string | Date) =>
+  new Date(date).toLocaleDateString("en-us", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  });
 const namespace = "project-pg";
 const waveStyles: { [key: string]: string } = {
   top: "0",
@@ -27,7 +33,34 @@ const calculateImgHeight = (waveHeight: number, headerHeight: number) => {
 };
 
 const countPerPage = 10;
-
+const ProjectUrls = ({
+  githubURL,
+  appURL,
+}: {
+  githubURL?: string;
+  appURL?: string;
+}) => {
+  return (
+    <>
+      <a
+        className={`${namespace}-project-url`}
+        href={githubURL}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <GithubIcon />
+      </a>
+      <a
+        className={`${namespace}-project-url`}
+        href={appURL}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FontAwesomeIcon icon={faLink} />
+      </a>
+    </>
+  );
+};
 const ProjectCard = ({
   appURL,
   imgURL,
@@ -43,12 +76,7 @@ const ProjectCard = ({
       </div>
       <div className={`${namespace}-text-content`}>
         <div className={`${namespace}-project-urls`}>
-          <a href={githubURL} target="_blank" rel="noopener noreferrer">
-            <GithubIcon />
-          </a>
-          <a href={appURL} target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faLink} />
-          </a>
+          <ProjectUrls githubURL={githubURL} appURL={appURL} />
         </div>
         <div className={`${namespace}-text-content-inner`}>
           <h4>{projectName}</h4>
@@ -67,6 +95,8 @@ const initialSlides: ProjectCardProps[] = [
       "This app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the following",
     githubURL: "https://github.com/aasmal97",
     id: "dwedw",
+    startDate: new Date(),
+    endDate: new Date(),
   },
   {
     projectName: "Window Actions",
@@ -75,6 +105,8 @@ const initialSlides: ProjectCardProps[] = [
     description: "This app does the following",
     githubURL: "https://github.com/aasmal97",
     id: "feferfre",
+    startDate: new Date(),
+    endDate: new Date(),
   },
 ];
 
@@ -99,6 +131,8 @@ const ProjectPage = () => {
   const params = useParams();
   const caroHeight = calculateImgHeight(waveSize.height, headerSize.height);
   const [slides, setSlides] = useState<ProjectCardProps[]>(initialSlides);
+  const [caroSlides, setCaroSlides] =
+    useState<ProjectCardProps[]>(initialSlides);
   const onChange = async (e: { prev: number; curr: number }) => {
     navigate(`/projects/${e.curr}`);
   };
@@ -122,6 +156,17 @@ const ProjectPage = () => {
       });
     });
   }, [params.page]);
+  useEffect(() => {
+    fetchProjectData(1, 50, {
+      startDate: {
+        order: "ascending",
+        date: new Date("").toString(),
+      },
+      endDate: {
+        date: new Date().toString(),
+      },
+    });
+  }, []);
   return (
     <div id={`${namespace}`}>
       <div ref={waveRef} id={`${namespace}-wave-bg`} style={waveStyles}>
@@ -130,7 +175,43 @@ const ProjectPage = () => {
       <div id={`${namespace}-inner`}>
         <h2 ref={headerRef}>Projects</h2>
         <div id={`${namespace}-carousel`} style={{ minHeight: caroHeight }}>
-          <Carousel numSlidesPerView={1} namespace={namespace} />
+          <Carousel numSlidesPerView={1} namespace={namespace}>
+            {caroSlides.map((slide) => {
+              return (
+                <div key={slide.id} className={`${namespace}-slide`}>
+                  <div className={`${namespace}-slide-img-container`}>
+                    <LazyImage
+                      src={slide.imgURL}
+                      placeholderSrc={slide.placeholderURL}
+                      alt={""}
+                    />
+                  </div>
+                  <div className={`${namespace}-slide-text-content`}>
+                    <div className={`${namespace}-slide-first-row`}>
+                      <h4>{slide.projectName}</h4>
+                      <div className={`${namespace}-slide-project-urls`}>
+                        <ProjectUrls
+                          githubURL={slide.githubURL}
+                          appURL={slide.appURL}
+                        />
+                      </div>
+                    </div>
+
+                    {(slide.endDate || slide.startDate) && (
+                      <div className={`${namespace}-slide-dates`}>
+                        {slide.startDate && (
+                          <span>Started on {toLocale(slide.startDate)} </span>
+                        )}
+                        {slide.endDate && (
+                          <span>Finished on {toLocale(slide.endDate)}</span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </Carousel>
         </div>
         <ExploreAllBanner slides={slides} />
         <PaginationBtns

@@ -16,6 +16,16 @@ $namespace: p.$namespace;
   ##{$namespace}-carousel {
     width: 95%;
   }
+  .#{$namespace}-slide-first-row {
+    display: flex;
+    justify-content: space-between;
+    h4 {
+      font-size: 110%;
+    }
+  }
+  .#{$namespace}-slide-dates {
+    font-size: 80%;
+  }
   ##{$namespace}-wave-bg {
     // height: $project-wave-bg-height;
     min-height: 25em;
@@ -57,6 +67,28 @@ $namespace: p.$namespace;
   }
   ##{$namespace}-carousel {
     width: 100%;
+  }
+  .#{$namespace}-slide-text-content {
+    $padding: 6%;
+    padding:  $padding;
+  }
+  .#{$namespace}-slide-first-row {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0;
+    h4 {
+      font-size: 110%;
+    }
+  }
+  .#{$namespace}-slide-project-urls {
+    width: 60%;
+    justify-content: space-evenly;
+    margin: 5%;
+  }
+  .#{$namespace}-slide-dates {
+    font-size: 90%;
   }
   ##{$namespace}-explore-more-header {
     font-size: 2em;
@@ -108,9 +140,7 @@ $namespace: p.$namespace;
       color: v.$white;
     }
   }
-  .#{$namespace}-project-urls {
-    a {
-      @include hover-effect();
-    }
+  .#{$namespace}-project-url {
+    @include hover-effect();
   }
 }

@@ -57,7 +57,7 @@ $pagination-height: 1.2rem;
   }
   .swiper-slide {
     height: calc(100% - (#{$pagination-height} * 3.5));
-    background-color: black;
+    background-color: gray;
   }
   .swiper-pagination {
     height: auto;
@@ -73,6 +73,55 @@ $pagination-height: 1.2rem;
   .swiper-pagination-bullet-active {
     background-color: v.$blue !important;
   }
+}
+.#{$namespace}-slide {
+  position: relative;
+  color: v.$white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.#{$namespace}-slide-img-container {
+  @include v.abs-pos-fill();
+}
+.#{$namespace}-slide-text-content {
+  $padding: 5%;
+  padding: 3% $padding;
+  width: 100% - $padding * 2;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 6em;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(80, 80, 80, 0) 0%, #393939 100%);
+}
+.#{$namespace}-slide-first-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2%;
+  align-items: center;
+  h4 {
+    font-weight: 500;
+    font-size: 150%;
+    margin: 0;
+    padding: 0;
+  }
+}
+.#{$namespace}-slide-project-urls {
+  display: flex;
+  align-items: center;
+  margin-left: 3%;
+}
+.#{$namespace}-slide-dates {
+  text-decoration: none;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  color: v.$gray;
+  text-align: center;
 }
 ##{$namespace}-explore-more-header {
   font-weight: 500;
@@ -129,39 +178,39 @@ $width: 3em;
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  a {
-    text-decoration: none;
-    cursor: pointer;
+}
+.#{$namespace}-project-url {
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: v.$darkest-black;
+  width: $width;
+  aspect-ratio: 1/1;
+  margin: 0 1%;
+  color: v.$black;
+  &:last-child {
+    margin-right: 2%;
+  }
+  svg {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    z-index: 1;
+    width: 60%;
+  }
+  &::after {
+    $paddingRadii: 20%;
+    position: absolute;
+    content: "";
+    top: $paddingRadii;
+    left: $paddingRadii;
+    height: 100% - $paddingRadii * 2;
+    width: 100% - $paddingRadii * 2;
+    background-color: v.$white;
     border-radius: 50%;
-    background-color: v.$darkest-black;
-    width: $width;
-    aspect-ratio: 1/1;
-    margin: 0 1%;
-    color: v.$black;
-    &:last-child {
-      margin-right: 2%;
-    }
-    svg {
-      position: relative;
-      z-index: 1;
-      width: 60%;
-    }
-    &::after {
-      $paddingRadii: 20%;
-      position: absolute;
-      content: "";
-      top: $paddingRadii;
-      left: $paddingRadii;
-      height: 100% - $paddingRadii * 2;
-      width: 100% - $paddingRadii * 2;
-      background-color: v.$white;
-      border-radius: 50%;
-      z-index: 0;
-    }
+    z-index: 0;
   }
 }
 .#{$namespace}-text-content-inner {
