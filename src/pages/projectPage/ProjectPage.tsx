@@ -8,6 +8,8 @@ import GithubIcon from "../../utilities/icons/Github";
 import LazyImage from "../../utilities/lazyComponents/LazyImg";
 import WaveBg from "../../utilities/waveBg/WaveBg";
 import PaginationBtns from "../../utilities/paginationBtns/PaginationBtns";
+import axios from "axios";
+import { unstable_batchedUpdates } from "react-dom";
 const namespace = "project-pg";
 const waveStyles: { [key: string]: string } = {
   top: "0",
@@ -31,7 +33,30 @@ export type ProjectCardProps = {
   id: string;
   description?: string;
 };
-
+export type ProjectFetchData = {
+  data: ProjectCardProps[];
+  numberPerFetch: number;
+  collectionCount: number;
+};
+const countPerPage = 10;
+export const fetchProjectData = async (
+  page: string | number,
+  countPerPage: number
+): Promise<ProjectFetchData | undefined> => {
+  try {
+    const { data } = await axios({
+      method: "get",
+      url: `${process.env.REACT_APP_AWS_GATEWAY_API}/projects`,
+      params: {
+        countPerPage: countPerPage,
+        page: page,
+      },
+    });
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+};
 const ProjectCard = ({
   appURL,
   imgURL,
@@ -81,6 +106,7 @@ const initialSlides: ProjectCardProps[] = [
     id: "feferfre",
   },
 ];
+
 const ExploreAllBanner = ({ slides }: { slides: ProjectCardProps[] }) => {
   return (
     <>
@@ -93,7 +119,6 @@ const ExploreAllBanner = ({ slides }: { slides: ProjectCardProps[] }) => {
     </>
   );
 };
-
 const ProjectPage = () => {
   const [waveRef, waveSize] = useElementSize();
   const [headerRef, headerSize] = useElementSize();
@@ -103,12 +128,29 @@ const ProjectPage = () => {
   const params = useParams();
   const caroHeight = calculateImgHeight(waveSize.height, headerSize.height);
   const [slides, setSlides] = useState<ProjectCardProps[]>(initialSlides);
+  const onChange = async (e: { prev: number; curr: number }) => {
+    navigate(`/projects/${e.curr}`);
+  };
   useEffect(() => {
     const idx = params.page ? parseInt(params.page) : 1;
     //we return to default settings
     if (Number.isNaN(idx)) navigate("/projects");
     else setPaginationIdx(idx);
   }, [params.page, navigate]);
+  //set data
+  useEffect(() => {
+    fetchProjectData(
+      params.page ? params.page.toString() : 1,
+      countPerPage
+    ).then((res) => {
+      if (!res) return;
+      const pages = Math.ceil(res.collectionCount / res.numberPerFetch);
+      unstable_batchedUpdates(() => {
+        setSlides(res.data);
+        setEndBtn(pages);
+      });
+    });
+  }, [params.page]);
   return (
     <div id={`${namespace}`}>
       <div ref={waveRef} id={`${namespace}-wave-bg`} style={waveStyles}>
@@ -125,6 +167,7 @@ const ProjectPage = () => {
           btnInterval={2}
           endBtn={endBtn}
           activeBtn={paginationIdx}
+          onChange={onChange}
         />
       </div>
     </div>
