@@ -6,7 +6,7 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import { v4 as uuid } from "uuid";
 import useIntersectionWrapper from "../../hooks/useIntersectionWrapper";
-import { ProjectCardProps } from "../../pages/projectPage/ProjectPage";
+import { ProjectCardProps } from "../asyncActions/ProjectActions";
 const slidesEx = Array(9)
   .fill(0)
   .map(() => uuid());

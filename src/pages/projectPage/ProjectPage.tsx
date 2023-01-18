@@ -8,8 +8,11 @@ import GithubIcon from "../../utilities/icons/Github";
 import LazyImage from "../../utilities/lazyComponents/LazyImg";
 import WaveBg from "../../utilities/waveBg/WaveBg";
 import PaginationBtns from "../../utilities/paginationBtns/PaginationBtns";
-import axios from "axios";
 import { unstable_batchedUpdates } from "react-dom";
+import {
+  ProjectCardProps,
+  fetchProjectData,
+} from "../../utilities/asyncActions/ProjectActions";
 const namespace = "project-pg";
 const waveStyles: { [key: string]: string } = {
   top: "0",
@@ -23,40 +26,8 @@ const calculateImgHeight = (waveHeight: number, headerHeight: number) => {
   return (waveHeight - headerHeight) * 1.8;
 };
 
-export type ProjectCardProps = {
-  generalURL?: string;
-  appURL?: string;
-  imgURL: string;
-  placeholderURL: string;
-  projectName?: string;
-  githubURL?: string;
-  id: string;
-  description?: string;
-};
-export type ProjectFetchData = {
-  data: ProjectCardProps[];
-  numberPerFetch: number;
-  collectionCount: number;
-};
 const countPerPage = 10;
-export const fetchProjectData = async (
-  page: string | number,
-  countPerPage: number
-): Promise<ProjectFetchData | undefined> => {
-  try {
-    const { data } = await axios({
-      method: "get",
-      url: `${process.env.REACT_APP_AWS_GATEWAY_API}/projects`,
-      params: {
-        countPerPage: countPerPage,
-        page: page,
-      },
-    });
-    return data;
-  } catch (e) {
-    console.error(e);
-  }
-};
+
 const ProjectCard = ({
   appURL,
   imgURL,
