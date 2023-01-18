@@ -10,6 +10,12 @@ $namespace: p.$namespace;
 @mixin project-lg {
 }
 @mixin project-md {
+  ##{$namespace}-wave-bg {
+    // height: $project-wave-bg-height;
+    min-height: 25em;
+    max-height: 30em;
+
+  }
   ##{$namespace}-explore-more-header {
     display: flex;
     justify-content: center;
@@ -35,6 +41,11 @@ $namespace: p.$namespace;
   }
 }
 @mixin project-sm {
+  ##{$namespace}-wave-bg {
+    min-height: 20em;
+    max-height: 25em;
+
+  }
   ##{$namespace}-inner {
     h2 {
       font-size: 3em;

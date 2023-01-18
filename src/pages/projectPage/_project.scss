@@ -12,8 +12,8 @@ $project-wave-bg-height: math.div($project-bg-height * 2, 3);
 }
 ##{$namespace}-wave-bg {
   height: $project-wave-bg-height;
-  min-height: 25em;
-  max-height: 30em;
+  min-height: 30em;
+  max-height: 35em;
   #wave-bg-rotate-wave-project-wave {
     background: v.$blue;
   }
@@ -42,7 +42,7 @@ $project-wave-bg-height: math.div($project-bg-height * 2, 3);
     text-align: center;
   }
 }
-$pagination-height: calc(min(4vw, 1.2rem));
+$pagination-height: 1.2rem;
 
 ##{$namespace}-carousel {
   width: 100%;
@@ -55,7 +55,7 @@ $pagination-height: calc(min(4vw, 1.2rem));
     width: 100%;
   }
   .swiper-slide {
-    height: calc(100% - (#{$pagination-height} * 3));
+    height: calc(100% - (#{$pagination-height} * 3.5));
     background-color: black;
   }
   .swiper-pagination {
