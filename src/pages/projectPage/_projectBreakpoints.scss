@@ -1,4 +1,5 @@
 @use "./project" as p;
+@use "../../../public/variables" as v;
 $namespace: p.$namespace;
 @mixin hover-effect {
   transition: transform 0.3s ease-out;
@@ -9,10 +10,86 @@ $namespace: p.$namespace;
 @mixin project-lg {
 }
 @mixin project-md {
+  ##{$namespace}-explore-more-header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 2.7em;
+    margin-top: 1.3em;
+    margin-bottom: 1.5em;
+  }
+  ##{$namespace}-explore-more {
+    justify-content: center;
+    width: 100%;
+  }
+  .#{$namespace}-project-card {
+    width: 100%;
+    min-width: 250px;
+    margin-bottom: 10%;
+    &:nth-last-child(2) {
+      margin-bottom: 10%;
+    }
+    &:nth-last-child(1) {
+      margin-bottom: 0;
+    }
+  }
 }
 @mixin project-sm {
+  ##{$namespace}-inner {
+    h2 {
+      font-size: 3em;
+    }
+  }
+  ##{$namespace}-explore-more-header {
+    font-size: 2em;
+    margin-top: 1.3em;
+    margin-bottom: 1.5em;
+  }
+  .#{$namespace}-text-content-inner {
+    max-height: 10em;
+    height: 100%;
+    max-height: 13em;
+    h4 {
+      font-size: 1em;
+      padding-bottom: 0.7em;
+      z-index: 0;
+    }
+    p {
+      color: #d0d0d0;
+      font-size: 0.7em;
+      line-height: 120%;
+    }
+  }
+  .#{$namespace}-pagination-ellipsis {
+    font-size: 0.8em;
+    letter-spacing: 0.2em;
+  }
+  .#{$namespace}-pagination-btns {
+    font-size: 0.7em;
+    padding: 0.1em;
+  }
+  .#{$namespace}-pagination-btns-next,
+  .#{$namespace}-pagination-btns-prev {
+    margin: 0 0.3em;
+    font-size: 0.8em;
+    padding: 0.3em 0.5em;
+    border-radius: 0.5em;
+  }
 }
 @mixin project-hover {
+  .#{$namespace}-pagination-btns {
+    &:hover {
+      background-color: v.$blue;
+      color: v.$white;
+    }
+  }
+  .#{$namespace}-pagination-btns-next,
+  .#{$namespace}-pagination-btns-prev {
+    &:hover {
+      background-color: v.$blue;
+      color: v.$white;
+    }
+  }
   .#{$namespace}-project-urls {
     a {
       @include hover-effect();

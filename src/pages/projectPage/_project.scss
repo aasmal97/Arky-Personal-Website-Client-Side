@@ -20,6 +20,7 @@ $project-wave-bg-height: math.div($project-bg-height * 2, 3);
 }
 ##{$namespace}-inner {
   $padding: 7%;
+  padding-top: v.$navbar-height;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -97,6 +98,12 @@ $pagination-height: calc(min(4vw, 1.2rem));
   border-radius: 0.5em;
   margin-bottom: 5%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.29);
+  &:nth-last-child(2) {
+    margin-bottom: 0;
+  }
+  &:nth-last-child(1) {
+    margin-bottom: 0;
+  }
 }
 .#{$namespace}-project-card-img {
   border-radius: 0.5em;
@@ -122,8 +129,8 @@ $width: 3em;
   display: flex;
   justify-content: flex-end;
   a {
+    text-decoration: none;
     cursor: pointer;
-
     position: relative;
     display: flex;
     justify-content: center;
@@ -171,7 +178,7 @@ $width: 3em;
     background-color: v.$light-black;
     top: 0;
     left: 0;
-    font-size: calc(min(1.3em, 2.3vw));
+    font-size: 1.3em;
     padding: 0;
     margin: 0;
     padding-bottom: 0.9em;
@@ -181,16 +188,58 @@ $width: 3em;
   }
   p {
     color: #d0d0d0;
-    font-size: calc(min(0.9em, 1.9vw));
+    font-size: 0.9em;
     line-height: 120%;
     padding: 0;
     margin: 0;
     margin-bottom: math.div($width, 2);
   }
 }
-##{$namespace}-pagination {
-  margin-top: 0.9em;
+.#{$namespace}-pagination {
+  width: 100%;
+  margin: 4.5em;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 2em;
+  font-size: 0.8em;
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.#{$namespace}-pagination-btns {
+  @include v.remove-btn-default;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.5em;
+  border: 1px solid v.$blue;
+  color: v.$blue;
+  height: 100%;
+  padding: 0.5em;
+  aspect-ratio: 1/1;
+  &.active {
+    background-color: v.$blue;
+    color: v.$white;
+  }
+}
+.#{$namespace}-pagination-btns-next,
+.#{$namespace}-pagination-btns-prev {
+  @include v.remove-btn-default;
+  margin: 0 0.5em;
+  font-size: 1.2em;
+  aspect-ratio: unset;
+  padding: 0.5em 0.8em;
+  border-radius: 0.5em;
+  border: 1px solid v.$blue;
+  color: v.$blue;
+  height: 100%;
+}
+.#{$namespace}-pagination-ellipsis {
+  height: 100%;
+  display: flex;
+  color: v.$blue;
+  font-size: 1.5em;
+  letter-spacing: 0.3em;
+  align-items: flex-end;
 }
