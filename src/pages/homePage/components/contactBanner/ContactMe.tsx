@@ -4,7 +4,7 @@ import Facebook from "../../../../utilities/icons/Facebook";
 import LinkedIn from "../../../../utilities/icons/LinkedIn";
 import useElementSize, { Size } from "../../../../hooks/useElementSize";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import anime from "animejs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
@@ -129,13 +129,14 @@ const animationProgess = 88;
 const MessageBoxLine = ({
   setRef,
   size,
+  playAnimation = true,
 }: {
+  playAnimation?: boolean;
   setRef?: (node: HTMLDivElement | null) => void;
   size: Size;
 }) => {
   const { ref: boxRef, isVisible } = useIntersectionWrapper();
   useEffect(() => {
-    if (!isVisible) return;
     const path = anime.path(`#${namespace}-box-svg path`);
     const target = `#${namespace}-box-email-icon`;
     const animation = anime({
@@ -153,12 +154,14 @@ const MessageBoxLine = ({
         }
       },
     });
+    animation.seek(0);
+    if (!isVisible || !playAnimation) animation.pause();
+    else animation.play();
     return () => {
       anime.remove(`#${namespace}-box-email-icon`);
     };
-  }, [isVisible]);
+  }, [isVisible, playAnimation]);
   useEffect(() => {
-    if (!isVisible) return;
     const path = anime.path(`#${namespace}-box-svg path`);
     const target = `#${namespace}-box-email-icon`;
     const animation = anime({
@@ -177,11 +180,15 @@ const MessageBoxLine = ({
       },
     });
     //so that it resizes properly
-    animation.play();
-    animation.seek(4000 * (animationProgess / 100));
-    animation.pause();
+    animation.seek(0);
+    if (!isVisible || !playAnimation) animation.pause();
+    else {
+      animation.play();
+      animation.seek(4000 * (animationProgess / 100));
+      animation.pause();
+    }
     return () => anime.remove(`#${namespace}-box-email-icon`);
-  }, [isVisible, size.height, size.width]);
+  }, [isVisible, size.height, size.width, playAnimation]);
   return (
     <div
       ref={(e) => {
@@ -264,7 +271,7 @@ const MessageBox = () => {
   return (
     <div id={`${namespace}-message`}>
       <div id={`${namespace}-message-inner`}>
-        <MessageBoxLine setRef={setRef} size={size} />
+        <MessageBoxLine setRef={setRef} size={size} playAnimation={false} />
         <form
           onSubmit={onSubmit}
           id={`${namespace}-message-form`}
