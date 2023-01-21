@@ -233,7 +233,7 @@ $width: 3em;
     margin: 0;
     padding-bottom: 0.9em;
     font-weight: 500;
-    padding-top: $width/ 2;
+    padding-top: math.div($width, 2);
     z-index: 0;
   }
   p {

@@ -126,13 +126,12 @@ const ProjectPage = () => {
   const [waveRef, waveSize] = useElementSize();
   const [headerRef, headerSize] = useElementSize();
   const [paginationIdx, setPaginationIdx] = useState(0);
-  const [endBtn, setEndBtn] = useState(100);
+  const [endBtn, setEndBtn] = useState(1);
   const navigate = useNavigate();
   const params = useParams();
   const caroHeight = calculateImgHeight(waveSize.height, headerSize.height);
-  const [slides, setSlides] = useState<ProjectCardProps[]>(initialSlides);
-  const [caroSlides, setCaroSlides] =
-    useState<ProjectCardProps[]>(initialSlides);
+  const [slides, setSlides] = useState<ProjectCardProps[]>([]);
+  const [caroSlides, setCaroSlides] = useState<ProjectCardProps[]>([]);
   const onChange = async (e: { prev: number; curr: number }) => {
     navigate(`/projects/${e.curr}`);
   };
@@ -165,6 +164,11 @@ const ProjectPage = () => {
       endDate: {
         date: new Date().toString(),
       },
+    }).then((res) => {
+      if (!res) return;
+      unstable_batchedUpdates(() => {
+        setCaroSlides(res.data);
+      });
     });
   }, []);
   return (

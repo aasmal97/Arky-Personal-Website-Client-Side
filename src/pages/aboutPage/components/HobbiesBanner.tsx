@@ -1,3 +1,7 @@
+import ImageInCollage from "../../../utilities/imageInCollage/ImageInCollage";
+import useImageInterval, {
+  matchElWithImage,
+} from "../../../hooks/useImageInterval";
 const namespace = "about-pg-hobbies";
 const HobbiesSVG = () => (
   <svg viewBox="0 0 31 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -9,38 +13,62 @@ const HobbiesSVG = () => (
     />
   </svg>
 );
+const rectArr = [
+  { rect: <rect width="143" height="200" fill="transparent" /> },
+  { rect: <rect x="286" y="126" width="54" height="74" fill="transparent" /> },
+  { rect: <rect x="143" y="87" width="143" height="113" fill="transparent" /> },
+  { rect: <rect x="143" y="87" width="143" height="113" fill="transparent" /> },
+  { rect: <rect x="143" y="87" width="143" height="113" fill="transparent" /> },
+  { rect: <rect x="143" y="87" width="143" height="113" fill="transparent" /> },
+  { rect: <rect x="143" y="87" width="143" height="113" fill="transparent" /> },
+  { rect: <rect x="378" width="103" height="87" fill="transparent" /> },
+  { rect: <rect x="378" width="103" height="87" fill="transparent" /> },
+  { rect: <rect x="378" width="103" height="87" fill="transparent" /> },
+  { rect: <rect x="378" width="103" height="87" fill="transparent" /> },
+  { rect: <rect x="378" width="103" height="87" fill="transparent" /> },
+  { rect: <rect x="202" width="117" height="87" fill="transparent" /> },
+  { rect: <rect x="202" width="117" height="87" fill="transparent" /> },
+  { rect: <rect x="202" width="117" height="87" fill="transparent" /> },
+  { rect: <rect x="202" width="117" height="87" fill="transparent" /> },
+  { rect: <rect x="202" width="117" height="87" fill="transparent" /> },
+  { rect: <rect x="340" y="87" width="141" height="113" fill="transparent" /> },
+  { rect: <rect x="340" y="87" width="141" height="113" fill="transparent" /> },
+  { rect: <rect x="340" y="87" width="141" height="113" fill="transparent" /> },
+  { rect: <rect x="340" y="87" width="141" height="113" fill="transparent" /> },
+  { rect: <rect x="340" y="87" width="141" height="113" fill="transparent" /> },
+  { rect: <rect x="319" width="59" height="87" fill="transparent" /> },
+  { rect: <rect x="143" width="59" height="87" fill="transparent" /> },
+  { rect: <rect x="286" y="87" width="54" height="39" fill="transparent" /> },
+];
+const verticalCount = rectArr.reduce((a, b) => {
+  const increment = b.rect.props.width / b.rect.props.height > 1 ? 1 : 0;
+  return a + increment;
+}, 0);
+const horizontalCount = rectArr.reduce((a, b) => {
+  const increment = b.rect.props.width / b.rect.props.height > 1 ? 0 : 1;
+  return a + increment;
+}, 0);
 const ImageCollageSVG = () => {
+  const images = useImageInterval({
+    imgSet: rectArr.length,
+    verticalCount: verticalCount,
+    horizontalCount: horizontalCount,
+    fetchImgUrl: `${process.env.REACT_APP_AWS_GATEWAY_API}/about`,
+  });
+  const rectArrEls = matchElWithImage(rectArr, images);
   return (
-    <svg
-      viewBox="0 0 481 200"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect width="143" height="200" fill="#D9D9D9" />
-      <rect x="286" y="126" width="54" height="74" fill="#3AC2FF" />
-      <rect x="143" y="87" width="143" height="113" fill="#181818" />
-      <rect x="143" y="87" width="143" height="113" fill="#181818" />
-      <rect x="143" y="87" width="143" height="113" fill="#181818" />
-      <rect x="143" y="87" width="143" height="113" fill="#181818" />
-      <rect x="143" y="87" width="143" height="113" fill="#181818" />
-      <rect x="378" width="103" height="87" fill="#181818" />
-      <rect x="378" width="103" height="87" fill="#181818" />
-      <rect x="378" width="103" height="87" fill="#181818" />
-      <rect x="378" width="103" height="87" fill="#181818" />
-      <rect x="378" width="103" height="87" fill="#181818" />
-      <rect x="202" width="117" height="87" fill="#181818" />
-      <rect x="202" width="117" height="87" fill="#181818" />
-      <rect x="202" width="117" height="87" fill="#181818" />
-      <rect x="202" width="117" height="87" fill="#181818" />
-      <rect x="202" width="117" height="87" fill="#34A853" />
-      <rect x="340" y="87" width="141" height="113" fill="#181818" />
-      <rect x="340" y="87" width="141" height="113" fill="#181818" />
-      <rect x="340" y="87" width="141" height="113" fill="#181818" />
-      <rect x="340" y="87" width="141" height="113" fill="#181818" />
-      <rect x="340" y="87" width="141" height="113" fill="#DEDEDE" />
-      <rect x="319" width="59" height="87" fill="#F20D0D" />
-      <rect x="143" width="59" height="87" fill="#F20D0D" />
-      <rect x="286" y="87" width="54" height="39" fill="#FFC83A" />
+    <svg viewBox="0 0 481 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {rectArrEls.map((el, idx) => (
+        <ImageInCollage
+          src={el.img.src}
+          placeholderSrc={el.img.placeholderSrc}
+          key={idx}
+          namespace={namespace}
+          id={idx.toString()}
+        >
+          {el.rect}
+        </ImageInCollage>
+      ))}
     </svg>
   );
 };
@@ -53,7 +81,7 @@ const HobbiesBanner = () => {
           <span>Hobbies</span>
         </h2>
         <div id={`${namespace}-image-collage`}>
-            <ImageCollageSVG />
+          <ImageCollageSVG />
         </div>
       </div>
     </div>
