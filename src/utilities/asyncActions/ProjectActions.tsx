@@ -1,6 +1,7 @@
 import axios from "axios";
 export type ProjectCardProps = {
   generalURL?: string;
+  imgDescription?: string;
   appURL?: string;
   imgURL: string;
   placeholderURL: string;
@@ -19,7 +20,7 @@ export type ProjectFetchData = {
 export const fetchProjectData = async (
   page: string | number,
   countPerPage: number,
-  query?: { [key: string]:any }
+  query?: { [key: string]: any }
 ): Promise<ProjectFetchData | undefined> => {
   try {
     const { data } = await axios({

@@ -68,11 +68,16 @@ const ProjectCard = ({
   projectName,
   githubURL,
   description,
+  imgDescription,
 }: ProjectCardProps) => {
   return (
     <div className={`${namespace}-project-card`}>
       <div className={`${namespace}-project-card-img`}>
-        <LazyImage alt={""} placeholderSrc={placeholderURL} src={imgURL} />
+        <LazyImage
+          alt={imgDescription ? imgDescription : ""}
+          placeholderSrc={placeholderURL}
+          src={imgURL}
+        />
       </div>
       <div className={`${namespace}-text-content`}>
         <div className={`${namespace}-project-urls`}>
@@ -187,7 +192,7 @@ const ProjectPage = () => {
                     <LazyImage
                       src={slide.imgURL}
                       placeholderSrc={slide.placeholderURL}
-                      alt={""}
+                      alt={slide.imgDescription ? slide.imgDescription : ""}
                     />
                   </div>
                   <div className={`${namespace}-slide-text-content`}>

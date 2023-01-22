@@ -232,11 +232,11 @@ const FormInput = ({
           className={className}
           name={name}
           type={inputType}
-          placeholder={"Subject"}
+          placeholder={placeholder}
         />
       )}
       {inputType === "textarea" && (
-        <textarea className={className} name={name} placeholder={"Message"} />
+        <textarea className={className} name={name} placeholder={placeholder} />
       )}
     </>
   );
@@ -247,7 +247,6 @@ const Profile = () => {
   return (
     <div ref={profileRef} id={`${namespace}-profile`}>
       <ProfileHeader isVisible={isVisible} />
-      {/* <h2>Let's Connect</h2> */}
       <div id={`${namespace}-circle`}>
         <SoundLines />
         <LazyImage src="" placeholderSrc="" alt="" />
@@ -278,16 +277,30 @@ const MessageBox = () => {
           style={{
             paddingTop: `${paddingTop}%`,
             paddingLeft: `${paddingLeft}%`,
-            height: `calc(${size.height}px - (${size.width}px * ${
+            height: `calc(${size.height * 1.2}px - (${size.width}px * ${
               paddingTop / 100
             }))`,
             width: `calc(${size.width}px - (${size.width}px * ${
               paddingLeft / 100
             }))`,
+            //minHeight: "25em"
           }}
         >
-          <FormInput name="message-subject" inputType="text" />
-          <FormInput name="message-content" inputType="textarea" />
+          <FormInput
+            name="message-subject"
+            inputType="text"
+            placeholder="Subject"
+          />
+          <FormInput
+            placeholder="Contact Info"
+            inputType="text"
+            name="message-contact"
+          />
+          <FormInput
+            placeholder={"Message"}
+            name="message-content"
+            inputType="textarea"
+          />
           <button type="submit">Send</button>
         </form>
         <div

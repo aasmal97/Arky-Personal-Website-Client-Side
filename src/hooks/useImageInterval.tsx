@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { unstable_batchedUpdates } from "react-dom";
-
+import useLoadingState from "./useLoadingState";
 export type Image = {
   id: string;
   placeholderSrc?: string;
@@ -124,6 +124,7 @@ const useImageInterval = ({
   const imgIntervalRef = useRef<ImageInterval>([]);
   const [pageEnd, setPageEnd] = useState<number>(1);
   const [page, setPage] = useState<number>(0);
+  const loading = useRef<"loading" | "error" | "success">("loading");
   //run when images change
   useEffect(() => {
     let imgCount = imgSet;
@@ -133,7 +134,12 @@ const useImageInterval = ({
       //this is initially expensive but every image change it becomes faster
       //since images map get reduced in size
       const entries = Object.entries(imagesMap.current);
-      if (entries.length <= 0) return setPage((r) => r + 1);
+      //dont run anything if images are loading
+      if (entries.length <= 0) {
+        if (loading.current === "loading" || loading.current === "error")
+          return;
+        return setPage((r) => r + 1);
+      }
       const verticalEntries = entries.filter(
         ([key, value]) => value.orientation === "vertical"
       );
@@ -184,33 +190,50 @@ const useImageInterval = ({
   useEffect(() => {
     url.current = fetchImgUrl;
     params.current = fetchParams ? fetchParams : {};
-    fetchImages(fetchImgUrl, fetchParams).then((res) => {
-      if (!res) return;
-      const newImages = res.images.map((e) => ({ ...e, displayCount: 0 }));
-      const newMap = generateImgMap(newImages);
-      unstable_batchedUpdates(() => {
-        imagesMap.current = newMap;
-        setPageEnd(res.collectionCount / res.numberPerFetch);
-        setPage(1);
+    fetchImages(fetchImgUrl, fetchParams)
+      .then((res) => {
+        if (!res) return;
+        const newImages = res.images.map((e) => ({ ...e, displayCount: 0 }));
+        const newMap = generateImgMap(newImages);
+        unstable_batchedUpdates(() => {
+          setPageEnd(res.collectionCount / res.numberPerFetch);
+          setPage(() => {
+            imagesMap.current = newMap;
+            loading.current = "success";
+            return 1;
+          });
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+        imagesMap.current = {};
+        loading.current === "success";
       });
-    });
   }, [fetchImgUrl, fetchParams]);
   //when page changes
   useEffect(() => {
     //reset the fetch loop
+    if (loading.current === "loading") return;
     if (page > pageEnd) {
       return setPage(1);
     }
     params.current.page = page;
     //this prevent re-renders
-    fetchImages(url.current, params.current).then((res) => {
-      if (!res) return;
-      const newImages = res.images.map((e) => ({ ...e, displayCount: 0 }));
-      const newMap = generateImgMap(newImages);
-      unstable_batchedUpdates(() => {
-        imagesMap.current = newMap;
+    fetchImages(url.current, params.current)
+      .then((res) => {
+        if (!res) return;
+        const newImages = res.images.map((e) => ({ ...e, displayCount: 0 }));
+        const newMap = generateImgMap(newImages);
+        unstable_batchedUpdates(() => {
+          imagesMap.current = newMap;
+          loading.current = "success";
+        });
+      })
+      .catch((e) => {
+        console.error(e);
+        imagesMap.current = {};
+        loading.current === "success";
       });
-    });
   }, [page, pageEnd]);
   return imageInterval;
 };
