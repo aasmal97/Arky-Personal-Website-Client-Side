@@ -13,8 +13,10 @@ const ImageInCollage = ({
   children,
   namespace,
   placeholderSrc,
+  description,
   src,
 }: {
+  description?: string;
   id: string;
   namespace: string;
   placeholderSrc?: string;
@@ -66,7 +68,9 @@ const ImageInCollage = ({
         height={height}
         width={width}
         preserveAspectRatio="xMidYMid meet"
-      />
+      >
+        <desc>{description}</desc>
+      </image>
       <Transition ref={nodeRef} inProp={loaded} timeout={timeout}>
         {(state) => (
           <image
@@ -83,7 +87,9 @@ const ImageInCollage = ({
             height={height}
             width={width}
             preserveAspectRatio="xMidYMid meet"
-          />
+          >
+            <desc>{description}</desc>
+          </image>
         )}
       </Transition>
     </>

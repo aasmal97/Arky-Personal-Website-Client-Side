@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { unstable_batchedUpdates } from "react-dom";
-import useLoadingState from "./useLoadingState";
 export type Image = {
   id: string;
   placeholderSrc?: string;
@@ -207,7 +206,7 @@ const useImageInterval = ({
       .catch((e) => {
         console.error(e);
         imagesMap.current = {};
-        loading.current === "success";
+        loading.current = "success";
       });
   }, [fetchImgUrl, fetchParams]);
   //when page changes
@@ -232,7 +231,7 @@ const useImageInterval = ({
       .catch((e) => {
         console.error(e);
         imagesMap.current = {};
-        loading.current === "success";
+        loading.current = "success";
       });
   }, [page, pageEnd]);
   return imageInterval;
