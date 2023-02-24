@@ -3,11 +3,11 @@ import GithubIcon from "../icons/Github";
 import StackOverflowIcon from "../icons/StackOverflow";
 import { GithubRepoData } from "../types/GithubTypes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  getGithubApiData,
-  getPast90DaysContributons,
-  getHistoricalContributions,
-} from "../asyncActions/GithubActions";
+// import {
+//   getGithubApiData,
+//   getPast90DaysContributons,
+//   getHistoricalContributions,
+// } from "../asyncActions/GithubActions";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import {
   faBook,
@@ -18,7 +18,7 @@ import {
 import { getYear } from "date-fns";
 const namespace = "footer";
 const currDate = new Date();
-const dateToLocale = currDate.toISOString().slice(0, 10);
+// const dateToLocale = currDate.toISOString().slice(0, 10);
 const RowItem = ({
   icon,
   title,
@@ -62,8 +62,9 @@ const Row = ({
 
 const Footer = () => {
   const [repoData, setRepoData] = useState<GithubRepoData>([]);
-  const [ninetyDaysCount, setNinetyDaysCount] = useState(0);
-  const [countributionsCount, setCountributionsCount] = useState(0);
+  console.log(setRepoData)
+  // const [ninetyDaysCount, setNinetyDaysCount] = useState(0);
+  // const [countributionsCount, setCountributionsCount] = useState(0);
   const repoCount = repoData.length < 100 ? repoData.length.toString() : "100+";
 
   useEffect(() => {

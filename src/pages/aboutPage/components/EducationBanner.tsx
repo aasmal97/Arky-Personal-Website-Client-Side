@@ -17,7 +17,7 @@ export type EducationInstitution = {
   placeholderURL: string;
   degree: string;
 };
-const educationData: EducationInstitution[] = [];
+//const educationData: EducationInstitution[] = [];
 const Ellipse = ({
   setRef,
   orientation,

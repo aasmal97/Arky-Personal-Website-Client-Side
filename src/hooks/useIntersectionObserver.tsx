@@ -26,27 +26,23 @@ function useIntersectionObserver(
     [timeout]
   );
 
-  useEffect(() => {
-    const node = elementRef?.current; // DOM Ref
-    const hasIOSupport = !!window.IntersectionObserver;
+  useEffect(
+    () => {
+      const node = elementRef?.current; // DOM Ref
+      const hasIOSupport = !!window.IntersectionObserver;
 
-    if (!hasIOSupport || frozen || !node) return;
+      if (!hasIOSupport || frozen || !node) return;
 
-    const observerParams = { threshold, root, rootMargin };
-    const observer = new IntersectionObserver(debounceEntry, observerParams);
+      const observerParams = { threshold, root, rootMargin };
+      const observer = new IntersectionObserver(debounceEntry, observerParams);
 
-    observer.observe(node);
+      observer.observe(node);
 
-    return () => observer.disconnect();
-
+      return () => observer.disconnect();
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    elementRef?.current,
-    JSON.stringify(threshold),
-    root,
-    rootMargin,
-    frozen,
-  ]);
+    [elementRef?.current, JSON.stringify(threshold), root, rootMargin, frozen]
+  );
 
   return entry;
 }

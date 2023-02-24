@@ -91,29 +91,29 @@ const ProjectCard = ({
     </div>
   );
 };
-const initialSlides: ProjectCardProps[] = [
-  {
-    projectName: "Window Actions the world may never know",
-    imgURL: " ",
-    placeholderURL: " ",
-    description:
-      "This app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the following",
-    githubURL: "https://github.com/aasmal97",
-    id: "dwedw",
-    startDate: new Date(),
-    endDate: new Date(),
-  },
-  {
-    projectName: "Window Actions",
-    imgURL: " ",
-    placeholderURL: " ",
-    description: "This app does the following",
-    githubURL: "https://github.com/aasmal97",
-    id: "feferfre",
-    startDate: new Date(),
-    endDate: new Date(),
-  },
-];
+// const initialSlides: ProjectCardProps[] = [
+//   {
+//     projectName: "Window Actions the world may never know",
+//     imgURL: " ",
+//     placeholderURL: " ",
+//     description:
+//       "This app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the followingThis app does the following",
+//     githubURL: "https://github.com/aasmal97",
+//     id: "dwedw",
+//     startDate: new Date(),
+//     endDate: new Date(),
+//   },
+//   {
+//     projectName: "Window Actions",
+//     imgURL: " ",
+//     placeholderURL: " ",
+//     description: "This app does the following",
+//     githubURL: "https://github.com/aasmal97",
+//     id: "feferfre",
+//     startDate: new Date(),
+//     endDate: new Date(),
+//   },
+// ];
 
 const ExploreAllBanner = ({ slides }: { slides: ProjectCardProps[] }) => {
   return (
