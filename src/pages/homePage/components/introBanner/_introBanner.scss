@@ -4,6 +4,7 @@ $namespace: "home-pg-intro-banner";
 $unitless-size: 5.2;
 $font-size: calc(min(#{$unitless-size}vw, 5.5em));
 ##{$namespace} {
+  position: relative;
   max-width: none;
   background-color: v.$light-black;
   display: flex;

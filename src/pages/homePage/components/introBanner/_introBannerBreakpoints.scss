@@ -4,7 +4,7 @@ $namespace: i.$namespace;
 @mixin intro-banner-spacing($font-size) {
   .#{$namespace}-content {
     $unitless-size: $font-size;
-    $font-size: #{$unitless-size}vw;
+    $font-size: calc(min(#{$unitless-size}vw, 5.5em));
     .#{$namespace}-title {
       h2 {
         font-size: $font-size;
@@ -19,9 +19,9 @@ $namespace: i.$namespace;
       line-height: calc(#{$font-size} / 1.8);
     }
     button {
-      font-size: calc(#{$font-size} * 0.28);
+      font-size: calc(#{$font-size} * 0.25);
       margin-top: calc(#{$font-size} / 2);
-      padding: 0.5em 1em;
+      padding: calc(#{$font-size} * 0.3 / 3) calc(#{$font-size} * 0.3);
     }
   }
 }
@@ -45,7 +45,7 @@ $namespace: i.$namespace;
   }
 }
 @mixin intro-md {
-  @include intro-banner-spacing(9);
+  @include intro-banner-spacing(10);
 }
 @mixin intro-sm {
   @include intro-banner-spacing(12);

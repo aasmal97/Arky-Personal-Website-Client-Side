@@ -16,8 +16,9 @@ $namespace: p.$namespace;
       line-height: calc(#{$font-size} / 1.7);
     }
     a {
-      font-size: calc(#{$font-size} * 0.28);
-      padding: calc(#{$font-size} * 0.28 / 3) calc(#{$font-size} * 0.28);
+      font-size: calc(#{$font-size} * 0.25);
+      margin: calc(#{$font-size} / 2) 0;
+      padding: calc(#{$font-size} * 0.3 / 3) calc(#{$font-size} * 0.3);
     }
   }
 }
