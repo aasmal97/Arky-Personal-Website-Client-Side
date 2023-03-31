@@ -53,7 +53,7 @@ const ImageCollageSVG = () => {
     imgSet: rectArr.length,
     verticalCount: verticalCount,
     horizontalCount: horizontalCount,
-    fetchImgUrl: `${process.env.REACT_APP_AWS_GATEWAY_API}/about`,
+    fetchImgUrl: `${process.env.REACT_APP_AWS_GATEWAY_API}/hobbies`,
   });
   const rectArrEls = matchElWithImage(rectArr, images);
   return (
