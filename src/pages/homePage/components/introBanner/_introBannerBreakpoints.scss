@@ -1,7 +1,11 @@
 @use "./introBanner" as i;
 @use "../../../../../public/variables" as v;
 $namespace: i.$namespace;
-@mixin intro-banner-spacing($font-size) {
+@mixin intro-banner-spacing(
+  $font-size,
+  $link-size-unit: $font-size,
+  $paragraph-size-unit: $font-size
+) {
   .#{$namespace}-content {
     $unitless-size: $font-size;
     $font-size: calc(min(#{$unitless-size}vw, 5.5em));
@@ -13,15 +17,19 @@ $namespace: i.$namespace;
         font-size: calc(#{$font-size} * 0.61);
       }
     }
+    $paragraph-size: calc(min(#{$paragraph-size-unit}vw, 5.5em));
     p {
-      margin-top: calc(#{$font-size} / 2);
-      font-size: calc(#{$font-size} * 0.28);
-      line-height: calc(#{$font-size} / 1.8);
+      margin-top: calc(#{$paragraph-size} / 2);
+      font-size: calc(#{$paragraph-size} * 0.28);
+      line-height: calc(#{$paragraph-size} / 1.8);
     }
+
+    $link-size: calc(min(#{$link-size-unit}vw, 5.5em));
+    a,
     button {
-      font-size: calc(#{$font-size} * 0.25);
-      margin-top: calc(#{$font-size} / 2);
-      padding: calc(#{$font-size} * 0.3 / 3) calc(#{$font-size} * 0.3);
+      font-size: calc(#{$link-size} * 0.25);
+      margin: calc(#{$link-size} / 2) 0;
+      padding: calc(#{$link-size} * 0.3 / 3) calc(#{$link-size} * 0.3);
     }
   }
 }
@@ -48,7 +56,7 @@ $namespace: i.$namespace;
   @include intro-banner-spacing(10);
 }
 @mixin intro-sm {
-  @include intro-banner-spacing(12);
+  @include intro-banner-spacing(12, 15, 15);
   .#{$namespace}-content {
     padding: calc(#{v.$navbar-height}) 0;
   }

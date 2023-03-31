@@ -1,12 +1,11 @@
 @use "../../../../../public/variables" as v;
 $namespace: "skills-banner";
-
 ##{$namespace} {
   $width: min(5vw, 4em);
   position: relative;
-  width: calc(100% - (#{$width} * 2));
+  width: 100%;
   display: flex;
-  padding: 0 $width;
+  // padding: 0 $width;
   min-height: 100vh;
   background-color: v.$darkest-black;
   & > svg {

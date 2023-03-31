@@ -10,7 +10,9 @@ const TypingAnimation = ({
       strArr,
     });
     return (
-      <span style={{ display: "inline-block", width: "100%" }}>
+      <span
+        style={{ display: "inline-block", width: "100%" }}
+      >
         <span className={`${namespace}-ani-container`} ref={ref}>
           {currWord}
         </span>

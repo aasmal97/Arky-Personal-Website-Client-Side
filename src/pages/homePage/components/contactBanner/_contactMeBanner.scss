@@ -10,6 +10,7 @@ $font-size: calc(min(#{$unitless-size}vw, 5.5em));
   justify-content: space-between;
   background-color: v.$dark-black;
   min-height: 100vh;
+  padding: calc(#{v.$navbar-height}) 0;
 }
 ##{$namespace}-profile {
   display: flex;
@@ -17,8 +18,8 @@ $font-size: calc(min(#{$unitless-size}vw, 5.5em));
   justify-content: center;
   align-items: center;
   width: 50%;
-  height: 100%;
-  min-height: 100vh;
+  height: calc(100% - calc(#{v.$navbar-height}));
+  //height: calc(100% - calc(#{v.$navbar-height} * 2));
   h2 {
     display: flex;
     justify-content: center;
@@ -70,7 +71,7 @@ $circle-width: 50%;
   align-items: center;
   width: 50%;
   position: relative;
-  padding: 8% 0;
+  padding: 0 5%;
 }
 ##{$namespace}-message-inner {
   position: relative;

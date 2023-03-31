@@ -1,6 +1,6 @@
 @use "./skillsBanner" as s;
 $namespace: s.$namespace;
-@mixin skills-spacing($font-size) {
+@mixin skills-spacing($font-size,   $link-size-unit: $font-size,) {
   .#{$namespace}-media-content {
     min-height: 10em;
   }
@@ -11,11 +11,12 @@ $namespace: s.$namespace;
       font-size: calc(#{$font-size} * 0.5);
       line-height: calc(#{$font-size} * 1.1);
     }
-    button,
-    a {
-      font-size: calc(#{$font-size} * 0.25);
-      margin-top: calc(#{$font-size} / 2);
-      padding: calc(#{$font-size} * 0.3 / 3) calc(#{$font-size} * 0.3);
+    $link-size: calc(min(#{$link-size-unit}vw, 5.5em));
+    a,
+    button {
+      font-size: calc(#{$link-size} * 0.25);
+      margin: calc(#{$link-size} / 2) 0;
+      padding: calc(#{$link-size} * 0.3 / 3) calc(#{$link-size} * 0.3);
     }
   }
 }
@@ -35,5 +36,5 @@ $namespace: s.$namespace;
   @include skills-spacing(10);
 }
 @mixin skills-sm {
-  @include skills-spacing(12);
+  @include skills-spacing(10.5, 15);
 }

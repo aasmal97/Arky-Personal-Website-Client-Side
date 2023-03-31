@@ -7,7 +7,7 @@ $wave-width: 100%;
   min-height: 100vh;
   background-color: v.$dark-black;
   & > * {
-    padding: v.$navbar-height 0;
+      padding: calc(#{v.$navbar-height} * 2) 0;
   }
 }
 .#{$namespace}-wave {

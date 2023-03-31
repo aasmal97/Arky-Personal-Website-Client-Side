@@ -1,7 +1,7 @@
 @use "./aboutMeBanner" as a;
 @use "../../../../../public/variables" as v;
 $namespace: a.$namespace;
-@mixin about-spacing($font-size) {
+@mixin about-spacing($font-size, $paragraph-size-unit: $font-size) {
   $unitless-size: $font-size;
   $font-size: calc(min(#{$unitless-size}vw, 5.5em));
   .#{$namespace}-wave {
@@ -11,7 +11,6 @@ $namespace: a.$namespace;
     width: calc(#{$font-size} * 4.2);
     padding: calc(#{$font-size} / 1.7);
     border-radius: calc(#{$font-size} / 2);
-
     h2 {
       font-size: calc(#{$font-size} * 0.61);
     }
@@ -19,12 +18,13 @@ $namespace: a.$namespace;
       margin-top: calc(#{$font-size} / 4);
       font-size: calc(#{$font-size} * 0.28);
     }
+    $paragraph-size: calc(min(#{$paragraph-size-unit}vw, 5.5em));
     p {
-      margin-top: calc(#{$font-size} / 4);
-      font-size: calc(#{$font-size} * 0.22);
-      line-height: calc(#{$font-size} / 2.8);
+      margin-top: calc(#{$paragraph-size} / 4);
+      font-size: calc(#{$paragraph-size} * 0.22);
+      line-height: calc(#{$paragraph-size} / 2.8);
       span {
-        font-size: calc(#{$font-size} * 0.55);
+        font-size: calc(#{$paragraph-size} * 0.55);
       }
     }
   }
@@ -81,5 +81,5 @@ $namespace: a.$namespace;
   .#{$namespace}-blob {
     width: calc(100% - (#{v.$navbar-height} * 2));
   }
-  @include about-spacing(15);
+  @include about-spacing(15, 17);
 }

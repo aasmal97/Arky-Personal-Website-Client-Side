@@ -2,10 +2,11 @@
 @use "../../../../../public/variables" as v;
 @use "sass:math";
 $namespace: p.$namespace;
-@mixin project-spacing($font-size-unit) {
+@mixin project-spacing($font-size-unit, $link-size-unit: $font-size-unit) {
   .#{$namespace}-text-content {
     $unitless-size: $font-size-unit;
     $font-size: calc(min(#{$unitless-size}vw, 5.5em));
+    
     h2 {
       font-size: calc(#{$font-size} * 0.61);
       margin-bottom: calc(#{$font-size} / 2);
@@ -15,10 +16,11 @@ $namespace: p.$namespace;
       font-size: calc(#{$font-size} * 0.28);
       line-height: calc(#{$font-size} / 1.7);
     }
+    $link-size: calc(min(#{$link-size-unit}vw, 5.5em));
     a {
-      font-size: calc(#{$font-size} * 0.25);
-      margin: calc(#{$font-size} / 2) 0;
-      padding: calc(#{$font-size} * 0.3 / 3) calc(#{$font-size} * 0.3);
+      font-size: calc(#{$link-size} * 0.25);
+      margin: calc(#{$link-size} / 2) 0;
+      padding: calc(#{$link-size} * 0.3 / 3) calc(#{$link-size} * 0.3);
     }
   }
 }
@@ -70,7 +72,7 @@ $namespace: p.$namespace;
   }
 }
 @mixin project-md {
-  @include project-spacing((10));
+  @include project-spacing(12, 10);
   .#{$namespace}-carousel {
     position: relative;
     width: 100%;
@@ -81,7 +83,7 @@ $namespace: p.$namespace;
 }
 
 @mixin project-sm {
-  @include project-spacing((12));
+  @include project-spacing($font-size-unit: 15, $link-size-unit: 15);
   ##{$namespace} {
     & > * {
       padding: math.div(v.$navbar-height, 2) 0;
