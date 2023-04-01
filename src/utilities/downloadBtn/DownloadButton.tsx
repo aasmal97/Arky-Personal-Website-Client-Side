@@ -25,7 +25,7 @@ function DownloadButton({
     linkRef.current.href = url;
 
     // set the download attribute of the link element to the desired file name
-    linkRef.current.download = `${fileName}.{${fileType}}`;
+    linkRef.current.download = `${fileName}.${fileType}`;
 
     // simulate a click on the link to trigger the download
     linkRef.current.click();
@@ -37,12 +37,12 @@ function DownloadButton({
       <button
         className={className}
         onClick={handleDownload}
-        aria-label={`download-${fileName}.{${fileType}}`}
+        aria-label={`download-${fileName}.${fileType}`}
       >
         {children}
       </button>
 
-      {/* render the hidden link element */}
+      {/* render the hidden link element to download file */}
       <a ref={linkRef} href=" " style={{ display: "none" }}>
         {children}
       </a>

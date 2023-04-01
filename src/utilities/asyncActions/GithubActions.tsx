@@ -55,7 +55,7 @@ export const getHistoricalContributions = async (
   try {
     const request = await axios({
       method: "get",
-      url: `${process.env.REACT_APP_API_GATEWAY_URL}/${route}`,
+      url: `${process.env.REACT_APP_REST_API_URL}/${route}`,
       params: params,
     });
     return request.data;

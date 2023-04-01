@@ -116,7 +116,7 @@ export const MediaCollageSVG = () => {
     imgSet: pathArr.length,
     verticalCount: verticalCount,
     horizontalCount: horizontalCount,
-    fetchImgUrl: `${process.env.REACT_APP_AWS_GATEWAY_API}/about`,
+    fetchImgUrl: `${process.env.REACT_APP_REST_API_URL}/about`,
   });
   const pathArrEls = matchElWithImage(pathArr, images);
   return (

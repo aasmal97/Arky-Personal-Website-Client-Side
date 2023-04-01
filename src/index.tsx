@@ -18,7 +18,7 @@ const router = createBrowserRouter(
       <Route index element={<HomePage />} />
       <Route path="home/*" element={<HomePage />} />
       <Route path="projects" element={<ProjectPage />}>
-        <Route path=":page" element={<ProjectPage />} />
+        <Route path=":query/:lastEvaluatedKey/:prevEvaluatedKey" element={<ProjectPage />} />
       </Route>
       <Route path="about" element={<AboutPage />}>
         <Route index element={<Navigate to={"/about"} />}></Route>
@@ -26,6 +26,7 @@ const router = createBrowserRouter(
     </Route>
   )
 );
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

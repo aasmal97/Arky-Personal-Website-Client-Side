@@ -5,7 +5,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 import useWindowWidth from "../../hooks/useWindowWidth";
-
 export const getBtnArray = (
   btnInterval: number,
   activeBtn: number,
