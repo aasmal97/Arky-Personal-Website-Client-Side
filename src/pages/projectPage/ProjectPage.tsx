@@ -1,29 +1,14 @@
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect, useRef } from "react";
-import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import useElementSize from "../../hooks/useElementSize";
 import Carousel from "../../utilities/carousel/Carousel";
 import GithubIcon from "../../utilities/icons/Github";
 import LazyImage from "../../utilities/lazyComponents/LazyImg";
 import WaveBg from "../../utilities/waveBg/WaveBg";
-import { unstable_batchedUpdates } from "react-dom";
 import { ProjectDocument } from "../../utilities/types/RestApiTypes";
-import { fetchProjectData } from "../../utilities/asyncActions/ProjectActions";
 import { sortMixedStrings } from "../../utilities/helpers/sortMixedStrings";
-import { marshall } from "@aws-sdk/util-dynamodb";
-type FetchNewDataProps = {
-  action?: "prev" | "next";
-  query?: string;
-  lastEvaluatedKey?: string;
-  currSlides: React.MutableRefObject<ProjectDocument[]>;
-  countPerPage: number;
-  setPrevStartKey: React.Dispatch<React.SetStateAction<string | null>>;
-  setSlides: React.Dispatch<React.SetStateAction<ProjectDocument[]>>;
-  setStartKey: React.Dispatch<React.SetStateAction<string | null>>;
-  setQuery: React.Dispatch<React.SetStateAction<string | null>>;
-  navigate?: NavigateFunction;
-};
+import useProjectDocs from "../../hooks/useProjectDocs";
+
 const toLocale = (date: string | Date) =>
   new Date(date).toLocaleDateString("en-us", {
     month: "short",
@@ -42,108 +27,31 @@ const waveStyles: { [key: string]: string } = {
 const calculateImgHeight = (waveHeight: number, headerHeight: number) => {
   return (waveHeight - headerHeight) * 1.8;
 };
-const fetchNewData = ({
-  action,
-  query,
-  lastEvaluatedKey,
-  currSlides,
-  countPerPage,
-  setPrevStartKey,
-  setSlides,
-  setStartKey,
-  setQuery,
-  navigate,
-}: FetchNewDataProps) => {
-  const key = lastEvaluatedKey;
-  const decodedKey = key ? decodeURIComponent(key) : null;
-  const decodedQuery = query ? decodeURIComponent(query) : null;
-  const parsedKey = decodedKey ? JSON.parse(decodedKey) : null;
-  const parsedQuery = decodedQuery
-    ? JSON.parse(decodedQuery)
-    : {
-        recordType: "projects",
-      };
-  const prevSlides = currSlides.current;
-  const firstElPrimaryKey =
-    prevSlides && prevSlides.length > 0 ? prevSlides[0].pk : null;
-  let prevKey: string | null = null;
-  if (firstElPrimaryKey) {
-    const marshalledKey = marshall(
-      {
-        startDate: firstElPrimaryKey.startDate,
-        recordType: firstElPrimaryKey.recordType,
-      },
-      {
-        convertClassInstanceToMap: true,
-        removeUndefinedValues: true,
-      }
-    );
-    prevKey = encodeURIComponent(JSON.stringify(marshalledKey));
-  }
-  setPrevStartKey(prevKey);
-  const newAction =
-    action === "prev" && firstElPrimaryKey
-      ? {
-          type: action,
-          keyToInclude: firstElPrimaryKey,
-        }
-      : undefined;
-  fetchProjectData({
-    query: parsedQuery,
-    lastEvaluatedKey: parsedKey,
-    max: countPerPage,
-    action: newAction,
-  }).then((res) => {
-    if (!res) return;
 
-    const newStartKey = res.result.LastEvaluatedKey
-      ? encodeURIComponent(JSON.stringify(res.result.LastEvaluatedKey))
-      : null;
-    //const newQuery = parsedQuery ? JSON.stringify(parsedQuery) : null;
-    currSlides.current = res.result.Items;
-    unstable_batchedUpdates(() => {
-      setSlides(res.result.Items);
-      setStartKey(newStartKey);
-      setQuery(query ? query : null);
-      if (navigate) navigate(`/projects/${query}/${newStartKey}/${prevKey}`);
-    });
-  });
-};
 const ProjectsPagination = ({
+  onPrev,
+  onNext,
   prevStartKey,
   startKey,
-  fetchNewDataInputs,
 }: {
-  prevStartKey: string | null;
+  onPrev: () => void;
+  onNext: () => void;
+  prevStartKey: string | null | undefined;
   startKey: string | null;
-  fetchNewDataInputs: FetchNewDataProps;
 }) => {
-  const navigate = useNavigate();
   return (
     <div className={`${namespace}-pagination`}>
       <button
         className={`${namespace}-pagination-btns-prev`}
-        onClick={() =>
-          fetchNewData({
-            ...fetchNewDataInputs,
-            navigate,
-            action: "prev",
-          })
-        }
+        onClick={onPrev}
         aria-label="previous"
-        disabled={!prevStartKey}
+        disabled={typeof prevStartKey === "undefined"}
       >
         Prev
       </button>
       <button
         className={`${namespace}-pagination-btns-next`}
-        onClick={() =>
-          fetchNewData({
-            ...fetchNewDataInputs,
-            navigate,
-            action: "next",
-          })
-        }
+        onClick={onNext}
         aria-label="next"
         disabled={!startKey}
       >
@@ -218,14 +126,24 @@ const ProjectCard = ({
   );
 };
 const ProjectSlide = ({ slide }: { slide: ProjectDocument }) => {
+  const sortedImages = slide.images
+    ? sortMixedStrings(slide.images, "name")
+    : null;
   return (
     <div key={slide.id} className={`${namespace}-slide`}>
       <div className={`${namespace}-slide-img-container`}>
-        {/* <LazyImage
-                      src={slide.imgURL}
-                      placeholderSrc={slide.placeholderURL}
-                      alt={slide.imgDescription ? slide.imgDescription : ""}
-                    /> */}
+        {!sortedImages && <div>Coming Soon</div>}
+        {sortedImages && (
+          <Carousel numSlidesPerView={1} namespace={namespace}>
+            {sortedImages.map((img) => (
+              <LazyImage
+                alt={img.imgDescription ? img.imgDescription : ""}
+                placeholderSrc={img.placeholderURL ? img.placeholderURL : ""}
+                src={img.imgURL}
+              />
+            ))}
+          </Carousel>
+        )}
       </div>
       <div className={`${namespace}-slide-text-content`}>
         <div className={`${namespace}-slide-first-row`}>
@@ -265,51 +183,14 @@ const ExploreAllBanner = ({ slides }: { slides: ProjectDocument[] }) => {
 const ProjectPage = () => {
   const [waveRef, waveSize] = useElementSize();
   const [headerRef, headerSize] = useElementSize();
-  const params = useParams();
   const caroHeight = calculateImgHeight(waveSize.height, headerSize.height);
-  const [slides, setSlides] = useState<ProjectDocument[]>([]);
-  const currSlides = useRef<ProjectDocument[]>([]);
-  const [startKey, setStartKey] = useState<string | null>(null);
-  const [prevStartKey, setPrevStartKey] = useState<string | null>(null);
-  const [query, setQuery] = useState<string | null>(null);
   const countPerPage = 9;
-  const intitalLastEvaluatedKey = useRef(params.lastEvaluatedKey);
-  const intitalQuery = useRef(params.query);
-  // //redirect to proper page when these change
-  useEffect(() => {
-    const paramsQuery = params.query;
-    const paramsKey = params.lastEvaluatedKey;
-    console.log(paramsQuery === query, query)
-    console.log(paramsKey === startKey, startKey)
-    // if (query !== paramsQuery)
-    // if(paramsKey !== startKey)
-    //const prevKey = params.prevEvaluatedKey;
-    //we return to default settings
-    // if (!query) return navigate("/projects");
-    // if (query && !key) return navigate(`/projects/${query}`);
-    //if (query && key && !prevKey) return navigate(`/projects/${query}/${key}`);
-  }, [
-    query,
-    startKey,
-    params.query,
-    params.lastEvaluatedKey, 
-    //params.prevEvaluatedKey,
-  ]);
-  //set data
-  useEffect(
-    () =>
-      fetchNewData({
-        lastEvaluatedKey: intitalLastEvaluatedKey.current,
-        query: intitalQuery.current,
-        currSlides,
-        countPerPage,
-        setPrevStartKey,
-        setSlides,
-        setStartKey,
-        setQuery,
-      }),
-    []
-  );
+  const { slides, prevStartKey, startKey, previousPage, nextPage } =
+    useProjectDocs({
+      countPerPage,
+      saveQueryInParams: true,
+    });
+
   return (
     <div id={`${namespace}`}>
       <div ref={waveRef} id={`${namespace}-wave-bg`} style={waveStyles}>
@@ -328,16 +209,8 @@ const ProjectPage = () => {
         <ProjectsPagination
           startKey={startKey}
           prevStartKey={prevStartKey}
-          fetchNewDataInputs={{
-            query: params.query,
-            lastEvaluatedKey: params.lastEvaluatedKey,
-            currSlides,
-            countPerPage,
-            setPrevStartKey,
-            setSlides,
-            setStartKey,
-            setQuery,
-          }}
+          onNext={nextPage}
+          onPrev={previousPage}
         />
       </div>
     </div>
