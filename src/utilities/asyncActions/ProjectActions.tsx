@@ -47,10 +47,9 @@ export const fetchProjectData = async ({
       params: {
         query: JSON.stringify({
           ...query,
-          max: action?.type === "prev" ? max - 1 : max,
         }),
         startKey: JSON.stringify(lastEvaluatedKey),
-        max,
+        max: action?.type === "prev" ? max - 1 : max,
       },
     });
     const [projectWithKey, projectList] = await Promise.all([

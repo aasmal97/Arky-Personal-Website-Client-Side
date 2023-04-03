@@ -12,7 +12,18 @@ import { ProjectDocument } from "../../utilities/types/RestApiTypes";
 import { fetchProjectData } from "../../utilities/asyncActions/ProjectActions";
 import { sortMixedStrings } from "../../utilities/helpers/sortMixedStrings";
 import { marshall } from "@aws-sdk/util-dynamodb";
-
+type FetchNewDataProps = {
+  action?: "prev" | "next";
+  query?: string;
+  lastEvaluatedKey?: string;
+  currSlides: React.MutableRefObject<ProjectDocument[]>;
+  countPerPage: number;
+  setPrevStartKey: React.Dispatch<React.SetStateAction<string | null>>;
+  setSlides: React.Dispatch<React.SetStateAction<ProjectDocument[]>>;
+  setStartKey: React.Dispatch<React.SetStateAction<string | null>>;
+  setQuery: React.Dispatch<React.SetStateAction<string | null>>;
+  navigate?: NavigateFunction;
+};
 const toLocale = (date: string | Date) =>
   new Date(date).toLocaleDateString("en-us", {
     month: "short",
@@ -39,25 +50,13 @@ const fetchNewData = ({
   countPerPage,
   setPrevStartKey,
   setSlides,
-  setQuery,
   setStartKey,
-}: {
-  action?: {
-    type: "prev" | "next";
-    keyToInclude: ProjectDocument["pk"];
-  };
-  query?: string;
-  lastEvaluatedKey?: string;
-  currSlides: React.MutableRefObject<ProjectDocument[]>;
-  countPerPage: number;
-  setPrevStartKey: React.Dispatch<React.SetStateAction<string | null>>;
-  setSlides: React.Dispatch<React.SetStateAction<ProjectDocument[]>>;
-  setQuery: React.Dispatch<React.SetStateAction<string | null>>;
-  setStartKey: React.Dispatch<React.SetStateAction<string | null>>;
-}) => {
+  setQuery,
+  navigate,
+}: FetchNewDataProps) => {
   const key = lastEvaluatedKey;
-  const decodedKey = key ? decodeURI(key) : null;
-  const decodedQuery = query ? decodeURI(query) : null;
+  const decodedKey = key ? decodeURIComponent(key) : null;
+  const decodedQuery = query ? decodeURIComponent(query) : null;
   const parsedKey = decodedKey ? JSON.parse(decodedKey) : null;
   const parsedQuery = decodedQuery
     ? JSON.parse(decodedQuery)
@@ -65,62 +64,71 @@ const fetchNewData = ({
         recordType: "projects",
       };
   const prevSlides = currSlides.current;
+  const firstElPrimaryKey =
+    prevSlides && prevSlides.length > 0 ? prevSlides[0].pk : null;
+  let prevKey: string | null = null;
+  if (firstElPrimaryKey) {
+    const marshalledKey = marshall(
+      {
+        startDate: firstElPrimaryKey.startDate,
+        recordType: firstElPrimaryKey.recordType,
+      },
+      {
+        convertClassInstanceToMap: true,
+        removeUndefinedValues: true,
+      }
+    );
+    prevKey = encodeURIComponent(JSON.stringify(marshalledKey));
+  }
+  setPrevStartKey(prevKey);
+  const newAction =
+    action === "prev" && firstElPrimaryKey
+      ? {
+          type: action,
+          keyToInclude: firstElPrimaryKey,
+        }
+      : undefined;
   fetchProjectData({
     query: parsedQuery,
     lastEvaluatedKey: parsedKey,
     max: countPerPage,
-    action,
+    action: newAction,
   }).then((res) => {
     if (!res) return;
-    const firstElPrimaryKey =
-      prevSlides && prevSlides.length > 0 ? prevSlides[0].pk : null;
-    if (firstElPrimaryKey) {
-      const marshalledKey = marshall(
-        {
-          startDate: firstElPrimaryKey.startDate,
-          recordType: firstElPrimaryKey.recordType,
-        },
-        {
-          convertClassInstanceToMap: true,
-          removeUndefinedValues: true,
-        }
-      );
-      const prevKey = encodeURI(JSON.stringify(marshalledKey));
-      setPrevStartKey(prevKey);
-    } else setPrevStartKey(null);
+
     const newStartKey = res.result.LastEvaluatedKey
-      ? encodeURI(JSON.stringify(res.result.LastEvaluatedKey))
+      ? encodeURIComponent(JSON.stringify(res.result.LastEvaluatedKey))
       : null;
-    const newQuery = parsedQuery ? JSON.stringify(parsedQuery) : null;
+    //const newQuery = parsedQuery ? JSON.stringify(parsedQuery) : null;
     currSlides.current = res.result.Items;
     unstable_batchedUpdates(() => {
       setSlides(res.result.Items);
-      setQuery(newQuery);
       setStartKey(newStartKey);
+      setQuery(query ? query : null);
+      if (navigate) navigate(`/projects/${query}/${newStartKey}/${prevKey}`);
     });
   });
 };
 const ProjectsPagination = ({
-  navigate,
-  query,
   prevStartKey,
   startKey,
+  fetchNewDataInputs,
 }: {
-  navigate: NavigateFunction;
-  query: string | null;
   prevStartKey: string | null;
   startKey: string | null;
+  fetchNewDataInputs: FetchNewDataProps;
 }) => {
+  const navigate = useNavigate();
   return (
     <div className={`${namespace}-pagination`}>
       <button
         className={`${namespace}-pagination-btns-prev`}
         onClick={() =>
-          navigate(
-            `/projects/${query}/${prevStartKey}/${encodeURI(
-              JSON.stringify(null)
-            )}`
-          )
+          fetchNewData({
+            ...fetchNewDataInputs,
+            navigate,
+            action: "prev",
+          })
         }
         aria-label="previous"
         disabled={!prevStartKey}
@@ -130,9 +138,11 @@ const ProjectsPagination = ({
       <button
         className={`${namespace}-pagination-btns-next`}
         onClick={() =>
-          navigate(
-            `/projects/${query}/${startKey}/${encodeURI(JSON.stringify(null))}`
-          )
+          fetchNewData({
+            ...fetchNewDataInputs,
+            navigate,
+            action: "next",
+          })
         }
         aria-label="next"
         disabled={!startKey}
@@ -255,61 +265,51 @@ const ExploreAllBanner = ({ slides }: { slides: ProjectDocument[] }) => {
 const ProjectPage = () => {
   const [waveRef, waveSize] = useElementSize();
   const [headerRef, headerSize] = useElementSize();
-  const navigate = useNavigate();
   const params = useParams();
   const caroHeight = calculateImgHeight(waveSize.height, headerSize.height);
   const [slides, setSlides] = useState<ProjectDocument[]>([]);
   const currSlides = useRef<ProjectDocument[]>([]);
-  const [query, setQuery] = useState<string | null>(null);
   const [startKey, setStartKey] = useState<string | null>(null);
   const [prevStartKey, setPrevStartKey] = useState<string | null>(null);
+  const [query, setQuery] = useState<string | null>(null);
   const countPerPage = 9;
-  //redirect to proper page when these change
+  const intitalLastEvaluatedKey = useRef(params.lastEvaluatedKey);
+  const intitalQuery = useRef(params.query);
+  // //redirect to proper page when these change
   useEffect(() => {
-    const query = params.query;
-    const key = params.lastEvaluatedKey;
-    const prevKey = params.prevEvaluatedKey;
+    const paramsQuery = params.query;
+    const paramsKey = params.lastEvaluatedKey;
+    console.log(paramsQuery === query, query)
+    console.log(paramsKey === startKey, startKey)
+    // if (query !== paramsQuery)
+    // if(paramsKey !== startKey)
+    //const prevKey = params.prevEvaluatedKey;
     //we return to default settings
-    if (!query) return navigate("/projects");
-    if (query && !key) return navigate(`/projects/${query}`);
-    if (query && key && !prevKey) return navigate(`/projects/${query}/${key}`);
+    // if (!query) return navigate("/projects");
+    // if (query && !key) return navigate(`/projects/${query}`);
+    //if (query && key && !prevKey) return navigate(`/projects/${query}/${key}`);
   }, [
+    query,
+    startKey,
     params.query,
-    params.lastEvaluatedKey,
-    params.prevEvaluatedKey,
-    navigate,
+    params.lastEvaluatedKey, 
+    //params.prevEvaluatedKey,
   ]);
   //set data
   useEffect(
     () =>
       fetchNewData({
-        lastEvaluatedKey: params.lastEvaluatedKey,
-        query: params.query,
+        lastEvaluatedKey: intitalLastEvaluatedKey.current,
+        query: intitalQuery.current,
         currSlides,
         countPerPage,
         setPrevStartKey,
         setSlides,
-        setQuery,
         setStartKey,
+        setQuery,
       }),
-    [params.lastEvaluatedKey, params.query]
+    []
   );
-  //set previous evaluated key
-  // useEffect(() => {
-  //   fetchProjectData({
-  //     query: {
-  //       recordType: "projects",
-  //     },
-  //     max: 50,
-  //     lastEvaluatedKey: null,
-  //   }).then((res) => {
-  //     if (!res) return;
-  //     unstable_batchedUpdates(() => {
-  //       setCaroSlides(res.result.Items);
-  //     });
-  //   });
-  // }, []);
-
   return (
     <div id={`${namespace}`}>
       <div ref={waveRef} id={`${namespace}-wave-bg`} style={waveStyles}>
@@ -328,8 +328,16 @@ const ProjectPage = () => {
         <ProjectsPagination
           startKey={startKey}
           prevStartKey={prevStartKey}
-          query={query}
-          navigate={navigate}
+          fetchNewDataInputs={{
+            query: params.query,
+            lastEvaluatedKey: params.lastEvaluatedKey,
+            currSlides,
+            countPerPage,
+            setPrevStartKey,
+            setSlides,
+            setStartKey,
+            setQuery,
+          }}
         />
       </div>
     </div>
