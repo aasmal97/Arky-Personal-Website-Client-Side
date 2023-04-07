@@ -148,7 +148,7 @@ const useProjectDocs = ({
         setQuery,
       });
     }
-  }, [query, params.query, saveQueryInParams, countPerPage]);
+  }, [navigate, query, params.query, saveQueryInParams, countPerPage]);
   useEffect(() => {
     unstable_batchedUpdates(() => {
       setStartKey(null);
