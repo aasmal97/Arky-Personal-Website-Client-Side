@@ -8,6 +8,8 @@ import WaveBg from "../../utilities/waveBg/WaveBg";
 import { ProjectDocument } from "../../utilities/types/RestApiTypes";
 import { sortMixedStrings } from "../../utilities/helpers/sortMixedStrings";
 import useProjectDocs from "../../hooks/useProjectDocs";
+import seperateToWords from "../../utilities/helpers/seperateToWords";
+import LoadingIcon from "../../utilities/loadingIcon/LoadingIcon";
 
 const toLocale = (date: string | Date) =>
   new Date(date).toLocaleDateString("en-us", {
@@ -118,7 +120,7 @@ const ProjectCard = ({
           <ProjectUrls githubURL={githubURL} appURL={appURL} />
         </div>
         <div className={`${namespace}-text-content-inner`}>
-          <h4>{projectName}</h4>
+          <h4>{seperateToWords(projectName)}</h4>
           <p>{description}</p>
         </div>
       </div>
@@ -147,7 +149,7 @@ const ProjectSlide = ({ slide }: { slide: ProjectDocument }) => {
       </div>
       <div className={`${namespace}-slide-text-content`}>
         <div className={`${namespace}-slide-first-row`}>
-          <h4>{slide.projectName}</h4>
+          <h4>{seperateToWords(slide.projectName)}</h4>
           <div className={`${namespace}-slide-project-urls`}>
             <ProjectUrls githubURL={slide.githubURL} appURL={slide.appURL} />
           </div>
@@ -167,14 +169,35 @@ const ProjectSlide = ({ slide }: { slide: ProjectDocument }) => {
     </div>
   );
 };
-const ExploreAllBanner = ({ slides }: { slides: ProjectDocument[] }) => {
+const ExploreAllBanner = ({
+  slides,
+  status,
+}: {
+  slides: ProjectDocument[];
+  status: "loading" | "success" | "failed";
+}) => {
   return (
     <>
       <h3 id={`${namespace}-explore-more-header`}>Explore All</h3>
       <div id={`${namespace}-explore-more`}>
-        {slides.map((slide) => {
-          return <ProjectCard key={slide.id} {...slide} />;
-        })}
+        {status === "success" &&
+          slides.map((slide) => {
+            return <ProjectCard key={slide.id} {...slide} />;
+          })}
+        {status === "loading" && (
+          <LoadingIcon
+            primaryFillColor={"#3AC2FF"}
+            secondaryFillColor={"#909090"}
+            faceFillColor={"#2e2e2e"}
+            strokeColor={"#2e2e2e"}
+            backgroundArmColor={"#2e2e2e"}
+            laptopLogoColor={"white"}
+            textColor={"white"}
+            width="40%"
+            background={{ color: "black" }}
+            center
+          />
+        )}
       </div>
     </>
   );
@@ -185,12 +208,15 @@ const ProjectPage = () => {
   const [headerRef, headerSize] = useElementSize();
   const caroHeight = calculateImgHeight(waveSize.height, headerSize.height);
   const countPerPage = 9;
-  const { slides, prevStartKey, startKey, previousPage, nextPage } =
+  const { slides, prevStartKey, startKey, status, previousPage, nextPage } =
     useProjectDocs({
       countPerPage,
       saveQueryInParams: true,
     });
-
+  const { slides: presentationSlides } = useProjectDocs({
+    countPerPage,
+    saveQueryInParams: false,
+  });
   return (
     <div id={`${namespace}`}>
       <div ref={waveRef} id={`${namespace}-wave-bg`} style={waveStyles}>
@@ -200,12 +226,12 @@ const ProjectPage = () => {
         <h2 ref={headerRef}>Projects</h2>
         <div id={`${namespace}-carousel`} style={{ minHeight: caroHeight }}>
           <Carousel numSlidesPerView={1} namespace={namespace}>
-            {slides.map((slide) => {
+            {presentationSlides.map((slide) => {
               return <ProjectSlide key={slide.id} slide={slide} />;
             })}
           </Carousel>
         </div>
-        <ExploreAllBanner slides={slides} />
+        <ExploreAllBanner slides={slides} status={status} />
         <ProjectsPagination
           startKey={startKey}
           prevStartKey={prevStartKey}

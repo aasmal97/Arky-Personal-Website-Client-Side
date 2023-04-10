@@ -18,6 +18,9 @@ export type FetchNewDataProps = {
   setSlides: React.Dispatch<React.SetStateAction<ProjectDocument[]>>;
   setStartKey: React.Dispatch<React.SetStateAction<string | null>>;
   setQuery: React.Dispatch<React.SetStateAction<string | null>>;
+  setStatus: React.Dispatch<
+    React.SetStateAction<"loading" | "success" | "failed">
+  >;
   navigate?: NavigateFunction;
 };
 export const decodeSavedParams = (
@@ -45,43 +48,50 @@ const fetchNewData = ({
   setQuery,
   navigate,
   setPreviousKeys,
+  setStatus,
 }: FetchNewDataProps) => {
+  setStatus("loading");
   const { parsedKey, parsedQuery } = decodeSavedParams(query, lastEvaluatedKey);
   fetchProjectData({
     query: parsedQuery,
     lastEvaluatedKey: parsedKey,
     max: countPerPage,
-  }).then((res) => {
-    if (!res) return;
-    const newStartKey = res.result.LastEvaluatedKey
-      ? encodeURIComponent(JSON.stringify(res.result.LastEvaluatedKey))
-      : null;
-    unstable_batchedUpdates(() => {
-      if (action === "next") {
-        setPrevStartKeyIdx((e) => e + 1);
-        setPreviousKeys((e) => {
-          const newArr = [...e];
-          const map: { [key: string]: boolean } = {};
-          e.forEach((key) => {
-            if (key) map[key] = true;
+  })
+    .then((res) => {
+      if (!res) return;
+      const newStartKey = res.result.LastEvaluatedKey
+        ? encodeURIComponent(JSON.stringify(res.result.LastEvaluatedKey))
+        : null;
+      unstable_batchedUpdates(() => {
+        if (action === "next") {
+          setPrevStartKeyIdx((e) => e + 1);
+          setPreviousKeys((e) => {
+            const newArr = [...e];
+            const map: { [key: string]: boolean } = {};
+            e.forEach((key) => {
+              if (key) map[key] = true;
+            });
+            if (lastEvaluatedKey && !(lastEvaluatedKey in map))
+              newArr.push(lastEvaluatedKey);
+            if (newStartKey && !(newStartKey in map)) newArr.push(newStartKey);
+            return newArr;
           });
-          if (lastEvaluatedKey && !(lastEvaluatedKey in map))
-            newArr.push(lastEvaluatedKey);
-          if (newStartKey && !(newStartKey in map)) newArr.push(newStartKey);
-          return newArr;
-        });
-      } else if (action === "prev") {
-        setPrevStartKeyIdx((e) => {
-          const newNum = e - 1;
-          return newNum < 0 ? 0 : newNum;
-        });
-      }
-      setSlides(res.result.Items);
-      setStartKey(newStartKey);
-      setQuery(query ? query : null);
-      if (navigate) navigate(`/projects/${query}`);
+        } else if (action === "prev") {
+          setPrevStartKeyIdx((e) => {
+            const newNum = e - 1;
+            return newNum < 0 ? 0 : newNum;
+          });
+        }
+        setStatus("success");
+        setSlides(res.result.Items);
+        setStartKey(newStartKey);
+        setQuery(query ? query : null);
+        if (navigate) navigate(`/projects/${query}`);
+      });
+    })
+    .catch((err) => {
+      setStatus("failed");
     });
-  });
 };
 const useProjectDocs = ({
   countPerPage,
@@ -103,6 +113,9 @@ const useProjectDocs = ({
   const [previousKeys, setPreviousKeys] = useState<
     (string | null | undefined)[]
   >([undefined, startKey]);
+  const [status, setStatus] = useState<"loading" | "success" | "failed">(
+    "loading"
+  );
   const [prevKeyIdx, setPrevStartKeyIdx] = useState(0);
   const prevStartKey = previousKeys[prevKeyIdx];
   const [query, setQuery] = useState<string | null>(
@@ -131,6 +144,7 @@ const useProjectDocs = ({
         setSlides,
         setStartKey,
         setQuery,
+        setStatus,
       }),
     [countPerPage]
   );
@@ -146,6 +160,7 @@ const useProjectDocs = ({
         setSlides,
         setStartKey,
         setQuery,
+        setStatus,
       });
     }
   }, [navigate, query, params.query, saveQueryInParams, countPerPage]);
@@ -164,6 +179,7 @@ const useProjectDocs = ({
     setStartKey,
     setQuery,
     setPreviousKeys,
+    setStatus,
   };
   const newQuery = (query: string) => {
     return fetchNewData({
@@ -174,6 +190,7 @@ const useProjectDocs = ({
       setSlides,
       setStartKey,
       setQuery,
+      setStatus,
     });
   };
   const previousPage = () => {
@@ -192,6 +209,14 @@ const useProjectDocs = ({
       action: "next",
     });
   };
-  return { slides, startKey, prevStartKey, previousPage, nextPage, newQuery };
+  return {
+    slides,
+    startKey,
+    prevStartKey,
+    status,
+    previousPage,
+    nextPage,
+    newQuery,
+  };
 };
 export default useProjectDocs;

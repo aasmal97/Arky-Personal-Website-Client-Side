@@ -1,0 +1,36 @@
+$namespace: "loading-icon-programmer";
+.#{$namespace}{
+    position: relative;
+    
+    svg{
+        position: relative;
+        z-index: 1;
+    }
+}
+.#{$namespace}-thought-bubbles,
+.#{$namespace}-idea-bubble,
+.#{$namespace}-gears,
+.#{$namespace}-success {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(1);
+
+  path {
+    transform: scale(1);
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+}
+.#{$namespace}-success {
+  opacity: 0;
+  transform: scale(0);
+}
+.#{$namespace}-text-dots {
+  transform-box: fill-box;
+  circle {
+      transform-origin: center;
+
+    //transform-box: view-box;
+  }
+}
