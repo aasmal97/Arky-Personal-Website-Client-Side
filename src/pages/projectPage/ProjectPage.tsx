@@ -1,5 +1,3 @@
-import { faLink } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useElementSize from "../../hooks/useElementSize";
 import Carousel from "../../utilities/carousel/Carousel";
 import GithubIcon from "../../utilities/icons/Github";
@@ -14,6 +12,9 @@ import LoadingIcon, {
 } from "../../utilities/loadingIcon/LoadingIcon";
 import { StopWatchAnimation } from "../../utilities/loadingIcon/ComingSoonIcon";
 import { ComingSoonBannerWave } from "./ComingSoonBannerWave";
+import useWindowWidth from "../../hooks/useWindowWidth";
+import { memo } from "react";
+import { LinkIcon } from "../../utilities/icons/LinkIcon";
 const toLocale = (date: string | Date) =>
   new Date(date).toLocaleDateString("en-us", {
     month: "short",
@@ -88,7 +89,7 @@ const ProjectUrls = ({
         target="_blank"
         rel="noopener noreferrer"
       >
-        <FontAwesomeIcon icon={faLink} />
+        <LinkIcon linkColor="black" background={{ color: "white" }} />
       </a>
     </>
   );
@@ -105,7 +106,7 @@ const ProjectCard = ({
   return (
     <div className={`${namespace}-project-card`}>
       <div className={`${namespace}-project-card-img`}>
-        {!sortedImages && <div>Coming Soon</div>}
+        {!sortedImages && <ComingSoonBanner />}
         {sortedImages && (
           <Carousel numSlidesPerView={1} namespace={namespace}>
             {sortedImages.map((img) => (
@@ -131,9 +132,30 @@ const ProjectCard = ({
   );
 };
 
-const ComingSoonBanner = () => {
+const ComingSoonBanner = memo(() => {
+  const smallWindowWidth = useWindowWidth(576);
+  const [parentElRef, parentElSize] = useElementSize();
+  const titleStyles = {
+    fontSize: smallWindowWidth
+      ? `${parentElSize.width * 0.11}px`
+      : `${parentElSize.width * 0.11}px`,
+  };
+  const subTitleStyles = {
+    fontSize: smallWindowWidth
+      ? `${parentElSize.width * 0.021}px`
+      : `${parentElSize.width * 0.021 * 1.5}px`,
+    marginTop: smallWindowWidth
+      ? `${parentElSize.width * 0.021}px`
+      : `${parentElSize.width * 0.021 * 1.5}px`,
+    lineHeight: smallWindowWidth
+      ? `${parentElSize.width * 0.021 * 2}px`
+      : `${parentElSize.width * 0.021 * 2 * 1.5}px`,
+  };
   return (
-    <div style={{position: "relative", width: '100%', height: "100%"}}>
+    <div
+      ref={parentElRef}
+      style={{ position: "relative", width: "100%", height: "100%" }}
+    >
       <div className={`${namespace}-coming-soon-banner-bg`}>
         <ComingSoonBannerWave />
       </div>
@@ -141,7 +163,7 @@ const ComingSoonBanner = () => {
       <div className={`${namespace}-coming-soon-banner-container`}>
         <div className={`${namespace}-coming-soon-banner`}>
           <div className={`${namespace}-coming-soon-banner-title`}>
-            <h3>coming soon.</h3>
+            <h3 style={titleStyles}>coming soon.</h3>
             <StopWatchAnimation
               width="20%"
               clockHandColor="#00638F"
@@ -151,7 +173,7 @@ const ComingSoonBanner = () => {
             />
           </div>
 
-          <h6>
+          <h6 style={subTitleStyles}>
             This project is still a work in progress. Check back periodically to
             see if it's ready for production!
           </h6>
@@ -159,8 +181,38 @@ const ComingSoonBanner = () => {
       </div>
     </div>
   );
-};
+});
+const ProjectSlideTextContent = ({ slide }: { slide: ProjectDocument }) => {
+  const smallWindowWidth = useWindowWidth(576)
+  const [parentElRef, parentSize] = useElementSize()
+  const titleStyles = {
+fontSize: smallWindowWidth ? "": `${parentSize.width * 0.038}px` , 
+  }
+  const subTitleStyles = {
+    fontSize: smallWindowWidth ? "" : `${parentSize.width * 0.03}px`,
+  };
+  return (
+    <div ref={parentElRef} className={`${namespace}-slide-text-content`}>
+      <div className={`${namespace}-slide-first-row`}>
+        <h4 style={titleStyles}>
+          {seperateToWords(slide.projectName)}
+        </h4>
+        <div className={`${namespace}-slide-project-urls`}>
+          <ProjectUrls githubURL={slide.githubURL} appURL={slide.appURL} />
+        </div>
+      </div>
 
+      {(slide.endDate || slide.startDate) && (
+        <div className={`${namespace}-slide-dates`} style={subTitleStyles}>
+          {slide.startDate && (
+            <span>Started on {toLocale(slide.startDate)} </span>
+          )}
+          {slide.endDate && <span>Finished on {toLocale(slide.endDate)}</span>}
+        </div>
+      )}
+    </div>
+  );
+};
 const ProjectSlide = ({ slide }: { slide: ProjectDocument }) => {
   const sortedImages = slide.images
     ? sortMixedStrings(slide.images, "name")
@@ -181,25 +233,7 @@ const ProjectSlide = ({ slide }: { slide: ProjectDocument }) => {
           </Carousel>
         )}
       </div>
-      <div className={`${namespace}-slide-text-content`}>
-        <div className={`${namespace}-slide-first-row`}>
-          <h4>{seperateToWords(slide.projectName)}</h4>
-          <div className={`${namespace}-slide-project-urls`}>
-            <ProjectUrls githubURL={slide.githubURL} appURL={slide.appURL} />
-          </div>
-        </div>
-
-        {(slide.endDate || slide.startDate) && (
-          <div className={`${namespace}-slide-dates`}>
-            {slide.startDate && (
-              <span>Started on {toLocale(slide.startDate)} </span>
-            )}
-            {slide.endDate && (
-              <span>Finished on {toLocale(slide.endDate)}</span>
-            )}
-          </div>
-        )}
-      </div>
+      <ProjectSlideTextContent slide={slide} />
     </>
   );
 };

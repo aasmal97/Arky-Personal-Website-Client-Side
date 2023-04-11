@@ -43,6 +43,39 @@ $project-wave-bg-height: math.div($project-bg-height * 2, 3);
     text-align: center;
   }
 }
+$width: 3em;
+.#{$namespace}-project-urls {
+  position: absolute;
+  z-index: 1;
+  top: math.div(-$width, 2);
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  justify-content: end;
+}
+.#{$namespace}-project-url {
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: v.$darkest-black;
+  width: $width;
+  aspect-ratio: 1/1;
+  margin: 0 1%;
+  color: v.$black;
+  &:last-child {
+    margin-right: 2%;
+  }
+  svg {
+    position: relative;
+    z-index: 1;
+    width: 60%;
+  }
+}
 $pagination-height: 1.2rem;
 
 ##{$namespace}-carousel {
@@ -87,20 +120,20 @@ $pagination-height: 1.2rem;
   height: 100%;
   width: 100%;
 }
-.#{$namespace}-coming-soon-banner-container{
+.#{$namespace}-coming-soon-banner-container {
   height: 100%;
   width: 100%;
   position: relative;
-    background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
-.#{$namespace}-coming-soon-banner-bg{
+.#{$namespace}-coming-soon-banner-bg {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 0;
-  svg{
+  svg {
     width: 100%;
     max-height: 100%;
     min-height: 100%;
@@ -120,23 +153,18 @@ $pagination-height: 1.2rem;
   h3 {
     margin: 0;
     font-weight: 500;
-    font-size: 4.5em;
     padding: 0;
   }
-  h6{
+  h6 {
     margin: 0;
     padding: 0;
     font-weight: 400;
-    font-size: 1em;
-    margin-top: 1em;
-    line-height: 2em;
   }
 }
 .#{$namespace}-coming-soon-banner-title {
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 .#{$namespace}-slide-img-container {
   @include v.abs-pos-fill();
@@ -155,11 +183,15 @@ $pagination-height: 1.2rem;
   min-height: 6em;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(180deg, rgba(80, 80, 80, 0) 0%, #393939 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(80, 80, 80, 0) 0%,
+    v.$darkest-black 100%
+  );
 }
 .#{$namespace}-slide-first-row {
   display: flex;
-  justify-content: space-between;
+  //justify-content: space-between;
   width: 100%;
   margin-bottom: 2%;
   align-items: center;
@@ -168,12 +200,16 @@ $pagination-height: 1.2rem;
     font-size: 150%;
     margin: 0;
     padding: 0;
+    flex-grow: 1;
   }
 }
 .#{$namespace}-slide-project-urls {
   display: flex;
   align-items: center;
   margin-left: 3%;
+  .#{$namespace}-project-url {
+    margin: 0 3%;
+  }
 }
 .#{$namespace}-slide-dates {
   text-decoration: none;
@@ -216,11 +252,13 @@ $pagination-height: 1.2rem;
   }
 }
 .#{$namespace}-project-card-img {
-  border-radius: 0.5em;
+  border-radius: 0.4em 0.4em 0 0;
   width: 100%;
   aspect-ratio: 16/9;
   background-color: v.$white;
   @include v.img-fill;
+  color: v.$white;
+  overflow: hidden;
 }
 .#{$namespace}-text-content {
   flex-grow: 1;
@@ -229,51 +267,7 @@ $pagination-height: 1.2rem;
   color: v.$white;
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
-$width: 3em;
-.#{$namespace}-project-urls {
-  position: absolute;
-  z-index: 1;
-  top: math.div(-$width, 2);
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  justify-content: end;
-}
-.#{$namespace}-project-url {
-  text-decoration: none;
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  background-color: v.$darkest-black;
-  width: $width;
-  aspect-ratio: 1/1;
-  margin: 0 1%;
-  color: v.$black;
-  &:last-child {
-    margin-right: 2%;
-  }
-  svg {
-    position: relative;
-    z-index: 1;
-    width: 60%;
-  }
-  &::after {
-    $paddingRadii: 20%;
-    position: absolute;
-    content: "";
-    top: $paddingRadii;
-    left: $paddingRadii;
-    height: 100% - $paddingRadii * 2;
-    width: 100% - $paddingRadii * 2;
-    background-color: v.$white;
-    border-radius: 50%;
-    z-index: 0;
-  }
-}
+
 .#{$namespace}-text-content-inner {
   max-height: 10em;
   overflow: overlay;
@@ -300,7 +294,7 @@ $width: 3em;
   p {
     color: #d0d0d0;
     font-size: 0.9em;
-    line-height: 120%;
+    line-height: 140%;
     padding: 0;
     margin: 0;
     margin-bottom: math.div($width, 2);

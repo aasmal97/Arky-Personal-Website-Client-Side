@@ -1,10 +1,29 @@
 @use "./project" as p;
 @use "../../../public/variables" as v;
+@use "sass:math";
+
 $namespace: p.$namespace;
 @mixin hover-effect {
   transition: transform 0.3s ease-out;
   &:hover {
     transform: scale(1.1);
+  }
+}
+@mixin project-pg-width-sizing($width) {
+  .#{$namespace}-project-urls {
+    top: math.div(-$width, 2);
+  }
+  .#{$namespace}-project-url {
+    width: $width;
+  }
+  .#{$namespace}-text-content-inner {
+    padding: 0 math.div($width, 2);
+    h4 {
+      padding-top: math.div($width, 1.5);
+    }
+    p {
+      margin-bottom: math.div($width, 1.5);
+    }
   }
 }
 @mixin project-lg {
@@ -28,8 +47,8 @@ $namespace: p.$namespace;
   }
   ##{$namespace}-wave-bg {
     // height: $project-wave-bg-height;
-    min-height: 25em;
-    max-height: 30em;
+    min-height: 27em;
+    max-height: 32em;
   }
   ##{$namespace}-explore-more-header {
     display: flex;
@@ -57,8 +76,8 @@ $namespace: p.$namespace;
 }
 @mixin project-sm {
   ##{$namespace}-wave-bg {
-    min-height: 20em;
-    max-height: 25em;
+    min-height: 25em;
+    max-height: 30em;
   }
   ##{$namespace}-inner {
     h2 {
@@ -70,12 +89,10 @@ $namespace: p.$namespace;
   }
   .#{$namespace}-slide-text-content {
     $padding: 6%;
-    padding:  $padding;
+    padding: $padding;
   }
   .#{$namespace}-slide-first-row {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
     align-items: center;
     margin-bottom: 0;
     h4 {
@@ -83,13 +100,9 @@ $namespace: p.$namespace;
     }
   }
   .#{$namespace}-slide-project-urls {
-    width: 60%;
-    justify-content: space-evenly;
-    margin: 5%;
+    margin: 5% 0;
   }
-  .#{$namespace}-slide-dates {
-    font-size: 90%;
-  }
+  @include project-pg-width-sizing(2em);
   ##{$namespace}-explore-more-header {
     font-size: 2em;
     margin-top: 1.3em;
