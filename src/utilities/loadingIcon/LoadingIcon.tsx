@@ -1,6 +1,5 @@
 import anime from "animejs";
-import { useEffect, useRef } from "react";
-
+import { useEffect, useRef, useState } from "react";
 const target = "loading-icon-programmer";
 const thoughtBubblesClassName = "loading-icon-programmer-thought-bubbles";
 const ideaBubbleClassName = "loading-icon-programmer-idea-bubble";
@@ -8,7 +7,10 @@ const smileClassName = "loading-icon-programmer-smile";
 const gearClassName = "loading-icon-programmer-gears";
 const successClassName = "loading-icon-programmer-success";
 const iconTextClassName = "loading-icon-programmer-text";
-const createLoadingAnimation = (durationInterval: number) => {
+const createLoadingAnimation = (
+  durationInterval: number,
+  iconTextClassName: string
+) => {
   //loading animations
   const loadingDot1Animation = anime
     .timeline({
@@ -44,69 +46,69 @@ const createThinkingAnimation = (
   durationInterval: number,
   smileWidth: number
 ) => {
-  const timeline = //general animation
-    anime
-      .timeline({
-        loop: true,
-        autoplay: true,
-        direction: "alternate",
-      })
-      .add({
-        targets: `.${thoughtBubblesClassName} > path:first-child`,
-        opacity: [0, 1],
-        duration: durationInterval,
-        easing: "easeInOutSine",
-      })
-      .add({
-        targets: `.${thoughtBubblesClassName} > path:nth-child(2)`,
-        opacity: [0, 1],
-        duration: durationInterval,
-        easing: "easeInOutSine",
-      })
-      .add({
-        targets: `.${ideaBubbleClassName} > path, .${gearClassName} > path`,
-        opacity: [0, 1],
-        duration: durationInterval,
-        easing: "easeInOutSine",
-      })
-      .add({
-        targets: `.${gearClassName} > path`,
-        rotate: [0, "2turn"],
-        duration: durationInterval * 6,
-        easing: "linear",
-      })
-      .add(
-        {
-          targets: `.${gearClassName}`,
-          scale: [1, 0],
-          duration: durationInterval * 2,
-          easing: "easeInOutSine",
-        },
-        `-=${durationInterval * 2}`
-      )
-      .add({
-        targets: `.${successClassName}, .${successClassName} > path`,
-        opacity: [0, 1],
-        duration: 1,
-      })
-      .add({
-        targets: `.${successClassName}`,
-        scale: [0, 1],
+  //general animation
+  const timeline = anime
+    .timeline({
+      loop: true,
+      autoplay: true,
+      direction: "alternate",
+    })
+    .add({
+      targets: `.${thoughtBubblesClassName} > path:first-child`,
+      opacity: [0, 1],
+      duration: durationInterval,
+      easing: "easeInOutSine",
+    })
+    .add({
+      targets: `.${thoughtBubblesClassName} > path:nth-child(2)`,
+      opacity: [0, 1],
+      duration: durationInterval,
+      easing: "easeInOutSine",
+    })
+    .add({
+      targets: `.${ideaBubbleClassName} > path, .${gearClassName} > path`,
+      opacity: [0, 1],
+      duration: durationInterval,
+      easing: "easeInOutSine",
+    })
+    .add({
+      targets: `.${gearClassName} > path`,
+      rotate: [0, "2turn"],
+      duration: durationInterval * 6,
+      easing: "linear",
+    })
+    .add(
+      {
+        targets: `.${gearClassName}`,
+        scale: [1, 0],
         duration: durationInterval * 2,
-        easing: "spring(1, 80, 10, 0)",
-      })
-      .add(
-        {
-          targets: `.${smileClassName}`,
-          width: [0, smileWidth],
-          duration: durationInterval,
-          easing: "easeInOutSine",
-        },
-        `-=${durationInterval * 2}`
-      )
-      .add({
-        duration: durationInterval / 2,
-      });
+        easing: "easeInOutSine",
+      },
+      `-=${durationInterval * 2}`
+    )
+    .add({
+      targets: `.${successClassName}, .${successClassName} > path`,
+      opacity: [0, 1],
+      duration: 1,
+    })
+    .add({
+      targets: `.${successClassName}`,
+      scale: [0, 1],
+      duration: durationInterval * 2,
+      easing: "spring(1, 80, 10, 0)",
+    })
+    .add(
+      {
+        targets: `.${smileClassName}`,
+        width: [0, smileWidth],
+        duration: durationInterval,
+        easing: "easeInOutSine",
+      },
+      `-=${durationInterval * 2}`
+    )
+    .add({
+      duration: durationInterval / 2,
+    });
   return timeline;
 };
 export const LoadingIconCircleRotation = ({
@@ -114,12 +116,18 @@ export const LoadingIconCircleRotation = ({
   className,
   nested,
   durationInterval = 500,
+  center,
+  width,
 }: {
   textColor?: string;
   className: string;
   nested?: boolean;
+  center?: boolean;
   durationInterval?: number;
+  width?: string;
 }) => {
+  const iconRef = useRef<SVGSVGElement | null>(null);
+  const iconNode = iconRef.current;
   const nestSvgProps = {
     x: 920,
     y: 310,
@@ -128,10 +136,12 @@ export const LoadingIconCircleRotation = ({
   };
   const standardSvgProps = {
     viewBox: "0 0 200 130",
+    // width: 200,
+    // height: 130,
   };
   const svgProps = nested ? nestSvgProps : standardSvgProps;
   useEffect(() => {
-    createLoadingAnimation(durationInterval * 1.9);
+    createLoadingAnimation(durationInterval * 1.9, className);
     return () => {
       const animationTargets = [
         `.${iconTextClassName}-dots > circle:first-child`,
@@ -139,14 +149,129 @@ export const LoadingIconCircleRotation = ({
       ];
       return anime.remove(animationTargets);
     };
-  }, [durationInterval]);
-  return (
-    <svg {...svgProps} className={`${className}-dots`}>
-      <circle cx="70.5" cy="65" r="7" fill={textColor} />
-      <circle cx="100" cy="65" r="7" fill={textColor} />
-      <circle cx="159" cy="65" r="7" fill={textColor} />
+  }, [durationInterval, iconNode, className]);
+  const svgIcon = (
+    <svg ref={iconRef} {...svgProps} className={`${className}-dots`}>
+      <circle
+        cx="70.5"
+        cy="65"
+        r="7"
+        fill={textColor}
+        style={{ transformOrigin: "center" }}
+      />
+      <circle
+        cx="100"
+        cy="65"
+        r="7"
+        fill={textColor}
+        style={{ transformOrigin: "center" }}
+      />
+      <circle
+        cx="159"
+        cy="65"
+        r="7"
+        fill={textColor}
+        style={{ transformOrigin: "center" }}
+      />
     </svg>
   );
+  if (nested) return svgIcon;
+  if (center)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+          height: "100%",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ position: "relative", width: width }}>{svgIcon}</div>
+      </div>
+    );
+  return <div style={{ position: "relative", width: width }}>{svgIcon}</div>;
+};
+export const LoadingIconCircleCarousel = ({
+  textColor,
+  className,
+  nested,
+  durationInterval = 500,
+  center,
+  width,
+}: {
+  textColor?: string;
+  className: string;
+  nested?: boolean;
+  center?: boolean;
+  durationInterval?: number;
+  width?: string;
+}) => {
+  const iconRef = useRef<SVGSVGElement | null>(null);
+  const iconNode = iconRef.current;
+  const nestSvgProps = {
+    x: 920,
+    y: 310,
+    width: 200,
+    height: 130,
+  };
+  const standardSvgProps = {
+    viewBox: "0 0 200 130",
+    // width: 200,
+    // height: 130,
+  };
+  const svgProps = nested ? nestSvgProps : standardSvgProps;
+  useEffect(() => {
+    createLoadingAnimation(durationInterval * 1.9, className);
+    return () => {
+      const animationTargets = [
+        `.${iconTextClassName}-dots > circle:first-child`,
+        `.${iconTextClassName}-dots > circle:last-child`,
+      ];
+      return anime.remove(animationTargets);
+    };
+  }, [durationInterval, iconNode, className]);
+  const svgIcon = (
+    <svg ref={iconRef} {...svgProps} className={`${className}-dots`}>
+      <circle
+        cx="70.5"
+        cy="65"
+        r="7"
+        fill={textColor}
+        style={{ transformOrigin: "center" }}
+      />
+      <circle
+        cx="100"
+        cy="65"
+        r="7"
+        fill={textColor}
+        style={{ transformOrigin: "center" }}
+      />
+      <circle
+        cx="159"
+        cy="65"
+        r="7"
+        fill={textColor}
+        style={{ transformOrigin: "center" }}
+      />
+    </svg>
+  );
+  if (nested) return svgIcon;
+  if (center)
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+          height: "100%",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ position: "relative", width: width }}>{svgIcon}</div>
+      </div>
+    );
+  return <div style={{ position: "relative", width: width }}>{svgIcon}</div>;
 };
 const LoadingIconText = ({
   className,
@@ -206,6 +331,7 @@ const LoadingIconGears = ({
     </g>
   );
 };
+
 const LoadingIconSmile = ({
   className,
   primaryFillColor,
@@ -394,17 +520,20 @@ const LoadingIcon = ({
   textColor?: string;
 }) => {
   const iconRef = useRef<null | HTMLDivElement>(null);
-  const currNode = iconRef.current;
-  const smileWidthRef = useRef<null | number>(null);
+  const [smileWidthRef, setSmileWidthRef] = useState<null | number>(null);
+  // const smileWidthRef = useRef<null | number>(null);
+  // const smileWidthCurr = smileWidthRef.current
   const durationInterval = 500;
   useEffect(() => {
-    if (!currNode) return;
-    const smileNode = currNode.querySelector(`.${smileClassName}`);
+    if (!iconRef.current) return;
+    const smileNode = iconRef.current.querySelector(`.${smileClassName}`);
     if (!smileNode) return;
     const node = smileNode as SVGRectElement;
     const smileWidth = node.width.baseVal.value;
-    if (!smileWidthRef.current) smileWidthRef.current = smileWidth;
-    createThinkingAnimation(durationInterval, smileWidthRef.current);
+    if (!smileWidthRef) setSmileWidthRef(smileWidth);
+    if (!smileWidthRef) return;
+    const timeline = createThinkingAnimation(durationInterval, smileWidthRef);
+    timeline.play();
     return () => {
       const animationTargets = [
         `.${thoughtBubblesClassName} > path:first-child`,
@@ -418,7 +547,7 @@ const LoadingIcon = ({
       ];
       return anime.remove(animationTargets);
     };
-  }, [currNode]);
+  }, [smileWidthRef]);
   const svgIcon = (
     <div
       ref={iconRef}

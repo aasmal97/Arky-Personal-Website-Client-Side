@@ -57,7 +57,8 @@ $pagination-height: 1.2rem;
   }
   .swiper-slide {
     height: calc(100% - (#{$pagination-height} * 3.5));
-    background-color: gray;
+    background-color: v.$darkest-black;
+    border-radius: 0.3em;
   }
   .swiper-pagination {
     height: auto;
@@ -81,14 +82,73 @@ $pagination-height: 1.2rem;
   flex-direction: column;
   justify-content: flex-end;
 }
+.#{$namespace}-slide-inner {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.#{$namespace}-coming-soon-banner-container{
+  height: 100%;
+  width: 100%;
+  position: relative;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.#{$namespace}-coming-soon-banner-bg{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  svg{
+    width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+  }
+}
+.#{$namespace}-coming-soon-banner {
+  $padding: 10%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100% - ($padding * 2);
+  height: 70%;
+  padding: 0 $padding;
+  z-index: 1;
+  h3 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 4.5em;
+    padding: 0;
+  }
+  h6{
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: 1em;
+    margin-top: 1em;
+    line-height: 2em;
+  }
+}
+.#{$namespace}-coming-soon-banner-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
 .#{$namespace}-slide-img-container {
   @include v.abs-pos-fill();
 }
+
 .#{$namespace}-slide-text-content {
+  position: absolute;
+  left: 0;
+  bottom: 0;
   $padding: 5%;
   padding: 3% $padding;
   width: 100% - $padding * 2;
-  position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;

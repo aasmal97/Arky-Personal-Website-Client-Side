@@ -1,11 +1,11 @@
 $namespace: "loading-icon-programmer";
-.#{$namespace}{
+.#{$namespace} {
+  position: relative;
+
+  svg {
     position: relative;
-    
-    svg{
-        position: relative;
-        z-index: 1;
-    }
+    z-index: 1;
+  }
 }
 .#{$namespace}-thought-bubbles,
 .#{$namespace}-idea-bubble,
@@ -29,7 +29,7 @@ $namespace: "loading-icon-programmer";
 .#{$namespace}-text-dots {
   transform-box: fill-box;
   circle {
-      transform-origin: center;
+    transform-origin: center;
 
     //transform-box: view-box;
   }

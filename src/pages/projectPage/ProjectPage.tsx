@@ -9,8 +9,11 @@ import { ProjectDocument } from "../../utilities/types/RestApiTypes";
 import { sortMixedStrings } from "../../utilities/helpers/sortMixedStrings";
 import useProjectDocs from "../../hooks/useProjectDocs";
 import seperateToWords from "../../utilities/helpers/seperateToWords";
-import LoadingIcon from "../../utilities/loadingIcon/LoadingIcon";
-
+import LoadingIcon, {
+  LoadingIconCircleRotation,
+} from "../../utilities/loadingIcon/LoadingIcon";
+import { StopWatchAnimation } from "../../utilities/loadingIcon/ComingSoonIcon";
+import { ComingSoonBannerWave } from "./ComingSoonBannerWave";
 const toLocale = (date: string | Date) =>
   new Date(date).toLocaleDateString("en-us", {
     month: "short",
@@ -127,14 +130,45 @@ const ProjectCard = ({
     </div>
   );
 };
+
+const ComingSoonBanner = () => {
+  return (
+    <div style={{position: "relative", width: '100%', height: "100%"}}>
+      <div className={`${namespace}-coming-soon-banner-bg`}>
+        <ComingSoonBannerWave />
+      </div>
+
+      <div className={`${namespace}-coming-soon-banner-container`}>
+        <div className={`${namespace}-coming-soon-banner`}>
+          <div className={`${namespace}-coming-soon-banner-title`}>
+            <h3>coming soon.</h3>
+            <StopWatchAnimation
+              width="20%"
+              clockHandColor="#00638F"
+              polygonColor={"#3AC2FF"}
+              ringColorDark="#3AC2FF"
+              ringColorLight="#3AC2FF"
+            />
+          </div>
+
+          <h6>
+            This project is still a work in progress. Check back periodically to
+            see if it's ready for production!
+          </h6>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const ProjectSlide = ({ slide }: { slide: ProjectDocument }) => {
   const sortedImages = slide.images
     ? sortMixedStrings(slide.images, "name")
     : null;
   return (
-    <div key={slide.id} className={`${namespace}-slide`}>
+    <>
       <div className={`${namespace}-slide-img-container`}>
-        {!sortedImages && <div>Coming Soon</div>}
+        {!sortedImages && <ComingSoonBanner />}
         {sortedImages && (
           <Carousel numSlidesPerView={1} namespace={namespace}>
             {sortedImages.map((img) => (
@@ -166,7 +200,7 @@ const ProjectSlide = ({ slide }: { slide: ProjectDocument }) => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 const ExploreAllBanner = ({
@@ -213,10 +247,11 @@ const ProjectPage = () => {
       countPerPage,
       saveQueryInParams: true,
     });
-  const { slides: presentationSlides } = useProjectDocs({
-    countPerPage,
-    saveQueryInParams: false,
-  });
+  const { slides: presentationSlides, status: presentationSlidesStatus } =
+    useProjectDocs({
+      countPerPage,
+      saveQueryInParams: false,
+    });
   return (
     <div id={`${namespace}`}>
       <div ref={waveRef} id={`${namespace}-wave-bg`} style={waveStyles}>
@@ -225,11 +260,23 @@ const ProjectPage = () => {
       <div id={`${namespace}-inner`}>
         <h2 ref={headerRef}>Projects</h2>
         <div id={`${namespace}-carousel`} style={{ minHeight: caroHeight }}>
-          <Carousel numSlidesPerView={1} namespace={namespace}>
-            {presentationSlides.map((slide) => {
-              return <ProjectSlide key={slide.id} slide={slide} />;
-            })}
-          </Carousel>
+          {presentationSlidesStatus === "success" && (
+            <Carousel numSlidesPerView={1} namespace={namespace}>
+              {presentationSlides.map((slide) => {
+                return <ProjectSlide key={slide.id} slide={slide} />;
+              })}
+            </Carousel>
+          )}
+          {presentationSlidesStatus === "loading" && (
+            <LoadingIconCircleRotation
+              className={`${namespace}-loading-dots`}
+              nested={false}
+              durationInterval={500}
+              textColor="#3AC2FF"
+              width="20%"
+              center
+            />
+          )}
         </div>
         <ExploreAllBanner slides={slides} status={status} />
         <ProjectsPagination
