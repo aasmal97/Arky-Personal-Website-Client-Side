@@ -1,7 +1,7 @@
 import ImageInCollage from "../../../utilities/imageInCollage/ImageInCollage";
 import useImageInterval, {
-  matchElWithImage,
-} from "../../../hooks/useImageInterval";
+  //matchElWithImage,
+} from "../../../hooks/useHobbiesImageInterval";
 const namespace = "about-pg-hobbies";
 const HobbiesSVG = () => (
   <svg viewBox="0 0 31 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,28 +49,29 @@ const horizontalCount = rectArr.reduce((a, b) => {
   return a + increment;
 }, 0);
 const ImageCollageSVG = () => {
-  const images = useImageInterval({
-    imgSet: rectArr.length,
-    verticalCount: verticalCount,
-    horizontalCount: horizontalCount,
-    fetchImgUrl: `${process.env.REACT_APP_AWS_GATEWAY_API}/hobbies`,
-  });
-  const rectArrEls = matchElWithImage(rectArr, images);
-  return (
-    <svg viewBox="0 0 481 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {rectArrEls.map((el, idx) => (
-        <ImageInCollage
-          src={el.img.src}
-          placeholderSrc={el.img.placeholderSrc}
-          key={idx}
-          namespace={namespace}
-          id={idx.toString()}
-        >
-          {el.rect}
-        </ImageInCollage>
-      ))}
-    </svg>
-  );
+  return <></>
+  // const { imageInterval: images, status } = useImageInterval({
+  //   imgSet: rectArr.length,
+  //   verticalCount: verticalCount,
+  //   horizontalCount: horizontalCount,
+  //   fetchImgUrl: `${process.env.REACT_APP_AWS_GATEWAY_API}/hobbies`,
+  // });
+  // const rectArrEls = matchElWithImage(rectArr, images);
+  // return (
+  //   <svg viewBox="0 0 481 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  //     {rectArrEls.map((el, idx) => (
+  //       <ImageInCollage
+  //         src={el.img.src}
+  //         placeholderSrc={el.img.placeholderSrc}
+  //         key={idx}
+  //         namespace={namespace}
+  //         id={idx.toString()}
+  //       >
+  //         {el.rect}
+  //       </ImageInCollage>
+  //     ))}
+  //   </svg>
+  // );
 };
 const HobbiesBanner = () => {
   return (

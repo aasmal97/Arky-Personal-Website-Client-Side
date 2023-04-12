@@ -6,7 +6,7 @@ export const fetchHobbiesData = async ({
   lastEvaluatedKey,
 }: {
   query: HobbiesQueryProps;
-  max: number;
+  max?: number;
   lastEvaluatedKey?: string | null;
 }): Promise<HobbiesFetchData | undefined> => {
   try {
