@@ -1,13 +1,8 @@
 import { useState, useEffect } from "react";
 import GithubIcon from "../icons/Github";
 import StackOverflowIcon from "../icons/StackOverflow";
-import { GithubRepoData } from "../types/GithubTypes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {
-//   getGithubApiData,
-//   getPast90DaysContributons,
-//   getHistoricalContributions,
-// } from "../asyncActions/GithubActions";
+import { UserInfo, getUserInfo } from "../asyncActions/UserInfoActions";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import {
   faBook,
@@ -16,16 +11,16 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { getYear } from "date-fns";
+import { roundToNearest } from "../helpers/roundToNearestNumber";
 const namespace = "footer";
 const currDate = new Date();
-// const dateToLocale = currDate.toISOString().slice(0, 10);
 const RowItem = ({
   icon,
   title,
   text,
 }: {
   icon: IconDefinition;
-  title: string;
+  title: string | number;
   text: string;
 }) => {
   return (
@@ -61,24 +56,9 @@ const Row = ({
 };
 
 const Footer = () => {
-  const [repoData, setRepoData] = useState<GithubRepoData>([]);
-  console.log(setRepoData)
-  // const [ninetyDaysCount, setNinetyDaysCount] = useState(0);
-  // const [countributionsCount, setCountributionsCount] = useState(0);
-  const repoCount = repoData.length < 100 ? repoData.length.toString() : "100+";
-
+  const [userData, setUserData] = useState<UserInfo | null>(null);
   useEffect(() => {
-    // getGithubApiData("users/aasmal97/repos", {
-    //   per_page: 100,
-    // }).then((data) => (Array.isArray(data) ? setRepoData(data) : []));
-    // getPast90DaysContributons().then((data) => {
-    //   if (Array.isArray(data)) setNinetyDaysCount(data.length);
-    // });
-    // getHistoricalContributions("users/aasmal97/contributions", {
-    //   to: dateToLocale,
-    // }).then((data) => {
-    //   if (Array.isArray(data)) setCountributionsCount(data.length);
-    // });
+    getUserInfo().then((e) => setUserData(e));
   }, []);
   return (
     <footer id={namespace}>
@@ -86,11 +66,31 @@ const Footer = () => {
         <span>Interested in my source code or technical help?</span>
         <div className={`${namespace}-rows`}>
           <Row icon={<GithubIcon />} link="https://github.com/aasmal97">
-            <RowItem icon={faBook} title={repoCount} text={"repos"} />
+            <RowItem
+              icon={faBook}
+              title={
+                userData
+                  ? roundToNearest({
+                      number: userData.githubData.repositories,
+                      toString: true,
+                      decimalPlaces: 1,
+                    })
+                  : "0"
+              }
+              text={"repos"}
+            />
             <RowItem
               icon={faCodeFork}
-              title={repoCount}
-              text={`contributions in ${getYear(currDate).toString()}`}
+              title={
+                userData
+                  ? roundToNearest({
+                      number: userData.githubData.contributions,
+                      toString: true,
+                      decimalPlaces: 1,
+                    })
+                  : "0"
+              }
+              text={`contributions in ${getYear(currDate)}`}
             />
           </Row>
           <Row
@@ -99,10 +99,24 @@ const Footer = () => {
           >
             <RowItem
               icon={faCertificate}
-              title={repoCount}
+              title={
+                userData
+                  ? roundToNearest({
+                      number: userData.stackOverflowData.reputation,
+                      toString: true,
+                      decimalPlaces: 1,
+                    })
+                  : "0"
+              }
               text={"reputation"}
             />
-            <RowItem icon={faUsers} title={repoCount} text={`people reached`} />
+            <RowItem
+              icon={faUsers}
+              title={
+                userData ? userData.stackOverflowData.peopleReached + "+" : "0"
+              }
+              text={`people reached`}
+            />
           </Row>
         </div>
 

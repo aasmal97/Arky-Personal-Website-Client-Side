@@ -102,11 +102,17 @@ const ProjectCard = ({
   description,
   images,
 }: ProjectDocument) => {
+  const smallWindowWidth = useWindowWidth(576);
   const sortedImages = images ? sortMixedStrings(images, "name") : null;
   return (
     <div className={`${namespace}-project-card`}>
       <div className={`${namespace}-project-card-img`}>
-        {!sortedImages && <ComingSoonBanner />}
+        {!sortedImages && (
+          <ComingSoonBanner
+            titleScaleFactor={smallWindowWidth ? 0.12 : 0.12}
+            subTitleScaleFactor={smallWindowWidth ? 0.033 : 0.025}
+          />
+        )}
         {sortedImages && (
           <Carousel numSlidesPerView={1} namespace={namespace}>
             {sortedImages.map((img) => (
@@ -132,71 +138,77 @@ const ProjectCard = ({
   );
 };
 
-const ComingSoonBanner = memo(() => {
-  const smallWindowWidth = useWindowWidth(576);
-  const [parentElRef, parentElSize] = useElementSize();
-  const titleStyles = {
-    fontSize: smallWindowWidth
-      ? `${parentElSize.width * 0.11}px`
-      : `${parentElSize.width * 0.11}px`,
-  };
-  const subTitleStyles = {
-    fontSize: smallWindowWidth
-      ? `${parentElSize.width * 0.021}px`
-      : `${parentElSize.width * 0.021 * 1.5}px`,
-    marginTop: smallWindowWidth
-      ? `${parentElSize.width * 0.021}px`
-      : `${parentElSize.width * 0.021 * 1.5}px`,
-    lineHeight: smallWindowWidth
-      ? `${parentElSize.width * 0.021 * 2}px`
-      : `${parentElSize.width * 0.021 * 2 * 1.5}px`,
-  };
-  return (
-    <div
-      ref={parentElRef}
-      style={{ position: "relative", width: "100%", height: "100%" }}
-    >
-      <div className={`${namespace}-coming-soon-banner-bg`}>
-        <ComingSoonBannerWave />
-      </div>
+const ComingSoonBanner = memo(
+  ({
+    titleScaleFactor = 0.11,
+    subTitleScaleFactor = 0.021,
+  }: {
+    subTitleScaleFactor?: number;
+    titleScaleFactor?: number;
+  }) => {
+    const smallWindowWidth = useWindowWidth(576);
+    const [parentElRef, parentElSize] = useElementSize();
+    const titleStyles = {
+      fontSize: smallWindowWidth
+        ? `${parentElSize.width * titleScaleFactor}px`
+        : `${parentElSize.width * titleScaleFactor}px`,
+    };
+    const subTitleStyles = {
+      fontSize: smallWindowWidth
+        ? `${parentElSize.width * subTitleScaleFactor}px`
+        : `${parentElSize.width * subTitleScaleFactor * 1.5}px`,
+      marginTop: smallWindowWidth
+        ? `${parentElSize.width * subTitleScaleFactor}px`
+        : `${parentElSize.width * subTitleScaleFactor * 1.5}px`,
+      lineHeight: smallWindowWidth
+        ? `${parentElSize.width * subTitleScaleFactor * 2}px`
+        : `${parentElSize.width * subTitleScaleFactor * 2 * 1.5}px`,
+    };
+    return (
+      <div
+        ref={parentElRef}
+        style={{ position: "relative", width: "100%", height: "100%" }}
+      >
+        <div className={`${namespace}-coming-soon-banner-bg`}>
+          <ComingSoonBannerWave />
+        </div>
 
-      <div className={`${namespace}-coming-soon-banner-container`}>
-        <div className={`${namespace}-coming-soon-banner`}>
-          <div className={`${namespace}-coming-soon-banner-title`}>
-            <h3 style={titleStyles}>coming soon.</h3>
-            <StopWatchAnimation
-              width="20%"
-              clockHandColor="#00638F"
-              polygonColor={"#3AC2FF"}
-              ringColorDark="#3AC2FF"
-              ringColorLight="#3AC2FF"
-            />
+        <div className={`${namespace}-coming-soon-banner-container`}>
+          <div className={`${namespace}-coming-soon-banner`}>
+            <div className={`${namespace}-coming-soon-banner-title`}>
+              <h3 style={titleStyles}>coming soon.</h3>
+              <StopWatchAnimation
+                width="20%"
+                clockHandColor="#00638F"
+                polygonColor={"#3AC2FF"}
+                ringColorDark="#3AC2FF"
+                ringColorLight="#3AC2FF"
+              />
+            </div>
+
+            <h6 style={subTitleStyles}>
+              This project is still a work in progress. Check back periodically
+              to see if it's ready for production!
+            </h6>
           </div>
-
-          <h6 style={subTitleStyles}>
-            This project is still a work in progress. Check back periodically to
-            see if it's ready for production!
-          </h6>
         </div>
       </div>
-    </div>
-  );
-});
-const ProjectSlideTextContent = ({ slide }: { slide: ProjectDocument }) => {
-  const smallWindowWidth = useWindowWidth(576)
-  const [parentElRef, parentSize] = useElementSize()
-  const titleStyles = {
-fontSize: smallWindowWidth ? "": `${parentSize.width * 0.038}px` , 
+    );
   }
+);
+const ProjectSlideTextContent = ({ slide }: { slide: ProjectDocument }) => {
+  const smallWindowWidth = useWindowWidth(576);
+  const [parentElRef, parentSize] = useElementSize();
+  const titleStyles = {
+    fontSize: smallWindowWidth ? "" : `${parentSize.width * 0.038}px`,
+  };
   const subTitleStyles = {
     fontSize: smallWindowWidth ? "" : `${parentSize.width * 0.03}px`,
   };
   return (
     <div ref={parentElRef} className={`${namespace}-slide-text-content`}>
       <div className={`${namespace}-slide-first-row`}>
-        <h4 style={titleStyles}>
-          {seperateToWords(slide.projectName)}
-        </h4>
+        <h4 style={titleStyles}>{seperateToWords(slide.projectName)}</h4>
         <div className={`${namespace}-slide-project-urls`}>
           <ProjectUrls githubURL={slide.githubURL} appURL={slide.appURL} />
         </div>

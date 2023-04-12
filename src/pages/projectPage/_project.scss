@@ -259,6 +259,10 @@ $pagination-height: 1.2rem;
   @include v.img-fill;
   color: v.$white;
   overflow: hidden;
+  .#{$namespace}-coming-soon-banner{
+    width: 90%;
+    padding: 5%;
+  }
 }
 .#{$namespace}-text-content {
   flex-grow: 1;
