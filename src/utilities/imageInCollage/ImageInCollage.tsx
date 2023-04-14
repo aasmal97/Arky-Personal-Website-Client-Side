@@ -1,5 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { unstable_batchedUpdates } from "react-dom";
 import { Transition } from "react-transition-group";
+import { HobbiesDocumentWithDuration } from "../../hooks/useHobbiesImageInterval";
 const transitionStyles: { [key: string]: { [key: string]: string } } = {
   entering: {
     opacity: "0",
@@ -15,7 +17,11 @@ const ImageInCollage = ({
   placeholderSrc,
   description,
   src,
+  duration,
+  nextItem,
 }: {
+  duration?: number;
+  nextItem?: () => HobbiesDocumentWithDuration;
   description?: string;
   id: string;
   namespace: string;
@@ -23,8 +29,11 @@ const ImageInCollage = ({
   src: string;
   children: JSX.Element;
 }) => {
+  const [placeholderURL, setPlaceholderUrl] = useState(placeholderSrc);
+  const [imgURL, setImgURL] = useState(src);
   const [placeholderLoaded, setPlaceholderLoaded] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { x, y, height, width } = children.props;
   const nodeRef = useRef(null);
   const onPlaceHolderLoad = (
@@ -32,10 +41,27 @@ const ImageInCollage = ({
   ) => {
     setPlaceholderLoaded(true);
   };
+  //stop any active timeouts
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
   const onLoad = (e: React.SyntheticEvent<SVGImageElement, Event>) => {
     setLoaded(true);
+    if (!nextItem || !duration) return;
+    const id = setTimeout(() => {
+      const result = nextItem();
+      unstable_batchedUpdates(() => {
+        setLoaded(false);
+        setPlaceholderLoaded(false);
+        setImgURL(result.imgURL);
+        setPlaceholderUrl(result.placeholderURL);
+      });
+    }, duration);
+    timeoutRef.current = id;
   };
-  const timeout = 3000;
+  const timeout = 500;
   const defaultStyles: { [key: string]: string } = {
     transition: `${timeout}s opacity ease-out`,
     visibility: loaded ? "visible" : "hidden",
@@ -54,7 +80,7 @@ const ImageInCollage = ({
         onLoad={onPlaceHolderLoad}
         clipPath={`url(#${namespace}-clip-path-${id})`}
         filter={`url(#${namespace}-filter-blur-${id})`}
-        href={placeholderSrc}
+        href={placeholderURL}
         style={{
           opacity: placeholderLoaded ? (loaded ? 0 : 1) : 0,
           visibility: placeholderLoaded
@@ -77,7 +103,7 @@ const ImageInCollage = ({
             ref={nodeRef}
             onLoad={onLoad}
             clipPath={`url(#${namespace}-clip-path-${id})`}
-            href={src}
+            href={imgURL}
             style={{
               ...defaultStyles,
               ...transitionStyles[state],

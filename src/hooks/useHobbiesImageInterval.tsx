@@ -1,124 +1,248 @@
-import axios from "axios";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { unstable_batchedUpdates } from "react-dom";
-import {
-  HobbiesDocument,
-  HobbiesFetchData,
-} from "../utilities/types/RestApiTypes";
+import { HobbiesDocument } from "../utilities/types/RestApiTypes";
 import { fetchHobbiesData } from "../utilities/asyncActions/HobbiesActions";
 import shuffleArray from "../utilities/helpers/shuffleArray";
-export type Image = {
-  id: string;
-  placeholderSrc?: string;
-  src: string;
-  height: number | string;
-  width: number | string;
-  displayCount?: number | string;
+import { generateRandomNumber } from "../utilities/helpers/generateRandomNum";
+import removeDuplicates from "../utilities/helpers/removeDuplicates";
+export type HobbiesDocumentWithDuration = HobbiesDocument & {
+  duration?: number;
 };
-export type ImageMap = {
-  [key: string]: {
-    displayCount: number;
-    currActive: boolean;
+type HobbiesImgInterval = HobbiesDocumentWithDuration[];
+const generateImgMap = (newImages: HobbiesImgInterval) => {
+  const newMap: {
+    [key: string]: {
+      orientation: string;
+      img: HobbiesDocumentWithDuration;
+    };
+  } = {};
+  newImages.forEach((e) => {
+    newMap[e.id] = {
+      orientation: e.orientation,
+      img: e,
+    };
+  });
+  return newMap;
+};
+export const matchElWithImage = (
+  arr: { rect: JSX.Element }[],
+  images: HobbiesImgInterval
+) => {
+  //this prevents any errors from two arrs of different lengths
+  if (arr.length !== images.length) return [];
+  const newArr = [...arr];
+  const newImages = [...images];
+  const onlyImagesArr = newImages;
+  const map = generateImgMap(onlyImagesArr);
+  const newRectArr: {
+    rect: JSX.Element;
+    img: HobbiesDocumentWithDuration;
     orientation: "vertical" | "horizontal";
-    img: Image;
-  };
+  }[] = [];
+  for (let i of newArr) {
+    const remaining = Object.entries(map);
+    const width =
+      typeof i.rect.props.width === "string"
+        ? parseFloat(i.rect.props.width)
+        : i.rect.props.width;
+    const height =
+      typeof i.rect.props.height === "string"
+        ? parseFloat(i.rect.props.height)
+        : i.rect.props.height;
+    const orientation = width / height > 1 ? "horizontal" : "vertical";
+    for (let [key, value] of remaining) {
+      if (value.orientation === orientation) {
+        newRectArr.push({
+          rect: i.rect,
+          img: value.img,
+          orientation,
+        });
+        delete map[key];
+        break;
+      }
+    }
+  }
+  return newRectArr;
 };
-export type UseImageIntervalProps = {
-  fetchImgUrl: string;
-  imgSet: number;
-  verticalCount?: number;
-  horizontalCount?: number;
-  fetchParams?: { [key: string]: any };
+type HobbiesImagesGetNewProps = {
+  setStatus: React.Dispatch<
+    React.SetStateAction<"loading" | "error" | "success">
+  >;
+  orientation: "horizontal" | "vertical";
+  setImgs: React.Dispatch<React.SetStateAction<HobbiesDocumentWithDuration[]>>;
+  setImgsKey: React.Dispatch<React.SetStateAction<string | null>>;
+  durationTimerInterval: [number, number];
 };
-export type ImageInterval = {
-  interval: NodeJS.Timer | number | undefined;
-  img: Image;
-}[];
-const useHobbiesImageLookahead = ({
+const hobbiesImagesGetNew = async ({
+  setStatus,
+  orientation,
+  setImgs,
+  setImgsKey,
+  durationTimerInterval,
+}: HobbiesImagesGetNewProps) => {
+  setStatus("loading");
+  //fetch new documents
+  const res = await fetchHobbiesData({
+    query: {
+      orientation: orientation,
+    },
+  });
+  //shuffle array
+  const shuffledItems = res ? shuffleArray(res.result.Items) : [];
+  unstable_batchedUpdates(() => {
+    setStatus("success");
+    setImgs((e) => {
+      //assign duration timers
+      const addTimers = shuffledItems.map((e) => ({
+        ...e,
+        duration: generateRandomNumber(
+          durationTimerInterval[0],
+          durationTimerInterval[1]
+        ),
+      }));
+      // remove duplicates
+      const newArr = removeDuplicates([...e, ...addTimers]);
+      return newArr;
+    });
+    setImgsKey(
+      res
+        ? res.result.LastEvaluatedKey
+          ? JSON.stringify(res.result.LastEvaluatedKey)
+          : null
+        : null
+    );
+  });
+};
+type HobbiesImgsLookAheadProps = {
+  orientation: "horizontal" | "vertical";
+  imgsKey?: string | null;
+  items: HobbiesDocumentWithDuration[];
+  currIdx: number;
+};
+const hobbiesImgsLookAhead = async ({
+  orientation,
   items,
-  imgKey,
-  //intervalCount,
-  setCurrIdx,
-}: {
-  imgKey:, 
-  items: HobbiesDocument[];
-  //intervalCount: number;
-  setCurrIdx: React.Dispatch<React.SetStateAction<number>>;
-  }) => {
-  
+  imgsKey,
+  durationTimerInterval,
+  currIdx,
+  setStatus,
+  setImgs,
+  setImgsKey,
+}: HobbiesImgsLookAheadProps & HobbiesImagesGetNewProps) => {
   //do a lookahead
-  setCurrIdx((i) => {
-    
-  })
-  //if (items.length >= intervalCount - 1) setCurrIdx(intervalCount - 1);
-  //else setCurrIdx(0);
-
+  const nextIdx = currIdx + 1;
+  //check if next pointer requires more items
+  if (nextIdx >= items.length) {
+    //check if there's a definitive end to list
+    if (!imgsKey) return;
+    // {
+    //   return setCurrIdx(0);
+    // }
+    //fetch new images
+    await hobbiesImagesGetNew({
+      setStatus,
+      orientation,
+      setImgs,
+      setImgsKey,
+      durationTimerInterval,
+    });
+  }
 };
 const useHobbiesImagesType = ({
   intervalCount,
   orientation,
+  durationInterval,
 }: {
   intervalCount: number;
   orientation: "vertical" | "horizontal";
+  durationInterval: [number, number];
 }) => {
   const [currIdx, setCurrIdx] = useState(0);
-  const [imgs, setImgs] = useState<HobbiesDocument[]>([]);
+  const [imgs, setImgs] = useState<HobbiesDocumentWithDuration[]>([]);
   const [imgsKey, setImgsKey] = useState<string | null>(null);
   const [status, setStatus] = useState<"loading" | "error" | "success">(
     "loading"
   );
+  const initialImgsInterval = imgs.slice(0, intervalCount);
   useEffect(() => {
-    setStatus("loading");
-    fetchHobbiesData({
-      query: {
-        orientation: orientation,
-      },
-    }).then((res) => {
-      unstable_batchedUpdates(() => {
-        setStatus("success");
-        setImgs(res ? shuffleArray(res.result.Items) : []);
-        setImgsKey(
-          res
-            ? res.result.LastEvaluatedKey
-              ? JSON.stringify(res.result.LastEvaluatedKey)
-              : null
-            : null
-        );
+    unstable_batchedUpdates(() => {
+      hobbiesImgsLookAhead({
+        orientation,
+        items: [],
+        currIdx: 0,
+        setStatus,
+        setImgs,
+        setImgsKey,
+        durationTimerInterval: durationInterval,
       });
+      setCurrIdx(intervalCount);
     });
-  }, [orientation, intervalCount]);
+  }, [durationInterval, orientation, intervalCount]);
   const nextItem = () => {
-     //setCurrIdx((idx) => idx + 1);
+    //we loop back when we reach
+    //the definitive end
+    if (!imgsKey) {
+      setCurrIdx(0);
+      return imgs?.[0];
+    }
+    setCurrIdx((idx) => idx + 1);
+    hobbiesImgsLookAhead({
+      orientation,
+      items: imgs,
+      currIdx: currIdx + 1,
+      imgsKey,
+      setStatus,
+      setImgs,
+      setImgsKey,
+      durationTimerInterval: durationInterval,
+    });
+    //we know we aren't at the definitive end
+    //but this allows us to return a value if we have colliding
+    //interval values, and the new images we need havent finished
+    //fetching yet
+    if (currIdx + 1 >= imgs.length) return imgs?.[0];
+    return imgs[currIdx + 1];
+  };
+  return {
+    nextItem,
+    status,
+    initialImgsInterval,
   };
 };
-// const useHobbiesImages = ({
-//   verticalCount,
-//   horizontalCount,
-// }: //fetchParams,
-// {
-//   verticalCount?: number;
-//   horizontalCount?: number;
-//   //fetchParams: UseImageIntervalProps["fetchParams"];
-// }) => {
-//   const [verticalImgs, setVerticalImgs] = useState<HobbiesDocument[]>([]);
-//   const [verticalImgsKey, setVerticalImgsKey] = useState<string | null>(null);
-
-//   const [currVerticalIdx, setCurrVerticalIdx] = useState(0);
-//   useEffect(() => {
-//     fetchHobbiesData({
-//       query: {
-//         orientation: "horizontal",
-//       },
-//     }).then((res) => setHorizontalImgs(res ? res.result.Items : []));
-//     fetchHobbiesData({
-//       query: {
-//         orientation: "vertical",
-//       },
-//     }).then((res) => setVerticalImgs(res ? res.result.Items : []));
-//   }, []);
-//   const nextSet = (orientation: "vertical" | "horizontal") => {
-//     if (orientation === "vertical") setCurrVerticalIdx((idx) => idx + 1);
-//     if (orientation === "horizontal") setCurrHorizontalIdx((idx) => idx + 1);
-//   };
-// };
+const useHobbiesImages = ({
+  vertical,
+  horizontal,
+}: {
+  vertical: {
+    durationInterval: [number, number];
+    count: number;
+  };
+  horizontal: {
+    durationInterval: [number, number];
+    count: number;
+  };
+}) => {
+  const {
+    nextItem: horizontalNextItem,
+    initialImgsInterval: horizontalInitialImgs,
+  } = useHobbiesImagesType({
+    orientation: "horizontal",
+    durationInterval: horizontal.durationInterval,
+    intervalCount: horizontal.count,
+  });
+  const {
+    nextItem: verticalNextItem,
+    initialImgsInterval: verticalInitialImgs,
+  } = useHobbiesImagesType({
+    orientation: "vertical",
+    durationInterval: vertical.durationInterval,
+    intervalCount: vertical.count,
+  });
+  return {
+    horizontalNextItem,
+    verticalNextItem,
+    horizontalInitialImgs,
+    verticalInitialImgs,
+  };
+};
 export default useHobbiesImages;

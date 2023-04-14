@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import KUTE from "kute.js";
 import ImageInCollage from "../../../../utilities/imageInCollage/ImageInCollage";
-import useImageInterval, {
-  //matchElWithImage,
+import useHobbiesImageInterval, {
+  matchElWithImage,
 } from "../../../../hooks/useHobbiesImageInterval";
 const namespace = "about-me-pg";
 export const WaveSVG = ({
@@ -110,30 +110,46 @@ const horizontalCount = pathArr.reduce((a, b) => {
   const increment = b.rect.props.width / b.rect.props.height > 1 ? 0 : 1;
   return a + increment;
 }, 0);
+
 export const MediaCollageSVG = () => {
-  return <></>
-}
-// export const MediaCollageSVG = () => {
-//   const { imageInterval: images, status } = useImageInterval({
-//     imgSet: pathArr.length,
-//     verticalCount: verticalCount,
-//     horizontalCount: horizontalCount,
-//     fetchImgUrl: `${process.env.REACT_APP_REST_API_URL}/hobbies`,
-//   });
-//   const pathArrEls = matchElWithImage(pathArr, images);
-//   return (
-//     <svg viewBox="0 0 167 175" xmlns="http://www.w3.org/2000/svg">
-//       {pathArrEls.map((el, idx) => (
-//         <ImageInCollage
-//           src={el.img.src}
-//           placeholderSrc={el.img.placeholderSrc}
-//           key={idx}
-//           id={idx.toString()}
-//           namespace={namespace}
-//         >
-//           {el.rect}
-//         </ImageInCollage>
-//       ))}
-//     </svg>
-//   );
-// };
+  const durationInterval: [number, number] = [10, 60];
+  const {
+    horizontalInitialImgs,
+    verticalInitialImgs,
+    horizontalNextItem,
+    verticalNextItem,
+  } = useHobbiesImageInterval({
+    vertical: {
+      count: verticalCount,
+      durationInterval,
+    },
+    horizontal: {
+      count: horizontalCount,
+      durationInterval,
+    },
+  });
+  const pathArrEls = matchElWithImage(pathArr, [
+    ...horizontalInitialImgs,
+    ...verticalInitialImgs,
+  ]);
+  return (
+    <svg viewBox="0 0 167 175" xmlns="http://www.w3.org/2000/svg">
+      {pathArrEls.map((el, idx) => (
+        <ImageInCollage
+          nextItem={
+            el.orientation === "horizontal"
+              ? horizontalNextItem
+              : verticalNextItem
+          }
+          src={el.img.imgURL}
+          placeholderSrc={el.img.placeholderURL}
+          key={idx}
+          id={idx.toString()}
+          namespace={namespace}
+        >
+          {el.rect}
+        </ImageInCollage>
+      ))}
+    </svg>
+  );
+};
