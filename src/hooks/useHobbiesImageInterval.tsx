@@ -5,6 +5,7 @@ import { fetchHobbiesData } from "../utilities/asyncActions/HobbiesActions";
 import shuffleArray from "../utilities/helpers/shuffleArray";
 import { generateRandomNumber } from "../utilities/helpers/generateRandomNum";
 import removeDuplicates from "../utilities/helpers/removeDuplicates";
+import { isNull } from "lodash";
 export type HobbiesDocumentWithDuration = HobbiesDocument & {
   duration?: number;
 };
@@ -70,8 +71,9 @@ type HobbiesImagesGetNewProps = {
   >;
   orientation: "horizontal" | "vertical";
   setImgs: React.Dispatch<React.SetStateAction<HobbiesDocumentWithDuration[]>>;
-  setImgsKey: React.Dispatch<React.SetStateAction<string | null>>;
+  setImgsKey: React.Dispatch<React.SetStateAction<string | null | undefined>>;
   durationTimerInterval: [number, number];
+  imgsKey?: string;
 };
 const hobbiesImagesGetNew = async ({
   setStatus,
@@ -79,13 +81,17 @@ const hobbiesImagesGetNew = async ({
   setImgs,
   setImgsKey,
   durationTimerInterval,
+  imgsKey,
 }: HobbiesImagesGetNewProps) => {
   setStatus("loading");
   //fetch new documents
+  // const res: HobbiesDocumentWithDuration[] = [];
+  // setImgs(res);
   const res = await fetchHobbiesData({
     query: {
       orientation: orientation,
     },
+    lastEvaluatedKey: imgsKey,
   });
   //shuffle array
   const shuffledItems = res ? shuffleArray(res.result.Items) : [];
@@ -134,7 +140,7 @@ const hobbiesImgsLookAhead = async ({
   //check if next pointer requires more items
   if (nextIdx >= items.length) {
     //check if there's a definitive end to list
-    if (!imgsKey) return;
+    if (isNull(imgsKey)) return;
     // {
     //   return setCurrIdx(0);
     // }
@@ -142,6 +148,7 @@ const hobbiesImgsLookAhead = async ({
     await hobbiesImagesGetNew({
       setStatus,
       orientation,
+      imgsKey,
       setImgs,
       setImgsKey,
       durationTimerInterval,
@@ -159,11 +166,12 @@ const useHobbiesImagesType = ({
 }) => {
   const [currIdx, setCurrIdx] = useState(0);
   const [imgs, setImgs] = useState<HobbiesDocumentWithDuration[]>([]);
-  const [imgsKey, setImgsKey] = useState<string | null>(null);
+  const [imgsKey, setImgsKey] = useState<string | null | undefined>(null);
   const [status, setStatus] = useState<"loading" | "error" | "success">(
     "loading"
   );
   const initialImgsInterval = imgs.slice(0, intervalCount);
+  const [startDuration, endDuration] = durationInterval;
   useEffect(() => {
     unstable_batchedUpdates(() => {
       hobbiesImgsLookAhead({
@@ -173,11 +181,11 @@ const useHobbiesImagesType = ({
         setStatus,
         setImgs,
         setImgsKey,
-        durationTimerInterval: durationInterval,
+        durationTimerInterval: [startDuration, endDuration],
       });
       setCurrIdx(intervalCount);
     });
-  }, [durationInterval, orientation, intervalCount]);
+  }, [startDuration, endDuration, orientation, intervalCount]);
   const nextItem = () => {
     //we loop back when we reach
     //the definitive end

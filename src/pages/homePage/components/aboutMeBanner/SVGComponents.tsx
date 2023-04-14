@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import KUTE from "kute.js";
 import ImageInCollage from "../../../../utilities/imageInCollage/ImageInCollage";
-import useHobbiesImageInterval, {
+import useHobbiesImages, {
   matchElWithImage,
 } from "../../../../hooks/useHobbiesImageInterval";
 const namespace = "about-me-pg";
@@ -112,13 +112,13 @@ const horizontalCount = pathArr.reduce((a, b) => {
 }, 0);
 
 export const MediaCollageSVG = () => {
-  const durationInterval: [number, number] = [10, 60];
+  const durationInterval: [number, number] = [10000, 60000];
   const {
     horizontalInitialImgs,
     verticalInitialImgs,
     horizontalNextItem,
     verticalNextItem,
-  } = useHobbiesImageInterval({
+  } = useHobbiesImages({
     vertical: {
       count: verticalCount,
       durationInterval,

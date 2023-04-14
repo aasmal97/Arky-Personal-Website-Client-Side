@@ -14,7 +14,7 @@ export const fetchHobbiesData = async ({
       method: "get",
       url: `${process.env.REACT_APP_REST_API_URL}/hobbies`,
       params: {
-        query: query,
+        query: JSON.stringify(query),
         lastEvaluatedKey,
         max,
       },

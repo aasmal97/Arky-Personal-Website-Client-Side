@@ -56,7 +56,16 @@ const Row = ({
 };
 
 const Footer = () => {
-  const [userData, setUserData] = useState<UserInfo | null>(null);
+  const [userData, setUserData] = useState<UserInfo>({
+    stackOverflowData: {
+      reputation: 0,
+      peopleReached: 0,
+    },
+    githubData: {
+      repositories: 0,
+      contributions: 0,
+    },
+  });
   useEffect(() => {
     getUserInfo().then((e) => setUserData(e));
   }, []);

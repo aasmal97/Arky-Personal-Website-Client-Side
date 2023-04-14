@@ -1,6 +1,6 @@
 import ImageInCollage from "../../../utilities/imageInCollage/ImageInCollage";
-import useImageInterval, {
-  //matchElWithImage,
+import useHobbiesImages, {
+  matchElWithImage,
 } from "../../../hooks/useHobbiesImageInterval";
 const namespace = "about-pg-hobbies";
 const HobbiesSVG = () => (
@@ -49,29 +49,46 @@ const horizontalCount = rectArr.reduce((a, b) => {
   return a + increment;
 }, 0);
 const ImageCollageSVG = () => {
-  return <></>
-  // const { imageInterval: images, status } = useImageInterval({
-  //   imgSet: rectArr.length,
-  //   verticalCount: verticalCount,
-  //   horizontalCount: horizontalCount,
-  //   fetchImgUrl: `${process.env.REACT_APP_AWS_GATEWAY_API}/hobbies`,
-  // });
-  // const rectArrEls = matchElWithImage(rectArr, images);
-  // return (
-  //   <svg viewBox="0 0 481 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-  //     {rectArrEls.map((el, idx) => (
-  //       <ImageInCollage
-  //         src={el.img.src}
-  //         placeholderSrc={el.img.placeholderSrc}
-  //         key={idx}
-  //         namespace={namespace}
-  //         id={idx.toString()}
-  //       >
-  //         {el.rect}
-  //       </ImageInCollage>
-  //     ))}
-  //   </svg>
-  // );
+  const durationInterval: [number, number] = [10000, 60000];
+  const {
+    horizontalInitialImgs,
+    verticalInitialImgs,
+    horizontalNextItem,
+    verticalNextItem,
+  } = useHobbiesImages({
+    vertical: {
+      count: verticalCount,
+      durationInterval,
+    },
+    horizontal: {
+      count: horizontalCount,
+      durationInterval,
+    },
+  });
+  const rectArrEls = matchElWithImage(rectArr, [
+    ...horizontalInitialImgs,
+    ...verticalInitialImgs,
+  ]);
+  return (
+    <svg viewBox="0 0 481 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {rectArrEls.map((el, idx) => (
+        <ImageInCollage
+          nextItem={
+            el.orientation === "horizontal"
+              ? horizontalNextItem
+              : verticalNextItem
+          }
+          src={el.img.imgURL}
+          placeholderSrc={el.img.placeholderURL}
+          key={idx}
+          namespace={namespace}
+          id={idx.toString()}
+        >
+          {el.rect}
+        </ImageInCollage>
+      ))}
+    </svg>
+  );
 };
 const HobbiesBanner = () => {
   return (
