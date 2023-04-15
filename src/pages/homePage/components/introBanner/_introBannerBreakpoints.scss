@@ -61,3 +61,8 @@ $namespace: i.$namespace;
     padding: calc(#{v.$navbar-height}) 0;
   }
 }
+@mixin intro-hover {
+  .#{$namespace}-sub-content button {
+    @include v.hover-action;
+  }
+}

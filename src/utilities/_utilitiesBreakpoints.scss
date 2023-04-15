@@ -9,3 +9,6 @@
   @include nav.navbar-sm;
   @include footer.footer-sm;
 }
+@mixin utilities-hover {
+  @include nav.navbar-hover;
+}

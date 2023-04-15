@@ -17,7 +17,8 @@ $unitless-size: c.$unitless-size;
     textarea {
       font-size: calc(#{$font-size} * 0.22);
     }
-    textarea,input {
+    textarea,
+    input {
       margin-top: calc((#{$font-size} / 2.2) / 1.5);
     }
     button {
@@ -45,7 +46,7 @@ $unitless-size: c.$unitless-size;
     justify-content: center;
   }
   ##{$namespace}-profile {
-    width: 100%;
+    width: 75%;
     min-height: unset;
   }
   ##{$namespace}-circle {
@@ -60,7 +61,7 @@ $unitless-size: c.$unitless-size;
     padding-top: 8%;
   }
   ##{$namespace}-message-inner {
-    width: 85%;
+    width: 70%;
   }
   @include contact-me-spacing($unitless-size * 2);
 }
@@ -69,4 +70,10 @@ $unitless-size: c.$unitless-size;
 }
 @mixin contact-me-sm {
   @include contact-me-spacing($unitless-size * 2.5);
+}
+@mixin contact-me-hover {
+  ##{$namespace}-message-form button {
+    @include v.hover-action;
+    
+  }
 }

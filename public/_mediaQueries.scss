@@ -29,4 +29,6 @@
 @media (any-hover: hover) {
   @include about.about-hover;
   @include projects.project-hover;
+  @include home.home-hover;
+  @include util.utilities-hover;
 }

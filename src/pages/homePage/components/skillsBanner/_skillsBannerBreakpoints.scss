@@ -1,6 +1,7 @@
 @use "./skillsBanner" as s;
+@use "../../../../../public/variables" as v;
 $namespace: s.$namespace;
-@mixin skills-spacing($font-size,   $link-size-unit: $font-size,) {
+@mixin skills-spacing($font-size, $link-size-unit: $font-size) {
   .#{$namespace}-media-content {
     min-height: 10em;
   }
@@ -37,4 +38,9 @@ $namespace: s.$namespace;
 }
 @mixin skills-sm {
   @include skills-spacing(10.5, 15);
+}
+@mixin skills-hover {
+  .#{$namespace}-text-content button {
+    @include v.hover-action;
+  }
 }

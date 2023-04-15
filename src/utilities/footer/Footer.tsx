@@ -102,31 +102,35 @@ const Footer = () => {
               text={`contributions in ${getYear(currDate)}`}
             />
           </Row>
-          <Row
-            icon={<StackOverflowIcon />}
-            link="https://stackoverflow.com/users/16451347/arky-asmal"
-          >
-            <RowItem
-              icon={faCertificate}
-              title={
-                userData
-                  ? roundToNearest({
-                      number: userData.stackOverflowData.reputation,
-                      toString: true,
-                      decimalPlaces: 1,
-                    })
-                  : "0"
-              }
-              text={"reputation"}
-            />
-            <RowItem
-              icon={faUsers}
-              title={
-                userData ? userData.stackOverflowData.peopleReached + "+" : "0"
-              }
-              text={`people reached`}
-            />
-          </Row>
+          {userData.stackOverflowData && (
+            <Row
+              icon={<StackOverflowIcon />}
+              link="https://stackoverflow.com/users/16451347/arky-asmal"
+            >
+              <RowItem
+                icon={faCertificate}
+                title={
+                  userData
+                    ? roundToNearest({
+                        number: userData.stackOverflowData.reputation,
+                        toString: true,
+                        decimalPlaces: 1,
+                      })
+                    : "0"
+                }
+                text={"reputation"}
+              />
+              <RowItem
+                icon={faUsers}
+                title={
+                  userData
+                    ? userData.stackOverflowData.peopleReached + "+"
+                    : "0"
+                }
+                text={`people reached`}
+              />
+            </Row>
+          )}
         </div>
 
         <div id={`${namespace}-bottom-footer`}>

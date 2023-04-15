@@ -1,3 +1,5 @@
+@use "../../../public/variables" as v;
+
 @mixin navbar-md {
 }
 
@@ -8,6 +10,80 @@
     button,
     a {
       width: 100%;
+    }
+  }
+}
+@mixin navbar-hover {
+  $namespace: "navbar";
+  ##{$namespace} {
+    button,
+    a {
+      //needed for hover animation
+      @keyframes navbar-anchor-background-animation {
+        0% {
+          transform: translateX(-100%);
+        }
+        50% {
+          transform: translateX(0%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+      .link-animation-container {
+        position: absolute;
+        overflow: hidden;
+        height: 100%;
+        width: 56%;
+        left: 22%;
+        bottom: 0;
+        &:after {
+          transform: translateX(100%);
+          position: absolute;
+          content: "";
+          bottom: 16%;
+          height: 1px;
+          width: 100%;
+          left: 0;
+          transform: translateX(-100%);
+          background-image: linear-gradient(0deg, v.$white 0%, v.$white 100%);
+          background-position: 100% 85%;
+          background-repeat: no-repeat;
+          background-size: 100% 0.5px;
+          //transition: background-size 0.2s linear 0.15s;
+        }
+      }
+
+      svg {
+        right: 10%;
+        position: absolute;
+        vertical-align: top;
+        display: inline;
+        line-height: 1;
+        width: 13px;
+        height: 20px;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1px;
+        stroke: v.$white;
+        stroke-dasharray: 7.95 30;
+        stroke-dashoffset: 46;
+        transition: stroke-dashoffset 0.15s linear 0s;
+      }
+      &:hover {
+        .link-animation-container {
+          &::after {
+            animation: navbar-anchor-background-animation 1s linear 0.15s;
+          }
+        }
+        svg {
+          stroke: v.$white;
+          stroke-dashoffset: 26;
+          transition: stroke-dashoffset 0.3s cubic-bezier(0.3, 1.5, 0.5, 1)
+            0.195s;
+        }
+      }
     }
   }
 }

@@ -34,6 +34,12 @@ $horizontal-gradient: linear-gradient(
 );
 
 $navbar-height: 3.3em;
+@mixin hover-action($duration: 0.2s, $scale: 1.05) {
+  transition: transform ease-out $duration;
+  &:hover {
+    transform: scale($scale);
+  }
+}
 @mixin remove-btn-default {
   cursor: pointer;
   border: none;

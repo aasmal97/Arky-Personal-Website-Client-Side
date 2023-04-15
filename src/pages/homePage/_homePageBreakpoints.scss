@@ -24,3 +24,9 @@
   @include about.about-sm;
   @include contact-me.contact-me-sm
 }
+@mixin home-hover{
+  @include contact-me.contact-me-hover;
+  @include skills.skills-hover;
+  @include intro.intro-hover;
+  @include project.project-hover;
+}

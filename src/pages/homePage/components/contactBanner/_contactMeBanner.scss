@@ -11,6 +11,7 @@ $font-size: calc(min(#{$unitless-size}vw, 5.5em));
   background-color: v.$dark-black;
   min-height: 100vh;
   padding: calc(#{v.$navbar-height}) 0;
+  align-items: center;
 }
 ##{$namespace}-profile {
   display: flex;

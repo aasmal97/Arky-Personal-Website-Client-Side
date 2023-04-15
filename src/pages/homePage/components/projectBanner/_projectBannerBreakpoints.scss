@@ -6,7 +6,7 @@ $namespace: p.$namespace;
   .#{$namespace}-text-content {
     $unitless-size: $font-size-unit;
     $font-size: calc(min(#{$unitless-size}vw, 5.5em));
-    
+
     h2 {
       font-size: calc(#{$font-size} * 0.61);
       margin-bottom: calc(#{$font-size} / 2);
@@ -108,4 +108,10 @@ $namespace: p.$namespace;
   .#{$namespace}-slide-inner {
     margin-bottom: 3.5em;
   }
+}
+@mixin project-hover {
+  .#{$namespace}-text-content a {
+    @include v.hover-action;
+  }
+  
 }

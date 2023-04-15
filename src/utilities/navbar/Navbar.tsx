@@ -21,6 +21,10 @@ const Navbar = () => {
         l.link ? (
           <Link key={l.name} to={l.link} onClick={l.onClick}>
             {l.name}
+            <div className="link-animation-container"></div>
+            <svg viewBox="0 0 13 20">
+              <polyline points="0.5 19.5 3 19.5 12.5 10 3 0.5" />
+            </svg>
           </Link>
         ) : l.hashLink ? (
           <HashLink key={l.name} to={l.hashLink}>
