@@ -4,12 +4,16 @@ import Facebook from "../../../../utilities/icons/Facebook";
 import LinkedIn from "../../../../utilities/icons/LinkedIn";
 import useElementSize, { Size } from "../../../../hooks/useElementSize";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import anime from "animejs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import LineDrawText from "../../../../utilities/lineDrawText/LineDrawText";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
+import { postContactMeMessage } from "../../../../utilities/asyncActions/ContactMeActions";
+import { LoadingButton } from "@mui/lab";
+import { LoadingIconRegularCircle } from "../../../../utilities/loadingIcon/LoadingIcon";
+// import LoadingIcon from "../../../../utilities/loadingIcon/LoadingIcon";
 const namespace = "contact-me-banner";
 const socialMedia = [
   {
@@ -233,6 +237,7 @@ const FormInput = ({
           name={name}
           type={inputType}
           placeholder={placeholder}
+          required
         />
       )}
       {inputType === "textarea" && (
@@ -263,14 +268,47 @@ const Profile = () => {
 };
 const MessageBox = () => {
   const [setRef, size] = useElementSize();
+  const [formStatus, setFormStatus] = useState<"loading" | "error" | "success">(
+    "success"
+    //"loading"
+  );
+  const [playAnimation, setPlayAnimation] = useState(false);
   const smallWindowWidth = useWindowWidth(992);
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (formStatus === "loading") return;
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    const { message_subject, message_contact, message_content } = data;
+    console.log(message_contact, message_subject, message_content);
+    if (message_subject && message_contact && message_content) {
+      setFormStatus("loading");
+      //we do both so that we rest position of animation
+      setPlayAnimation(true);
+      postContactMeMessage({
+        subject: message_subject.toString(),
+        contact: message_contact.toString(),
+        content: message_content.toString(),
+      })
+        .then((e) => {
+          setFormStatus("success");
+        })
+        .catch((err) => {
+          console.error(err);
+          setFormStatus("error");
+        });
+    }
+  };
   const paddingLeft = 23;
   const paddingTop = 17;
   return (
     <div id={`${namespace}-message`}>
       <div id={`${namespace}-message-inner`}>
-        <MessageBoxLine setRef={setRef} size={size} playAnimation={false} />
+        <MessageBoxLine
+          setRef={setRef}
+          size={size}
+          playAnimation={playAnimation}
+        />
         <form
           onSubmit={onSubmit}
           id={`${namespace}-message-form`}
@@ -283,25 +321,49 @@ const MessageBox = () => {
             width: `calc(${size.width}px - (${size.width}px * ${
               paddingLeft / 100
             }))`,
-            //minHeight: "25em"
           }}
         >
+          {/* {formStatus === "loading" && <LoadingIcon } */}
+
           <FormInput
-            name="message-subject"
+            name="message_subject"
             inputType="text"
             placeholder="Subject"
           />
           <FormInput
             placeholder="Contact Info"
             inputType="text"
-            name="message-contact"
+            name="message_contact"
           />
           <FormInput
             placeholder={"Message"}
-            name="message-content"
+            name="message_content"
             inputType="textarea"
           />
-          <button type="submit">Send</button>
+          <LoadingButton
+            type="submit"
+            loading={formStatus === "loading"}
+            loadingIndicator={
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "70%",
+                  width: "100%",
+                }}
+              >
+                <LoadingIconRegularCircle
+                  color="white"
+                  style={{ height: "100%" }}
+                />
+              </div>
+            }
+            variant="outlined"
+          >
+            Send
+          </LoadingButton>
+          {/* <button type="submit">Send</button> */}
         </form>
         <div
           id={`${namespace}-message-urgent`}

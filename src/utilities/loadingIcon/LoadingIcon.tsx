@@ -273,6 +273,34 @@ export const LoadingIconCircleCarousel = ({
     );
   return <div style={{ position: "relative", width: width }}>{svgIcon}</div>;
 };
+export const LoadingIconRegularCircle = ({
+  color,
+  style
+}: {
+  color: string;
+  style?: { [key: string]: string };
+}) => {
+  const namespace = "loading-icon";
+  return (
+    <svg
+      style={style}
+      className={`${namespace}-regular-circle-spinner`}
+      viewBox="0 0 66 66"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        stroke={color}
+        className="path"
+        fill="none"
+        strokeWidth="6"
+        strokeLinecap="round"
+        cx="33"
+        cy="33"
+        r="30"
+      ></circle>
+    </svg>
+  );
+};
 const LoadingIconText = ({
   className,
   strokeColor,
