@@ -14,11 +14,17 @@ export type Image = {
   googleResourceId?: string;
   name?: string;
 };
+export type Skills = {
+  recordType: string;
+  name: string;
+  date_created?: string;
+  order?: string;
+};
 export type ProjectDocument = {
   pk: {
     recordType: "projects";
     dateCreated: string;
-    startDate: string; 
+    startDate: string;
   };
   recordType: "projects";
   id: string;
@@ -54,6 +60,11 @@ export type HobbiesDocument = {
 export type GeneralFetchData = {
   message: string;
   result: Omit<QueryCommandOutput, "$metadata" | "Items">;
+};
+export type SkillsFetchData = GeneralFetchData & {
+  result: {
+    Items: Skills[];
+  };
 };
 export type HobbiesFetchData = GeneralFetchData & {
   result: { Items: HobbiesDocument[] };

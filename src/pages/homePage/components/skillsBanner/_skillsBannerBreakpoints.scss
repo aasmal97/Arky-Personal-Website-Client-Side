@@ -1,7 +1,7 @@
 @use "./skillsBanner" as s;
 @use "../../../../../public/variables" as v;
 $namespace: s.$namespace;
-@mixin skills-spacing($font-size, $link-size-unit: $font-size) {
+@mixin skills-spacing($font-size, $link-size-unit: $font-size, $grid-gap: $font-size) {
   .#{$namespace}-media-content {
     min-height: 10em;
   }
@@ -20,6 +20,18 @@ $namespace: s.$namespace;
       padding: calc(#{$link-size} * 0.3 / 3) calc(#{$link-size} * 0.3);
     }
   }
+  .#{$namespace}-skills-list {
+    h3 {
+      font-size: calc(#{$font-size} * 0.8);
+      line-height: calc(#{$font-size} * 1.1);
+    }
+  }
+  .#{$namespace}-skills-list-inner {
+    grid-gap: calc(#{$grid-gap} * 0.5); /* optional */
+    .#{$namespace}-skills-list-item {
+      font-size: calc(#{$font-size} * 0.3);
+    }
+  }
 }
 @mixin skills-lg {
   @include skills-spacing(7);
@@ -35,12 +47,24 @@ $namespace: s.$namespace;
 }
 @mixin skills-md {
   @include skills-spacing(10);
+  .#{$namespace}-skills-list-inner {
+      $width: min(5vw, 4em);
+
+    grid-template-columns: repeat(2, 1fr);
+      padding-top: calc(#{$width} * 2) ;
+  }
 }
 @mixin skills-sm {
   @include skills-spacing(10.5, 15);
+  // .#{$namespace}-skills-list-inner {
+  //   grid-template-columns: repeat(2, 1fr);
+  // }
 }
 @mixin skills-hover {
-  .#{$namespace}-text-content button {
-    @include v.hover-action;
+  .#{$namespace}-text-content {
+    button,
+    a {
+      @include v.hover-action;
+    }
   }
 }

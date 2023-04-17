@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import GithubIcon from "../icons/Github";
 import StackOverflowIcon from "../icons/StackOverflow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -55,7 +55,7 @@ const Row = ({
   );
 };
 
-const Footer = () => {
+const Footer = memo(() => {
   const [userData, setUserData] = useState<UserInfo>({
     stackOverflowData: {
       reputation: 0,
@@ -67,41 +67,46 @@ const Footer = () => {
     },
   });
   useEffect(() => {
-    getUserInfo().then((e) => setUserData(e));
+    getUserInfo().then((e) => {
+      if (e.stackOverflowData && e.githubData) setUserData(e);
+    });
   }, []);
   return (
     <footer id={namespace}>
       <div id={`${namespace}-inner`}>
         <span>Interested in my source code or technical help?</span>
         <div className={`${namespace}-rows`}>
-          <Row icon={<GithubIcon />} link="https://github.com/aasmal97">
-            <RowItem
-              icon={faBook}
-              title={
-                userData
-                  ? roundToNearest({
-                      number: userData.githubData.repositories,
-                      toString: true,
-                      decimalPlaces: 1,
-                    })
-                  : "0"
-              }
-              text={"repos"}
-            />
-            <RowItem
-              icon={faCodeFork}
-              title={
-                userData
-                  ? roundToNearest({
-                      number: userData.githubData.contributions,
-                      toString: true,
-                      decimalPlaces: 1,
-                    })
-                  : "0"
-              }
-              text={`contributions in ${getYear(currDate)}`}
-            />
-          </Row>
+          {userData.githubData && (
+            <Row icon={<GithubIcon />} link="https://github.com/aasmal97">
+              <RowItem
+                icon={faBook}
+                title={
+                  userData
+                    ? roundToNearest({
+                        number: userData.githubData.repositories,
+                        toString: true,
+                        decimalPlaces: 1,
+                      })
+                    : "0"
+                }
+                text={"repos"}
+              />
+              <RowItem
+                icon={faCodeFork}
+                title={
+                  userData
+                    ? roundToNearest({
+                        number: userData.githubData.contributions,
+                        toString: true,
+                        decimalPlaces: 1,
+                      })
+                    : "0"
+                }
+                text={`contributions in ${getYear(currDate)}`}
+              />
+            </Row>
+          )}
+
           {userData.stackOverflowData && (
             <Row
               icon={<StackOverflowIcon />}
@@ -150,5 +155,5 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
+});
 export default Footer;

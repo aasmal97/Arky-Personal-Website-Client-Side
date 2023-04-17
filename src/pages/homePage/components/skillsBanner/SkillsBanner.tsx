@@ -1,3 +1,7 @@
+import { useState, useEffect, memo } from "react";
+import { fetchSkillsData } from "../../../../utilities/asyncActions/SkillsActions";
+import { Skills } from "../../../../utilities/types/RestApiTypes";
+import Collapse from "@mui/material/Collapse";
 const namespace = "skills-banner";
 const BubblesSVGIcon = () => {
   return (
@@ -18,28 +22,80 @@ const BubblesSVGIcon = () => {
 const MediaContent = () => {
   return <div className={`${namespace}-media-content`}></div>;
 };
-const TextContent = () => {
+const TextContent = ({
+  showSkills,
+  setShowSkills,
+}: {
+  showSkills: boolean;
+  setShowSkills: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   return (
     <div className={`${namespace}-text-content`}>
       <p>
         Devouring knowledge is my strongest attribute. As a result, I have 30+
         skills at my disposal. And I’m always hungry for more.
       </p>
-      <button>See Skills</button>
+      <button
+        onClick={() => setShowSkills((e) => !e)}
+        aria-label={"toggle-skills"}
+      >
+        {!showSkills ? "See" : "Hide"} Skills{" "}
+      </button>
     </div>
   );
 };
-const SkillsBanner = () => {
+const SkillsList = () => {
+  const [skills, setSkills] = useState<Skills[]>([]);
+  useEffect(() => {
+    fetchSkillsData({
+      query: {},
+      max: 200,
+    }).then((res) => {
+      const items = res?.result.Items;
+      if (!items) return;
+      setSkills(
+        items.sort((a, b) => {
+          const aIdx =
+            typeof a.order === "number" ? parseInt(a.order) : items.length;
+          const bIdx =
+            typeof b.order === "number" ? parseInt(b.order) : items.length;
+          return aIdx - bIdx;
+        })
+      );
+    });
+    return () => {};
+  }, []);
+  return (
+    <div className={`${namespace}-skills-list`}>
+      <h3>Skills</h3>
+      <div className={`${namespace}-skills-list-inner`}>
+        {skills.map((item) => {
+          return (
+            <div className={`${namespace}-skills-list-item`} key={item.name}>
+              <div className={`${namespace}-skills-list-item-name`}>
+                {item.name}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+const SkillsBanner = memo(() => {
+  const [showSkills, setShowSkills] = useState(false);
   return (
     <div id={namespace}>
       <BubblesSVGIcon />
-          <div id={`${namespace}-inner`}>
+      <div id={`${namespace}-inner`}>
         <MediaContent />
-        <TextContent />
+        <TextContent showSkills={showSkills} setShowSkills={setShowSkills} />
       </div>
-
+      <Collapse in={showSkills} timeout={500}>
+        <SkillsList />
+      </Collapse>
       <BubblesSVGIcon />
     </div>
   );
-};
+});
 export default SkillsBanner;

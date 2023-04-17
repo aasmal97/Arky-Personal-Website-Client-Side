@@ -54,23 +54,7 @@
         }
       }
 
-      svg {
-        right: 10%;
-        position: absolute;
-        vertical-align: top;
-        display: inline;
-        line-height: 1;
-        width: 13px;
-        height: 20px;
-        fill: none;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 1px;
-        stroke: v.$white;
-        stroke-dasharray: 7.95 30;
-        stroke-dashoffset: 46;
-        transition: stroke-dashoffset 0.15s linear 0s;
-      }
+
       &:hover {
         .link-animation-container {
           &::after {
