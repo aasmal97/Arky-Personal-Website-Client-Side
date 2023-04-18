@@ -74,6 +74,10 @@ $unitless-size: c.$unitless-size;
 @mixin contact-me-hover {
   ##{$namespace}-message-form button {
     @include v.hover-action;
-    
+  }
+  ##{$namespace}-social-media {
+    a {
+      @include v.hover-action($scale: 1.15);
+    }
   }
 }

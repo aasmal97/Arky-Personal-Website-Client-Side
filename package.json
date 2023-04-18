@@ -23,6 +23,7 @@
     "animejs": "^3.2.1",
     "axios": "^1.2.1",
     "date-fns": "^2.29.3",
+    "email-validator": "^2.0.4",
     "kute.js": "^2.2.4",
     "localforage": "=1.10.0",
     "lodash": "^4.17.21",

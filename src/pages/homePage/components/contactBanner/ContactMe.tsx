@@ -13,6 +13,7 @@ import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
 import { postContactMeMessage } from "../../../../utilities/asyncActions/ContactMeActions";
 import { LoadingButton } from "@mui/lab";
 import { LoadingIconRegularCircle } from "../../../../utilities/loadingIcon/LoadingIcon";
+import { unstable_batchedUpdates } from "react-dom";
 // import LoadingIcon from "../../../../utilities/loadingIcon/LoadingIcon";
 const namespace = "contact-me-banner";
 const socialMedia = [
@@ -85,8 +86,6 @@ const ProfileHeader = ({ isVisible }: { isVisible?: boolean }) => (
     animationDelay={4}
   >
     <svg
-      width="586"
-      height="75"
       viewBox="0 0 586 75"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -272,6 +271,7 @@ const MessageBox = () => {
     "success"
     //"loading"
   );
+  const [formMessage, setFormMessage] = useState<string | null>(null);
   const [playAnimation, setPlayAnimation] = useState(false);
   const smallWindowWidth = useWindowWidth(992);
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -283,7 +283,7 @@ const MessageBox = () => {
     console.log(message_contact, message_subject, message_content);
     if (message_subject && message_contact && message_content) {
       setFormStatus("loading");
-      //we do both so that we rest position of animation
+      //we do both so that we reset position of animation
       setPlayAnimation(true);
       postContactMeMessage({
         subject: message_subject.toString(),
@@ -291,11 +291,16 @@ const MessageBox = () => {
         content: message_content.toString(),
       })
         .then((e) => {
-          setFormStatus("success");
+          unstable_batchedUpdates(() => {
+            setFormMessage(e);
+            setFormStatus("success");
+          });
         })
         .catch((err) => {
           console.error(err);
-          setFormStatus("error");
+          unstable_batchedUpdates(() => {
+            setFormStatus("error");
+          });
         });
     }
   };
@@ -323,8 +328,6 @@ const MessageBox = () => {
             }))`,
           }}
         >
-          {/* {formStatus === "loading" && <LoadingIcon } */}
-
           <FormInput
             name="message_subject"
             inputType="text"
