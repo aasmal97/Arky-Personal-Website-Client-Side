@@ -13,18 +13,42 @@ $unitless-size: c.$unitless-size;
     }
   }
   ##{$namespace}-message-form {
-    input,
-    textarea {
-      font-size: calc(#{$font-size} * 0.22);
-    }
-    textarea,
-    input {
-      margin-top: calc((#{$font-size} / 2.2) / 1.5);
-    }
-    button {
+    & > button:last-child {
       margin-top: calc(#{$font-size} / 2.2);
       font-size: calc(#{$font-size} * 0.23);
       padding: calc(#{$font-size} * 0.15) 0;
+    }
+  }
+
+  ##{$namespace}-message-form-inner {
+    font-size: calc(#{$font-size} * 0.22);
+
+    input,
+    textarea {
+      font-size: calc(#{$font-size} * 0.22);
+      padding: calc(#{$font-size} * 0.22 / 2) calc(#{$font-size} * 0.22 / 1.9);
+      margin-top: calc((#{$font-size} / 2.2) / 1.5);
+    }
+  }
+
+  .#{$namespace}-contact-form-input {
+    margin-bottom: calc((#{$font-size} / 2.2) / 1.5);
+    font-size: calc(#{$font-size} * 0.22);
+    .#{$namespace}-contact-form-input-email {
+      font-size: calc(#{$font-size} * 0.22);
+      padding: calc(#{$font-size} * 0.22 / 2) calc(#{$font-size} * 0.22 / 1.9);
+    }
+    .phone-input-container {
+      font-size: calc(#{$font-size} * 0.22);
+      .phone-dropdown {
+        font-size: calc(#{$font-size} * 0.22);
+      }
+      .phone-input {
+        padding-top: calc(#{$font-size} * 0.22 / 2);
+        padding-bottom: calc(#{$font-size} * 0.22 / 2);
+        padding-right: calc(#{$font-size} * 0.22 / 1.9);
+        font-size: calc(#{$font-size} * 0.22);
+      }
     }
   }
   ##{$namespace}-message-urgent {

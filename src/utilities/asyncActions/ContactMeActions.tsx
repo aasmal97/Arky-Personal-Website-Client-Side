@@ -16,15 +16,19 @@ export const postContactMeMessage = async ({
   content: string;
 }) => {
   const sendType = validate(contact) ? "email" : "phone";
+  const data = {
+    subject,
+    sender: contact,
+    message: content,
+    type: sendType,
+  };
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_REST_API_URL}/contact`,
-    data: {
-      subject,
-      sender: contact,
-      message: content,
-      type: sendType,
+    headers: {
+      "Content-Type": "application/json",
     },
+    data: data,
   });
   return response.data;
 };

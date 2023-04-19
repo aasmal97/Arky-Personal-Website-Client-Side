@@ -67,7 +67,7 @@ $circle-width: 50%;
     padding: 0;
     height: 100%;
     width: 100%;
-    svg{
+    svg {
       width: 100%;
     }
   }
@@ -117,33 +117,7 @@ $circle-width: 50%;
   display: flex;
   flex-direction: column;
   width: 100%;
-  input,
-  textarea {
-    font-size: calc(#{$font-size} * 0.22);
-    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    border: 0.15em solid v.$gray;
-    border-radius: 0.3em;
-    z-index: 1;
-    padding: 2.5% 2%;
-    resize: none;
-    &::placeholder {
-      font-weight: 600;
-    }
-    &:focus {
-      outline: 3px solid v.$yellow;
-    }
-  }
-  textarea,
-  input {
-    &:first-child {
-      margin-top: 0;
-    }
-    margin-top: calc((#{$font-size} / 2.2) / 1.5);
-  }
-  textarea {
-    flex-grow: 1;
-  }
-  button {
+  & > button:last-child {
     @include v.remove-btn-default;
     position: relative;
     margin-top: calc(#{$font-size} / 2.2);
@@ -170,6 +144,87 @@ $circle-width: 50%;
         height: 100%;
         z-index: 0;
         border-radius: 0.3em;
+      }
+    }
+  }
+}
+@mixin contact-me-form-input-styles {
+  font-size: calc(#{$font-size} * 0.22);
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border: 0.15em solid v.$gray;
+  border-radius: 0.3em;
+  z-index: 1;
+  height: auto;
+  line-height: normal;
+  padding: calc(#{$font-size} * 0.22 / 2) calc(#{$font-size} * 0.22 / 1.9);
+  resize: none;
+  &::placeholder {
+    font-weight: 600;
+  }
+  &:focus {
+    outline: 3px solid v.$yellow;
+  }
+  &:first-child {
+    margin-top: 0;
+  }
+  margin-top: calc((#{$font-size} / 2.2) / 1.5);
+}
+##{$namespace}-message-form-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-grow: 1;
+  input,
+  textarea {
+    @include contact-me-form-input-styles;
+  }
+  textarea {
+    flex-grow: 1;
+  }
+}
+.#{$namespace}-contact-form-input {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin-bottom: calc((#{$font-size} / 2.2) / 1.5);
+  .MuiToggleButtonGroup-root{
+    height: 100%;
+  }
+  .MuiToggleButton-root {
+    color: v.$gray;
+    height: 100%;
+    // padding: calc(#{$font-size} * 0.22 / 2) calc(#{$font-size} * 0.22 / 1.9);
+    // font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    // font-size: calc(#{$font-size} * 0.22);
+  }
+  .#{$namespace}-contact-form-input-email {
+    @include contact-me-form-input-styles;
+    width: 100%;
+  }
+  .phone-input-container {
+    .phone-dropdown {
+      font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-size: calc(#{$font-size} * 0.22);
+    }
+    .phone-input {
+      height: auto;
+      line-height: normal;
+      border: 0.15em solid v.$gray;
+      width: 100%;
+      padding-top: calc(#{$font-size} * 0.22 / 2);
+      padding-bottom: calc(#{$font-size} * 0.22 / 2);
+      padding-right: calc(#{$font-size} * 0.22 / 1.9);
+      border-radius: 0.3em;
+      font-size: calc(#{$font-size} * 0.22);
+      font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      &:focus {
+        outline: 3px solid v.$yellow;
+      }
+      &::placeholder{
+        font-weight: 600;
       }
     }
   }
