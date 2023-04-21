@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { unstable_batchedUpdates } from "react-dom";
 import {
   ProjectDocument,
   ProjectQueryProps,
 } from "../utilities/types/RestApiTypes";
 import { fetchProjectData } from "../utilities/asyncActions/ProjectActions";
+import useCustomSearchParams from "./useSearchParams";
 export type FetchNewDataProps = {
   action?: "prev" | "next";
   query?: string;
@@ -21,7 +22,7 @@ export type FetchNewDataProps = {
   setStatus: React.Dispatch<
     React.SetStateAction<"loading" | "success" | "failed">
   >;
-  navigate?: NavigateFunction;
+  setSearch?: ReturnType<typeof useSearchParams>[1];
 };
 export const decodeSavedParams = (
   query?: string,
@@ -46,7 +47,7 @@ const fetchNewData = ({
   setSlides,
   setStartKey,
   setQuery,
-  navigate,
+  setSearch,
   setPreviousKeys,
   setStatus,
 }: FetchNewDataProps) => {
@@ -86,13 +87,22 @@ const fetchNewData = ({
         setSlides(res.result.Items);
         setStartKey(newStartKey);
         setQuery(query ? query : null);
-        if (navigate) navigate(`/projects/${query}`);
+        if (setSearch && query)
+          setSearch({
+            query: query,
+          });
       });
     })
     .catch((err) => {
       setStatus("failed");
     });
 };
+const defaultQuery = encodeQuery({
+  recordType: "projects",
+  sortBy: {
+    startDate: -1,
+  },
+});
 const useProjectDocs = ({
   countPerPage,
   encodedQuery,
@@ -104,8 +114,6 @@ const useProjectDocs = ({
   encodedQuery?: string;
   countPerPage: number;
 }) => {
-  const navigate = useNavigate();
-  const params = useParams();
   const [slides, setSlides] = useState<ProjectDocument[]>([]);
   const [startKey, setStartKey] = useState<string | null>(
     lastEvaluatedKey ? lastEvaluatedKey : null
@@ -118,17 +126,13 @@ const useProjectDocs = ({
   );
   const [prevKeyIdx, setPrevStartKeyIdx] = useState(0);
   const prevStartKey = previousKeys[prevKeyIdx];
+
+  //save query in params
+  const [search, setSearch] = useCustomSearchParams({
+    saveQueryInParams,
+  });
   const [query, setQuery] = useState<string | null>(
-    encodedQuery
-      ? encodedQuery
-      : params.query
-      ? params.query
-      : encodeQuery({
-          recordType: "projects",
-          sortBy: {
-            startDate: -1,
-          },
-        })
+    search.query ? search.query : encodedQuery ? encodedQuery : defaultQuery
   );
   const intitalLastEvaluatedKey = useRef(startKey ? startKey : undefined);
   const intitalQuery = useRef(query ? query : undefined);
@@ -150,8 +154,11 @@ const useProjectDocs = ({
   );
   useEffect(() => {
     if (!saveQueryInParams) return;
-    if (!params.query && saveQueryInParams) navigate(`/projects/${query}`);
-    if (query && saveQueryInParams && params.query !== query) {
+    if (!search.query && saveQueryInParams && query)
+      return setSearch({
+        query: query,
+      });
+    if (query && saveQueryInParams && search.query !== query) {
       fetchNewData({
         query: query,
         countPerPage,
@@ -161,9 +168,11 @@ const useProjectDocs = ({
         setStartKey,
         setQuery,
         setStatus,
+        setSearch,
       });
     }
-  }, [navigate, query, params.query, saveQueryInParams, countPerPage]);
+  }, [setSearch, query, search.query, saveQueryInParams, countPerPage]);
+  //reset evaluated key used by previous pagination
   useEffect(() => {
     unstable_batchedUpdates(() => {
       setStartKey(null);
@@ -180,6 +189,7 @@ const useProjectDocs = ({
     setQuery,
     setPreviousKeys,
     setStatus,
+    setSearch: saveQueryInParams ? setSearch : undefined,
   };
   const newQuery = (query: string) => {
     return fetchNewData({
@@ -191,13 +201,13 @@ const useProjectDocs = ({
       setStartKey,
       setQuery,
       setStatus,
+      setSearch: saveQueryInParams ? setSearch : undefined,
     });
   };
   const previousPage = () => {
     fetchNewData({
       ...fetchNewDataInputs,
       lastEvaluatedKey: prevStartKey ? prevStartKey : undefined,
-      navigate,
       action: "prev",
     });
   };
@@ -205,7 +215,6 @@ const useProjectDocs = ({
     fetchNewData({
       ...fetchNewDataInputs,
       lastEvaluatedKey: startKey ? startKey : undefined,
-      navigate,
       action: "next",
     });
   };

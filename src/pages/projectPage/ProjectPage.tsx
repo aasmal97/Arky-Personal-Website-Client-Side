@@ -1,4 +1,4 @@
-import useElementSize from "../../hooks/useElementSize";
+import useElementSize, { Size } from "../../hooks/useElementSize";
 import Carousel from "../../utilities/carousel/Carousel";
 import GithubIcon from "../../utilities/icons/Github";
 import LazyImage from "../../utilities/lazyComponents/LazyImg";
@@ -85,7 +85,7 @@ const ProjectUrls = ({
       </a>
       <a
         className={`${namespace}-project-url`}
-        href={appURL}
+        href={appURL ? appURL : githubURL}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -282,22 +282,64 @@ const ExploreAllBanner = ({
     </>
   );
 };
-
-const ProjectPage = () => {
-  const [waveRef, waveSize] = useElementSize();
-  const [headerRef, headerSize] = useElementSize();
+const ProjectPageIntroSlides = ({
+  waveSize,
+  headerSize,
+}: {
+  waveSize: Size;
+  headerSize: Size;
+}) => {
   const caroHeight = calculateImgHeight(waveSize.height, headerSize.height);
+  const countPerPage = 9;
+  const { slides: presentationSlides, status: presentationSlidesStatus } =
+    useProjectDocs({
+      countPerPage,
+      saveQueryInParams: false,
+    });
+  return (
+    <div id={`${namespace}-carousel`} style={{ minHeight: caroHeight }}>
+      {presentationSlidesStatus === "success" && (
+        <Carousel numSlidesPerView={1} namespace={namespace}>
+          {presentationSlides.map((slide) => {
+            return <ProjectSlide key={slide.id} slide={slide} />;
+          })}
+        </Carousel>
+      )}
+      {presentationSlidesStatus === "loading" && (
+        <LoadingIconCircleRotation
+          className={`${namespace}-loading-dots`}
+          nested={false}
+          durationInterval={500}
+          textColor="#3AC2FF"
+          width="20%"
+          center
+        />
+      )}
+    </div>
+  );
+};
+const ProjectPageBody = memo(() => {
   const countPerPage = 9;
   const { slides, prevStartKey, startKey, status, previousPage, nextPage } =
     useProjectDocs({
       countPerPage,
       saveQueryInParams: true,
     });
-  const { slides: presentationSlides, status: presentationSlidesStatus } =
-    useProjectDocs({
-      countPerPage,
-      saveQueryInParams: false,
-    });
+  return (
+    <>
+      <ExploreAllBanner slides={slides} status={status} />
+      <ProjectsPagination
+        startKey={startKey}
+        prevStartKey={prevStartKey}
+        onNext={nextPage}
+        onPrev={previousPage}
+      />
+    </>
+  );
+});
+const ProjectPage = () => {
+  const [waveRef, waveSize] = useElementSize();
+  const [headerRef, headerSize] = useElementSize();
   return (
     <div id={`${namespace}`}>
       <div ref={waveRef} id={`${namespace}-wave-bg`} style={waveStyles}>
@@ -305,32 +347,8 @@ const ProjectPage = () => {
       </div>
       <div id={`${namespace}-inner`}>
         <h2 ref={headerRef}>Projects</h2>
-        <div id={`${namespace}-carousel`} style={{ minHeight: caroHeight }}>
-          {presentationSlidesStatus === "success" && (
-            <Carousel numSlidesPerView={1} namespace={namespace}>
-              {presentationSlides.map((slide) => {
-                return <ProjectSlide key={slide.id} slide={slide} />;
-              })}
-            </Carousel>
-          )}
-          {presentationSlidesStatus === "loading" && (
-            <LoadingIconCircleRotation
-              className={`${namespace}-loading-dots`}
-              nested={false}
-              durationInterval={500}
-              textColor="#3AC2FF"
-              width="20%"
-              center
-            />
-          )}
-        </div>
-        <ExploreAllBanner slides={slides} status={status} />
-        <ProjectsPagination
-          startKey={startKey}
-          prevStartKey={prevStartKey}
-          onNext={nextPage}
-          onPrev={previousPage}
-        />
+        <ProjectPageIntroSlides waveSize={waveSize} headerSize={headerSize} />
+        <ProjectPageBody />
       </div>
     </div>
   );
