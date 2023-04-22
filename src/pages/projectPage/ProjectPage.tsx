@@ -16,6 +16,11 @@ import useWindowWidth from "../../hooks/useWindowWidth";
 import { memo, useState } from "react";
 import { LinkIcon } from "../../utilities/icons/LinkIcon";
 import { Button, createTheme, ThemeProvider, Collapse } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 const materialUITheme = createTheme({
   palette: {
     primary: {
@@ -60,22 +65,28 @@ const ProjectsPagination = ({
 }) => {
   return (
     <div className={`${namespace}-pagination`}>
-      <button
+      <Button
+        style={{ textTransform: "none" }}
+        variant="text"
         className={`${namespace}-pagination-btns-prev`}
         onClick={onPrev}
         aria-label="previous"
         disabled={typeof prevStartKey === "undefined"}
       >
+        <FontAwesomeIcon icon={faChevronLeft} />
         Prev
-      </button>
-      <button
+      </Button>
+      <Button
+        style={{ textTransform: "none" }}
+        variant="text"
         className={`${namespace}-pagination-btns-next`}
         onClick={onNext}
         aria-label="next"
         disabled={!startKey}
       >
         Next
-      </button>
+        <FontAwesomeIcon icon={faChevronRight} />
+      </Button>
     </div>
   );
 };

@@ -152,13 +152,6 @@ $namespace: p.$namespace;
       color: v.$white;
     }
   }
-  .#{$namespace}-pagination-btns-next,
-  .#{$namespace}-pagination-btns-prev {
-    &:hover {
-      background-color: v.$blue;
-      color: v.$white;
-    }
-  }
   .#{$namespace}-project-url {
     @include hover-effect();
   }

@@ -362,10 +362,10 @@ $pagination-height: 1.2rem;
   font-size: 1.2em;
   aspect-ratio: unset;
   padding: 0.5em 0.8em;
-  border-radius: 0.5em;
-  border: 1px solid v.$blue;
-  color: v.$blue;
   height: 100%;
+  svg{
+    margin:0 5%;
+  }
 }
 .#{$namespace}-pagination-ellipsis {
   height: 100%;
