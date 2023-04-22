@@ -18,7 +18,7 @@ $namespace: p.$namespace;
   }
   .#{$namespace}-text-content-inner {
     padding: 0 math.div($width, 2);
-    h4 {
+    .#{$namespace}-project-header {
       padding-top: math.div($width, 1.5);
     }
     p {
@@ -109,12 +109,10 @@ $namespace: p.$namespace;
     margin-bottom: 1.5em;
   }
   .#{$namespace}-text-content-inner {
-    max-height: 10em;
     height: 100%;
-    max-height: 13em;
+    //max-height: 15em;
     h4 {
       font-size: 1em;
-      padding-bottom: 0.7em;
       z-index: 0;
     }
     p {
@@ -122,6 +120,14 @@ $namespace: p.$namespace;
       font-size: 0.7em;
       line-height: 120%;
     }
+  }
+  .#{$namespace}-project-header {
+    //padding-top: math.div($width, 2);
+    position: sticky;
+    background-color: v.$light-black;
+    padding-bottom: 0.7em;
+    top: 0;
+    left: 0;
   }
   .#{$namespace}-pagination-ellipsis {
     font-size: 0.8em;

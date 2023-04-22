@@ -13,8 +13,21 @@ import LoadingIcon, {
 import { StopWatchAnimation } from "../../utilities/loadingIcon/ComingSoonIcon";
 import { ComingSoonBannerWave } from "./ComingSoonBannerWave";
 import useWindowWidth from "../../hooks/useWindowWidth";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { LinkIcon } from "../../utilities/icons/LinkIcon";
+import { Button, createTheme, ThemeProvider, Collapse } from "@mui/material";
+const materialUITheme = createTheme({
+  palette: {
+    primary: {
+      main: "#3ac2ff",
+    },
+    secondary: {
+      main: "#4e4e4e",
+    },
+    contrastThreshold: 3,
+    tonalOffset: 0.2,
+  },
+});
 const toLocale = (date: string | Date) =>
   new Date(date).toLocaleDateString("en-us", {
     month: "short",
@@ -101,9 +114,26 @@ const ProjectCard = ({
   githubURL,
   description,
   images,
+  topics,
 }: ProjectDocument) => {
+  const [showTopics, setShowTopics] = useState(false);
   const smallWindowWidth = useWindowWidth(576);
+  const mediumWindowWidth = useWindowWidth(992);
   const sortedImages = images ? sortMixedStrings(images, "name") : null;
+  const fullTopics = topics?.map((topic) => (
+    <Button
+      key={topic}
+      variant={"outlined"}
+      className={`${namespace}-project-topic`}
+      style={{ textTransform: "none" }}
+      aria-label={`open-github-topic-${topic}`}
+      onClick={() => {
+        window.open(`https://github.com/topics/${topic}`, "_blank");
+      }}
+    >
+      {topic}
+    </Button>
+  ));
   return (
     <div className={`${namespace}-project-card`}>
       <div className={`${namespace}-project-card-img`}>
@@ -130,7 +160,30 @@ const ProjectCard = ({
           <ProjectUrls githubURL={githubURL} appURL={appURL} />
         </div>
         <div className={`${namespace}-text-content-inner`}>
-          <h4>{seperateToWords(projectName)}</h4>
+          <div className={`${namespace}-project-header`}>
+            <h4>{seperateToWords(projectName)}</h4>
+            <div className={`${namespace}-project-topics`}>
+              {!mediumWindowWidth && !!fullTopics && fullTopics.length > 0 && (
+                <>
+                  <Collapse in={showTopics} timeout={500}>
+                    <div className={`${namespace}-project-topics-inner`}>
+                      {fullTopics}
+                    </div>
+                  </Collapse>
+                  <Button
+                    className={`${namespace}-project-topics-btn`}
+                    variant="outlined"
+                    style={{ textTransform: "none" }}
+                    onClick={() => setShowTopics(!showTopics)}
+                  >
+                    {!showTopics ? "Show Topics" : "Hide Topics"}
+                  </Button>
+                </>
+              )}
+              {mediumWindowWidth && fullTopics}
+            </div>
+          </div>
+
           <p>{description}</p>
         </div>
       </div>
@@ -289,6 +342,7 @@ const ProjectPageIntroSlides = ({
   waveSize: Size;
   headerSize: Size;
 }) => {
+  const smallWindowWidth = useWindowWidth(576);
   const caroHeight = calculateImgHeight(waveSize.height, headerSize.height);
   const countPerPage = 9;
   const { slides: presentationSlides, status: presentationSlidesStatus } =
@@ -297,7 +351,10 @@ const ProjectPageIntroSlides = ({
       saveQueryInParams: false,
     });
   return (
-    <div id={`${namespace}-carousel`} style={{ minHeight: caroHeight }}>
+    <div
+      id={`${namespace}-carousel`}
+      style={{ minHeight: smallWindowWidth ? caroHeight : caroHeight / 1.5 }}
+    >
       {presentationSlidesStatus === "success" && (
         <Carousel numSlidesPerView={1} namespace={namespace}>
           {presentationSlides.map((slide) => {
@@ -341,16 +398,18 @@ const ProjectPage = () => {
   const [waveRef, waveSize] = useElementSize();
   const [headerRef, headerSize] = useElementSize();
   return (
-    <div id={`${namespace}`}>
-      <div ref={waveRef} id={`${namespace}-wave-bg`} style={waveStyles}>
-        <WaveBg id="project-wave" />
+    <ThemeProvider theme={materialUITheme}>
+      <div id={`${namespace}`}>
+        <div ref={waveRef} id={`${namespace}-wave-bg`} style={waveStyles}>
+          <WaveBg id="project-wave" />
+        </div>
+        <div id={`${namespace}-inner`}>
+          <h2 ref={headerRef}>Projects</h2>
+          <ProjectPageIntroSlides waveSize={waveSize} headerSize={headerSize} />
+          <ProjectPageBody />
+        </div>
       </div>
-      <div id={`${namespace}-inner`}>
-        <h2 ref={headerRef}>Projects</h2>
-        <ProjectPageIntroSlides waveSize={waveSize} headerSize={headerSize} />
-        <ProjectPageBody />
-      </div>
-    </div>
+    </ThemeProvider>
   );
 };
 export default ProjectPage;

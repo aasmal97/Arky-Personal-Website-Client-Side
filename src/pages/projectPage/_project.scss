@@ -20,7 +20,7 @@ $project-wave-bg-height: math.div($project-bg-height * 2, 3);
 }
 ##{$namespace}-inner {
   $padding: 10%;
-  padding: 0 $padding;
+  padding: 0 math.div($padding , 2);
   padding-top: v.$navbar-height;
   position: relative;
   display: flex;
@@ -236,7 +236,7 @@ $pagination-height: 1.2rem;
   width: 100%;
 }
 .#{$namespace}-project-card {
-  width: 45%;
+  width: 47.5%;
   min-width: 16em;
   display: flex;
   flex-direction: column;
@@ -259,7 +259,7 @@ $pagination-height: 1.2rem;
   @include v.img-fill;
   color: v.$white;
   overflow: hidden;
-  .#{$namespace}-coming-soon-banner{
+  .#{$namespace}-coming-soon-banner {
     width: 90%;
     padding: 5%;
   }
@@ -273,7 +273,7 @@ $pagination-height: 1.2rem;
 }
 
 .#{$namespace}-text-content-inner {
-  max-height: 10em;
+  //max-height: 20em;
   overflow: overlay;
   display: flex;
   flex-direction: column;
@@ -282,19 +282,7 @@ $pagination-height: 1.2rem;
   padding: 0 math.div($width, 2);
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   @include v.scrollbar-styles(v.$blue, 0.3em);
-  h4 {
-    position: sticky;
-    background-color: v.$light-black;
-    top: 0;
-    left: 0;
-    font-size: 1.3em;
-    padding: 0;
-    margin: 0;
-    padding-bottom: 0.9em;
-    font-weight: 500;
-    padding-top: math.div($width, 2);
-    z-index: 0;
-  }
+
   p {
     color: #d0d0d0;
     font-size: 0.9em;
@@ -304,6 +292,41 @@ $pagination-height: 1.2rem;
     margin-bottom: math.div($width, 2);
   }
 }
+.#{$namespace}-project-header {
+  padding-top: math.div($width, 2);
+  position: sticky;
+  background-color: v.$light-black;
+  padding-bottom: 0.9em;
+  top: 0;
+  left: 0;
+  h4 {
+    font-size: 1.3em;
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+    z-index: 0;
+    padding-bottom: 0.4em;
+  }
+  .#{$namespace}-project-topics-btn {
+    font-size: 0.8em;
+    line-height: 0.8em;
+    padding: 0.7em;
+  }
+}
+.#{$namespace}-project-topics {
+  .#{$namespace}-project-topic {
+    border-radius: 1000px;
+    font-size: 0.7em;
+    padding: 0.5em;
+    line-height: 0.7em;
+    margin: 0.3em;
+    margin-left: 0;
+  }
+}
+.#{$namespace}-project-topics-inner {
+  padding-bottom: 0.5em;
+}
+
 .#{$namespace}-pagination {
   width: 100%;
   margin: 4.5em;
