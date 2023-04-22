@@ -52,10 +52,9 @@ $namespace: p.$namespace;
     padding-top: $paddingTop;
     padding-left: $paddingLeft;
     padding-right: $paddingRight;
-    width: 100% - $paddingLeft - $paddingRight;
+    min-height: 30em;
   }
   .#{$namespace}-carousel-inner-wrapper {
-    min-height: 10em;
     .swiper-pagination-bullet {
       width: 1rem;
       height: 1rem;
@@ -68,7 +67,7 @@ $namespace: p.$namespace;
     background-color: gray;
     margin-bottom: 4.5em;
     width: 100%;
-    aspect-ratio: 4/3;
+    //aspect-ratio: 4/3;
   }
 }
 @mixin project-md {
@@ -78,7 +77,6 @@ $namespace: p.$namespace;
     width: 100%;
     min-height: calc(20vh - 7em);
     padding: 0;
-    // padding-top: v.$navbar-height;
   }
 }
 
@@ -94,13 +92,13 @@ $namespace: p.$namespace;
     position: relative;
     width: 100%;
     min-height: calc(10vh - 7em);
-    // padding-top: v.$navbar-height;
   }
   .#{$namespace}-carousel-wrapper {
     $paddingLeft: 8%;
     $paddingRight: 8%;
     $paddingTop: 3em;
     padding-top: $paddingTop;
+    min-height: 25em;
   }
   .#{$namespace}-carousel-inner-wrapper {
     min-height: 8em;
@@ -113,5 +111,4 @@ $namespace: p.$namespace;
   .#{$namespace}-text-content a {
     @include v.hover-action;
   }
-  
 }

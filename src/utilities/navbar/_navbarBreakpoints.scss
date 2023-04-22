@@ -5,11 +5,12 @@
 
 @mixin navbar-sm {
   $namespace: "navbar";
-  ##{$namespace} {
-    justify-content: center;
+  ##{$namespace}-links{
+        justify-content: center;
     button,
     a {
       width: 100%;
+      padding: 0 5%;
     }
   }
 }

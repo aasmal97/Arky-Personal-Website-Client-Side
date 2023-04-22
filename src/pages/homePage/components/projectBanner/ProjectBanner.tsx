@@ -8,6 +8,9 @@ import WaveSvg from "../../../../utilities/waveSvg/WaveSVG";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
 import TypingAnimation from "../../../../utilities/typingAnimation/TypingAnimation";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
+import useProjectDocs from "../../../../hooks/useProjectDocs";
+import { LoadingIconCircleRotation } from "../../../../utilities/loadingIcon/LoadingIcon";
+import { ProjectSlide } from "../../../projectPage/ProjectPage";
 const namespace = "project-banner";
 const TextContent = () => {
   const { ref: textRef, isVisible } = useIntersectionWrapper();
@@ -75,13 +78,40 @@ const TextContent = () => {
 };
 const ProjectCaro = () => {
   const smallWindowWidth = useWindowWidth(992);
+  const countPerPage = 9;
+  const { slides: presentationSlides, status: presentationSlidesStatus } =
+    useProjectDocs({
+      countPerPage,
+      saveQueryInParams: false,
+    });
   return (
     <div className={`${namespace}-carousel`}>
       <WaveSvg
         namespace={namespace}
         orientation={smallWindowWidth ? "right" : "bottom"}
       />
-      <Carousel namespace={namespace} />
+      {presentationSlidesStatus === "success" && (
+        <Carousel numSlidesPerView={1} namespace={namespace}>
+          {presentationSlides.map((slide) => {
+            return (
+              <ProjectSlide
+                key={slide.id}
+                slide={slide}
+              />
+            );
+          })}
+        </Carousel>
+      )}
+      {presentationSlidesStatus === "loading" && (
+        <LoadingIconCircleRotation
+          className={`${namespace}-loading-dots`}
+          nested={false}
+          durationInterval={500}
+          textColor="#3AC2FF"
+          width="20%"
+          center
+        />
+      )}
     </div>
   );
 };

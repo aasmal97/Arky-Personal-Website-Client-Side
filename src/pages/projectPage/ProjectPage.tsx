@@ -289,7 +289,13 @@ const ProjectSlideTextContent = ({ slide }: { slide: ProjectDocument }) => {
     </div>
   );
 };
-const ProjectSlide = ({ slide }: { slide: ProjectDocument }) => {
+export const ProjectSlide = ({
+  slide,
+  namespace = "project-pg",
+}: {
+  slide: ProjectDocument;
+  namespace?: string;
+}) => {
   const sortedImages = slide.images
     ? sortMixedStrings(slide.images, "name")
     : null;
@@ -369,7 +375,13 @@ const ProjectPageIntroSlides = ({
       {presentationSlidesStatus === "success" && (
         <Carousel numSlidesPerView={1} namespace={namespace}>
           {presentationSlides.map((slide) => {
-            return <ProjectSlide key={slide.id} slide={slide} />;
+            return (
+              <ProjectSlide
+                key={slide.id}
+                slide={slide}
+                namespace={namespace}
+              />
+            );
           })}
         </Carousel>
       )}

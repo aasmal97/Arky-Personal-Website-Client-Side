@@ -98,7 +98,7 @@ const Footer = memo(() => {
                     ? roundToNearest({
                         number: userData.githubData.contributions,
                         toString: true,
-                        decimalPlaces: 1,
+                        decimalPlaces: 0,
                       })
                     : "0"
                 }
