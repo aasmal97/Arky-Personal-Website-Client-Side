@@ -34,7 +34,7 @@ $pagination-height: 1.2rem;
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   &::after {
     @include v.abs-pos-fill(0);
-    top: 1px;
+    top: 0;
     left: unset;
     right: 0;
     width: $wave-width;

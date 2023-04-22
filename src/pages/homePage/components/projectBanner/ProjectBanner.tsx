@@ -97,6 +97,7 @@ const ProjectCaro = () => {
               <ProjectSlide
                 key={slide.id}
                 slide={slide}
+                responsive
               />
             );
           })}

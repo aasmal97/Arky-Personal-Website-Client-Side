@@ -92,6 +92,9 @@ $namespace: p.$namespace;
     position: relative;
     width: 100%;
     min-height: calc(10vh - 7em);
+    &::after {
+    top: 0px;
+  }
   }
   .#{$namespace}-carousel-wrapper {
     $paddingLeft: 8%;

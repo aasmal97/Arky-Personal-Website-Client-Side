@@ -260,9 +260,23 @@ const ComingSoonBanner = memo(
     );
   }
 );
-const ProjectSlideTextContent = ({ slide }: { slide: ProjectDocument }) => {
+const ProjectSlideTextContent = ({
+  slide,
+  responsive,
+}: {
+  slide: ProjectDocument;
+  responsive?: boolean;
+}) => {
   const smallWindowWidth = useWindowWidth(576);
   const [parentElRef, parentSize] = useElementSize();
+  const responsiveStyles = {
+    titleStyles: {
+      fontSize: responsive ? `${parentSize.width * 0.038}px` : "",
+    },
+    subTitleStyles: {
+      fontSize: responsive ? `${parentSize.width * 0.03}px` : "",
+    },
+  };
   const titleStyles = {
     fontSize: smallWindowWidth ? "" : `${parentSize.width * 0.038}px`,
   };
@@ -272,14 +286,23 @@ const ProjectSlideTextContent = ({ slide }: { slide: ProjectDocument }) => {
   return (
     <div ref={parentElRef} className={`${namespace}-slide-text-content`}>
       <div className={`${namespace}-slide-first-row`}>
-        <h4 style={titleStyles}>{seperateToWords(slide.projectName)}</h4>
+        <h4
+          style={responsiveStyles ? responsiveStyles.titleStyles : titleStyles}
+        >
+          {seperateToWords(slide.projectName)}
+        </h4>
         <div className={`${namespace}-slide-project-urls`}>
           <ProjectUrls githubURL={slide.githubURL} appURL={slide.appURL} />
         </div>
       </div>
 
       {(slide.endDate || slide.startDate) && (
-        <div className={`${namespace}-slide-dates`} style={subTitleStyles}>
+        <div
+          className={`${namespace}-slide-dates`}
+          style={
+            responsiveStyles ? responsiveStyles.subTitleStyles : subTitleStyles
+          }
+        >
           {slide.startDate && (
             <span>Started on {toLocale(slide.startDate)} </span>
           )}
@@ -292,9 +315,11 @@ const ProjectSlideTextContent = ({ slide }: { slide: ProjectDocument }) => {
 export const ProjectSlide = ({
   slide,
   namespace = "project-pg",
+  responsive,
 }: {
   slide: ProjectDocument;
   namespace?: string;
+  responsive?: boolean;
 }) => {
   const sortedImages = slide.images
     ? sortMixedStrings(slide.images, "name")
@@ -315,7 +340,7 @@ export const ProjectSlide = ({
           </Carousel>
         )}
       </div>
-      <ProjectSlideTextContent slide={slide} />
+      <ProjectSlideTextContent slide={slide} responsive={responsive} />
     </>
   );
 };
