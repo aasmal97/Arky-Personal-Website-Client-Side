@@ -11,8 +11,8 @@ const useCustomSearchParams = ({
 ] => {
   const [search, setSearchState] = useSearchParams();
   const searchAsObject = Object.fromEntries(new URLSearchParams(search));
-  const setSearch: ReturnType<typeof useSearchParams>[1] = (e) => {
-    if (saveQueryInParams) setSearchState(e);
+  const setSearch: ReturnType<typeof useSearchParams>[1] = (e, nav) => {
+    if (saveQueryInParams) setSearchState(e, nav);
   };
   return [searchAsObject, setSearch];
 };

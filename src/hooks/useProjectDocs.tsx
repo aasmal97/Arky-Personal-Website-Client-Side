@@ -12,6 +12,7 @@ export type FetchNewDataProps = {
   query?: string;
   lastEvaluatedKey?: string;
   countPerPage: number;
+  replaceRoute?: boolean;
   setPrevStartKeyIdx: React.Dispatch<React.SetStateAction<number>>;
   setPreviousKeys: React.Dispatch<
     React.SetStateAction<(string | null | undefined)[]>
@@ -43,6 +44,7 @@ const fetchNewData = ({
   query,
   lastEvaluatedKey,
   countPerPage,
+  replaceRoute,
   setPrevStartKeyIdx,
   setSlides,
   setStartKey,
@@ -88,9 +90,14 @@ const fetchNewData = ({
         setStartKey(newStartKey);
         setQuery(query ? query : null);
         if (setSearch && query)
-          setSearch({
-            query: query,
-          });
+          setSearch(
+            {
+              query: query,
+            },
+            {
+              replace: replaceRoute,
+            }
+          );
       });
     })
     .catch((err) => {
@@ -157,7 +164,7 @@ const useProjectDocs = ({
     if (!search.query && saveQueryInParams && query)
       return setSearch({
         query: query,
-      });
+      }, {replace: true});
     if (query && saveQueryInParams && search.query !== query) {
       fetchNewData({
         query: query,
