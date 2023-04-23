@@ -12,15 +12,18 @@ import Root from "./root";
 const AboutPage = React.lazy(() => import("./pages/aboutPage/AboutPage"));
 const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));
 const ProjectPage = React.lazy(() => import("./pages/projectPage/ProjectPage"));
+const SkillsPage = React.lazy(() => import("./pages/skillsPage/SkillsPage"));
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
       <Route index element={<HomePage />} />
       <Route path="home/*" element={<HomePage />} />
-      <Route path="projects" element={<ProjectPage />}/>
+      <Route path="projects" element={<ProjectPage />} />
       <Route path="about" element={<AboutPage />}>
         <Route index element={<Navigate to={"/about"} />}></Route>
       </Route>
+      <Route path="skills" element = {<SkillsPage />} />
+
     </Route>
   )
 );

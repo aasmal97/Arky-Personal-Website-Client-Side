@@ -44,7 +44,7 @@ const TextContent = ({
     </div>
   );
 };
-const SkillsList = () => {
+export const SkillsList = () => {
   const [skills, setSkills] = useState<Skills[]>([]);
   useEffect(() => {
     fetchSkillsData({

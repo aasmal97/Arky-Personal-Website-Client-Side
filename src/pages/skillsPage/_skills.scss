@@ -1,0 +1,7 @@
+@use "../../../public/variables" as v;
+$namespace: "skills-pg";
+.#{$namespace}-container {
+  .skills-banner-skills-list {
+    background-color: v.$dark-black;
+  }
+}
