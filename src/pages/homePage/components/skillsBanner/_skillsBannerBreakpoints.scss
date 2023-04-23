@@ -52,6 +52,7 @@ $namespace: s.$namespace;
 
     grid-template-columns: repeat(2, 1fr);
       padding-top: calc(#{$width} * 2) ;
+      padding-bottom: calc(#{$width} * 2) ;
   }
 }
 @mixin skills-sm {

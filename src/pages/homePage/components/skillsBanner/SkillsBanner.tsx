@@ -93,6 +93,7 @@ const SkillsBanner = memo(() => {
       </div>
       <Collapse in={showSkills} timeout={500}>
         <SkillsList />
+        <div className={`${namespace}-svg-spacing`}></div>
       </Collapse>
       <BubblesSVGIcon />
     </div>
