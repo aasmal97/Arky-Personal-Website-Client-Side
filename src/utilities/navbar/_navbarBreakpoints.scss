@@ -5,8 +5,8 @@
 
 @mixin navbar-sm {
   $namespace: "navbar";
-  ##{$namespace}-links{
-        justify-content: center;
+  ##{$namespace}-links {
+    justify-content: center;
     button,
     a {
       width: 100%;
@@ -16,7 +16,7 @@
 }
 @mixin navbar-hover {
   $namespace: "navbar";
-  ##{$namespace} {
+  ##{$namespace}-links {
     button,
     a {
       //needed for hover animation
@@ -54,7 +54,6 @@
           //transition: background-size 0.2s linear 0.15s;
         }
       }
-
 
       &:hover {
         .link-animation-container {

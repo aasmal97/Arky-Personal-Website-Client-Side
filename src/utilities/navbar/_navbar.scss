@@ -11,24 +11,8 @@ $namespace: "navbar";
   justify-content: space-between;
   align-items: center;
   z-index: 10;
-  svg {
-    right: 10%;
-    position: absolute;
-    vertical-align: top;
-    display: inline;
-    line-height: 1;
-    width: 13px;
-    height: 20px;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 1px;
-    stroke: v.$white;
-    stroke-dasharray: 7.95 30;
-    stroke-dashoffset: 46;
-    transition: stroke-dashoffset 0.15s linear 0s;
-  }
 }
+
 ##{$namespace}-logo {
   display: flex;
   height: 100%;
@@ -67,5 +51,64 @@ $namespace: "navbar";
         width: 0;
       }
     }
+  }
+}
+##{$namespace}-open-drawer-button {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  color: v.$white;
+  height: 100%;
+  font-size: 1.5em;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  min-width: unset;
+}
+##{$namespace}-close-drawer-button {
+  @extend ##{$namespace}-open-drawer-button;
+  height: 2.2em;
+  //width: auto;
+  width: 2.2em;
+}
+##{$namespace}-drawer {
+  .MuiPaper-root {
+    align-items: end;
+    align-items: flex-end;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.65);
+  }
+  ##{$namespace}-links {
+    flex-direction: column;
+    justify-content: unset;
+    align-items: center;
+    flex-grow: unset;
+    height: auto;
+    box-sizing: border-box;
+    min-width: 200px;
+    a,
+    button {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: v.$navbar-height;
+    }
+  }
+}
+##{$namespace}-links {
+  svg {
+    right: 10%;
+    position: absolute;
+    vertical-align: top;
+    display: inline;
+    line-height: 1;
+    width: 13px;
+    height: 20px;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1px;
+    stroke: v.$white;
+    stroke-dasharray: 7.95 30;
+    stroke-dashoffset: 46;
+    transition: stroke-dashoffset 0.15s linear 0s;
   }
 }
