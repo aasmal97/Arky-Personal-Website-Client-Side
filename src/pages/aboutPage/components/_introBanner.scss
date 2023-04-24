@@ -47,10 +47,19 @@ $intro-wave-bg-height: math.div($intro-bg-height * 2, 3);
   align-items: center;
 }
 ##{$namespace}-intro-img {
-  background-color: aqua;
   max-width: 100%;
   aspect-ratio: 16/8;
+  display: flex;
+  flex-direction: column;
   @include v.img-fill;
+  .lazy-load-image-background {
+    position: relative;
+  }
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
   margin-bottom: calc(max($intro-bg-height/12, $intro-bg-min-height/12) * 1.5);
 }
 ##{$namespace}-intro-divider {

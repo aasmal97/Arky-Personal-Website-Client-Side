@@ -142,14 +142,16 @@ const IntroBanner = () => {
           zIndex: 0,
         }}
       >
-        <WaveBg 
-          id={"intro-wave"}
-        />
+        <WaveBg id={"intro-wave"} />
       </div>
       <div id={`${namespace}-intro-inner`}>
         <h2 ref={headerRef}>About</h2>
         <div id={`${namespace}-intro-img`} style={{ minHeight: imgHeight }}>
-          <LazyImage src="" placeholderSrc="" alt="" />
+          <LazyImage
+            src={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro.jpg`}
+            placeholderSrc={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro-placeholder.jpg`}
+            alt="Arky sitting on a ledge in Guayquil, Ecuador"
+          />
         </div>
         <IntroLineDivider />
       </div>

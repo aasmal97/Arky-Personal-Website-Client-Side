@@ -74,7 +74,6 @@ const NavLinks = ({
 };
 const NavDrawer = () => {
   const [open, setOpen] = React.useState(false);
-  console.log(open);
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
