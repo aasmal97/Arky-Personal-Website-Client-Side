@@ -21,12 +21,25 @@ const linkData: LinkData[] = [
   { name: "Skills", link: "/skills" },
   { name: "Contact", hashLink: "/#contact-me-banner" },
 ];
-const NavLinks = () => {
+const NavLinks = ({
+  toggleDrawer,
+}: {
+  toggleDrawer?: (
+    open: boolean
+  ) => (event: React.KeyboardEvent | React.MouseEvent) => void;
+}) => {
   return (
     <div id={`${namespace}-links`}>
       {linkData.map((l) =>
         l.link ? (
-          <Link key={l.name} to={l.link} onClick={l.onClick}>
+          <Link
+            key={l.name}
+            to={l.link}
+            onClick={(e) => {
+              if (toggleDrawer) toggleDrawer(false)(e);
+              if (l.onClick) l.onClick(e);
+            }}
+          >
             {l.name}
             <div className="link-animation-container"></div>
             <svg viewBox="0 0 13 20">
@@ -34,11 +47,24 @@ const NavLinks = () => {
             </svg>
           </Link>
         ) : l.hashLink ? (
-          <HashLink key={l.name} to={l.hashLink}>
+          <HashLink
+            key={l.name}
+            to={l.hashLink}
+            onClick={(e) => {
+              if (toggleDrawer) toggleDrawer(false)(e);
+              if (l.onClick) l.onClick(e);
+            }}
+          >
             {l.name}
           </HashLink>
         ) : (
-          <button key={l.name} onClick={l.onClick}>
+          <button
+            key={l.name}
+            onClick={(e) => {
+              if (toggleDrawer) toggleDrawer(false)(e);
+              if (l.onClick) l.onClick(e);
+            }}
+          >
             {l.name}
           </button>
         )
@@ -48,6 +74,7 @@ const NavLinks = () => {
 };
 const NavDrawer = () => {
   const [open, setOpen] = React.useState(false);
+  console.log(open);
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -83,7 +110,7 @@ const NavDrawer = () => {
         >
           <FontAwesomeIcon icon={faClose} />
         </Button>
-        <NavLinks />
+        <NavLinks toggleDrawer={toggleDrawer} />
       </Drawer>
     </>
   );
