@@ -105,7 +105,7 @@ const Navbar = () => {
           <Avatar
             sx={{ height: "70%", aspectRatio: "1/1", width: "auto" }}
             alt="Arky Asmal"
-            src={`${process.env.REACT_APP_MEDIA_FILES_UR}/profileImg.jpg`}
+            src={`${process.env.REACT_APP_MEDIA_FILES_URL}/appLogo.jpg`}
           />
         </div>
         <span>Arky's Portfolio</span>{" "}
