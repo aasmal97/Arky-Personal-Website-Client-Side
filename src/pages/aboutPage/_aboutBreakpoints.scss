@@ -34,7 +34,6 @@ $hobbies-namespace: a.$hobbies-namespace;
   ##{$intro-namespace}-wave-bg {
     min-height: 20em;
     max-height: 25em;
-
   }
 }
 @mixin about-sm {
@@ -63,6 +62,18 @@ $hobbies-namespace: a.$hobbies-namespace;
     text-align: center;
     font-size: 2.5em;
   }
+  ##{$education-namespace}-display {
+    a {
+      width: 30%;
+      margin: 7%;
+    }
+  }
+  ##{$education-namespace}-action {
+    margin-bottom: 12%;
+    a {
+      margin-top: 10%;
+    }
+  }
   ##{$hobbies-namespace}-inner {
     h2 {
       span {
@@ -78,6 +89,11 @@ $hobbies-namespace: a.$hobbies-namespace;
   }
 }
 @mixin about-hover {
+  ##{$education-namespace}-display {
+    a {
+      @include hover-action();
+    }
+  }
   ##{$education-namespace}-action {
     a {
       @include hover-action();
