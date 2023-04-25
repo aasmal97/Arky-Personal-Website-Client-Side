@@ -2,6 +2,7 @@ import { useState, useEffect, memo } from "react";
 import { fetchSkillsData } from "../../../../utilities/asyncActions/SkillsActions";
 import { Skills } from "../../../../utilities/types/RestApiTypes";
 import Collapse from "@mui/material/Collapse";
+import LazyImage from "../../../../utilities/lazyComponents/LazyImg";
 const namespace = "skills-banner";
 const BubblesSVGIcon = () => {
   return (
@@ -20,7 +21,17 @@ const BubblesSVGIcon = () => {
 };
 
 const MediaContent = () => {
-  return <div className={`${namespace}-media-content`}></div>;
+  return (
+    <div className={`${namespace}-media-content`}>
+      <div className={`${namespace}-media-img-container`}>
+          <LazyImage
+            src={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro.jpg`}
+            placeholderSrc={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro-placeholder.jpg`}
+            alt="Arky sitting on a ledge in Guayquil, Ecuador"
+          />
+      </div>
+    </div>
+  );
 };
 const TextContent = ({
   showSkills,

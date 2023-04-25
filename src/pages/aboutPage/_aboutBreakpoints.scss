@@ -70,8 +70,42 @@ $hobbies-namespace: a.$hobbies-namespace;
   }
   ##{$education-namespace}-action {
     margin-bottom: 12%;
+    font-size: 1em;
     a {
       margin-top: 10%;
+    }
+  }
+  ##{$education-namespace}-explore {
+    h3 {
+      font-size: 1.8em;
+    }
+  }
+  ##{$education-namespace}-explore-inner {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex: 1;
+  }
+  .#{$education-namespace}-explore-item {
+    position: relative;
+    min-height: 4em;
+  }
+  .#{$education-namespace}-explore-item-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 2em;
+    z-index: 1;
+  }
+  .#{$education-namespace}-explore-item-description {
+    padding-left: calc(7% + 4em);
+    height: 70%;
+    h4 {
+      font-size: 1.3em;
+    }
+    p {
+      font-size: 0.8em;
     }
   }
   ##{$hobbies-namespace}-inner {

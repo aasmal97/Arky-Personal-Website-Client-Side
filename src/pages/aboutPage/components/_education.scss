@@ -99,28 +99,26 @@ $namespace: "about-pg-education";
 ##{$namespace}-explore-inner {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  // display: grid;
+  width: 100%;
 }
 .#{$namespace}-explore-item {
   cursor: pointer;
   width: calc(max(40%, 23em));
-  min-height: 6em;
-  max-width: 90vw;
+  max-width: 80vw;
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-decoration: none;
   display: flex;
   align-items: center;
-
   margin: 3%;
   border-radius: 0.3rem;
+      min-height: 6em;
 }
 .#{$namespace}-explore-item-icon {
   border-radius: 0.3rem 0 0 0.3rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3em;
+  //font-size: 3em;
   height: 100%;
   aspect-ratio: 1/1;
 }
