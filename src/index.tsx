@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import Root from "./root";
+import LoadingIcon from "./utilities/loadingIcon/LoadingIcon";
 const AboutPage = React.lazy(() => import("./pages/aboutPage/AboutPage"));
 const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));
 const ProjectPage = React.lazy(() => import("./pages/projectPage/ProjectPage"));
@@ -22,8 +23,7 @@ const router = createBrowserRouter(
       <Route path="about" element={<AboutPage />}>
         <Route index element={<Navigate to={"/about"} />}></Route>
       </Route>
-      <Route path="skills" element = {<SkillsPage />} />
-
+      <Route path="skills" element={<SkillsPage />} />
     </Route>
   )
 );
@@ -33,7 +33,32 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Suspense fallback={<></>}>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <LoadingIcon
+            primaryFillColor={"#3AC2FF"}
+            secondaryFillColor={"#909090"}
+            faceFillColor={"#2e2e2e"}
+            strokeColor={"#2e2e2e"}
+            backgroundArmColor={"#2e2e2e"}
+            laptopLogoColor={"white"}
+            textColor={"white"}
+            width="50%"
+            background={{ color: "black" }}
+            center
+          />
+        </div>
+      }
+    >
       <RouterProvider router={router} />
     </Suspense>
   </React.StrictMode>
