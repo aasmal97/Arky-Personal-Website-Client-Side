@@ -1,9 +1,8 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
 import { ScrollRestoration } from "react-router-dom";
+import Navbar from "./utilities/navbar/Navbar";
+import Footer from "./utilities/footer/Footer";
 
-const Navbar = React.lazy(() => import("./utilities/navbar/Navbar"));
-const Footer = React.lazy(() => import("./utilities/footer/Footer"));
 const Root = () => {
   return (
     <>

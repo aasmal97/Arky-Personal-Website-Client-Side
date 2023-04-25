@@ -1,11 +1,11 @@
-import { Avatar, Button, Drawer } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import useWindowWidth from "../../hooks/useWindowWidth";
+import Drawer from "../drawer/Drawer";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
-
 const namespace = "navbar";
 type LinkData = {
   name: string;
@@ -21,6 +21,7 @@ const linkData: LinkData[] = [
   { name: "Skills", link: "/skills" },
   { name: "Contact", hashLink: "/#contact-me-banner" },
 ];
+
 const NavLinks = ({
   toggleDrawer,
 }: {
@@ -36,6 +37,7 @@ const NavLinks = ({
             key={l.name}
             to={l.link}
             onClick={(e) => {
+              //improve stability of link out
               if (toggleDrawer) toggleDrawer(false)(e);
               if (l.onClick) l.onClick(e);
             }}
@@ -99,17 +101,17 @@ const NavDrawer = () => {
         id={`${namespace}-drawer`}
         anchor="right"
         open={open}
-        onClose={toggleDrawer(false)}
+        onClose={(e) => toggleDrawer(false)(e)}
       >
-        <Button
-          variant="text"
-          id={`${namespace}-close-drawer-button`}
-          aria-label="close-drawer"
-          onClick={toggleDrawer(false)}
-        >
-          <FontAwesomeIcon icon={faClose} />
-        </Button>
-        <NavLinks toggleDrawer={toggleDrawer} />
+      <Button
+        variant="text"
+        id={`${namespace}-close-drawer-button`}
+        aria-label="close-drawer"
+        onClick={toggleDrawer(false)}
+      >
+        <FontAwesomeIcon icon={faClose} />
+      </Button>
+      <NavLinks toggleDrawer={toggleDrawer} />
       </Drawer>
     </>
   );
