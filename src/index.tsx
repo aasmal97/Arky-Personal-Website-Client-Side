@@ -10,10 +10,39 @@ import {
 import reportWebVitals from "./reportWebVitals";
 import Root from "./root";
 import LoadingIcon from "./utilities/loadingIcon/LoadingIcon";
+import useWindowWidth from "./hooks/useWindowWidth";
 const AboutPage = React.lazy(() => import("./pages/aboutPage/AboutPage"));
 const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));
 const ProjectPage = React.lazy(() => import("./pages/projectPage/ProjectPage"));
 const SkillsPage = React.lazy(() => import("./pages/skillsPage/SkillsPage"));
+const FallbackElement = () => {
+  const smallWindowWidth = useWindowWidth(576);
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+        minHeight: "100vh",
+      }}
+    >
+      <LoadingIcon
+        primaryFillColor={"#3AC2FF"}
+        secondaryFillColor={"#909090"}
+        faceFillColor={"#2e2e2e"}
+        strokeColor={"#2e2e2e"}
+        backgroundArmColor={"#2e2e2e"}
+        laptopLogoColor={"white"}
+        textColor={"white"}
+        width={!smallWindowWidth ? "90%" : "50%"}
+        background={{ color: "black" }}
+        center
+      />
+    </div>
+  );
+};
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
@@ -33,32 +62,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Suspense
-      fallback={
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <LoadingIcon
-            primaryFillColor={"#3AC2FF"}
-            secondaryFillColor={"#909090"}
-            faceFillColor={"#2e2e2e"}
-            strokeColor={"#2e2e2e"}
-            backgroundArmColor={"#2e2e2e"}
-            laptopLogoColor={"white"}
-            textColor={"white"}
-            width="50%"
-            background={{ color: "black" }}
-            center
-          />
-        </div>
-      }
-    >
+    <Suspense fallback={<FallbackElement />}>
       <RouterProvider router={router} />
     </Suspense>
   </React.StrictMode>

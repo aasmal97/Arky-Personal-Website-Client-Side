@@ -91,7 +91,7 @@ const MediaContent = () => {
     <div ref={mediaRef} className={`${namespace}-media-content`}>
       {isVisible && <MediaCollageSVG />}
       <div className={`${namespace}-media-inner`}>
-        <div className={`${namespace}-blob`}>{isVisible && <BlobSVG />}</div>
+        <div className={`${namespace}-blob`}>{ <BlobSVG />}</div>
       </div>
     </div>
   );
