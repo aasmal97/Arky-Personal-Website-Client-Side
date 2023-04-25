@@ -36,7 +36,7 @@ const FallbackElement = () => {
         backgroundArmColor={"#2e2e2e"}
         laptopLogoColor={"white"}
         textColor={"white"}
-        width={!smallWindowWidth ? "90%" : "50%"}
+        width={!smallWindowWidth ? "80%" : "50%"}
         background={{ color: "black" }}
         center
       />

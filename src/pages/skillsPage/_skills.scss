@@ -5,4 +5,8 @@ $namespace: "skills-pg";
   padding-top: calc(#{v.$navbar-height} + #{skillsBanner.$width});
   background-color: v.$dark-black;
   padding-bottom: v.$navbar-height;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
