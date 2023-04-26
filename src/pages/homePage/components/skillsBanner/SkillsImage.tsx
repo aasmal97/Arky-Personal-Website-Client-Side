@@ -87,7 +87,7 @@ const SkillsImageArms = () => {
     const leftTarget = `.${namespace}-left-arm`;
     const rightTarget = `.${namespace}-right-arm`;
     let timeout = setTimeout(() => {
-      const leftArm = anime
+       anime
         .timeline({
           loop: true,
           direction: "alternate",
@@ -133,7 +133,7 @@ const SkillsImageArms = () => {
           easing: "linear",
         });
     }, armDelayAnimationTime * 3);
-    const rightArm = anime
+    anime
       .timeline({
         loop: true,
         direction: "alternate",

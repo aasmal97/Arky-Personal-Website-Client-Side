@@ -2,7 +2,6 @@ import { useState, useEffect, memo } from "react";
 import { fetchSkillsData } from "../../../../utilities/asyncActions/SkillsActions";
 import { Skills } from "../../../../utilities/types/RestApiTypes";
 import Collapse from "@mui/material/Collapse";
-import LazyImage from "../../../../utilities/lazyComponents/LazyImg";
 import SkillsImage from "./SkillsImage";
 const namespace = "skills-banner";
 const BubblesSVGIcon = () => {
