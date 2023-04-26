@@ -20,6 +20,10 @@ const FallbackElement = () => {
   return (
     <div
       style={{
+        paddingTop: "3.5em",
+        position: "absolute",
+        top: 0,
+        left: 0,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
