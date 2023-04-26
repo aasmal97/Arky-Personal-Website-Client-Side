@@ -20,8 +20,9 @@ $wave-width: 100%;
   z-index: 1;
   svg {
     background-color: v.$dark-black;
-    fill: v.$dark-black;
     height: 100%;
+    border: none;
+    outline: none;
   }
 }
 $pagination-height: 1.2rem;

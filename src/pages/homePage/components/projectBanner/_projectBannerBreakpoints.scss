@@ -25,7 +25,7 @@ $namespace: p.$namespace;
   }
 }
 @mixin project-lg {
-  @include project-spacing((8));
+  @include project-spacing(8, 7);
   ##{$namespace} {
     flex-direction: column;
   }

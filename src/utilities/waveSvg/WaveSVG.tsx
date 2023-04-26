@@ -40,7 +40,7 @@ const WaveSvg = ({
   const bottom = (
     <svg
       style={svgStyles}
-      viewBox="0 0 282 142"
+      viewBox="0 0 281 142"
       xmlns="http://www.w3.org/2000/svg"
     >
       {clipPathId ? (
