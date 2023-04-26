@@ -53,7 +53,7 @@ $unitless-size: c.$unitless-size;
   }
   ##{$namespace}-message-urgent {
     font-size: calc(#{$font-size} * 0.3);
-    line-height: calc(#{$font-size} / 1.7);
+    line-height: 1.96em;
     padding-top: calc((#{$font-size} / 1) - 1vw);
     margin-top: calc((#{$font-size} / 1) + 0.3vw);
     padding-bottom: calc((#{$font-size} / 1) - 1vw);

@@ -114,7 +114,7 @@ $font-size: calc(min(#{$unitless-size}vw, 5.5em));
     font-weight: 300;
     margin-top: calc(#{$font-size} / 4);
     font-size: calc(#{$font-size} * 0.22);
-    line-height: calc(#{$font-size} / 2.8);
+    line-height: 1.623em;
     &.visible {
       opacity: 1;
       animation: 2.2s ease-in-out 0s fade-in;

@@ -22,7 +22,7 @@ $namespace: a.$namespace;
     p {
       margin-top: calc(#{$paragraph-size} / 4);
       font-size: calc(#{$paragraph-size} * 0.22);
-      line-height: calc(#{$paragraph-size} / 2.8);
+          line-height: 1.623em;
       span {
         font-size: calc(#{$paragraph-size} * 0.55);
       }

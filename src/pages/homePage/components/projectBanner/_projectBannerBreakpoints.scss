@@ -14,7 +14,7 @@ $namespace: p.$namespace;
     p {
       margin-top: calc(#{$font-size} / 2);
       font-size: calc(#{$font-size} * 0.28);
-      line-height: calc(#{$font-size} / 1.7);
+      line-height: 1.623em;
     }
     $link-size: calc(min(#{$link-size-unit}vw, 5.5em));
     a {

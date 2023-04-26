@@ -9,18 +9,13 @@ $namespace: s.$namespace;
   $unitless-size: $font-size;
   $font-size: calc(min(#{$unitless-size}vw, 5.5em));
   .#{$namespace}-media-content {
-    // position: relative;
-    // display: flex;
-    // flex-direction: column;
     .#{$namespace}-media-img-container {
       font-size: calc(#{$font-size} * 0.5);
-      //max-width: 17.5em;
     }
   }
   .#{$namespace}-text-content {
     p {
       font-size: calc(#{$font-size} * 0.5);
-      line-height: calc(#{$font-size} * 1.1);
     }
     $link-size: calc(min(#{$link-size-unit}vw, 5.5em));
     a,
@@ -33,7 +28,7 @@ $namespace: s.$namespace;
   .#{$namespace}-skills-list {
     h3 {
       font-size: calc(#{$font-size} * 0.8);
-      line-height: calc(#{$font-size} * 1.1);
+      line-height: 1.375em;
     }
   }
   .#{$namespace}-skills-list-inner {
@@ -44,30 +39,40 @@ $namespace: s.$namespace;
   }
 }
 @mixin skills-lg {
-  @include skills-spacing(7);
+  @include skills-spacing(6);
   ##{$namespace}-inner {
-    flex-direction: column;
     box-sizing: border-box;
-    // justify-content: space-around;
   }
   .#{$namespace}-media-content {
-    align-items: center;
-    width: 100%;
-    padding: 20% 0;
+    padding: 0 10%;
+    padding-left: 15%;
   }
   .#{$namespace}-text-content {
-    width: 100%;
-    padding-bottom: 20%;
-    // p {
-    //   padding-bottom: 15%;
-    // }
-    // p {
-    //   max-width: unset;
-    // }
+    padding-right: 10%;
   }
 }
 @mixin skills-md {
   @include skills-spacing(10);
+  ##{$namespace}-inner {
+    box-sizing: border-box;
+    flex-direction: column;
+  }
+  .#{$namespace}-media-content {
+    align-items: center;
+    width: 100%;
+    padding: 10% 0;
+  }
+  .#{$namespace}-media-img-container {
+    & > svg {
+      width: 60%;
+      height: auto;
+    }
+  }
+  .#{$namespace}-text-content {
+    padding-right: 0;
+    width: 100%;
+    padding-bottom: 20%;
+  }
   .#{$namespace}-skills-list-inner {
     $width: min(5vw, 4em);
 
@@ -78,6 +83,11 @@ $namespace: s.$namespace;
 }
 @mixin skills-sm {
   @include skills-spacing(10.5, 15);
+  .#{$namespace}-media-img-container {
+    & > svg {
+      width: 80%;
+    }
+  }
   // .#{$namespace}-skills-list-inner {
   //   grid-template-columns: repeat(2, 1fr);
   // }

@@ -69,7 +69,7 @@ $font-size: calc(min(#{$unitless-size}vw, 5.5em));
   p {
     margin-top: calc(#{$font-size} / 2);
     font-size: calc(#{$font-size} * 0.28);
-    line-height: calc(#{$font-size} / 1.7);
+    line-height: 1.623em
   }
   button {
     @include v.remove-btn-default;

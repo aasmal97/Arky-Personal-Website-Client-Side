@@ -71,7 +71,7 @@ $intro-wave-bg-height: math.div($intro-bg-height * 2, 3);
   color: v.$white;
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: $font-size;
-  line-height: $font-size * 1.5;
+  line-height: 2.25em;
   padding-bottom: calc(
     max($intro-bg-height/12, $intro-bg-min-height/12) * 1.5 + 15vh
   );

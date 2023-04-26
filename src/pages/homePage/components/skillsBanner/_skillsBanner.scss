@@ -30,7 +30,8 @@ $width: min(5vw, 4em);
   display: flex;
   justify-content: center;
   flex: 1;
-  //align-items: center;
+  align-items: center;
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   padding-top: calc(#{$width} * 1.75);
@@ -48,6 +49,8 @@ $width: min(5vw, 4em);
   display: flex;
   flex-direction: column;
   align-items: end;
+  padding: 0 10%;
+  padding-left: 15%;
   .#{$namespace}-media-img-container {
     $unitless-size: 5.2;
     $font-size: calc(min(#{$unitless-size}vw, 5.5em));
@@ -55,29 +58,35 @@ $width: min(5vw, 4em);
     width: 100%;
     height: 100%;
     flex: 1;
-    max-width: 17.5em;
+    display: flex;
+    justify-content: center;
+    //align-items: center;
+    & > svg {
+      height: 100%;
+    }
   }
-  .#{$namespace}-media-img-container-inner {
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
-  @include v.img-fill();
+  // .#{$namespace}-media-img-container-inner {
+  //   position: absolute;
+  //   z-index: 1;
+  //   width: 100%;
+  //   height: 100%;
+  //   top: 0;
+  //   left: 0;
+  // }
+  // @include v.img-fill();
 }
 .#{$namespace}-text-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-right: 10%;
   $unitless-size: 5.2;
   $font-size: calc(min(#{$unitless-size}vw, 5.5em));
   p {
     color: v.$white;
     font-size: calc(#{$font-size} * 0.5);
-    line-height: calc(#{$font-size} * 1.1);
+    line-height: 2em;
     max-width: 15em;
     margin: 0;
   }
@@ -108,7 +117,7 @@ $width: min(5vw, 4em);
     padding: 0;
     font-weight: 400;
     font-size: calc(#{$font-size} * 0.75);
-    line-height: calc(#{$font-size} * 0.75);
+    line-height: 1em;
   }
 }
 .#{$namespace}-skills-list-inner {

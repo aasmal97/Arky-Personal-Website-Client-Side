@@ -21,7 +21,7 @@ $namespace: i.$namespace;
     p {
       margin-top: calc(#{$paragraph-size} / 2);
       font-size: calc(#{$paragraph-size} * 0.28);
-      line-height: calc(#{$paragraph-size} / 1.8);
+      line-height: 1.623em;
     }
 
     $link-size: calc(min(#{$link-size-unit}vw, 5.5em));

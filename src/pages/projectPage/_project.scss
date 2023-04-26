@@ -310,7 +310,8 @@ $pagination-height: 1.2rem;
   }
   .#{$namespace}-project-topics-btn {
     font-size: 0.8em;
-    line-height: 0.8em;
+    line-height: 1em;
+    //line-height: 0.8em;
     padding: 0.7em;
   }
 }

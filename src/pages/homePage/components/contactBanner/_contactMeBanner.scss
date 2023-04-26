@@ -239,7 +239,7 @@ $circle-width: 50%;
   color: v.$gray;
   text-align: center;
   font-size: calc(#{$font-size} * 0.22);
-  line-height: calc(#{$font-size} / 2.5);
+  line-height: 1.82em;
   padding-top: calc((#{$font-size} / 2.2) - 0.7vw);
   margin-top: calc((#{$font-size} / 2.2) + 0.3vw);
   align-self: end;
