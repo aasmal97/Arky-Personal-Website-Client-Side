@@ -242,12 +242,10 @@ const SkillsImageCodingWindow = () => {
         //delay: anime.stagger(typingAnimationTime * 1.5),
         delay: function (el: any, i: number, l: any) {
             const prevEls = initialRectWidth.slice(0, i);
-            console.log(prevEls)
           if (prevEls.length <= 0) return 1;
           const totalDuration = prevEls.reduce(
             (a: number, b: number, idx) => a + calcDuration(b, idx)
           );
-          console.log(totalDuration);
           return totalDuration;
         },
         width: function (el: any, i: number) {
