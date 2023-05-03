@@ -59,7 +59,11 @@ const IntroBanner = () => {
   return (
     <div id={namespace}>
       <div className={`${namespace}-img-container`}>
-        <LazyImage src="" alt="" placeholderSrc="" />
+        <LazyImage
+          src={`${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/profile.png`}
+          alt="Arky Asmal smiling, and standing with arms folded"
+          placeholderSrc={`${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/profile-placeholder.png`}
+        />
       </div>
       <div className={`${namespace}-content`}>
         <div ref={squareRef} className={`${namespace}-title`}>
@@ -83,7 +87,8 @@ const IntroBanner = () => {
         >
           <p style={{ width: width }}>
             Have a project requiring front-end work? Back-end? Cloud
-            infrastructure? Machine learning? Doesn’t matter. I’ll take on the challenge.
+            infrastructure? Machine learning? Doesn’t matter. I’ll take on the
+            challenge.
           </p>
           <DownloadButton fileName="Arky Asmal CV" fileType="doc" data={""}>
             Download CV
