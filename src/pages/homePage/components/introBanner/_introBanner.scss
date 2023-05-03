@@ -17,10 +17,7 @@ $font-size: calc(min(#{$unitless-size}vw, 5.5em));
   background-color: v.$red;
   @include v.img-fill;
   img {
-    //object-fit: cover;
     object-position: top;
-    // width: 100%;
-    // height: 100%;
   }
   max-width: 650px;
 }
