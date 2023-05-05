@@ -1,10 +1,8 @@
-import LazyImage from "../../../../utilities/lazyComponents/LazyImg";
 import Gmail from "../../../../utilities/icons/Gmail";
 import Facebook from "../../../../utilities/icons/Facebook";
 import LinkedIn from "../../../../utilities/icons/LinkedIn";
 import LineDrawText from "../../../../utilities/lineDrawText/LineDrawText";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
-import { useState } from "react";
 import ImageInCollage from "../../../../utilities/imageInCollage/ImageInCollage";
 const namespace = "contact-me-banner";
 const socialMedia = [
