@@ -116,12 +116,17 @@ const ProfileHeader = ({ isVisible }: { isVisible?: boolean }) => (
 );
 export const Profile = () => {
   const { ref: profileRef, isVisible } = useIntersectionWrapper();
+  const imgSrc = `${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/contact-me-profile.png`
+  const imgPlaceholder = `${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/contact-me-profile-placeholder.png`
   return (
     <div ref={profileRef} id={`${namespace}-profile`}>
       <ProfileHeader isVisible={isVisible} />
       <div id={`${namespace}-circle`}>
         <SoundLines />
-        <LazyImage src="" placeholderSrc="" alt="" />
+        <div id={`${namespace}-circle-img-container`}>
+        <LazyImage src={imgSrc} placeholderSrc={imgPlaceholder} alt="" />
+        </div>
+
       </div>
       <div id={`${namespace}-social-media`}>
         {socialMedia.map((m) => (
