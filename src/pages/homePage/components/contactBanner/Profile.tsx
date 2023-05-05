@@ -4,6 +4,8 @@ import Facebook from "../../../../utilities/icons/Facebook";
 import LinkedIn from "../../../../utilities/icons/LinkedIn";
 import LineDrawText from "../../../../utilities/lineDrawText/LineDrawText";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
+import { useState } from "react";
+import ImageInCollage from "../../../../utilities/imageInCollage/ImageInCollage";
 const namespace = "contact-me-banner";
 const socialMedia = [
   {
@@ -95,6 +97,37 @@ const SoundLines = () => {
     </svg>
   );
 };
+const ProfileSvg = () => {
+   const imgSrc = `${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/contact-me-profile.png`;
+   const imgPlaceholder = `${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/contact-me-profile-placeholder.png`;
+  const imgProps = {
+    x: "-34",
+    y: "0",
+    width: "260",
+    height: "233",
+  };
+  return (
+    <svg
+      id={`${namespace}-profile-svg`}
+      viewBox="0 0 226 234"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <ImageInCollage
+        id={"profile-svg"}
+        namespace={namespace}
+        placeholderSrc={imgPlaceholder}
+        src={imgSrc}
+        description="Arky on the phone"
+        clipPathEl={
+          <path d="M26.0175 1.28609L26.0175 61.6822C-8.71848 95.5264 -6.84846 150.987 26.7676 182.888C60.3648 214.77 114.88 214.196 147.787 177.359L259.047 233.01L259.409 233.191L259.409 232.786L259.409 1.2861L259.409 1.0361L259.159 1.03609L26.2675 1.03608L26.0175 1.03608L26.0175 1.28609Z" />
+        }
+      >
+        <rect {...imgProps} />
+      </ImageInCollage>
+    </svg>
+  );
+};
 const ProfileHeader = ({ isVisible }: { isVisible?: boolean }) => (
   <LineDrawText
     isVisible={isVisible}
@@ -116,17 +149,14 @@ const ProfileHeader = ({ isVisible }: { isVisible?: boolean }) => (
 );
 export const Profile = () => {
   const { ref: profileRef, isVisible } = useIntersectionWrapper();
-  const imgSrc = `${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/contact-me-profile.png`
-  const imgPlaceholder = `${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/contact-me-profile-placeholder.png`
   return (
     <div ref={profileRef} id={`${namespace}-profile`}>
       <ProfileHeader isVisible={isVisible} />
       <div id={`${namespace}-circle`}>
         <SoundLines />
         <div id={`${namespace}-circle-img-container`}>
-        <LazyImage src={imgSrc} placeholderSrc={imgPlaceholder} alt="" />
+          <ProfileSvg />
         </div>
-
       </div>
       <div id={`${namespace}-social-media`}>
         {socialMedia.map((m) => (

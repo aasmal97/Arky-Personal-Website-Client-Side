@@ -11,7 +11,7 @@ const transitionStyles: { [key: string]: { [key: string]: string } } = {
   exited: { opacity: "0" },
 };
 const ImageInCollage = ({
-  id,
+  id = '',
   children,
   namespace,
   placeholderSrc,
@@ -19,15 +19,17 @@ const ImageInCollage = ({
   src,
   duration,
   nextItem,
+  clipPathEl,
 }: {
   duration?: number;
   nextItem?: () => HobbiesDocumentWithDuration;
   description?: string;
-  id: string;
+  id?: string;
   namespace: string;
   placeholderSrc?: string;
   src: string;
   children: JSX.Element;
+  clipPathEl?: JSX.Element;
 }) => {
   const [placeholderURL, setPlaceholderUrl] = useState(placeholderSrc);
   const [imgURL, setImgURL] = useState(src);
@@ -63,14 +65,13 @@ const ImageInCollage = ({
   };
   const timeout = 500;
   const defaultStyles: { [key: string]: string } = {
-    transition: `${timeout}s opacity ease-out`,
+    transition: `${timeout}ms opacity ease-out`,
     visibility: loaded ? "visible" : "hidden",
   };
-
   return (
     <>
       <clipPath id={`${namespace}-clip-path-${id}`}>
-        <>{children}</>
+        <>{clipPathEl ? clipPathEl : children}</>
       </clipPath>
       <filter id={`${namespace}-filter-blur-${id}`}>
         <feGaussianBlur stdDeviation="5" in="SourceGraphic" result="BLUR" />
@@ -97,26 +98,28 @@ const ImageInCollage = ({
       >
         <desc>{description}</desc>
       </image>
-      <Transition ref={nodeRef} inProp={loaded} timeout={timeout}>
-        {(state) => (
-          <image
-            ref={nodeRef}
-            onLoad={onLoad}
-            clipPath={`url(#${namespace}-clip-path-${id})`}
-            href={imgURL}
-            style={{
-              ...defaultStyles,
-              ...transitionStyles[state],
-            }}
-            x={x}
-            y={y}
-            height={height}
-            width={width}
-            preserveAspectRatio="xMidYMid meet"
-          >
-            <desc>{description}</desc>
-          </image>
-        )}
+      <Transition nodeRef={nodeRef} in={loaded} timeout={timeout}>
+        {(state) => {
+          return (
+            <image
+              ref={nodeRef}
+              onLoad={onLoad}
+              clipPath={`url(#${namespace}-clip-path-${id})`}
+              href={imgURL}
+              style={{
+                ...defaultStyles,
+                ...transitionStyles[state],
+              }}
+              x={x}
+              y={y}
+              height={height}
+              width={width}
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <desc>{description}</desc>
+            </image>
+          )
+        }}
       </Transition>
     </>
   );

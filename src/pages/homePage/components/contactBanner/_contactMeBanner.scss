@@ -3,7 +3,6 @@
 $namespace: "contact-me-banner";
 $unitless-size: 5.2;
 $font-size: calc(min(#{$unitless-size}vw, 5.5em));
-
 ##{$namespace} {
   display: flex;
   width: 100%;
@@ -52,12 +51,15 @@ $circle-width: 50%;
 }
 ##{$namespace}-circle-img-container {
   position: absolute;
+  width: 110%;
   height: 110%;
   bottom: 0;
   left: -20%;
-  @include v.img-fill;
-  img{
-    width: auto;
+  ##{$namespace}-profile-svg {
+    position: absolute;
+    top: -11.5%;
+    left: 17.7%;
+    height: 127%;
   }
 }
 ##{$namespace}-social-media {
@@ -208,10 +210,6 @@ $circle-width: 50%;
     color: v.$gray;
     height: 100%;
     border: 1px solid v.$light-black;
-
-    // padding: calc(#{$font-size} * 0.22 / 2) calc(#{$font-size} * 0.22 / 1.9);
-    // font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    // font-size: calc(#{$font-size} * 0.22);
   }
   .#{$namespace}-contact-form-input-email {
     @include contact-me-form-input-styles;
