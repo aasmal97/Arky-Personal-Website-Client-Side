@@ -90,7 +90,11 @@ const IntroBanner = () => {
             infrastructure? Machine learning? Doesn’t matter. I’ll take on the
             challenge.
           </p>
-          <DownloadButton fileName="Arky Asmal CV" fileType="doc" data={""}>
+          <DownloadButton
+            fileName="Arky Asmal CV"
+            fileType="pdf"
+            data={`${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/ArkyAsmalCV.pdf`}
+          >
             Download CV
           </DownloadButton>
         </div>
