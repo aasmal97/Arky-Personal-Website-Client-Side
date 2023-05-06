@@ -11,7 +11,7 @@ const transitionStyles: { [key: string]: { [key: string]: string } } = {
   exited: { opacity: "0" },
 };
 const ImageInCollage = ({
-  id = '',
+  id = "",
   children,
   namespace,
   placeholderSrc,
@@ -38,6 +38,7 @@ const ImageInCollage = ({
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { x, y, height, width } = children.props;
   const nodeRef = useRef(null);
+  const placeholderNodeRef = useRef(null);
   const onPlaceHolderLoad = (
     e: React.SyntheticEvent<SVGImageElement, Event>
   ) => {
@@ -49,6 +50,15 @@ const ImageInCollage = ({
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
+  //add href after loading event listener, so that it will always trigger
+  useEffect(() => {
+    const placeholder = placeholderNodeRef.current as null | SVGImageElement;
+    const img = nodeRef.current as null | SVGImageElement;
+    if (placeholder && placeholderURL)
+      placeholder.setAttribute("href", placeholderURL);
+    if (img) img.setAttribute("href", imgURL);
+  }, [placeholderURL, imgURL]);
+
   const onLoad = (e: React.SyntheticEvent<SVGImageElement, Event>) => {
     setLoaded(true);
     if (!nextItem || !duration) return;
@@ -68,6 +78,14 @@ const ImageInCollage = ({
     transition: `${timeout}ms opacity ease-out`,
     visibility: loaded ? "visible" : "hidden",
   };
+  const defaultProps = {
+    clipPath: `url(#${namespace}-clip-path-${id})`,
+    x: x,
+    y: y,
+    height: height,
+    width: width,
+    preserveAspectRatio: "xMidYMid meet",
+  };
   return (
     <>
       <clipPath id={`${namespace}-clip-path-${id}`}>
@@ -78,10 +96,10 @@ const ImageInCollage = ({
       </filter>
       {!loaded && children}
       <image
-        onLoad={onPlaceHolderLoad}
-        clipPath={`url(#${namespace}-clip-path-${id})`}
+        {...defaultProps}
         filter={`url(#${namespace}-filter-blur-${id})`}
-        href={placeholderURL}
+        ref={placeholderNodeRef}
+        onLoad={onPlaceHolderLoad}
         style={{
           opacity: placeholderLoaded ? (loaded ? 0 : 1) : 0,
           visibility: placeholderLoaded
@@ -90,11 +108,6 @@ const ImageInCollage = ({
               : "visible"
             : "hidden",
         }}
-        x={x}
-        y={y}
-        height={height}
-        width={width}
-        preserveAspectRatio="xMidYMid meet"
       >
         <desc>{description}</desc>
       </image>
@@ -102,23 +115,17 @@ const ImageInCollage = ({
         {(state) => {
           return (
             <image
+              {...defaultProps}
               ref={nodeRef}
               onLoad={onLoad}
-              clipPath={`url(#${namespace}-clip-path-${id})`}
-              href={imgURL}
               style={{
                 ...defaultStyles,
                 ...transitionStyles[state],
               }}
-              x={x}
-              y={y}
-              height={height}
-              width={width}
-              preserveAspectRatio="xMidYMid meet"
             >
               <desc>{description}</desc>
             </image>
-          )
+          );
         }}
       </Transition>
     </>
