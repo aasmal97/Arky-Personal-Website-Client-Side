@@ -20,7 +20,9 @@ function DownloadButton({
     if (!linkRef.current) return;
     // create a URL that points to the data
     const url = typeof data === "string" ? data : URL.createObjectURL(data);
-
+    // create a link element to download the data
+    // linkRef.current.href = url;
+    // linkRef.current.download = `${fileName}
     // set the href attribute of the link element to the URL of the data
     linkRef.current.href = url;
 
@@ -43,7 +45,14 @@ function DownloadButton({
       </button>
 
       {/* render the hidden link element to download file */}
-      <a ref={linkRef} href=" " style={{ display: "none" }}>
+      <a
+        ref={linkRef}
+        target="_blank"
+        rel="noreferrer"
+        href=" "
+        download
+        style={{ display: "none" }}
+      >
         {children}
       </a>
     </>

@@ -91,7 +91,7 @@ const IntroBanner = () => {
             challenge.
           </p>
           <DownloadButton
-            fileName="Arky Asmal CV"
+            fileName="ArkyAsmalCV"
             fileType="pdf"
             data={`${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/ArkyAsmalCV.pdf`}
           >
