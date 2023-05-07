@@ -98,9 +98,9 @@ const pathArr: { rect: JSX.Element }[] = [
   },
   { rect: <rect x={62} y={0} width={78} height={58} fill="transparent" /> },
   { rect: <rect x={41} y={58} width={71} height={58} fill="transparent" /> },
-  { rect: <rect x={112} y={58} width={56} height={58} fill="transparent" /> },
-  { rect: <rect x={0} y={116} width={31} height={59} fill="transparent" /> },
-  { rect: <rect x={31} y={116} width={81} height={59} fill="transparent" /> },
+  { rect: <rect x={112} y={58} width={56} height={70} fill="transparent" /> },
+  { rect: <rect x={0} y={116} width={50} height={59} fill="transparent" /> },
+  { rect: <rect x={50} y={116} width={81} height={59} fill="transparent" /> },
 ];
 const verticalCount = pathArr.reduce((a, b) => {
   const increment = b.rect.props.width / b.rect.props.height > 1 ? 1 : 0;
@@ -112,7 +112,7 @@ const horizontalCount = pathArr.reduce((a, b) => {
 }, 0);
 
 export const MediaCollageSVG = () => {
-  const durationInterval: [number, number] = [10000, 60000];
+  const durationInterval: [number, number] = [10000, 100000];
   const {
     horizontalInitialImgs,
     verticalInitialImgs,
@@ -134,17 +134,20 @@ export const MediaCollageSVG = () => {
   ]);
   return (
     <svg viewBox="0 0 167 175" xmlns="http://www.w3.org/2000/svg">
-      {pathArrEls.map((el, idx) => (
+      {pathArrEls.map((el) => (
         <ImageInCollage
           nextItem={
             el.orientation === "horizontal"
               ? horizontalNextItem
               : verticalNextItem
           }
-          src={el.img.imgURL}
-          placeholderSrc={el.img.placeholderURL}
-          key={idx}
-          id={idx.toString()}
+          duration={el.img.duration}
+          preserveAspectRatio="xMinYMin slice"
+          description={el.img.imgDescription}
+          src={`${process.env.REACT_APP_MEDIA_FILES_URL}/${el.img.imgURL}`}
+          placeholderSrc={`${process.env.REACT_APP_MEDIA_FILES_URL}/${el.img.placeholderURL}`}
+          key={el.img.id}
+          id={el.img.id}
           namespace={namespace}
         >
           {el.rect}

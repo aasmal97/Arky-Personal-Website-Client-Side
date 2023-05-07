@@ -10,6 +10,7 @@ const transitionStyles: { [key: string]: { [key: string]: string } } = {
   exiting: { opacity: "1" },
   exited: { opacity: "0" },
 };
+const timeout = 500;
 const ImageInCollage = ({
   id = "",
   children,
@@ -20,9 +21,11 @@ const ImageInCollage = ({
   duration,
   nextItem,
   clipPathEl,
+  preserveAspectRatio = "xMidYMid meet",
 }: {
+  preserveAspectRatio?: string;
   duration?: number;
-  nextItem?: () => HobbiesDocumentWithDuration;
+  nextItem?: () => Promise<HobbiesDocumentWithDuration>;
   description?: string;
   id?: string;
   namespace: string;
@@ -62,21 +65,29 @@ const ImageInCollage = ({
   const onLoad = (e: React.SyntheticEvent<SVGImageElement, Event>) => {
     setLoaded(true);
     if (!nextItem || !duration) return;
-    const id = setTimeout(() => {
-      const result = nextItem();
+    const id = setTimeout(async () => {
+      const result = await nextItem();
       unstable_batchedUpdates(() => {
         setLoaded(false);
         setPlaceholderLoaded(false);
-        setImgURL(result.imgURL);
-        setPlaceholderUrl(result.placeholderURL);
+        setTimeout(() => {
+          unstable_batchedUpdates(() => {
+            setImgURL(
+              `${process.env.REACT_APP_MEDIA_FILES_URL}/${result.imgURL}`
+            );
+            setPlaceholderUrl(
+              `${process.env.REACT_APP_MEDIA_FILES_URL}/${result.placeholderURL}`
+            );
+          });
+        }, timeout * 2.5);
       });
     }, duration);
     timeoutRef.current = id;
   };
-  const timeout = 500;
+
   const defaultStyles: { [key: string]: string } = {
     transition: `${timeout}ms opacity ease-out`,
-    visibility: loaded ? "visible" : "hidden",
+    // visibility: loaded ? "visible" : "hidden",
   };
   const defaultProps = {
     clipPath: `url(#${namespace}-clip-path-${id})`,
@@ -84,7 +95,7 @@ const ImageInCollage = ({
     y: y,
     height: height,
     width: width,
-    preserveAspectRatio: "xMidYMid meet",
+    preserveAspectRatio: preserveAspectRatio,
   };
   return (
     <>

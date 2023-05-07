@@ -49,7 +49,7 @@ const horizontalCount = rectArr.reduce((a, b) => {
   return a + increment;
 }, 0);
 const ImageCollageSVG = () => {
-  const durationInterval: [number, number] = [10000, 60000];
+  const durationInterval: [number, number] = [10000, 30000];
   const {
     horizontalInitialImgs,
     verticalInitialImgs,
@@ -78,8 +78,10 @@ const ImageCollageSVG = () => {
               ? horizontalNextItem
               : verticalNextItem
           }
-          src={el.img.imgURL}
-          placeholderSrc={el.img.placeholderURL}
+          duration={el.img.duration}
+          description={el.img.imgDescription}
+          src={`${process.env.REACT_APP_MEDIA_FILES_URL}/${el.img.imgURL}`}
+          placeholderSrc={`${process.env.REACT_APP_MEDIA_FILES_URL}/${el.img.placeholderURL}`}
           key={idx}
           namespace={namespace}
           id={idx.toString()}

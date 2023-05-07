@@ -97,18 +97,29 @@ const hobbiesImagesGetNew = async ({
   const shuffledItems = res ? shuffleArray(res.result.Items) : [];
   unstable_batchedUpdates(() => {
     setStatus("success");
-    setImgs((e) => {
+    setImgs((imgWithDuration) => {
       //assign duration timers
-      const addTimers = shuffledItems.map((e) => ({
-        ...e,
-        duration: generateRandomNumber(
-          durationTimerInterval[0],
-          durationTimerInterval[1]
-        ),
-      }));
+      const newArrWithoutTimers = [
+        ...imgWithDuration.map((imgDoc) => {
+          const newImg = { ...imgDoc };
+          delete newImg.duration;
+          return newImg;
+        }),
+        ...shuffledItems,
+      ];
       // remove duplicates
-      const newArr = removeDuplicates([...e, ...addTimers]);
-      return newArr;
+      const filteredArr = removeDuplicates(newArrWithoutTimers);
+      const addTimers = filteredArr.map((imgDoc, idx) => ({
+        ...imgDoc,
+        duration:
+          imgWithDuration.length > idx
+            ? imgWithDuration[idx].duration
+            : generateRandomNumber(
+                durationTimerInterval[0],
+                durationTimerInterval[1]
+              ),
+      }));
+      return addTimers;
     });
     setImgsKey(
       res
@@ -141,9 +152,6 @@ const hobbiesImgsLookAhead = async ({
   if (nextIdx >= items.length) {
     //check if there's a definitive end to list
     if (isNull(imgsKey)) return;
-    // {
-    //   return setCurrIdx(0);
-    // }
     //fetch new images
     await hobbiesImagesGetNew({
       setStatus,
@@ -170,8 +178,14 @@ const useHobbiesImagesType = ({
   const [status, setStatus] = useState<"loading" | "error" | "success">(
     "loading"
   );
-  const initialImgsInterval = imgs.slice(0, intervalCount);
   const [startDuration, endDuration] = durationInterval;
+  const initialImgsInterval = imgs.slice(0, intervalCount).map((e) => {
+    return {
+      ...e,
+      duration: generateRandomNumber(startDuration, endDuration),
+    };
+  });
+
   useEffect(() => {
     unstable_batchedUpdates(() => {
       hobbiesImgsLookAhead({
@@ -186,32 +200,33 @@ const useHobbiesImagesType = ({
       setCurrIdx(intervalCount);
     });
   }, [startDuration, endDuration, orientation, intervalCount]);
-  const nextItem = () => {
+  const nextItem = async () => {
     //we loop back when we reach
     //the definitive end
-    if (!imgsKey) {
-      setCurrIdx(0);
-      return imgs?.[0];
-    }
-    setCurrIdx((idx) => idx + 1);
+    const setCurrentIdxPromise: Promise<number> = new Promise((resolve) => {
+      setCurrIdx((idx) => {
+        let newIdx: number = idx + 1;
+        if (newIdx >= imgs.length) newIdx = 0;
+        resolve(newIdx);
+        return newIdx;
+      });
+    });
+    const newIdx = await setCurrentIdxPromise;
+    if (!imgsKey) return imgs?.[newIdx];
     hobbiesImgsLookAhead({
       orientation,
       items: imgs,
-      currIdx: currIdx + 1,
+      currIdx: newIdx,
       imgsKey,
       setStatus,
       setImgs,
       setImgsKey,
       durationTimerInterval: durationInterval,
     });
-    //we know we aren't at the definitive end
-    //but this allows us to return a value if we have colliding
-    //interval values, and the new images we need havent finished
-    //fetching yet
-    if (currIdx + 1 >= imgs.length) return imgs?.[0];
-    return imgs[currIdx + 1];
+    return imgs?.[newIdx];
   };
   return {
+    currIdx,
     nextItem,
     status,
     initialImgsInterval,
