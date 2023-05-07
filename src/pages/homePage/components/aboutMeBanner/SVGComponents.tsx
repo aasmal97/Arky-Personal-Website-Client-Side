@@ -103,11 +103,11 @@ const pathArr: { rect: JSX.Element }[] = [
   { rect: <rect x={50} y={116} width={81} height={59} fill="transparent" /> },
 ];
 const verticalCount = pathArr.reduce((a, b) => {
-  const increment = b.rect.props.width / b.rect.props.height > 1 ? 1 : 0;
+  const increment = b.rect.props.width / b.rect.props.height > 1 ? 0 : 1;
   return a + increment;
 }, 0);
 const horizontalCount = pathArr.reduce((a, b) => {
-  const increment = b.rect.props.width / b.rect.props.height > 1 ? 0 : 1;
+  const increment = b.rect.props.width / b.rect.props.height > 1 ? 1 : 0;
   return a + increment;
 }, 0);
 
