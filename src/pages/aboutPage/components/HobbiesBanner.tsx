@@ -49,12 +49,11 @@ const ImageCollageSVG = () => {
       durationInterval,
     },
   });
-  // console.log(verticalCount, horizontalCount)
   const rectArrEls = matchElWithImage(rectArr, [
     ...horizontalInitialImgs,
     ...verticalInitialImgs,
   ]);
-  // console.log(horizontalInitialImgs, verticalInitialImgs);
+
   return (
     <svg viewBox="0 0 481 200" xmlns="http://www.w3.org/2000/svg">
       {rectArrEls.map((el) => (
