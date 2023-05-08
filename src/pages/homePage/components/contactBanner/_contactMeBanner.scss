@@ -210,10 +210,12 @@ $circle-width: 50%;
     color: v.$gray;
     height: 100%;
     border: 1px solid v.$light-black;
+    padding: 0;
+    padding: 0 8px;
   }
   .#{$namespace}-contact-form-input-email {
     @include contact-me-form-input-styles;
-    width: 100%;
+    flex-grow: 1;
   }
   .phone-input-container {
     .phone-dropdown {

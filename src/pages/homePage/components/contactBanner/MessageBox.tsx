@@ -179,6 +179,7 @@ export const MessageBox = () => {
   const [formMessage, setFormMessage] = useState<string | null>(null);
   const [playAnimation, setPlayAnimation] = useState(false);
   const smallWindowWidth = useWindowWidth(992);
+  const smallestWindowWidth = useWindowWidth(575)
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formStatus === "loading") return;
@@ -233,7 +234,8 @@ export const MessageBox = () => {
     document.body
   );
   const paddingLeft = 23;
-  const paddingTop = 17;
+  const paddingTop = 17; 
+  const formHeight = smallestWindowWidth ? size.height * 1.2 : size.height * 1.35; 
   return (
     <div id={`${namespace}-message`}>
       {formStatus !== "loading" && formMessage && formMessageBanner}
@@ -251,7 +253,7 @@ export const MessageBox = () => {
           style={{
             paddingTop: `${paddingTop}%`,
             paddingLeft: `${paddingLeft}%`,
-            height: `calc(${size.height * 1.2}px - (${size.width}px * ${
+            height: `calc(${formHeight}px - (${size.width}px * ${
               paddingTop / 100
             }))`,
             width: `calc(${size.width}px - (${size.width}px * ${

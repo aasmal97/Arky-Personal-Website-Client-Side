@@ -93,6 +93,12 @@ $unitless-size: c.$unitless-size;
   @include contact-me-spacing($unitless-size * 2.2);
 }
 @mixin contact-me-sm {
+    ##{$namespace}-profile {
+    width: 80%;
+  }
+    ##{$namespace}-message-inner {
+    width: 80%;
+  }
   @include contact-me-spacing($unitless-size * 2.5);
 }
 @mixin contact-me-hover {

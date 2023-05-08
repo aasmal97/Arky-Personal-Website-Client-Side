@@ -22,7 +22,7 @@ $namespace: a.$namespace;
     p {
       margin-top: calc(#{$paragraph-size} / 4);
       font-size: calc(#{$paragraph-size} * 0.22);
-          line-height: 1.623em;
+      line-height: 1.623em;
       span {
         font-size: calc(#{$paragraph-size} * 0.55);
       }
@@ -44,7 +44,7 @@ $namespace: a.$namespace;
       height: auto;
     }
   }
-  
+
   .#{$namespace}-text-container {
     padding-bottom: 0;
     width: 100%;
@@ -68,18 +68,27 @@ $namespace: a.$namespace;
   .#{$namespace}-media-content {
     padding: calc(#{v.$navbar-height} * 2);
   }
-  @include about-spacing(13);
-}
-@mixin about-sm {
-    .#{$namespace}-media-content {
-    padding: calc(#{v.$navbar-height});
-    // & > svg {
-    //   transform: translateX(6%);
-    //   width: 100%;
-    // }
+  .#{$namespace}-media-content {
+    & > svg {
+      transform: translateX(6%);
+      width: 110%;
+    }
   }
   .#{$namespace}-blob {
     width: calc(100% - (#{v.$navbar-height} * 2));
+  }
+  @include about-spacing(13);
+}
+@mixin about-sm {
+  .#{$namespace}-media-content {
+    padding: calc(#{v.$navbar-height});
+    & > svg {
+      transform: translateX(5%);
+      width: 95%;
+    }
+  }
+  .#{$namespace}-blob {
+    width: calc(110% - (#{v.$navbar-height} * 2));
   }
   @include about-spacing(15, 17);
 }
