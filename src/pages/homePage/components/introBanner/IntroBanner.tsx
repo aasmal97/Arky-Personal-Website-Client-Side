@@ -61,6 +61,7 @@ const IntroBanner = () => {
       <div className={`${namespace}-img-container`}>
         <LazyImage
           src={`${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/profile.png`}
+          //src={process.env.REACT_APP_MEDIA_FILES_URL + "/homePg/profile-placeholder.png"}
           alt="Arky Asmal smiling, and standing with arms folded"
           placeholderSrc={`${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/profile-placeholder.png`}
         />

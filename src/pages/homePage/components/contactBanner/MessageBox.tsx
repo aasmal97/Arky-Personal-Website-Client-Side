@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import anime from "animejs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEnvelope,
+  //faEnvelope,
   faPaperPlane,
-  faPhone,
+  //faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
 import { postContactMeMessage } from "../../../../utilities/asyncActions/ContactMeActions";
-import {  LoadingButton } from "@mui/lab";
+import { LoadingButton } from "@mui/lab";
 import { LoadingIconRegularCircle } from "../../../../utilities/loadingIcon/LoadingIcon";
 import { createPortal, unstable_batchedUpdates } from "react-dom";
 import { FormInput } from "../../../../utilities/formInputs/FormInputs";
@@ -18,26 +18,28 @@ import { capitalizeFirstLetter } from "../../../../utilities/helpers/capitalizeF
 import {
   Alert,
   AlertTitle,
-  ToggleButton,
-  ToggleButtonGroup,
+  // ToggleButton,
+  // ToggleButtonGroup,
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import PhoneInput from "react-phone-input-2";
+import {
+  //createTheme, //ThemeProvider
+} from "@mui/material/styles";
+// import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 const animationProgess = 88;
 const namespace = "contact-me-banner";
-const materialUITheme = createTheme({
-  palette: {
-    primary: {
-      main: "#b2292c",
-    },
-    secondary: {
-      main: "#00658a",
-    },
-    contrastThreshold: 3,
-    tonalOffset: 0.2,
-  },
-});
+// const materialUITheme = createTheme({
+//   palette: {
+//     primary: {
+//       main: "#b2292c",
+//     },
+//     secondary: {
+//       main: "#00658a",
+//     },
+//     contrastThreshold: 3,
+//     tonalOffset: 0.2,
+//   },
+// });
 const MessageBoxLine = ({
   setRef,
   size,
@@ -127,10 +129,11 @@ const MessageBoxLine = ({
   );
 };
 const ContactFormInput = () => {
-  const [contactType, setContactType] = useState("email");
+  //const [contactType, setContactType] = useState("email");
+  const contactType = "email";
   return (
     <div className={`${namespace}-contact-form-input`}>
-      {contactType === "phone" && (
+      {/* {contactType === "phone" && (
         <PhoneInput
           containerClass="phone-input-container"
           inputClass="phone-input"
@@ -141,7 +144,7 @@ const ContactFormInput = () => {
           dropdownClass="phone-dropdown"
           placeholder="Your Phone Number"
         />
-      )}
+      )} */}
       {contactType === "email" && (
         <FormInput
           className={`${namespace}-contact-form-input-email`}
@@ -150,7 +153,7 @@ const ContactFormInput = () => {
           placeholder="Your Email"
         />
       )}
-      <ThemeProvider theme={materialUITheme}>
+      {/* <ThemeProvider theme={materialUITheme}>
         <ToggleButtonGroup
           orientation="horizontal"
           value={contactType}
@@ -167,7 +170,7 @@ const ContactFormInput = () => {
             <FontAwesomeIcon icon={faPhone} />
           </ToggleButton>
         </ToggleButtonGroup>
-      </ThemeProvider>
+      </ThemeProvider> */}
     </div>
   );
 };
@@ -179,7 +182,7 @@ export const MessageBox = () => {
   const [formMessage, setFormMessage] = useState<string | null>(null);
   const [playAnimation, setPlayAnimation] = useState(false);
   const smallWindowWidth = useWindowWidth(992);
-  const smallestWindowWidth = useWindowWidth(575)
+  const smallestWindowWidth = useWindowWidth(575);
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formStatus === "loading") return;
@@ -233,9 +236,11 @@ export const MessageBox = () => {
     </Alert>,
     document.body
   );
-  const paddingLeft = 23;
-  const paddingTop = 17; 
-  const formHeight = smallestWindowWidth ? size.height * 1.2 : size.height * 1.35; 
+  const paddingLeft = 18;
+  const paddingTop = 17;
+  const formHeight = smallestWindowWidth
+    ? size.height * 1.2
+    : size.height * 1.35;
   return (
     <div id={`${namespace}-message`}>
       {formStatus !== "loading" && formMessage && formMessageBanner}
@@ -257,7 +262,7 @@ export const MessageBox = () => {
               paddingTop / 100
             }))`,
             width: `calc(${size.width}px - (${size.width}px * ${
-              paddingLeft / 100
+              paddingLeft / 100 + 0.04
             }))`,
           }}
         >

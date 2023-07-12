@@ -16,6 +16,9 @@ $font-size: calc(min(#{$unitless-size}vw, 5.5em));
   width: 40%;
   background-color: v.$red;
   @include v.img-fill;
+  .lazy-load-image-background{
+    background-position: top;
+  }
   img {
     object-position: top;
   }

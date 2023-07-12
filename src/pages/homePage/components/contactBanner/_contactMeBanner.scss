@@ -33,7 +33,7 @@ $font-size: calc(min(#{$unitless-size}vw, 5.5em));
     font-weight: 500;
   }
 }
-$circle-width: 50%;
+$circle-width: 55%;
 ##{$namespace}-circle {
   position: relative;
   width: $circle-width;
@@ -103,7 +103,7 @@ $circle-width: 50%;
 .#{$namespace}-box-line {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -2%;
   width: 100%;
   z-index: 0;
 }
@@ -168,7 +168,7 @@ $circle-width: 50%;
   z-index: 1;
   height: auto;
   line-height: normal;
-  padding: calc(#{$font-size} * 0.22 / 2) calc(#{$font-size} * 0.22 / 1.9);
+  padding: calc(#{$font-size} * 0.35 / 2) calc(#{$font-size} * 0.22 / 1.9);
   resize: none;
   &::placeholder {
     font-weight: 600;

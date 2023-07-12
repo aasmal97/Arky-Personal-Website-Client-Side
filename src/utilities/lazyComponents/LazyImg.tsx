@@ -13,6 +13,14 @@ const LazyImage = ({
 }) => {
   return (
     <LazyLoadImage
+      wrapperProps={{
+        style: {
+          backgroundSize: "cover",
+          backgroundImage: `url(${placeholderSrc})`,
+          color: "transparent",
+          display: "inline-block",
+        },
+      }}
       className={className}
       src={src}
       placeholderSrc={placeholderSrc}
@@ -22,4 +30,4 @@ const LazyImage = ({
     />
   );
 };
-export default LazyImage
+export default LazyImage;
