@@ -18,7 +18,8 @@ This app uses a series of dependencies and you can check the list in the followi
 2.  [Swiper](https://swiperjs.com/) for carousel functionality
 3. [Font Awesome packages](https://fontawesome.com/) for icons
 4. [Material UI](https://mui.com/) for reuseable components
-5. [Arky's AWS Backend](https://github.com/aasmal97/Arky-Personal-Website-AWS-CDK/tree/master) is responsible for the backend of the web application, and all associated api calls
+5. [Sass](https://github.com/sass/dart-sass) which is needed to complie SCSS to CSS
+6. [Arky's AWS Backend](https://github.com/aasmal97/Arky-Personal-Website-AWS-CDK/tree/master) is responsible for the backend of the web application, and all associated api calls
 ## Build + Deploy
 #### Build 
 This project uses doppler to manage enviroment secrets, therefore, for full functionality, you must request access to frontend doppler secrets for this project prior to starting this project on your local machine. 
