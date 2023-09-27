@@ -8,9 +8,9 @@ If you are looking for the backend code, go [here](https://github.com/aasmal97/A
 Most components in the project are ordered in the page they appear. All react hooks are located [here](./src/hooks/)
 
 1. [utilities](./src/utilities/) is where components that are reusable across the entire app, are located
-2. [About Page](./src/pages/aboutPage/)
-3. [Home Page](./src/pages/homePage/)
-4. [Skills Page](./src/pages/skillsPage/)
+2. [About Page](./src/pages/aboutPage/) contains all components needed to display the about section
+3. [Home Page](./src/pages/homePage/) contains all the components needed for the landing page
+4. [Skills Page](./src/pages/skillsPage/) contains all the components needed for the skill section
 
 ## Dependencies
 This app uses a series of dependencies and you can check the list in the following [package.json file](./package.json). Most notably are the following: 
