@@ -3,6 +3,7 @@ import { fetchSkillsData } from "../../../../utilities/asyncActions/SkillsAction
 import { Skills } from "../../../../utilities/types/RestApiTypes";
 import Collapse from "@mui/material/Collapse";
 import SkillsImage from "./SkillsImage";
+import useWindowWidth from "../../../../hooks/useWindowWidth";
 const namespace = "skills-banner";
 const BubblesSVGIcon = () => {
   return (
@@ -25,7 +26,7 @@ const MediaContent = () => {
     <div className={`${namespace}-media-content`}>
       <div className={`${namespace}-media-img-container`}>
         <SkillsImage />
-          {/* <LazyImage
+        {/* <LazyImage
             src={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro.jpg`}
             placeholderSrc={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro-placeholder.jpg`}
             alt="Arky sitting on a ledge in Guayquil, Ecuador"
@@ -96,17 +97,29 @@ export const SkillsList = () => {
 };
 const SkillsBanner = memo(() => {
   const [showSkills, setShowSkills] = useState(false);
+  const mediumWindowWidth = useWindowWidth(768);
+  const width = "min(5vw, 4em)";
+  const innerStyle = {
+    paddingBottom: !mediumWindowWidth ? `calc(${width} * 3)`: `calc(${width} * 1)`,
+  };
   return (
     <div id={namespace}>
       <BubblesSVGIcon />
-      <div id={`${namespace}-inner`}>
+      <div id={`${namespace}-inner`} style={innerStyle}>
         <MediaContent />
         <TextContent showSkills={showSkills} setShowSkills={setShowSkills} />
+        {!mediumWindowWidth && (
+          <Collapse in={showSkills} timeout={500}>
+            <SkillsList />
+          </Collapse>
+        )}
       </div>
-      <Collapse in={showSkills} timeout={500}>
-        <SkillsList />
-        <div className={`${namespace}-svg-spacing`}></div>
-      </Collapse>
+      {mediumWindowWidth && (
+        <Collapse in={showSkills} timeout={500}>
+          <SkillsList />
+          <div className={`${namespace}-svg-spacing`}></div>
+        </Collapse>
+      )}
       <BubblesSVGIcon />
     </div>
   );

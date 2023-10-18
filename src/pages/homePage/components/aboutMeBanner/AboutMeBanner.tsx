@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
 import anime from "animejs";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
-import { BlobSVG, MediaCollageSVG, WaveSVG } from "./SVGComponents";
+import { BlobSVG, MediaCollagePlaceholderSVG, MediaCollageSVG, WaveSVG } from "./SVGComponents";
 const namespace = "about-me-pg";
 
 const TextContent = () => {
@@ -90,6 +90,7 @@ const MediaContent = () => {
   return (
     <div ref={mediaRef} className={`${namespace}-media-content`}>
       {isVisible && <MediaCollageSVG />}
+      {!isVisible && <MediaCollagePlaceholderSVG />}
       <div className={`${namespace}-media-inner`}>
         <div className={`${namespace}-blob`}>{ <BlobSVG />}</div>
       </div>
