@@ -22,6 +22,7 @@ const ImageInCollage = ({
   nextItem,
   clipPathEl,
   preserveAspectRatio = "xMidYMid meet",
+  hidePlaceholderOnLoad = false,
 }: {
   preserveAspectRatio?: string;
   duration?: number;
@@ -33,6 +34,7 @@ const ImageInCollage = ({
   src: string;
   children: JSX.Element;
   clipPathEl?: JSX.Element;
+  hidePlaceholderOnLoad?: boolean;
 }) => {
   const [placeholderURL, setPlaceholderUrl] = useState(placeholderSrc);
   const [imgURL, setImgURL] = useState(src);
@@ -97,6 +99,16 @@ const ImageInCollage = ({
     width: width,
     preserveAspectRatio: preserveAspectRatio,
   };
+  const hidePlaceholderStyles: React.CSSProperties = hidePlaceholderOnLoad
+    ? {
+        opacity: placeholderLoaded ? (loaded ? 0 : 1) : 0,
+        visibility: placeholderLoaded
+          ? loaded
+            ? "hidden"
+            : "visible"
+          : "hidden",
+      }
+    : {};
   return (
     <>
       <clipPath id={`${namespace}-clip-path-${id}`}>
@@ -111,14 +123,7 @@ const ImageInCollage = ({
         filter={`url(#${namespace}-filter-blur-${id})`}
         ref={placeholderNodeRef}
         onLoad={onPlaceHolderLoad}
-        style={{
-          opacity: placeholderLoaded ? (loaded ? 0 : 1) : 0,
-          visibility: placeholderLoaded
-            ? loaded
-              ? "hidden"
-              : "visible"
-            : "hidden",
-        }}
+        style={{ ...hidePlaceholderStyles }}
       >
         <desc>{description}</desc>
       </image>

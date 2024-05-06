@@ -103,15 +103,15 @@ const NavDrawer = () => {
         open={open}
         onClose={(e) => toggleDrawer(false)(e)}
       >
-      <Button
-        variant="text"
-        id={`${namespace}-close-drawer-button`}
-        aria-label="close-drawer"
-        onClick={toggleDrawer(false)}
-      >
-        <FontAwesomeIcon icon={faClose} />
-      </Button>
-      <NavLinks toggleDrawer={toggleDrawer} />
+        <Button
+          variant="text"
+          id={`${namespace}-close-drawer-button`}
+          aria-label="close-drawer"
+          onClick={toggleDrawer(false)}
+        >
+          <FontAwesomeIcon icon={faClose} />
+        </Button>
+        <NavLinks toggleDrawer={toggleDrawer} />
       </Drawer>
     </>
   );

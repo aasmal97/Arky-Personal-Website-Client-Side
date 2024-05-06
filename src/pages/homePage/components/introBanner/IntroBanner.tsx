@@ -87,9 +87,8 @@ const IntroBanner = () => {
           className={`${namespace}-sub-content`}
         >
           <p style={{ width: width }}>
-            Have a project requiring front-end work? Back-end? Cloud
-            infrastructure? Machine learning? Doesn’t matter. I’ll take on the
-            challenge.
+            Have a project requiring frontend work? Backend? Cloud
+            infrastructure? Machine learning? Let's tackle it together.
           </p>
           <DownloadButton
             fileName="ArkyAsmalCV"

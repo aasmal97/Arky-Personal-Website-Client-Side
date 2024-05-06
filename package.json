@@ -46,12 +46,12 @@
     "web-vitals": "=2.1.4"
   },
   "devDependencies": {
-    "@types/animejs": "^3.1.6",
-    "@types/lodash": "^4.14.191",
-    "@types/react-lazy-load-image-component": "^1.5.2",
-    "@types/react-router-hash-link": "^2.4.5",
-    "@types/react-transition-group": "^4.4.5",
-    "@types/uuid": "^9.0.0",
+    "@types/animejs": "=3.1.6",
+    "@types/lodash": "=4.14.191",
+    "@types/react-lazy-load-image-component": "=1.5.2",
+    "@types/react-router-hash-link": "=2.4.5",
+    "@types/react-transition-group": "=4.4.5",
+    "@types/uuid": "=9.0.0",
     "cross-env": "=7.0.3",
     "sass": "=1.57.1"
   },

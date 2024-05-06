@@ -117,6 +117,7 @@ const ProfileSvg = () => {
         placeholderSrc={imgPlaceholder}
         src={imgSrc}
         description="Arky on the phone"
+        hidePlaceholderOnLoad
         clipPathEl={
           <path d="M26.0175 1.28609L26.0175 61.6822C-8.71848 95.5264 -6.84846 150.987 26.7676 182.888C60.3648 214.77 114.88 214.196 147.787 177.359L259.047 233.01L259.409 233.191L259.409 232.786L259.409 1.2861L259.409 1.0361L259.159 1.03609L26.2675 1.03608L26.0175 1.03608L26.0175 1.28609Z" />
         }
