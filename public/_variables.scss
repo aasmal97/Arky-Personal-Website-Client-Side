@@ -115,17 +115,19 @@ $navbar-height: 3.3em;
   margin: 0;
   line-height: 1.35em;
   & > * {
-    padding-right: 0.5em;
+    padding-right: 0.25em;
+    padding-left: 0.25em;
   }
-  // overflow-wrap: break-word;
 }
 
 @mixin sub-heading($font-size, $bold: "false") {
   @include title-heading($font-size, $bold);
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  line-height: 1.64em;
   & > * {
-    padding-right: 0.6em;
+    padding-right: 0.3em;
+    padding-left: 0.3em;
   }
 }
 @mixin action-btn($font-size) {

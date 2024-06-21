@@ -1,65 +1,92 @@
 @use "./introBanner" as i;
 @use "../../../../../public/variables" as v;
 $namespace: i.$namespace;
-@mixin intro-banner-spacing(
-  $font-size,
-  $link-size-unit: $font-size,
-  $paragraph-size-unit: $font-size
-) {
-  .#{$namespace}-content {
-    $unitless-size: $font-size;
-    $font-size: calc(min(#{$unitless-size}vw, 5.5em));
-    .#{$namespace}-title {
-      h2 {
-        font-size: $font-size;
-      }
-      h3 {
-        font-size: calc(#{$font-size} * 0.61);
-      }
-    }
-    $paragraph-size: calc(min(#{$paragraph-size-unit}vw, 5.5em));
-    p {
-      margin-top: calc(#{$paragraph-size} / 2);
-      font-size: calc(#{$paragraph-size} * 0.28);
-      line-height: 1.623em;
-    }
-
-    $link-size: calc(min(#{$link-size-unit}vw, 5.5em));
-    a,
-    button {
-      font-size: calc(#{$link-size} * 0.25);
-      margin: calc(#{$link-size} / 2) 0;
-      padding: calc(#{$link-size} * 0.3 / 3) calc(#{$link-size} * 0.3);
-    }
-  }
+@mixin intro-xxl {
+  @include i.intro-banner();
+}
+@mixin intro-xl {
+  @include i.intro-banner(
+    $container-padding: 2.5rem,
+    $img-width: 18.23rem,
+    $title-heading-font-size: 5rem,
+    $sub-heading-font-size: 1.875rem,
+    $download-btn-font-size: 1.25rem,
+    $description-font-size: 1.25rem,
+    $heading-spacing: 1.25rem,
+    $content-spacing: 1.875rem
+  );
 }
 @mixin intro-lg {
-  @include intro-banner-spacing(7);
+  @include i.intro-banner(
+    $container-padding: 2rem,
+    $img-width: 14.58rem,
+    $title-heading-font-size: 4rem,
+    $sub-heading-font-size: 1.5rem,
+    $download-btn-font-size: 1rem,
+    $description-font-size: 1rem,
+    $heading-spacing: 1rem,
+    $content-spacing: 1.5rem
+  );
+}
+@mixin intro-md {
+  @include i.intro-banner(
+    $container-padding: 2rem,
+    $img-width: 14.58rem,
+    $title-heading-font-size: 3rem,
+    $sub-heading-font-size: 1.5rem,
+    $download-btn-font-size: 1rem,
+    $description-font-size: 1rem,
+    $heading-spacing: 1rem,
+    $content-spacing: 1.5rem
+  );
+}
+@mixin intro-sm {
+  @include i.intro-banner(
+    $container-padding: 1rem,
+    $img-width: 100%,
+    $title-heading-font-size: 3.5rem,
+    $sub-heading-font-size: 1.5rem,
+    $download-btn-font-size: 1rem,
+    $description-font-size: 1rem,
+    $heading-spacing: 1rem,
+    $content-spacing: 1.5rem
+  );
   ##{$namespace} {
     flex-direction: column;
   }
+  .#{$namespace}-img-wrapper {
+    max-width: 21.875rem;
+  }
   .#{$namespace}-img-container {
-    max-width: unset;
-    @include v.abs-pos-fill(0);
+    display: flex;
+    justify-content: center;
+    height: 100%;
   }
-  .#{$namespace}-content {
-    padding: calc(#{v.$navbar-height}* 1.5) 0;
-    p,
-    div,
-    button {
-      z-index: 1;
+  ##{$namespace} {
+    & > * {
+      padding-top: 1.75rem;
+      padding-bottom: 1.75rem;
+      &:first-child {
+        padding-bottom: 0;
+      }
     }
-    @include v.bg-fill(rgba(0, 0, 0, 0.6), 0);
   }
-}
-@mixin intro-md {
-  @include intro-banner-spacing(10);
-}
-@mixin intro-sm {
-  @include intro-banner-spacing(12, 15, 15);
   .#{$namespace}-content {
-    padding: calc(#{v.$navbar-height}) 0;
+    align-items: center;
   }
+  .#{$namespace}-title {
+    & > h2,
+    & > h3 {
+      justify-content: center;
+    }
+  }
+  .#{$namespace}-sub-content {
+    align-items: center;
+  }
+  // @include intro-banner-spacing(12, 15, 15);
+  // .#{$namespace}-content {
+  //   padding: calc(#{v.$navbar-height}) 0;
+  // }
 }
 @mixin intro-hover {
   .#{$namespace}-sub-content button {

@@ -2,9 +2,15 @@
 @use "../src/pages/homePage/homePageBreakpoints" as home;
 @use "../src/pages/aboutPage/aboutBreakpoints" as about;
 @use "../src/pages/projectPage/projectBreakpoints" as projects;
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
+  @include home.home-xxl;
 }
-
+@media(max-width: 1200px){
+  // @include util.utilities-lg;
+  @include home.home-xl;
+  // @include about.about-lg;
+  // @include projects.project-lg;
+}
 @media (max-width: 992px) {
   @include util.utilities-lg;
   @include home.home-lg;
