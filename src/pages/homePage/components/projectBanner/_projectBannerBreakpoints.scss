@@ -24,6 +24,8 @@ $namespace: p.$namespace;
     }
   }
 }
+@mixin project-xl {
+}
 @mixin project-lg {
   @include project-spacing(8, 7);
   ##{$namespace} {
@@ -93,8 +95,8 @@ $namespace: p.$namespace;
     width: 100%;
     min-height: calc(10vh - 7em);
     &::after {
-    top: 0px;
-  }
+      top: 0px;
+    }
   }
   .#{$namespace}-carousel-wrapper {
     $paddingLeft: 8%;
