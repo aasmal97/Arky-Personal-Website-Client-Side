@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { ButtonHTMLAttributes, useRef } from "react";
 
 function DownloadButton({
   children,
@@ -7,7 +7,10 @@ function DownloadButton({
   fileType,
   data,
 }: {
-  children: JSX.Element[] | JSX.Element | string;
+  // children: JSX.Element[] | JSX.Element | string;
+  children: (
+    props?: ButtonHTMLAttributes<HTMLButtonElement>
+  ) => React.ReactNode | string;
   className?: string;
   fileName: string;
   fileType: string;
@@ -36,14 +39,11 @@ function DownloadButton({
   return (
     <>
       {/* render the button */}
-      <button
-        className={className}
-        onClick={handleDownload}
-        aria-label={`download-${fileName}.${fileType}`}
-      >
-        {children}
-      </button>
-
+      {children({
+        className,
+        onClick: handleDownload,
+        "aria-label": `download-${fileName}.${fileType}`,
+      })}
       {/* render the hidden link element to download file */}
       <a
         ref={linkRef}
@@ -52,9 +52,7 @@ function DownloadButton({
         href=" "
         download
         style={{ display: "none" }}
-      >
-        {children}
-      </a>
+      />
     </>
   );
 }

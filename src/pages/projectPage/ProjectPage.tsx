@@ -10,17 +10,17 @@ import seperateToWords from "../../utilities/helpers/seperateToWords";
 import LoadingIcon, {
   LoadingIconCircleRotation,
 } from "../../utilities/loadingIcon/LoadingIcon";
-import { StopWatchAnimation } from "../../utilities/loadingIcon/ComingSoonIcon";
-import { ComingSoonBannerWave } from "./ComingSoonBannerWave";
+import { ComingSoonBanner } from "../../utilities/comingSoon/ComingSoonBanner";
 import useWindowWidth from "../../hooks/useWindowWidth";
-import { memo, useState } from "react";
+import { memo } from "react";
 import { LinkIcon } from "../../utilities/icons/LinkIcon";
-import { Button, createTheme, ThemeProvider, Collapse } from "@mui/material";
+import { Button, createTheme, ThemeProvider } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { ProjectCard } from "./ProjectCard";
 const materialUITheme = createTheme({
   palette: {
     primary: {
@@ -119,147 +119,9 @@ const ProjectUrls = ({
   );
 };
 
-const ProjectCard = ({
-  appURL,
-  projectName,
-  githubURL,
-  description,
-  images,
-  topics,
-}: ProjectDocument) => {
-  const [showTopics, setShowTopics] = useState(false);
-  const smallWindowWidth = useWindowWidth(576);
-  const mediumWindowWidth = useWindowWidth(992);
-  const sortedImages = images ? sortMixedStrings(images, "name") : null;
-  const fullTopics = topics?.map((topic) => (
-    <Button
-      key={topic}
-      variant={"outlined"}
-      className={`${namespace}-project-topic`}
-      style={{ textTransform: "none" }}
-      aria-label={`open-github-topic-${topic}`}
-      onClick={() => {
-        window.open(`https://github.com/topics/${topic}`, "_blank");
-      }}
-    >
-      {topic}
-    </Button>
-  ));
-  return (
-    <div className={`${namespace}-project-card`}>
-      <div className={`${namespace}-project-card-img`}>
-        {!sortedImages && (
-          <ComingSoonBanner
-            titleScaleFactor={smallWindowWidth ? 0.12 : 0.12}
-            subTitleScaleFactor={smallWindowWidth ? 0.033 : 0.025}
-          />
-        )}
-        {sortedImages && (
-          <Carousel numSlidesPerView={1} namespace={namespace}>
-            {sortedImages.map((img) => (
-              <LazyImage
-                alt={img.imgDescription ? img.imgDescription : ""}
-                placeholderSrc={img.placeholderURL ? img.placeholderURL : ""}
-                src={img.imgURL}
-              />
-            ))}
-          </Carousel>
-        )}
-      </div>
-      <div className={`${namespace}-text-content`}>
-        <div className={`${namespace}-project-urls`}>
-          <ProjectUrls githubURL={githubURL} appURL={appURL} />
-        </div>
-        <div className={`${namespace}-text-content-inner`}>
-          <div className={`${namespace}-project-header`}>
-            <h4>{seperateToWords(projectName)}</h4>
-            <div className={`${namespace}-project-topics`}>
-              {!mediumWindowWidth && !!fullTopics && fullTopics.length > 0 && (
-                <>
-                  <Collapse in={showTopics} timeout={500}>
-                    <div className={`${namespace}-project-topics-inner`}>
-                      {fullTopics}
-                    </div>
-                  </Collapse>
-                  <Button
-                    className={`${namespace}-project-topics-btn`}
-                    variant="outlined"
-                    style={{ textTransform: "none" }}
-                    onClick={() => setShowTopics(!showTopics)}
-                  >
-                    {!showTopics ? "Show Topics" : "Hide Topics"}
-                  </Button>
-                </>
-              )}
-              {mediumWindowWidth && fullTopics}
-            </div>
-          </div>
 
-          <p>{description}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
 
-const ComingSoonBanner = memo(
-  ({
-    titleScaleFactor = 0.11,
-    subTitleScaleFactor = 0.021,
-  }: {
-    subTitleScaleFactor?: number;
-    titleScaleFactor?: number;
-  }) => {
-    const smallWindowWidth = useWindowWidth(576);
-    const [parentElRef, parentElSize] = useElementSize();
-    const titleStyles = {
-      fontSize: smallWindowWidth
-        ? `${parentElSize.width * titleScaleFactor}px`
-        : `${parentElSize.width * titleScaleFactor}px`,
-    };
-    const subTitleStyles = {
-      fontSize: smallWindowWidth
-        ? `${parentElSize.width * subTitleScaleFactor}px`
-        : `${parentElSize.width * subTitleScaleFactor * 1.5}px`,
-      marginTop: smallWindowWidth
-        ? `${parentElSize.width * subTitleScaleFactor}px`
-        : `${parentElSize.width * subTitleScaleFactor * 1.5}px`,
-      lineHeight: smallWindowWidth
-        ? `${parentElSize.width * subTitleScaleFactor * 2}px`
-        : `${parentElSize.width * subTitleScaleFactor * 2 * 1.5}px`,
-    };
-    return (
-      <div
-        ref={parentElRef}
-        style={{ position: "relative", width: "100%", height: "100%" }}
-      >
-        <div className={`${namespace}-coming-soon-banner-bg`}>
-          <ComingSoonBannerWave />
-        </div>
 
-        <div className={`${namespace}-coming-soon-banner-container`}>
-          <div className={`${namespace}-coming-soon-banner`}>
-            <div className={`${namespace}-coming-soon-banner-title`}>
-              <h3 style={titleStyles}>coming soon.</h3>
-              <StopWatchAnimation
-                width="20%"
-                clockHandColor="#00638F"
-                polygonColor={"#3AC2FF"}
-                ringColorDark="#3AC2FF"
-                ringColorLight="#3AC2FF"
-              />
-            </div>
-
-            <h6 style={subTitleStyles}>
-              This project is still a work in progress. Check back periodically
-              to see if it's ready for production!
-            </h6>
-          </div>
-        </div>
-      </div>
-    );
-  }
-);
 const ProjectSlideTextContent = ({
   slide,
   responsive,

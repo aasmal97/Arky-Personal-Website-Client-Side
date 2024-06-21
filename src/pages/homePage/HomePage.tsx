@@ -7,10 +7,10 @@ const HomePage = () => {
   return (
     <div className={"home-pg-container"}>
       <IntroBanner />
-      <ProjectBanner />
+      {/* <ProjectBanner />
       <SkillsBanner />
-      <AboutMeBanner />
-      <ContactMeBanner />
+      <AboutMeBanner /> */}
+      {/* <ContactMeBanner /> */}
     </div>
   );
 };

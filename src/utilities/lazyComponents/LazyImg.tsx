@@ -14,8 +14,8 @@ const LazyImage = ({
   return (
     <LazyLoadImage
       wrapperProps={{
+        className: "lazy-img-wrapper",
         style: {
-          backgroundSize: "cover",
           backgroundImage: `url(${placeholderSrc})`,
           color: "transparent",
           display: "inline-block",

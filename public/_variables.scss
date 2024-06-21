@@ -9,8 +9,10 @@ $gray: #afafaf;
 $lighter-black: #5a5a5a;
 $light-black: #4e4e4e;
 $dark-black: #2e2e2e;
+$darker-black: #232323;
 // $darker-black: #303030;
 $black: #313131;
+$off-black: #3b3b3b;
 $darkest-black: #161616;
 $white: #ffffff;
 $off-white: #f2f2f2;
@@ -56,6 +58,10 @@ $navbar-height: 3.3em;
     background-position: center;
     flex: 1;
   }
+  .lazy-img-wrapper {
+    // padding: inherit;
+    background-size: cover;
+  }
   img {
     object-fit: cover;
     object-position: center;
@@ -89,4 +95,67 @@ $navbar-height: 3.3em;
     outline: 1px solid $color;
     border-radius: $width;
   }
+}
+
+@mixin title-heading($font-size, $bold: "false") {
+  @if $bold != "true" and $bold != "false" {
+    @error "Expected $bold to be a true or false";
+  }
+  @if $bold != "true" {
+    font-weight: 400;
+  } @else {
+    font-weight: 600;
+  }
+  font-family: "JetBrains Mono", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: $font-size;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  // padding: 0;
+  margin: 0;
+  line-height: 1.35em;
+  & > * {
+    padding-right: 0.5em;
+  }
+  // overflow-wrap: break-word;
+}
+
+@mixin sub-heading($font-size, $bold: "false") {
+  @include title-heading($font-size, $bold);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  & > * {
+    padding-right: 0.6em;
+  }
+}
+@mixin action-btn($font-size) {
+  @include remove-btn-default;
+  position: relative;
+  width: auto;
+  padding: 0;
+  font-size: $font-size;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.26em;
+    left: 0.24em;
+    height: 100%;
+    width: 100%;
+    background-color: $light-red;
+    z-index: 0;
+  }
+  & > .action-btn-content {
+    border: 0.083em solid $light-red;
+    color: $light-red;
+    line-height: 2.3em;
+    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    background-color: $dark-black;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    position: relative;
+    z-index: 1;
+  }
+}
+@mixin link-btn {
 }
