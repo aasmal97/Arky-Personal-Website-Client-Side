@@ -142,3 +142,145 @@ $pagination-height: 1.2rem;
     padding: calc(#{$font-size} * 0.28 / 3) calc(#{$font-size} * 0.28);
   }
 }
+
+// ##{$namespace} {
+//   position: relative;
+//   display: flex;
+//   min-height: 100vh;
+//   background-color: v.$dark-black;
+//   & > * {
+//     padding: calc(#{v.$navbar-height} * 2) 0;
+//   }
+// }
+// .#{$namespace}-wave {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   width: $wave-width;
+//   height: 100%;
+//   overflow: hidden;
+//   z-index: 1;
+//   svg {
+//     background-color: v.$dark-black;
+//     height: 100%;
+//     border: none;
+//     outline: none;
+//   }
+// }
+// $pagination-height: 1.2rem;
+// .#{$namespace}-carousel {
+//   display: flex;
+//   justify-content: center;
+//   position: relative;
+//   width: 55%;
+//   color: v.$white;
+//   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+//   &::after {
+//     @include v.abs-pos-fill(0);
+//     top: 0;
+//     left: unset;
+//     right: 0;
+//     width: $wave-width;
+//     background-color: v.$blue;
+//   }
+//   .swiper-slide {
+//     height: calc(100% - (#{$pagination-height} * 3)) !important;
+//     background-color: rgba(0, 0, 0, 0);
+//   }
+//   .swiper-pagination {
+//     height: auto;
+//   }
+//   .swiper-pagination-bullet {
+//     width: $pagination-height;
+//     height: $pagination-height;
+//     aspect-ratio: 1/1;
+//     border: 1.5px solid v.$yellow;
+//     opacity: 1;
+//     background: transparent;
+//   }
+//   .swiper-pagination-bullet-active {
+//     background-color: v.$yellow !important;
+//   }
+// }
+// .#{$namespace}-carousel-wrapper {
+//   $paddingLeft: 23%;
+//   $paddingRight: 8%;
+//   padding-left: $paddingLeft;
+//   padding-right: $paddingRight;
+//   box-sizing: border-box;
+//   width: 100%;
+//   * {
+//     border-radius: 0.5em;
+//   }
+// }
+// .#{$namespace}-carousel-inner-wrapper {
+//   height: 100%;
+//   width: 100%;
+//   //min-height: 20em;
+// }
+// .#{$namespace}-text-content {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   flex-direction: column;
+//   width: 45%;
+//   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+//   color: v.$white;
+
+//   $unitless-size: 5.2;
+//   $font-size: calc(min(#{$unitless-size}vw, 5.5em));
+//   h2 {
+//     font-size: calc(#{$font-size} * 0.61);
+//     margin: 0;
+//     padding: 0;
+//     font-weight: 500;
+//     margin-bottom: calc(#{$font-size} / 2);
+//     .#{$namespace}-letter {
+//       opacity: 0;
+//     }
+//   }
+
+//   p {
+//     @keyframes element-appear {
+//       0% {
+//         opacity: 0;
+//       }
+//       50% {
+//         opacity: 0;
+//       }
+//       100% {
+//         opacity: 1;
+//       }
+//     }
+//     &.visible {
+//       opacity: 1;
+//       animation: 3s ease-in-out 0s element-appear;
+//     }
+//     opacity: 0;
+//     margin-top: calc(#{$font-size} / 2);
+//     font-size: calc(#{$font-size} * 0.28);
+//     line-height: 1.623em;
+//     .#{$namespace}-ani-container {
+//       position: relative;
+//       height: calc(#{$font-size} / 1.7);
+//       width: 100%;
+//       &::after {
+//         content: "";
+//         position: absolute;
+//         top: 0;
+//         right: calc(#{$font-size} * -0.05);
+//         height: 100%;
+//         width: 1px;
+//         background: v.$white;
+//       }
+//     }
+//   }
+//   a {
+//     text-decoration: none;
+//     font-size: calc(#{$font-size} * 0.25);
+//     color: v.$blue;
+//     border: 1px solid v.$blue;
+//     border-radius: 0.2em;
+//     padding: calc(#{$font-size} * 0.28 / 3) calc(#{$font-size} * 0.28);
+//   }
+// }

@@ -6,6 +6,8 @@ $yellow: #ffc83a;
 $dark-yellow: #d47c00;
 $dark-blue: #0068e0;
 $gray: #afafaf;
+$darker-gray: #6B6B6B;
+
 $lighter-black: #5a5a5a;
 $light-black: #4e4e4e;
 $dark-black: #2e2e2e;
@@ -128,6 +130,26 @@ $navbar-height: 3.3em;
   & > * {
     padding-right: 0.3em;
     padding-left: 0.3em;
+  }
+}
+@mixin section-heading($font-size) {
+  @include sub-heading($font-size);
+  font-weight: 500;
+  & > * {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  position: relative;
+  &::after{
+    content: "";
+    background-color: v.;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+    transition-property: all
   }
 }
 @mixin action-btn($font-size) {
