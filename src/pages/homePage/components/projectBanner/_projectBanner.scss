@@ -1,4 +1,4 @@
-@use "../../../../../public/variables"as v;
+@use "../../../../../public/variables" as v;
 
 $wave-width: 100%;
 $pagination-height: 1.2rem;
@@ -8,7 +8,7 @@ $container-spacing-top: 3.75rem;
 $container-spacing-bottom: 4.5rem;
 $container-heading-font-size: 4rem;
 $text-container-padding: 3rem;
-
+$text-container-font-size: 1.5rem;
 ##{$namespace} {
   position: relative;
   display: flex;
@@ -53,29 +53,25 @@ $text-container-padding: 3rem;
       animation: 3s ease-in-out 0s element-appear;
     }
 
-    font-family: "Lato",
-    "Segoe UI",
-    Tahoma,
-    Geneva,
-    Verdana,
-    sans-serif;
+    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     opacity: 0;
     width: 100%;
-    // margin-top: calc(#{$font-size} / 2);
-    // font-size: calc(#{$font-size} * 0.28);
-    line-height: 1.623em;
-
+    font-size: $text-container-font-size;
+    line-height: 2em;
+    // .#{$namespace}-ani-wrapper {
+    // }
     .#{$namespace}-ani-container {
+      vertical-align: middle;
       position: relative;
-      // height: calc(#{$font-size} / 1.7);
-      // width: 100%;
-      min-width: 1em;
+      margin-top: -0.2em;
+      min-width: 5em;
+      min-height: 2em;
       &::after {
         content: "";
         position: absolute;
-        top: 0;
-        // right: calc(#{$font-size} * -0.05);
-        height: 100%;
+        top: 0.25em;
+        height: 1.5em;
+        // width: 1px;
         width: 1px;
         background: v.$white;
       }
@@ -141,7 +137,6 @@ $text-container-padding: 3rem;
   width: 100%;
   //min-height: 20em;
 }
-
 
 // ##{$namespace} {
 //   position: relative;

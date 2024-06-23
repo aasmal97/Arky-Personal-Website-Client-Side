@@ -10,7 +10,10 @@ const TypingAnimation = ({
     strArr,
   });
   return (
-    <span style={{ width: "100%" }}>
+    <span
+      style={{ display: "inline", width: "100%" }}
+      className={`${namespace}-ani-wrapper`}
+    >
       <span
         style={{ display: "inline-block" }}
         className={`${namespace}-ani-container`}
