@@ -7,7 +7,7 @@ $namespace: "project-banner";
 $container-spacing-top: 3.75rem;
 $container-spacing-bottom: 4.5rem;
 $container-heading-font-size: 4rem;
-$text-container-padding: 3rem;
+$text-container-padding: 2.25rem;
 $text-container-font-size: 1.5rem;
 ##{$namespace} {
   position: relative;
@@ -24,6 +24,7 @@ $text-container-font-size: 1.5rem;
   color: v.$off-white;
   padding-left: $text-container-padding;
   padding-right: $text-container-padding;
+  padding-bottom: $text-container-padding * 2;
   box-sizing: border-box;
   width: 100%;
 
@@ -33,6 +34,15 @@ $text-container-font-size: 1.5rem;
     color: v.$light-red;
   }
 
+  & > p {
+    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    opacity: 0;
+    width: 100%;
+    font-size: $text-container-font-size;
+    line-height: 2em;
+    margin: 0;
+    padding-top: $text-container-padding;
+  }
   & > p {
     @keyframes element-appear {
       0% {
@@ -53,13 +63,6 @@ $text-container-font-size: 1.5rem;
       animation: 3s ease-in-out 0s element-appear;
     }
 
-    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    opacity: 0;
-    width: 100%;
-    font-size: $text-container-font-size;
-    line-height: 2em;
-    // .#{$namespace}-ani-wrapper {
-    // }
     .#{$namespace}-ani-container {
       vertical-align: middle;
       position: relative;
@@ -71,20 +74,10 @@ $text-container-font-size: 1.5rem;
         position: absolute;
         top: 0.25em;
         height: 1.5em;
-        // width: 1px;
         width: 1px;
         background: v.$white;
       }
     }
-  }
-
-  a {
-    text-decoration: none;
-    // font-size: calc(#{$font-size} * 0.25);
-    color: v.$blue;
-    border: 1px solid v.$blue;
-    border-radius: 0.2em;
-    // padding: calc(#{$font-size} * 0.28 / 3) calc(#{$font-size} * 0.28);
   }
 }
 

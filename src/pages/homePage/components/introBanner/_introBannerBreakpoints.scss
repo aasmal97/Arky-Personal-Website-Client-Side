@@ -6,7 +6,7 @@ $namespace: i.$namespace;
 }
 @mixin intro-xl {
   @include i.intro-banner(
-    $container-padding: 2.5rem,
+    $container-padding: 2.25rem,
     $img-width: 18.23rem,
     $title-heading-font-size: 5rem,
     $sub-heading-font-size: 1.875rem,
@@ -75,6 +75,16 @@ $namespace: i.$namespace;
     align-items: center;
   }
   .#{$namespace}-title {
+    & > h2 {
+      & > * {
+        padding-left: 0.25em;
+      }
+    }
+    & > h3 {
+      & > * {
+        padding-left: 0.3em;
+      }
+    }
     & > h2,
     & > h3 {
       justify-content: center;

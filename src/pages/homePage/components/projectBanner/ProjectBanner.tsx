@@ -49,18 +49,14 @@ const TextContent = () => {
             );
           })}
       </h2>
-      <p
-        className={isVisible ? "visible" : ""}
-      >
-        My dream is to one day create something that can change and greatly
-        impact the world. That’s why I love working on meaningful projects,
-        especially related to{" "}
+      <p className={isVisible ? "visible" : ""}>
+        My dream is to use technology to change and impact the world. That’s why
+        I love working on meaningful projects, especially related to {" "}
         <TypingAnimation
           namespace={namespace}
           strArr={["education.", "health.", "technology."]}
         />
       </p>
-      <Link to="/projects">See Projects</Link>
     </div>
   );
 };
