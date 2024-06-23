@@ -1,10 +1,8 @@
-import LineDividerSVG from "../../../../utilities/lineDivider/LineDivider";
 import useElementSize from "../../../../hooks/useElementSize";
 import { Link } from "react-router-dom";
 import Carousel from "../../../../utilities/carousel/Carousel";
 import { useEffect } from "react";
 import anime from "animejs";
-import WaveSvg from "../../../../utilities/waveSvg/WaveSVG";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
 import TypingAnimation from "../../../../utilities/typingAnimation/TypingAnimation";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
@@ -14,8 +12,8 @@ import { ProjectSlide } from "../../../projectPage/ProjectPage";
 const namespace = "project-banner";
 const TextContent = () => {
   const { ref: textRef, isVisible } = useIntersectionWrapper();
-  const [squareRef, { width, height }] = useElementSize();
-  const title = "Impactful Projects";
+  const [squareRef,_] = useElementSize();
+  const title = "Projects";
   useEffect(() => {
     if (isVisible)
       anime.timeline().add({
@@ -51,17 +49,7 @@ const TextContent = () => {
             );
           })}
       </h2>
-      <LineDividerSVG
-        width={width + width * 0.05}
-        styles={{
-          lineHeight: height / 20,
-          lineColor: "white",
-          circleColors: ["#3ac2ff", "#ff5050", "#FFC83A"],
-        }}
-        circleRadius={height / 7.5}
-      />
       <p
-        style={{ width: width + width * 0.05 }}
         className={isVisible ? "visible" : ""}
       >
         My dream is to one day create something that can change and greatly
@@ -86,23 +74,13 @@ const ProjectCaro = () => {
     });
   return (
     <div className={`${namespace}-carousel`}>
-      <WaveSvg
-        namespace={namespace}
-        orientation={smallWindowWidth ? "right" : "bottom"}
-      />
-      {presentationSlidesStatus === "success" && (
+      {/* {presentationSlidesStatus === "success" && (
         <Carousel numSlidesPerView={1} namespace={namespace}>
           {presentationSlides.map((slide) => {
-            return (
-              <ProjectSlide
-                key={slide.id}
-                slide={slide}
-                responsive
-              />
-            );
+            return <ProjectSlide key={slide.id} slide={slide} responsive />;
           })}
         </Carousel>
-      )}
+      )} */}
       {presentationSlidesStatus === "loading" && (
         <LoadingIconCircleRotation
           className={`${namespace}-loading-dots`}

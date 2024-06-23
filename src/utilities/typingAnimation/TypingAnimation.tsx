@@ -1,22 +1,24 @@
 import useTypingAnimation from "../../hooks/useTypingAnimation";
 const TypingAnimation = ({
-    namespace,
+  namespace,
+  strArr,
+}: {
+  namespace: string;
+  strArr: string[];
+}) => {
+  const { ref, currWord } = useTypingAnimation({
     strArr,
-  }: {
-    namespace: string;
-    strArr: string[];
-  }) => {
-    const { ref, currWord } = useTypingAnimation({
-      strArr,
-    });
-    return (
+  });
+  return (
+    <span style={{ width: "100%" }}>
       <span
-        style={{ display: "inline-block", width: "100%" }}
+        style={{ display: "inline-block" }}
+        className={`${namespace}-ani-container`}
+        ref={ref}
       >
-        <span className={`${namespace}-ani-container`} ref={ref}>
-          {currWord}
-        </span>
+        {currWord}
       </span>
-    );
-  };
-  export default TypingAnimation
+    </span>
+  );
+};
+export default TypingAnimation;
