@@ -81,56 +81,22 @@ $text-container-font-size: 1.5rem;
   }
 }
 
-.#{$namespace}-carousel {
+.#{$namespace}-featured {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   position: relative;
   width: 100%;
-  color: v.$white;
-  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-
-  .swiper-slide {
-    height: calc(100% - (#{$pagination-height} * 3)) !important;
-    background-color: rgba(0, 0, 0, 0);
-  }
-
-  .swiper-pagination {
-    height: auto;
-  }
-
-  .swiper-pagination-bullet {
-    width: $pagination-height;
-    height: $pagination-height;
-    aspect-ratio: 1/1;
-    border: 1.5px solid v.$yellow;
-    opacity: 1;
-    background: transparent;
-  }
-
-  .swiper-pagination-bullet-active {
-    background-color: v.$yellow !important;
+  & > .sticky-label {
+    font-weight: 500;
+    font-size: 4rem;
+    font-family: "JetBrains Mono",'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 }
-
-.#{$namespace}-carousel-wrapper {
-  $paddingLeft: 23%;
-  $paddingRight: 8%;
-  padding-left: $paddingLeft;
-  padding-right: $paddingRight;
-  box-sizing: border-box;
-  width: 100%;
-
-  * {
-    border-radius: 0.5em;
-  }
+.#{$namespace}-featured-container {
+  display: flex;
+  flex-direction: column;
+  
 }
-
-.#{$namespace}-carousel-inner-wrapper {
-  height: 100%;
-  width: 100%;
-  //min-height: 20em;
-}
-
 // ##{$namespace} {
 //   position: relative;
 //   display: flex;

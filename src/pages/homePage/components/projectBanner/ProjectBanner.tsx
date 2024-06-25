@@ -9,10 +9,12 @@ import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
 import useProjectDocs from "../../../../hooks/useProjectDocs";
 import { LoadingIconCircleRotation } from "../../../../utilities/loadingIcon/LoadingIcon";
 import { ProjectSlide } from "../../../projectPage/ProjectPage";
+import RotatedStickyLabel from "../../../../utilities/stickyLabel/StickyLabel";
+import ProjectItem from "../../../../utilities/projectItem/ProjectItem";
 const namespace = "project-banner";
 const TextContent = () => {
   const { ref: textRef, isVisible } = useIntersectionWrapper();
-  const [squareRef,_] = useElementSize();
+  const [squareRef, _] = useElementSize();
   const title = "Projects";
   useEffect(() => {
     if (isVisible)
@@ -51,7 +53,7 @@ const TextContent = () => {
       </h2>
       <p className={isVisible ? "visible" : ""}>
         My dream is to use technology to change and impact the world. That’s why
-        I love working on meaningful projects, especially related to {" "}
+        I love working on meaningful projects, especially related to{" "}
         <TypingAnimation
           namespace={namespace}
           strArr={["education.", "health.", "technology."]}
@@ -69,7 +71,15 @@ const ProjectSection = () => {
       saveQueryInParams: false,
     });
   return (
-    <div className={`${namespace}-carousel`}>
+    <div className={`${namespace}-featured`}>
+      <RotatedStickyLabel>Latest Projects</RotatedStickyLabel>
+      <div className={`${namespace}-featured-container`}>
+        {presentationSlidesStatus === "success" &&
+          presentationSlides.map((slide) => {
+            return <ProjectItem key={slide.id} data={slide} />;
+          })}
+      </div>
+
       {/* {presentationSlidesStatus === "success" && (
         <Carousel numSlidesPerView={1} namespace={namespace}>
           {presentationSlides.map((slide) => {
