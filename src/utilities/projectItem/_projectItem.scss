@@ -1,0 +1,13 @@
+$namespace: 'project-item';
+.#{$namespace}{
+    display: flex;
+    width: 100%;
+    &>*{
+        width: 100%;
+    }
+}
+.#{$namespace}-content{
+    display: flex;
+    flex-direction: column;
+    
+}

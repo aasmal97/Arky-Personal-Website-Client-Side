@@ -60,9 +60,9 @@ const TextContent = () => {
     </div>
   );
 };
-const ProjectCaro = () => {
+const ProjectSection = () => {
   const smallWindowWidth = useWindowWidth(992);
-  const countPerPage = 9;
+  const countPerPage = 4;
   const { slides: presentationSlides, status: presentationSlidesStatus } =
     useProjectDocs({
       countPerPage,
@@ -94,7 +94,7 @@ const ProjectBanner = () => {
   return (
     <div id={`${namespace}`}>
       <TextContent />
-      <ProjectCaro />
+      <ProjectSection />
     </div>
   );
 };

@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 import { HobbiesDocument } from "../utilities/types/RestApiTypes";
 import { fetchHobbiesData } from "../utilities/asyncActions/HobbiesActions";
-import shuffleArray from "../utilities/helpers/shuffleArray";
-import { generateRandomNumber } from "../utilities/helpers/generateRandomNum";
-import removeDuplicates from "../utilities/helpers/removeDuplicates";
+import shuffleArray from "../helpers/shuffleArray";
+import { generateRandomNumber } from "../helpers/generateRandomNum";
+import removeDuplicates from "../helpers/removeDuplicates";
 import { isNull } from "lodash";
 export type HobbiesDocumentWithDuration = HobbiesDocument & {
   duration?: number;

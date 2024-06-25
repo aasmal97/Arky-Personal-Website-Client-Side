@@ -14,16 +14,15 @@ import { LoadingButton } from "@mui/lab";
 import { LoadingIconRegularCircle } from "../../../../utilities/loadingIcon/LoadingIcon";
 import { createPortal, unstable_batchedUpdates } from "react-dom";
 import { FormInput } from "../../../../utilities/formInputs/FormInputs";
-import { capitalizeFirstLetter } from "../../../../utilities/helpers/capitalizeFirstLetter";
+import { capitalizeFirstLetter } from "../../../../helpers/capitalizeFirstLetter";
 import {
   Alert,
   AlertTitle,
   // ToggleButton,
   // ToggleButtonGroup,
 } from "@mui/material";
-import {
-  //createTheme, //ThemeProvider
-} from "@mui/material/styles";
+import //createTheme, //ThemeProvider
+"@mui/material/styles";
 // import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 const animationProgess = 88;
@@ -120,7 +119,6 @@ const MessageBoxLine = ({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        
         <path
           d="M16.6774 188C34.7012 142.053 56.7303 6.15691 16.6774 1.28047C-7.35416 -1.6453 -0.845672 19.1607 16.6774 24.579C32.041 30.8005 249.875 8.05286 261 1.28047"
           stroke="#909090"

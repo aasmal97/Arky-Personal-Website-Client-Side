@@ -1,8 +1,8 @@
 import Carousel from "../../utilities/carousel/Carousel";
 import LazyImage from "../../utilities/lazyComponents/LazyImg";
 import { ProjectDocument } from "../../utilities/types/RestApiTypes";
-import { sortMixedStrings } from "../../utilities/helpers/sortMixedStrings";
-import seperateToWords from "../../utilities/helpers/seperateToWords";
+import { sortMixedStrings } from "../../helpers/sortMixedStrings";
+import seperateToWords from "../../helpers/seperateToWords";
 import useWindowWidth from "../../hooks/useWindowWidth";
 import { useState } from "react";
 import { Button, Collapse } from "@mui/material";
@@ -103,8 +103,12 @@ const ProjectTextContent = ({
     </div>
   );
 };
-export const ProjectCard = ({ images,alternate, ...rest }: ProjectDocument & {
-    alternate?: boolean
+export const ProjectCard = ({
+  images,
+  alternate,
+  ...rest
+}: ProjectDocument & {
+  alternate?: boolean;
 }) => {
   const mediumWindowWidth = useWindowWidth(992);
   const smallWindowWidth = useWindowWidth(576);

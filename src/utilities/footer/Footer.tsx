@@ -11,7 +11,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { getYear } from "date-fns";
-import { roundToNearest } from "../helpers/roundToNearestNumber";
+import { roundToNearest } from "../../helpers/roundToNearestNumber";
 const namespace = "footer";
 const currDate = new Date();
 const RowItem = ({

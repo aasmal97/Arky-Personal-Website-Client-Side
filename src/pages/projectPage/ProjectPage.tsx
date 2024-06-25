@@ -4,9 +4,9 @@ import GithubIcon from "../../utilities/icons/Github";
 import LazyImage from "../../utilities/lazyComponents/LazyImg";
 import WaveBg from "../../utilities/waveBg/WaveBg";
 import { ProjectDocument } from "../../utilities/types/RestApiTypes";
-import { sortMixedStrings } from "../../utilities/helpers/sortMixedStrings";
+import { sortMixedStrings } from "../../helpers/sortMixedStrings";
 import useProjectDocs from "../../hooks/useProjectDocs";
-import seperateToWords from "../../utilities/helpers/seperateToWords";
+import seperateToWords from "../../helpers/seperateToWords";
 import LoadingIcon, {
   LoadingIconCircleRotation,
 } from "../../utilities/loadingIcon/LoadingIcon";
@@ -118,9 +118,6 @@ const ProjectUrls = ({
     </>
   );
 };
-
-
-
 
 const ProjectSlideTextContent = ({
   slide,
