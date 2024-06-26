@@ -13,3 +13,13 @@ body {
   margin: 0;
   background-color: v.$dark-black;
 }
+#root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+}
+#app-container {
+  max-width: 1500px;
+}

@@ -1,6 +1,4 @@
 import useElementSize from "../../../../hooks/useElementSize";
-import { Link } from "react-router-dom";
-import Carousel from "../../../../utilities/carousel/Carousel";
 import { useEffect } from "react";
 import anime from "animejs";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
@@ -8,9 +6,9 @@ import TypingAnimation from "../../../../utilities/typingAnimation/TypingAnimati
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
 import useProjectDocs from "../../../../hooks/useProjectDocs";
 import { LoadingIconCircleRotation } from "../../../../utilities/loadingIcon/LoadingIcon";
-import { ProjectSlide } from "../../../projectPage/ProjectPage";
 import RotatedStickyLabel from "../../../../utilities/stickyLabel/StickyLabel";
 import ProjectItem from "../../../../utilities/projectItem/ProjectItem";
+import LinkBtn from "../../../../utilities/actionBtn/LinkBtn";
 const namespace = "project-banner";
 const TextContent = () => {
   const { ref: textRef, isVisible } = useIntersectionWrapper();
@@ -63,8 +61,7 @@ const TextContent = () => {
   );
 };
 const ProjectSection = () => {
-  const smallWindowWidth = useWindowWidth(992);
-  const countPerPage = 4;
+  const countPerPage = 2;
   const { slides: presentationSlides, status: presentationSlidesStatus } =
     useProjectDocs({
       countPerPage,
@@ -78,15 +75,13 @@ const ProjectSection = () => {
           presentationSlides.map((slide) => {
             return <ProjectItem key={slide.id} data={slide} slim={true} />;
           })}
+        <div className={`${namespace}-view-all-banner`}>
+          <p>Interested in my other projects?</p>
+          <div className={`${namespace}-view-all-btn`}>
+            <LinkBtn to="/projects">View All</LinkBtn>
+          </div>
+        </div>
       </div>
-
-      {/* {presentationSlidesStatus === "success" && (
-        <Carousel numSlidesPerView={1} namespace={namespace}>
-          {presentationSlides.map((slide) => {
-            return <ProjectSlide key={slide.id} slide={slide} responsive />;
-          })}
-        </Carousel>
-      )} */}
       {presentationSlidesStatus === "loading" && (
         <LoadingIconCircleRotation
           className={`${namespace}-loading-dots`}

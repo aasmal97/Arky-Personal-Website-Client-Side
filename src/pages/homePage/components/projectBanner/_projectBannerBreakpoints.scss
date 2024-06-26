@@ -24,6 +24,9 @@ $namespace: p.$namespace;
     }
   }
 }
+@mixin project-xxl{
+  @include p.project-banner;
+}
 @mixin project-xl {
 }
 @mixin project-lg {

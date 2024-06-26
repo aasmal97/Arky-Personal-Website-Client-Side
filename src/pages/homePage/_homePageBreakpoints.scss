@@ -5,11 +5,11 @@
 @use "./components/contactBanner/contactMeBannerBreakpoints" as contact-me;
 @mixin home-xxl{
   @include intro.intro-xxl;
-  @include project.project-xl;
+  @include project.project-xxl;
 }
 @mixin home-xl {
   @include intro.intro-xl;
-  @include project.project-lg;
+  @include project.project-xl;
   // @include skills.skills-lg;
   // @include about.about-lg;
   // @include contact-me.contact-me-lg

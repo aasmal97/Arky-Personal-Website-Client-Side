@@ -7,9 +7,11 @@ const Root = () => {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <div id="app-container">
+        <Outlet />
+        <ScrollRestoration />
+      </div>
       <Footer />
-      <ScrollRestoration />
     </>
   );
 };

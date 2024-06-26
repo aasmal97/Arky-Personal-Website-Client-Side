@@ -1,246 +1,163 @@
 @use "../../../../../public/variables" as v;
-
+@use "../../../../utilities/projectItem/projectItem" as projectItem;
 $wave-width: 100%;
 $pagination-height: 1.2rem;
 //variables
 $namespace: "project-banner";
-$container-spacing-top: 3.75rem;
-$container-spacing-bottom: 4.5rem;
-$container-heading-font-size: 4rem;
-$text-container-padding: 2.25rem;
-$text-container-font-size: 1.5rem;
-$featured-container-padding-left: 0.75rem;
-$featured-container-padding-right: 2.25rem;
-$sticky-label-font-size: 4rem;
-##{$namespace} {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding-top: $container-spacing-top;
-  padding-bottom: $container-spacing-bottom;
-}
-
-.#{$namespace}-text-content {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  color: v.$off-white;
-  padding-left: $text-container-padding;
-  padding-right: $text-container-padding;
-  padding-bottom: $text-container-padding * 2;
-  box-sizing: border-box;
-  width: 100%;
-
-  & > h2 {
-    @include v.section-heading($container-heading-font-size);
-    width: auto;
-    color: v.$light-red;
+@mixin project-banner(
+  $container-spacing-top: 3.75rem,
+  $container-spacing-bottom: 4.5rem,
+  $container-heading-font-size: 4rem,
+  $text-container-padding: 2.25rem,
+  $text-container-font-size: 1.5rem,
+  $featured-container-padding-left: 0.75rem,
+  $featured-container-padding-right: 2.25rem,
+  $featured-container-spacing: 9rem,
+  $sticky-label-font-size: 4rem,
+  $view-all-banner-font-size: 1.5rem,
+  $view-all-banner-spacing: 1.75rem,
+  $view-all-btn-font-size: 2.25rem,
+  $project-item-content-horizontal-padding: 2rem,
+  $project-item-content-title-font-size: 2.25rem,
+  $project-item-content-description-font-size: 1.125rem,
+  $project-item-description-slim-top-padding: 1.75rem,
+  $project-item-description-bottom-padding: 1.625rem,
+  $project-item-action-btns-spacing: 1.625rem,
+  $project-item-action-btns-font-size: 1.375rem,
+  $project-item-container-min-height: 25rem,
+  $project-item-container-mobile: "false",
+  $project-item-content-width: 50%
+) {
+  ##{$namespace} {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-top: $container-spacing-top;
+    padding-bottom: $container-spacing-bottom;
   }
 
-  & > p {
-    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    opacity: 0;
+  .#{$namespace}-text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    color: v.$off-white;
+    padding-left: $text-container-padding;
+    padding-right: $text-container-padding;
+    padding-bottom: $text-container-padding * 2;
+    box-sizing: border-box;
     width: 100%;
-    font-size: $text-container-font-size;
-    line-height: 2em;
-    margin: 0;
-    padding-top: $text-container-padding;
-  }
-  & > p {
-    @keyframes element-appear {
-      0% {
-        opacity: 0;
+
+    & > h2 {
+      @include v.section-heading($container-heading-font-size);
+      width: auto;
+      color: v.$light-red;
+    }
+
+    & > p {
+      font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      opacity: 0;
+      width: 100%;
+      font-size: $text-container-font-size;
+      line-height: 2em;
+      margin: 0;
+      padding-top: $text-container-padding;
+    }
+    & > p {
+      @keyframes element-appear {
+        0% {
+          opacity: 0;
+        }
+
+        50% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
       }
 
-      50% {
-        opacity: 0;
-      }
-
-      100% {
+      &.visible {
         opacity: 1;
+        animation: 3s ease-in-out 0s element-appear;
       }
-    }
 
-    &.visible {
-      opacity: 1;
-      animation: 3s ease-in-out 0s element-appear;
-    }
-
-    .#{$namespace}-ani-container {
-      vertical-align: middle;
-      position: relative;
-      margin-top: -0.2em;
-      min-width: 5em;
-      min-height: 2em;
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0.25em;
-        height: 1.5em;
-        width: 1px;
-        background: v.$white;
+      .#{$namespace}-ani-container {
+        vertical-align: middle;
+        position: relative;
+        margin-top: -0.2em;
+        min-width: 5em;
+        min-height: 2em;
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0.25em;
+          height: 1.5em;
+          width: 1px;
+          background: v.$white;
+        }
       }
     }
   }
-}
 
-.#{$namespace}-featured {
-  display: flex;
-  justify-content: start;
-  position: relative;
-  width: 100%;
-  padding-left: $featured-container-padding-left;
-  padding-right: $featured-container-padding-right;
-  box-sizing: border-box;
-  & > .sticky-label {
-    font-weight: 500;
-    font-size: $sticky-label-font-size;
-    font-family: "JetBrains Mono", "Segoe UI", Tahoma, Geneva, Verdana,
-      sans-serif;
+  .#{$namespace}-featured {
+    display: flex;
+    justify-content: start;
+    position: relative;
+    width: 100%;
+    padding-left: $featured-container-padding-left;
+    padding-right: $featured-container-padding-right;
+    box-sizing: border-box;
+    & > .sticky-label {
+      font-weight: 500;
+      font-size: $sticky-label-font-size;
+      font-family: "JetBrains Mono", "Segoe UI", Tahoma, Geneva, Verdana,
+        sans-serif;
+    }
+  }
+  .#{$namespace}-featured-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    & > * {
+      margin-bottom: $featured-container-spacing;
+    }
+    & > :last-child {
+      margin-bottom: 0;
+    }
+    @include projectItem.project-item(
+      $project-item-content-horizontal-padding,
+      $project-item-content-title-font-size,
+      $project-item-content-description-font-size,
+      $project-item-description-slim-top-padding,
+      $project-item-description-bottom-padding,
+      $project-item-action-btns-spacing,
+      $project-item-action-btns-font-size,
+      $project-item-container-min-height,
+      $project-item-container-mobile,
+      $project-item-content-width
+    );
+  }
+  .#{$namespace}-view-all-banner {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    & > p {
+      font-size: $view-all-banner-font-size;
+      color: v.$off-white;
+      font-weight: 400;
+      font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding-bottom: $view-all-banner-spacing;
+      margin: 0;
+    }
+  }
+  .#{$namespace}-view-all-btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    & > a {
+      @include v.link-btn($view-all-btn-font-size, v.$light-red);
+    }
   }
 }
-.#{$namespace}-featured-container {
-  display: flex;
-  flex-direction: column;
-}
-// ##{$namespace} {
-//   position: relative;
-//   display: flex;
-//   min-height: 100vh;
-//   background-color: v.$dark-black;
-//   & > * {
-//     padding: calc(#{v.$navbar-height} * 2) 0;
-//   }
-// }
-// .#{$namespace}-wave {
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   width: $wave-width;
-//   height: 100%;
-//   overflow: hidden;
-//   z-index: 1;
-//   svg {
-//     background-color: v.$dark-black;
-//     height: 100%;
-//     border: none;
-//     outline: none;
-//   }
-// }
-// $pagination-height: 1.2rem;
-// .#{$namespace}-carousel {
-//   display: flex;
-//   justify-content: center;
-//   position: relative;
-//   width: 55%;
-//   color: v.$white;
-//   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-//   &::after {
-//     @include v.abs-pos-fill(0);
-//     top: 0;
-//     left: unset;
-//     right: 0;
-//     width: $wave-width;
-//     background-color: v.$blue;
-//   }
-//   .swiper-slide {
-//     height: calc(100% - (#{$pagination-height} * 3)) !important;
-//     background-color: rgba(0, 0, 0, 0);
-//   }
-//   .swiper-pagination {
-//     height: auto;
-//   }
-//   .swiper-pagination-bullet {
-//     width: $pagination-height;
-//     height: $pagination-height;
-//     aspect-ratio: 1/1;
-//     border: 1.5px solid v.$yellow;
-//     opacity: 1;
-//     background: transparent;
-//   }
-//   .swiper-pagination-bullet-active {
-//     background-color: v.$yellow !important;
-//   }
-// }
-// .#{$namespace}-carousel-wrapper {
-//   $paddingLeft: 23%;
-//   $paddingRight: 8%;
-//   padding-left: $paddingLeft;
-//   padding-right: $paddingRight;
-//   box-sizing: border-box;
-//   width: 100%;
-//   * {
-//     border-radius: 0.5em;
-//   }
-// }
-// .#{$namespace}-carousel-inner-wrapper {
-//   height: 100%;
-//   width: 100%;
-//   //min-height: 20em;
-// }
-// .#{$namespace}-text-content {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-//   width: 45%;
-//   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-//   color: v.$white;
-
-//   $unitless-size: 5.2;
-//   $font-size: calc(min(#{$unitless-size}vw, 5.5em));
-//   h2 {
-//     font-size: calc(#{$font-size} * 0.61);
-//     margin: 0;
-//     padding: 0;
-//     font-weight: 500;
-//     margin-bottom: calc(#{$font-size} / 2);
-//     .#{$namespace}-letter {
-//       opacity: 0;
-//     }
-//   }
-
-//   p {
-//     @keyframes element-appear {
-//       0% {
-//         opacity: 0;
-//       }
-//       50% {
-//         opacity: 0;
-//       }
-//       100% {
-//         opacity: 1;
-//       }
-//     }
-//     &.visible {
-//       opacity: 1;
-//       animation: 3s ease-in-out 0s element-appear;
-//     }
-//     opacity: 0;
-//     margin-top: calc(#{$font-size} / 2);
-//     font-size: calc(#{$font-size} * 0.28);
-//     line-height: 1.623em;
-//     .#{$namespace}-ani-container {
-//       position: relative;
-//       height: calc(#{$font-size} / 1.7);
-//       width: 100%;
-//       &::after {
-//         content: "";
-//         position: absolute;
-//         top: 0;
-//         right: calc(#{$font-size} * -0.05);
-//         height: 100%;
-//         width: 1px;
-//         background: v.$white;
-//       }
-//     }
-//   }
-//   a {
-//     text-decoration: none;
-//     font-size: calc(#{$font-size} * 0.25);
-//     color: v.$blue;
-//     border: 1px solid v.$blue;
-//     border-radius: 0.2em;
-//     padding: calc(#{$font-size} * 0.28 / 3) calc(#{$font-size} * 0.28);
-//   }
-// }

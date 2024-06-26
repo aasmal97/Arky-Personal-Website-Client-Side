@@ -3,11 +3,11 @@ import { StopWatchAnimation } from "../../utilities/loadingIcon/ComingSoonIcon";
 import { ComingSoonBannerWave } from "./ComingSoonBannerWave";
 import useWindowWidth from "../../hooks/useWindowWidth";
 import { memo } from "react";
-const namespace = "project-pg";
+const namespace = "coming-soon-banner";
 export const ComingSoonBanner = memo(
   ({
     titleScaleFactor = 0.11,
-    subTitleScaleFactor = 0.021,
+    subTitleScaleFactor = 0.035,
   }: {
     subTitleScaleFactor?: number;
     titleScaleFactor?: number;
@@ -45,10 +45,10 @@ export const ComingSoonBanner = memo(
               <h3 style={titleStyles}>coming soon.</h3>
               <StopWatchAnimation
                 width="20%"
-                clockHandColor="#00638F"
-                polygonColor={"#3AC2FF"}
-                ringColorDark="#3AC2FF"
-                ringColorLight="#3AC2FF"
+                clockHandColor="#ae0000"
+                polygonColor={"#ff5050"}
+                ringColorDark="#ff5050"
+                ringColorLight="#ff5050"
               />
             </div>
 

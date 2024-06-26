@@ -6,8 +6,8 @@ $yellow: #ffc83a;
 $dark-yellow: #d47c00;
 $dark-blue: #0068e0;
 $gray: #afafaf;
-$darker-gray: #6B6B6B;
-$lightest-gray: #C5C5C5;
+$darker-gray: #6b6b6b;
+$lightest-gray: #c5c5c5;
 $lighter-black: #5a5a5a;
 $light-black: #4e4e4e;
 $dark-black: #2e2e2e;
@@ -138,9 +138,8 @@ $navbar-height: 3.3em;
   }
   position: relative;
   padding-bottom: 0.25em;
-  &::after{
+  &::after {
     @keyframes animate-title {
-      
     }
     content: "";
     background-color: $darker-gray;
@@ -187,5 +186,24 @@ $navbar-height: 3.3em;
     z-index: 1;
   }
 }
-@mixin link-btn {
+@mixin link-btn($font-size, $color) {
+  @include remove-btn-default();
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-family: "JetBrains Mono", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+  font-size: $font-size;
+  letter-spacing: 0.08em;
+  line-height: 1.625em;
+  color: $color;
+  & > :first-child {
+    padding-right: 0.4em;
+    padding-top: 0.1em;
+  }
+  & > :last-child {
+    font-size: $font-size;
+    width: 1.3em;
+    height: 1.3em;
+  }
 }
