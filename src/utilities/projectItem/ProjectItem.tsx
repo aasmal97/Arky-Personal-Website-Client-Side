@@ -44,7 +44,10 @@ const ProjectActionBtns = ({
         target="_blank"
         rel="noopener noreferrer"
       >
-        <GithubIcon />
+        <div>
+          <GithubIcon />
+        </div>
+        <div>Repo</div>
       </a>
       <a
         className={`${namespace}-project-url`}
@@ -52,7 +55,10 @@ const ProjectActionBtns = ({
         target="_blank"
         rel="noopener noreferrer"
       >
-        <LinkIcon linkColor="black" background={{ color: "white" }} />
+        <div>
+          <LinkIcon linkColor="#f2f2f2" background={{ color: "transparent" }} />
+        </div>
+        <div>Deploy</div>
       </a>
     </div>
   );
@@ -83,13 +89,19 @@ const ProjectImageBanner = ({
 const ProjectItem = ({
   data,
   slim = false,
+  imgOrientation = "left",
 }: {
   data: ProjectDocument;
   slim?: boolean;
+  imgOrientation?: "right" | "left";
 }) => {
   return (
     <div className={`${namespace}`}>
-      <div className={`${namespace}-content`}>
+      <div
+        className={`${namespace}-content ${
+          imgOrientation ? `${namespace}-right-img` : `${namespace}-left-img`
+        } ${slim ? `${namespace}-content-slim` : ""}`}
+      >
         <ProjectTitle title={data.projectName} />
         {data.topics && !slim && (
           <div className={`${namespace}-labels`}>

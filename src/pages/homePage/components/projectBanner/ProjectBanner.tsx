@@ -76,7 +76,7 @@ const ProjectSection = () => {
       <div className={`${namespace}-featured-container`}>
         {presentationSlidesStatus === "success" &&
           presentationSlides.map((slide) => {
-            return <ProjectItem key={slide.id} data={slide} />;
+            return <ProjectItem key={slide.id} data={slide} slim={true} />;
           })}
       </div>
 

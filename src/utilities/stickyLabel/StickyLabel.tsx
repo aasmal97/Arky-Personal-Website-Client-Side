@@ -4,7 +4,7 @@ const RotatedStickyLabel = ({ children }: { children: string }) => {
       className="sticky-label"
       style={{
         position: "sticky",
-        top: 0,
+        top: "0.3em",
         left: 0,
         transform: "rotate(180deg)",
         writingMode: "vertical-lr",
