@@ -114,34 +114,6 @@ $namespace: p.$namespace;
     margin-bottom: 2rem;
     aspect-ratio: 3/2
   }
-  // @include project-spacing($font-size-unit: 15, $link-size-unit: 15);
-  // ##{$namespace} {
-  //   & > * {
-  //     padding: math.div(v.$navbar-height, 2) 0;
-  //   }
-  // }
-
-  // .#{$namespace}-carousel {
-  //   position: relative;
-  //   width: 100%;
-  //   min-height: calc(10vh - 7em);
-  //   &::after {
-  //     top: 0px;
-  //   }
-  // }
-  // .#{$namespace}-carousel-wrapper {
-  //   $paddingLeft: 8%;
-  //   $paddingRight: 8%;
-  //   $paddingTop: 3em;
-  //   padding-top: $paddingTop;
-  //   min-height: 25em;
-  // }
-  // .#{$namespace}-carousel-inner-wrapper {
-  //   min-height: 8em;
-  // }
-  // .#{$namespace}-slide-inner {
-  //   margin-bottom: 3.5em;
-  // }
 }
 @mixin project-hover {
   .#{$namespace}-text-content a {

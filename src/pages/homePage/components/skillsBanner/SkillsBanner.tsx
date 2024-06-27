@@ -4,6 +4,7 @@ import { Skills } from "../../../../utilities/types/RestApiTypes";
 import Collapse from "@mui/material/Collapse";
 import SkillsImage from "./SkillsImage";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
+import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 const namespace = "skills-banner";
 const BubblesSVGIcon = () => {
   return (
@@ -26,11 +27,6 @@ const MediaContent = () => {
     <div className={`${namespace}-media-content`}>
       <div className={`${namespace}-media-img-container`}>
         <SkillsImage />
-        {/* <LazyImage
-            src={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro.jpg`}
-            placeholderSrc={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro-placeholder.jpg`}
-            alt="Arky sitting on a ledge in Guayquil, Ecuador"
-          /> */}
       </div>
     </div>
   );
@@ -44,15 +40,18 @@ const TextContent = ({
 }) => {
   return (
     <div className={`${namespace}-text-content`}>
+      <h2>Skills</h2>
       <p>
-        Devouring knowledge is my strongest attribute. As a result, I have 30+
-        skills at my disposal. And I’m always hungry for more.
+        Pursing knowledge is my strongest attribute. After all, good work is
+        only limited by the tools used. As a result, I have 30+ skills at my
+        disposal. And I’m always hungry for more.
       </p>
       <button
         onClick={() => setShowSkills((e) => !e)}
         aria-label={"toggle-skills"}
       >
-        {!showSkills ? "See" : "Hide"} Skills{" "}
+        <div>{!showSkills ? "View All" : "Hide Skills"}</div>
+        {!showSkills ? <ArrowDownward /> : <ArrowUpward />}
       </button>
     </div>
   );
@@ -98,29 +97,24 @@ export const SkillsList = () => {
 const SkillsBanner = memo(() => {
   const [showSkills, setShowSkills] = useState(false);
   const mediumWindowWidth = useWindowWidth(768);
-  const width = "min(5vw, 4em)";
-  const innerStyle = {
-    paddingBottom: !mediumWindowWidth ? `calc(${width} * 3)`: `calc(${width} * 1)`,
-  };
+  // const width = "min(5vw, 4em)";
+  // const innerStyle = {
+  //   paddingBottom: !mediumWindowWidth ? `calc(${width} * 3)`: `calc(${width} * 1)`,
+  // };
   return (
     <div id={namespace}>
-      <BubblesSVGIcon />
-      <div id={`${namespace}-inner`} style={innerStyle}>
+      <div id={`${namespace}-inner`}>
         <MediaContent />
         <TextContent showSkills={showSkills} setShowSkills={setShowSkills} />
-        {!mediumWindowWidth && (
+        {/* {!mediumWindowWidth && (
           <Collapse in={showSkills} timeout={500}>
             <SkillsList />
           </Collapse>
-        )}
+        )} */}
       </div>
-      {mediumWindowWidth && (
-        <Collapse in={showSkills} timeout={500}>
-          <SkillsList />
-          <div className={`${namespace}-svg-spacing`}></div>
-        </Collapse>
-      )}
-      <BubblesSVGIcon />
+      <Collapse in={showSkills} timeout={500}>
+        <SkillsList />
+      </Collapse>
     </div>
   );
 });

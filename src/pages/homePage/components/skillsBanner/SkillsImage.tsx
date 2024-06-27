@@ -72,11 +72,11 @@ const SkillsImageEyes = () => {
   return (
     <>
       <g className={`${namespace}-eye`} style={defaultStyles}>
-        <circle cx="65.2202" cy="126.5" r="2.5" fill="#161616" />
+        <circle cx="65.2202" cy="126.5" r="2.5" fill="#2e2e2e" />
         <circle cx="66.2202" cy="125.5" r="0.5" fill="white" />
       </g>
       <g className={`${namespace}-eye`} style={defaultStyles}>
-        <circle cx="86.2202" cy="126.5" r="2.5" fill="#161616" />
+        <circle cx="86.2202" cy="126.5" r="2.5" fill="#2e2e2e" />
         <circle cx="87.2202" cy="125.5" r="0.5" fill="white" />
       </g>
     </>
@@ -197,7 +197,7 @@ const SkillsImageArms = () => {
         />
         <path
           d="M29.7798 217V242H13.7798C10.7798 242 7.27964 240.5 5.27966 238.5C-3.72022 229.5 3.27987 217.5 9.77978 217H12.2796C15.0133 217 29.7798 217 29.7798 217ZM29.7798 217V166L2.62339 222.5"
-          stroke="#161616"
+          stroke="#2e2e2e"
           strokeWidth="2"
         />
       </g>
@@ -208,7 +208,7 @@ const SkillsImageArms = () => {
         />
         <path
           d="M120.28 216.5V241.5H136.28C139.28 241.5 142.78 240 144.78 238C153.78 229 146.78 217 140.28 216.5H137.78C135.046 216.5 120.28 216.5 120.28 216.5ZM120.28 216.5V165.5L147.436 222"
-          stroke="#161616"
+          stroke="#2e2e2e"
           strokeWidth="2"
         />
       </g>
