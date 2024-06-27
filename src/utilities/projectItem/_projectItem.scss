@@ -16,6 +16,11 @@ $namespace: "project-item";
     display: flex;
     width: 100%;
     min-height: $container-min-height;
+    @if $container-mobile == "false" {
+      flex-direction: row;
+    } @else {
+      flex-direction: column;
+    }
   }
   .#{$namespace}-content {
     color: v.$off-white;

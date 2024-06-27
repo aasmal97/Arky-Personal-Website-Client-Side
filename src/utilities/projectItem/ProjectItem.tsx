@@ -90,10 +90,12 @@ const ProjectItem = ({
   data,
   slim = false,
   imgOrientation = "left",
+  smallWindowWidth =false ,
 }: {
   data: ProjectDocument;
   slim?: boolean;
   imgOrientation?: "right" | "left";
+  smallWindowWidth?: boolean;
 }) => {
   return (
     <div className={`${namespace}`}>
@@ -103,6 +105,8 @@ const ProjectItem = ({
         } ${slim ? `${namespace}-content-slim` : ""}`}
       >
         <ProjectTitle title={data.projectName} />
+        {!smallWindowWidth && <ProjectImageBanner images={data.images} />}
+
         {data.topics && !slim && (
           <div className={`${namespace}-labels`}>
             {data.topics.map((topic) => (
@@ -118,7 +122,7 @@ const ProjectItem = ({
           projectURL={data.appURL}
         />
       </div>
-      <ProjectImageBanner images={data.images} />
+      {smallWindowWidth && <ProjectImageBanner images={data.images} />}
     </div>
   );
 };

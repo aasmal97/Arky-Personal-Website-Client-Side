@@ -93,10 +93,6 @@ $namespace: i.$namespace;
   .#{$namespace}-sub-content {
     align-items: center;
   }
-  // @include intro-banner-spacing(12, 15, 15);
-  // .#{$namespace}-content {
-  //   padding: calc(#{v.$navbar-height}) 0;
-  // }
 }
 @mixin intro-hover {
   .#{$namespace}-sub-content button {

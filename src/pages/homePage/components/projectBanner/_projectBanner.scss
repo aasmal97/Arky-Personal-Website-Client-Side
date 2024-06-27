@@ -115,6 +115,10 @@ $namespace: "project-banner";
       font-size: $sticky-label-font-size;
       font-family: "JetBrains Mono", "Segoe UI", Tahoma, Geneva, Verdana,
         sans-serif;
+      p {
+        margin: 0;
+        text-align: end;
+      }
     }
   }
   .#{$namespace}-featured-container {

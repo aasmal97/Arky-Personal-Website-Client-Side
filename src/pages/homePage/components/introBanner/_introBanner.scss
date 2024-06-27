@@ -18,8 +18,10 @@ $namespace: "home-pg-intro-banner";
     justify-content: center;
     width: 100%;
     box-sizing: border-box;
-    padding-top: v.$navbar-height;
+    // padding-top: v.$navbar-height;
     & > * {
+          box-sizing: border-box;
+
       padding-top: $container-padding;
       padding-right: $container-padding;
       padding-bottom: $container-padding;

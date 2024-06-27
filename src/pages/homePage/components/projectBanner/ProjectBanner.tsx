@@ -62,7 +62,8 @@ const TextContent = () => {
 };
 const ProjectSection = () => {
   const countPerPage = 2;
-  const smallWindowWidth = useWindowWidth(768)
+  const mediumWindowWidth = useWindowWidth(768);
+  const smallWindowWidth = useWindowWidth(576);
   const { slides: presentationSlides, status: presentationSlidesStatus } =
     useProjectDocs({
       countPerPage,
@@ -70,14 +71,23 @@ const ProjectSection = () => {
     });
   return (
     <div className={`${namespace}-featured`}>
-      {smallWindowWidth && (
+      {mediumWindowWidth && (
         <RotatedStickyLabel>Latest Projects</RotatedStickyLabel>
       )}
-      {!smallWindowWidth && <div className="sticky-label">Latest Projects</div>}
+      {!mediumWindowWidth && (
+        <div className="sticky-label">Latest Projects</div>
+      )}
       <div className={`${namespace}-featured-container`}>
         {presentationSlidesStatus === "success" &&
           presentationSlides.map((slide) => {
-            return <ProjectItem key={slide.id} data={slide} slim={true} />;
+            return (
+              <ProjectItem
+                key={slide.id}
+                data={slide}
+                slim={true}
+                smallWindowWidth={smallWindowWidth}
+              />
+            );
           })}
         <div className={`${namespace}-view-all-banner`}>
           <p>Interested in my other projects?</p>
