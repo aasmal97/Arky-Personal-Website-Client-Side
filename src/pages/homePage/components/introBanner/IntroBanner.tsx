@@ -68,7 +68,6 @@ const AnimateHeaders = ({
   return el;
 };
 const IntroBanner = () => {
-  const [squareRef, { width }] = useElementSize();
   return (
     <div id={namespace}>
       <div className={`${namespace}-img-container`}>
@@ -82,7 +81,7 @@ const IntroBanner = () => {
         </div>
       </div>
       <div className={`${namespace}-content`}>
-        <div ref={squareRef} className={`${namespace}-title`}>
+        <div className={`${namespace}-title`}>
           <AnimateHeaders id={uuidArr[0]} htmlTag="h2">
             Welcome! I'm Arky
           </AnimateHeaders>
@@ -91,7 +90,7 @@ const IntroBanner = () => {
           </AnimateHeaders>
         </div>
         <div className={`${namespace}-sub-content`}>
-          <p style={{ width: width }}>
+          <p>
             I provide technical, impactful and collaborative solutions to an
             application’s frontend, backend and cloud infrastructure
           </p>

@@ -18,7 +18,7 @@ $namespace: i.$namespace;
 }
 @mixin intro-lg {
   @include i.intro-banner(
-    $container-padding: 2rem,
+    $container-padding: 1.8rem,
     $img-width: 14.58rem,
     $title-heading-font-size: 4rem,
     $sub-heading-font-size: 1.5rem,
@@ -30,7 +30,7 @@ $namespace: i.$namespace;
 }
 @mixin intro-md {
   @include i.intro-banner(
-    $container-padding: 2rem,
+    $container-padding: 1.8rem,
     $img-width: 14.58rem,
     $title-heading-font-size: 3rem,
     $sub-heading-font-size: 1.5rem,

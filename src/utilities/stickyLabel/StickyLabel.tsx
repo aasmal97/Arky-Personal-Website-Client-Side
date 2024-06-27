@@ -8,10 +8,8 @@ const RotatedStickyLabel = ({ children }: { children: string }) => {
         left: 0,
         transform: "rotate(180deg)",
         writingMode: "vertical-lr",
-        textTransform: "uppercase",
         letterSpacing: "0.12em",
         lineHeight: "1.625em",
-        color: "#5a5a5a",
         textAlign: "end",
         maxHeight: "100vh",
       }}

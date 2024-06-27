@@ -62,6 +62,7 @@ const TextContent = () => {
 };
 const ProjectSection = () => {
   const countPerPage = 2;
+  const smallWindowWidth = useWindowWidth(768)
   const { slides: presentationSlides, status: presentationSlidesStatus } =
     useProjectDocs({
       countPerPage,
@@ -69,7 +70,10 @@ const ProjectSection = () => {
     });
   return (
     <div className={`${namespace}-featured`}>
-      <RotatedStickyLabel>Latest Projects</RotatedStickyLabel>
+      {smallWindowWidth && (
+        <RotatedStickyLabel>Latest Projects</RotatedStickyLabel>
+      )}
+      {!smallWindowWidth && <div className="sticky-label">Latest Projects</div>}
       <div className={`${namespace}-featured-container`}>
         {presentationSlidesStatus === "success" &&
           presentationSlides.map((slide) => {

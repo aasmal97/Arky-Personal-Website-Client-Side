@@ -2,118 +2,106 @@
 @use "../../../../../public/variables" as v;
 @use "sass:math";
 $namespace: p.$namespace;
-@mixin project-spacing($font-size-unit, $link-size-unit: $font-size-unit) {
-  .#{$namespace}-text-content {
-    $unitless-size: $font-size-unit;
-    $font-size: calc(min(#{$unitless-size}vw, 5.5em));
-
-    h2 {
-      font-size: calc(#{$font-size} * 0.61);
-      margin-bottom: calc(#{$font-size} / 2);
-    }
-    p {
-      margin-top: calc(#{$font-size} / 2);
-      font-size: calc(#{$font-size} * 0.28);
-      line-height: 1.623em;
-    }
-    $link-size: calc(min(#{$link-size-unit}vw, 5.5em));
-    a {
-      font-size: calc(#{$link-size} * 0.25);
-      margin: calc(#{$link-size} / 2) 0;
-      padding: calc(#{$link-size} * 0.3 / 3) calc(#{$link-size} * 0.3);
-    }
-  }
-}
-@mixin project-xxl{
+@mixin project-xxl {
   @include p.project-banner;
 }
 @mixin project-xl {
+  @include p.project-banner(
+    $project-item-content-horizontal-padding: 2.5rem,
+    $project-item-content-width: 45%
+  );
 }
 @mixin project-lg {
-  @include project-spacing(8, 7);
-  ##{$namespace} {
-    flex-direction: column;
-  }
-  .#{$namespace}-carousel {
-    position: relative;
-    width: 100%;
-    min-height: calc(35vh - 7em);
-  }
-  .#{$namespace}-text-content {
-    min-height: calc(65vh - 7em);
-    width: 100%;
-    flex-grow: 1;
-  }
-  .#{$namespace}-wave {
-    svg {
-      width: 100%;
-      height: auto;
-    }
-  }
-  .#{$namespace}-carousel-wrapper {
-    $paddingLeft: 8%;
-    $paddingRight: 8%;
-    $paddingTop: 5em;
-    padding-top: $paddingTop;
-    padding-left: $paddingLeft;
-    padding-right: $paddingRight;
-    min-height: 30em;
-  }
-  .#{$namespace}-carousel-inner-wrapper {
-    .swiper-pagination-bullet {
-      width: 1rem;
-      height: 1rem;
-    }
-  }
-  .#{$namespace}-slide-inner {
-    display: flex;
-    border-radius: 0.5vw;
-    justify-content: center;
-    background-color: gray;
-    margin-bottom: 4.5em;
-    width: 100%;
-    //aspect-ratio: 4/3;
-  }
+  @include p.project-banner(
+    $container-spacing-top: 3rem,
+    $container-spacing-bottom: 3.6rem,
+    $container-heading-font-size: 3.2rem,
+    $text-container-padding: 1.8rem,
+    $text-container-font-size: 1.2rem,
+    $featured-container-padding-left: 0.6rem,
+    $featured-container-padding-right: 1.8rem,
+    $featured-container-spacing: 7.2rem,
+    $sticky-label-font-size: 3.2rem,
+    $view-all-banner-font-size: 1.2rem,
+    $view-all-banner-spacing: 1.4rem,
+    $view-all-btn-font-size: 1.8rem,
+    $project-item-content-horizontal-padding: 2rem,
+    $project-item-content-title-font-size: 1.8rem,
+    $project-item-content-description-font-size: 1rem,
+    $project-item-description-slim-top-padding: 1.4rem,
+    $project-item-description-bottom-padding: 1.625rem,
+    $project-item-action-btns-spacing: 1.625rem,
+    $project-item-action-btns-font-size: 1.175rem,
+    $project-item-container-min-height: 20rem,
+    $project-item-container-mobile: "false",
+    $project-item-content-width: 45%
+  );
 }
 @mixin project-md {
-  @include project-spacing(12, 10);
-  .#{$namespace}-carousel {
-    position: relative;
-    width: 100%;
-    min-height: calc(20vh - 7em);
-    padding: 0;
+  @include p.project-banner(
+    $container-spacing-top: 2.25rem,
+    $container-spacing-bottom: 2.7rem,
+    $container-heading-font-size: 3rem,
+    $text-container-padding: 1.8rem,
+    $text-container-font-size: 1rem,
+    $featured-container-padding-left: 1.8rem,
+    $featured-container-padding-right: 1.8rem,
+    $featured-container-spacing: 5.4rem,
+    $sticky-label-font-size: 3rem,
+    $view-all-banner-font-size: 1rem,
+    $view-all-banner-spacing: 1rem,
+    $view-all-btn-font-size: 1.35rem,
+    $project-item-content-horizontal-padding: 2rem,
+    $project-item-content-title-font-size: 1.35rem,
+    $project-item-content-description-font-size: 1rem,
+    $project-item-description-slim-top-padding: 1rem,
+    $project-item-description-bottom-padding: 1.2rem,
+    $project-item-action-btns-spacing: 1rem,
+    $project-item-action-btns-font-size: 1rem,
+    $project-item-container-min-height: 15rem,
+    $project-item-container-mobile: "false",
+    $project-item-content-width: 45%
+  );
+  .#{$namespace}-featured {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > .sticky-label {
+      padding-bottom: 1.8rem * 2;
+      text-transform: none
+    }
   }
 }
 
 @mixin project-sm {
-  @include project-spacing($font-size-unit: 15, $link-size-unit: 15);
-  ##{$namespace} {
-    & > * {
-      padding: math.div(v.$navbar-height, 2) 0;
-    }
-  }
+  // @include project-spacing($font-size-unit: 15, $link-size-unit: 15);
+  // ##{$namespace} {
+  //   & > * {
+  //     padding: math.div(v.$navbar-height, 2) 0;
+  //   }
+  // }
 
-  .#{$namespace}-carousel {
-    position: relative;
-    width: 100%;
-    min-height: calc(10vh - 7em);
-    &::after {
-      top: 0px;
-    }
-  }
-  .#{$namespace}-carousel-wrapper {
-    $paddingLeft: 8%;
-    $paddingRight: 8%;
-    $paddingTop: 3em;
-    padding-top: $paddingTop;
-    min-height: 25em;
-  }
-  .#{$namespace}-carousel-inner-wrapper {
-    min-height: 8em;
-  }
-  .#{$namespace}-slide-inner {
-    margin-bottom: 3.5em;
-  }
+  // .#{$namespace}-carousel {
+  //   position: relative;
+  //   width: 100%;
+  //   min-height: calc(10vh - 7em);
+  //   &::after {
+  //     top: 0px;
+  //   }
+  // }
+  // .#{$namespace}-carousel-wrapper {
+  //   $paddingLeft: 8%;
+  //   $paddingRight: 8%;
+  //   $paddingTop: 3em;
+  //   padding-top: $paddingTop;
+  //   min-height: 25em;
+  // }
+  // .#{$namespace}-carousel-inner-wrapper {
+  //   min-height: 8em;
+  // }
+  // .#{$namespace}-slide-inner {
+  //   margin-bottom: 3.5em;
+  // }
 }
 @mixin project-hover {
   .#{$namespace}-text-content a {

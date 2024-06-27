@@ -85,6 +85,7 @@ $namespace: "project-item";
     &:last-child {
       color: v.$off-white;
       background-color: v.$light-red;
+      margin-right: 0;
     }
     & > :first-child {
       height: 1.1em;

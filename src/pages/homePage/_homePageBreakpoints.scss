@@ -10,6 +10,7 @@
 @mixin home-xl {
   @include intro.intro-xl;
   @include project.project-xl;
+  
   // @include skills.skills-lg;
   // @include about.about-lg;
   // @include contact-me.contact-me-lg

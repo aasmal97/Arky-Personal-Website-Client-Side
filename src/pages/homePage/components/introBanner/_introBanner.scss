@@ -1,14 +1,6 @@
 @use "../../../../../public/variables" as v;
 @use "sass:math";
 $namespace: "home-pg-intro-banner";
-$container-padding: 3rem;
-$img-width: 21.875rem;
-$title-heading-font-size: 6rem;
-$sub-heading-font-size: 2.25rem;
-$download-btn-font-size: 1.5rem;
-$description-font-size: 1.5rem;
-$heading-spacing: 1.5rem;
-$content-spacing: 2.25rem;
 @mixin intro-banner(
   $container-padding: 2.25rem,
   $img-width: 21.875rem,
@@ -25,6 +17,7 @@ $content-spacing: 2.25rem;
     display: flex;
     justify-content: center;
     width: 100%;
+    box-sizing: border-box;
     padding-top: v.$navbar-height;
     & > * {
       padding-top: $container-padding;
