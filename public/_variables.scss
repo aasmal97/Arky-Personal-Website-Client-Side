@@ -207,3 +207,15 @@ $navbar-height: 3.3em;
     height: 1.3em;
   }
 }
+
+@mixin sticky-label ($font-size){
+  color: $lighter-black;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: $font-size;
+  font-family: "JetBrains Mono", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  p {
+    margin: 0;
+    text-align: end;
+  }
+}

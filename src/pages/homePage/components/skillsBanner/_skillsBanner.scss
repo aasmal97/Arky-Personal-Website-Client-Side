@@ -3,13 +3,15 @@ $namespace: "skills-banner";
 $width: min(5vw, 4em);
 
 $img-width: 21.875rem;
-$container-vertical-padding: 3.75rem;
+$container-top-padding: 3.75rem;
+$container-bottom-padding: 4.5rem;
 $container-horizontal-padding: 2.25rem;
 $container-heading-font-size: 4rem;
 $container-heading-vertial-spacing: 2.25rem;
 $text-content-font-size: 1.5rem;
-$view-all-banner-font-size: 1.5rem;
+$skills-list-container-padding-left: 0.75rem;
 $view-all-btn-font-size: 2.25rem;
+$sticky-label-font-size: 4rem;
 $mobile: "false";
 ##{$namespace} {
   position: relative;
@@ -19,8 +21,8 @@ $mobile: "false";
   justify-content: center;
   width: 100%;
   box-sizing: border-box;
-  padding-top: $container-vertical-padding;
-  padding-bottom: $container-vertical-padding;
+  padding-top: $container-top-padding;
+  padding-bottom: $container-bottom-padding;
 }
 ##{$namespace}-inner {
   display: flex;
@@ -73,47 +75,28 @@ $mobile: "false";
   }
   button,
   a {
-    @include v.link-btn($view-all-banner-font-size, v.$yellow);
-    // @include v.remove-btn-default;
-    // text-decoration: none;
-    // color: v.$yellow;
-    // border: 1px solid v.$yellow;
-    // border-radius: 0.2em;
-    // font-size: calc(#{$font-size} * 0.25);
-    // margin-top: calc(#{$font-size} / 2);
-    // padding: calc(#{$font-size} * 0.28 / 3) calc(#{$font-size} * 0.28);
+    @include v.link-btn($view-all-btn-font-size, v.$yellow);
   }
 }
-// .#{$namespace}-skills-list {
-//   $unitless-size: 5.2;
-//   $font-size: calc(min(#{$unitless-size}vw, 5.5em));
-//   display: flex;
-//   flex-direction: column;
-//   width: 100%;
-//   align-items: center;
-//   h3 {
-//     font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-//     color: v.$off-white;
-//     margin: 0;
-//     padding: 0;
-//     font-weight: 400;
-//     font-size: calc(#{$font-size} * 0.75);
-//     line-height: 1em;
-//   }
-// }
-// .#{$namespace}-skills-list-inner {
-//   $unitless-size: 5.2;
-//   $font-size: calc(min(#{$unitless-size}vw, 5.5em));
-//   width: 100%;
-//   display: grid;
-//   padding-top: calc(#{$width} * 1.5);
-//   padding-bottom: calc(#{$width} * 1.5);
-//   grid-gap: calc(#{$font-size} * 0.5); /* optional */
-//   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-//   grid-template-columns: repeat(3, 1fr);
-//   color: v.$yellow;
-//   .#{$namespace}-skills-list-item {
-//     font-size: calc(#{$font-size} * 0.3);
-//     text-align: center;
-//   }
-// }
+.#{$namespace}-skills-list {
+  padding-top: $container-top-padding;
+  display: flex;
+  width: 100%;
+  padding-left: $skills-list-container-padding-left;
+  & > .sticky-label {
+    @include v.sticky-label($sticky-label-font-size);
+  }
+}
+.#{$namespace}-skills-list-inner {
+  flex-grow: 1;
+  font-size: $text-content-font-size;
+  width: 100%;
+  display: grid;
+  grid-gap: 2em; /* optional */
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  grid-template-columns: repeat(3, 1fr);
+  color: v.$yellow;
+  .#{$namespace}-skills-list-item {
+    text-align: center;
+  }
+}

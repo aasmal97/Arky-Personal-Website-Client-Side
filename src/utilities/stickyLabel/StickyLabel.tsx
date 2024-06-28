@@ -5,6 +5,7 @@ const reverseWords = (str: string) => join(reverse(split(str, " ")), " ");
 const RotatedStickyLabel = ({ children }: { children: string }) => {
   const containerRef = useRef<HTMLParagraphElement | null>(null);
   const [oneLine, setOneLine] = useState(false);
+  const [height, setHeight] = useState(0);
   useEffect(() => {
     const checkLines = () => {
       const container = containerRef.current;
@@ -12,13 +13,14 @@ const RotatedStickyLabel = ({ children }: { children: string }) => {
       const style = window.getComputedStyle(container);
       const lineHeight = parseInt(style.getPropertyValue("line-height"), 10);
       const height = container.offsetWidth;
-      console.log(lineHeight, height);
-
+      const width = container.offsetHeight;
+      console.log(height);
       if (height > lineHeight) {
         setOneLine(false);
       } else {
         setOneLine(true);
       }
+      setHeight(width);
     };
     const debouncedCheckLines = debounce(checkLines, 500);
     debouncedCheckLines();
@@ -41,6 +43,8 @@ const RotatedStickyLabel = ({ children }: { children: string }) => {
         display: "flex",
         justifyContent: "end",
         maxHeight: "100vh",
+        height: height ? `${height}px` : "auto",
+        // overflow: "hidden",
       }}
     >
       <p ref={containerRef}>{oneLine ? children : reverseWords(children)}</p>

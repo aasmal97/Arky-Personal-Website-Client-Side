@@ -5,6 +5,7 @@ import Collapse from "@mui/material/Collapse";
 import SkillsImage from "./SkillsImage";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
+import RotatedStickyLabel from "../../../../utilities/stickyLabel/StickyLabel";
 const namespace = "skills-banner";
 const BubblesSVGIcon = () => {
   return (
@@ -58,6 +59,7 @@ const TextContent = ({
 };
 export const SkillsList = () => {
   const [skills, setSkills] = useState<Skills[]>([]);
+  const mediumWindowWidth = useWindowWidth(768);
   useEffect(() => {
     fetchSkillsData({
       query: {},
@@ -79,7 +81,12 @@ export const SkillsList = () => {
   }, []);
   return (
     <div className={`${namespace}-skills-list`}>
-      <h3>Skills</h3>
+      {mediumWindowWidth && (
+        <RotatedStickyLabel>Skills</RotatedStickyLabel>
+      )}
+      {!mediumWindowWidth && (
+        <div className="sticky-label">Skills</div>
+      )}
       <div className={`${namespace}-skills-list-inner`}>
         {skills.map((item) => {
           return (
@@ -96,21 +103,11 @@ export const SkillsList = () => {
 };
 const SkillsBanner = memo(() => {
   const [showSkills, setShowSkills] = useState(false);
-  const mediumWindowWidth = useWindowWidth(768);
-  // const width = "min(5vw, 4em)";
-  // const innerStyle = {
-  //   paddingBottom: !mediumWindowWidth ? `calc(${width} * 3)`: `calc(${width} * 1)`,
-  // };
   return (
     <div id={namespace}>
       <div id={`${namespace}-inner`}>
         <MediaContent />
         <TextContent showSkills={showSkills} setShowSkills={setShowSkills} />
-        {/* {!mediumWindowWidth && (
-          <Collapse in={showSkills} timeout={500}>
-            <SkillsList />
-          </Collapse>
-        )} */}
       </div>
       <Collapse in={showSkills} timeout={500}>
         <SkillsList />
