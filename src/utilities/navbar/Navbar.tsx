@@ -6,6 +6,7 @@ import Drawer from "../drawer/Drawer";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
+import { LinkedIn } from "@mui/icons-material";
 const namespace = "navbar";
 type LinkData = {
   name: string;
@@ -19,7 +20,7 @@ const linkData: LinkData[] = [
   { name: "Projects", link: "/projects" },
   { name: "About", link: "/about" },
   { name: "Skills", link: "/skills" },
-  { name: "Contact", hashLink: "/#contact-me-banner" },
+  { name: "Contact", link: "/contact" },
 ];
 
 const NavLinks = ({
@@ -30,48 +31,51 @@ const NavLinks = ({
   ) => (event: React.KeyboardEvent | React.MouseEvent) => void;
 }) => {
   return (
-    <div id={`${namespace}-links`}>
-      {linkData.map((l) =>
-        l.link ? (
-          <Link
-            key={l.name}
-            to={l.link}
-            onClick={(e) => {
-              //improve stability of link out
-              if (toggleDrawer) toggleDrawer(false)(e);
-              if (l.onClick) l.onClick(e);
-            }}
-          >
-            {l.name}
-            <div className="link-animation-container"></div>
-            <svg viewBox="0 0 13 20">
-              <polyline points="0.5 19.5 3 19.5 12.5 10 3 0.5" />
-            </svg>
-          </Link>
-        ) : l.hashLink ? (
-          <HashLink
-            key={l.name}
-            to={l.hashLink}
-            onClick={(e) => {
-              if (toggleDrawer) toggleDrawer(false)(e);
-              if (l.onClick) l.onClick(e);
-            }}
-          >
-            {l.name}
-          </HashLink>
-        ) : (
-          <button
-            key={l.name}
-            onClick={(e) => {
-              if (toggleDrawer) toggleDrawer(false)(e);
-              if (l.onClick) l.onClick(e);
-            }}
-          >
-            {l.name}
-          </button>
-        )
-      )}
-    </div>
+    <>
+      <div id={`${namespace}-links`}>
+        {linkData.map((l) =>
+          l.link ? (
+            <Link
+              key={l.name}
+              to={l.link}
+              onClick={(e) => {
+                //improve stability of link out
+                if (toggleDrawer) toggleDrawer(false)(e);
+                if (l.onClick) l.onClick(e);
+              }}
+            >
+              {l.name}
+              <div className="link-animation-container"></div>
+              <svg viewBox="0 0 13 20">
+                <polyline points="0.5 19.5 3 19.5 12.5 10 3 0.5" />
+              </svg>
+            </Link>
+          ) : l.hashLink ? (
+            <HashLink
+              key={l.name}
+              to={l.hashLink}
+              onClick={(e) => {
+                if (toggleDrawer) toggleDrawer(false)(e);
+                if (l.onClick) l.onClick(e);
+              }}
+            >
+              {l.name}
+            </HashLink>
+          ) : (
+            <button
+              key={l.name}
+              onClick={(e) => {
+                if (toggleDrawer) toggleDrawer(false)(e);
+                if (l.onClick) l.onClick(e);
+              }}
+            >
+              {l.name}
+            </button>
+          )
+        )}
+      </div>
+      
+    </>
   );
 };
 const NavDrawer = () => {
@@ -136,9 +140,17 @@ const Navbar = () => {
             src={`${process.env.REACT_APP_MEDIA_FILES_URL}/appLogo.jpg`}
           />
         </div>
-        <span>Arky's Portfolio</span>{" "}
       </Link>
       {smallWindowWidth && <NavLinks />}
+      <div id={`${namespace}-linkedIn`}>
+        <a
+          href="https://www.linkedin.com/in/arky-asmal"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          <LinkedIn />
+        </a>
+      </div>
       {!smallWindowWidth && <NavDrawer />}
     </nav>
   );

@@ -5,6 +5,10 @@
 
 @mixin navbar-sm {
   $namespace: "navbar";
+  ##{$namespace}-linkedIn {
+    flex-grow: 1;
+    justify-content: end;
+  }
   ##{$namespace}-links {
     justify-content: center;
     button,
