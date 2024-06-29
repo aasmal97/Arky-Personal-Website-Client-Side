@@ -181,7 +181,7 @@ export const MessageBox = () => {
   const [formMessage, setFormMessage] = useState<string | null>(null);
   const [playAnimation, setPlayAnimation] = useState(false);
   const smallWindowWidth = useWindowWidth(992);
-  const smallestWindowWidth = useWindowWidth(575);
+  const smallestWindowWidth = useWindowWidth(576);
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formStatus === "loading") return;

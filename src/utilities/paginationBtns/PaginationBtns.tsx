@@ -70,7 +70,7 @@ const PaginationBtns = ({
   const ellipsis = (
     <span className={`${namespace}-pagination-ellipsis`}>...</span>
   );
-  const smallWindowWidth = useWindowWidth(575);
+  const smallWindowWidth = useWindowWidth(576);
   return (
     <div className={`${namespace}-pagination`}>
       {!(active - 1 < 1) && (

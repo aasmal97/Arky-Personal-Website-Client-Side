@@ -1,100 +1,63 @@
 @use "./aboutMeBanner" as a;
 @use "../../../../../public/variables" as v;
 $namespace: a.$namespace;
-@mixin about-spacing($font-size, $paragraph-size-unit: $font-size) {
-  $unitless-size: $font-size;
-  $font-size: calc(min(#{$unitless-size}vw, 5.5em));
-  .#{$namespace}-wave {
-    height: calc(#{$font-size} * 5.5);
-  }
-  .#{$namespace}-text-content {
-    width: calc(#{$font-size} * 4.2);
-    padding: calc(#{$font-size} / 1.7);
-    border-radius: calc(#{$font-size} / 2);
-    h2 {
-      font-size: calc(#{$font-size} * 0.61);
-    }
-    & > span {
-      margin-top: calc(#{$font-size} / 4);
-      font-size: calc(#{$font-size} * 0.28);
-    }
-    $paragraph-size: calc(min(#{$paragraph-size-unit}vw, 5.5em));
-    p {
-      margin-top: calc(#{$paragraph-size} / 4);
-      font-size: calc(#{$paragraph-size} * 0.22);
-      line-height: 1.623em;
-      span {
-        font-size: calc(#{$paragraph-size} * 0.55);
-      }
-    }
-  }
-}
-@mixin about-xxl{
-  
-}
-@mixin about-xl{
 
+@mixin about-xxl {
+  @include a.about-banner;
+}
+@mixin about-xl {
+  @include a.about-banner(
+    $img-width: 18.23rem,
+    $container-heading-font-size: 4.8rem
+  );
 }
 @mixin about-lg {
-  ##{$namespace} {
-    display: flex;
-    flex-direction: column;
-  }
-  .#{$namespace}-wave {
-    width: 100%;
-    max-width: unset;
-    svg {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: auto;
-    }
-  }
-
-  .#{$namespace}-text-container {
-    padding-bottom: 0;
-    width: 100%;
-  }
-  .#{$namespace}-media-content {
-    padding: calc(#{v.$navbar-height} * 2);
-  }
-  .#{$namespace}-blob {
-    width: calc(100% - (#{v.$navbar-height} * 4));
-  }
-  @include about-spacing(10);
+  @include a.about-banner(
+    $img-width: 14.58rem,
+    $container-top-padding: 3rem,
+    $container-bottom-padding: 3.6rem,
+    $container-horizontal-padding: 1.8rem,
+    $container-heading-font-size: 4rem,
+    $container-heading-vertical-spacing: 3.6rem,
+    $text-content-font-size: 1.2rem,
+    $text-content-first-char-font-size: 3.2rem,
+    $text-content-left-padding: 3rem,
+    $action-btns-padding-top: 3.6rem,
+    $action-btns-font-size: 1.8rem
+  );
 }
 @mixin about-md {
-  .#{$namespace}-text-container,
-  .#{$namespace}-media-content {
-    padding: 0;
-  }
-  .#{$namespace}-text-container {
-    padding-top: calc(#{v.$navbar-height} * 2);
-  }
-  .#{$namespace}-media-content {
-    padding: calc(#{v.$navbar-height} * 2);
-  }
-  .#{$namespace}-media-content {
-    & > svg {
-      transform: translateX(6%);
-      width: 110%;
-    }
-  }
-  .#{$namespace}-blob {
-    width: calc(100% - (#{v.$navbar-height} * 2));
-  }
-  @include about-spacing(13);
+  @include a.about-banner(
+    $img-width: 14.58rem,
+    $container-top-padding: 2.7rem,
+    $container-bottom-padding: 3rem,
+    $container-horizontal-padding: 1.8rem,
+    $container-heading-font-size: 3rem,
+    $container-heading-vertical-spacing: 3rem,
+    $text-content-font-size: 1rem,
+    $text-content-first-char-font-size: 2.7rem,
+    $text-content-left-padding: 3rem,
+    $action-btns-padding-top: 2.5rem,
+    $action-btns-font-size: 1.35rem
+  );
 }
 @mixin about-sm {
-  .#{$namespace}-media-content {
-    padding: calc(#{v.$navbar-height});
-    & > svg {
-      transform: translateX(5%);
-      width: 95%;
+  @include a.about-banner(
+    $img-width: calc(min(100%, 21.875rem)),
+    $container-top-padding: 2.25rem,
+    $container-bottom-padding: 3.5rem,
+    $container-horizontal-padding: 1rem,
+    $container-heading-font-size: 3rem,
+    $container-heading-vertical-spacing: 2.25rem,
+    $text-content-font-size: 1.125rem,
+    $text-content-first-char-font-size: 2.7rem,
+    $text-content-left-padding: 0rem,
+    $action-btns-padding-top: 2.5rem,
+    $action-btns-font-size: 1.35rem
+  );
+  
+    .#{$namespace}-media-content {
+      align-self: center;
+      margin-top: 2.5rem;
     }
-  }
-  .#{$namespace}-blob {
-    width: calc(110% - (#{v.$navbar-height} * 2));
-  }
-  @include about-spacing(15, 17);
 }

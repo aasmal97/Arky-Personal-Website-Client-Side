@@ -1,43 +1,7 @@
 @use "./skillsBanner" as s;
 @use "../../../../../public/variables" as v;
 $namespace: s.$namespace;
-// @mixin skills-spacing(
-//   $font-size,
-//   $link-size-unit: $font-size,
-//   $grid-gap: $font-size
-// ) {
-//   $unitless-size: $font-size;
-//   $font-size: calc(min(#{$unitless-size}vw, 5.5em));
-//   .#{$namespace}-media-content {
-//     .#{$namespace}-media-img-container {
-//       font-size: calc(#{$font-size} * 0.5);
-//     }
-//   }
-//   .#{$namespace}-text-content {
-//     p {
-//       font-size: calc(#{$font-size} * 0.5);
-//     }
-//     $link-size: calc(min(#{$link-size-unit}vw, 5.5em));
-//     a,
-//     button {
-//       font-size: calc(#{$link-size} * 0.25);
-//       margin: calc(#{$link-size} / 2) 0;
-//       padding: calc(#{$link-size} * 0.3 / 3) calc(#{$link-size} * 0.3);
-//     }
-//   }
-//   .#{$namespace}-skills-list {
-//     h3 {
-//       font-size: calc(#{$font-size} * 0.8);
-//       line-height: 1.375em;
-//     }
-//   }
-//   .#{$namespace}-skills-list-inner {
-//     grid-gap: calc(#{$grid-gap} * 0.5); /* optional */
-//     .#{$namespace}-skills-list-item {
-//       font-size: calc(#{$font-size} * 0.3);
-//     }
-//   }
-// }
+
 @mixin skills-xxl {
   @include s.skills-banner;
 }
@@ -90,7 +54,7 @@ $namespace: s.$namespace;
 }
 @mixin skills-sm {
   @include s.skills-banner(
-    $img-width: 14.58rem,
+    $img-width: auto,
     $container-top-padding: 2.25rem,
     $container-bottom-padding: 3.5rem,
     $container-horizontal-padding: 1rem,
@@ -117,7 +81,6 @@ $namespace: s.$namespace;
     padding-bottom: 0.3em;
     .#{$namespace}-media-img-container {
       height: 1.4em;
-      width: auto;
     }
   }
   .#{$namespace}-skills-list-inner {

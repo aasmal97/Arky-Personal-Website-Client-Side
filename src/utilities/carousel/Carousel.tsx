@@ -19,7 +19,7 @@ const Carousel = ({
 }) => {
   const { ref: caroRef, isVisible } = useIntersectionWrapper();
   const mediumWindowWidth = useWindowWidth(992);
-  const smallWindowWidth = useWindowWidth(575);
+  const smallWindowWidth = useWindowWidth(576);
   const slidesPerView = numSlidesPerView
     ? numSlidesPerView
     : !smallWindowWidth

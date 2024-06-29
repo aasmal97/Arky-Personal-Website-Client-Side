@@ -3,10 +3,8 @@ import useWindowWidth from "../../../../hooks/useWindowWidth";
 import anime from "animejs";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
 import {
-  BlobSVG,
   MediaCollagePlaceholderSVG,
   MediaCollageSVG,
-  WaveSVG,
 } from "./SVGComponents";
 import LinkBtn from "../../../../utilities/actionBtn/LinkBtn";
 const namespace = "about-me-pg";
@@ -64,7 +62,7 @@ const AboutMeHeader = ({ isVisible }: { isVisible: boolean }) => {
   );
 };
 const TextContent = ({ isVisible }: { isVisible: boolean }) => {
-  const smallWindowWidth = useWindowWidth(992);
+  const smallWindowWidth = useWindowWidth(576);
 
   return (
     <div className={`${namespace}-text-content`}>
@@ -74,6 +72,8 @@ const TextContent = ({ isVisible }: { isVisible: boolean }) => {
         also catch me accidentally butchering my mother’s Ecuadorian recipes
         (After all, cooking is just chemistry... right?)
       </p>
+      {!smallWindowWidth && <MediaContent />}
+
       <div className={`${namespace}-action-btns`}>
         <LinkBtn to="about">My Story</LinkBtn>
         <LinkBtn to="/contact">Contact Me</LinkBtn>
@@ -92,7 +92,7 @@ const MediaContent = () => {
   );
 };
 const AboutMeBanner = () => {
-  const smallWindowWidth = useWindowWidth(992);
+  const smallWindowWidth = useWindowWidth(576);
   const media = <MediaContent />;
   const { ref: textRef, isVisible } = useIntersectionWrapper();
   return (
@@ -102,7 +102,6 @@ const AboutMeBanner = () => {
         {smallWindowWidth && media}
         <TextContent isVisible={isVisible} />
       </div>
-      {!smallWindowWidth && media}
     </div>
   );
 };
