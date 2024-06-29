@@ -6,14 +6,13 @@
 @mixin home-xxl{
   @include intro.intro-xxl;
   @include project.project-xxl;
+  @include skills.skills-xxl; 
 }
 @mixin home-xl {
   @include intro.intro-xl;
   @include project.project-xl;
-  
-  // @include skills.skills-lg;
-  // @include about.about-lg;
-  // @include contact-me.contact-me-lg
+  @include skills.skills-xl; 
+
 }
 @mixin home-lg {
   @include intro.intro-lg;

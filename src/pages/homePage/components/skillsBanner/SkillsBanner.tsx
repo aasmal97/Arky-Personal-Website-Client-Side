@@ -38,10 +38,14 @@ const TextContent = ({
 }: {
   showSkills: boolean;
   setShowSkills: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+  }) => {
+  const smallWindowWidth = useWindowWidth(576)
   return (
     <div className={`${namespace}-text-content`}>
-      <h2>Skills</h2>
+      <h2>
+        {!smallWindowWidth && <MediaContent />}
+        Skills
+      </h2>
       <p>
         Pursing knowledge is my strongest attribute. After all, good work is
         only limited by the tools used. As a result, I have 30+ skills at my
@@ -103,10 +107,11 @@ export const SkillsList = () => {
 };
 const SkillsBanner = memo(() => {
   const [showSkills, setShowSkills] = useState(false);
+  const smallWindowWidth = useWindowWidth(576)
   return (
     <div id={namespace}>
       <div id={`${namespace}-inner`}>
-        <MediaContent />
+        {smallWindowWidth && <MediaContent />}
         <TextContent showSkills={showSkills} setShowSkills={setShowSkills} />
       </div>
       <Collapse in={showSkills} timeout={500}>

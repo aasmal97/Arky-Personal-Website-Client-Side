@@ -1,95 +1,139 @@
 @use "./skillsBanner" as s;
 @use "../../../../../public/variables" as v;
 $namespace: s.$namespace;
-@mixin skills-spacing(
-  $font-size,
-  $link-size-unit: $font-size,
-  $grid-gap: $font-size
-) {
-  $unitless-size: $font-size;
-  $font-size: calc(min(#{$unitless-size}vw, 5.5em));
-  .#{$namespace}-media-content {
-    .#{$namespace}-media-img-container {
-      font-size: calc(#{$font-size} * 0.5);
-    }
-  }
-  .#{$namespace}-text-content {
-    p {
-      font-size: calc(#{$font-size} * 0.5);
-    }
-    $link-size: calc(min(#{$link-size-unit}vw, 5.5em));
-    a,
-    button {
-      font-size: calc(#{$link-size} * 0.25);
-      margin: calc(#{$link-size} / 2) 0;
-      padding: calc(#{$link-size} * 0.3 / 3) calc(#{$link-size} * 0.3);
-    }
-  }
-  .#{$namespace}-skills-list {
-    h3 {
-      font-size: calc(#{$font-size} * 0.8);
-      line-height: 1.375em;
-    }
-  }
-  .#{$namespace}-skills-list-inner {
-    grid-gap: calc(#{$grid-gap} * 0.5); /* optional */
-    .#{$namespace}-skills-list-item {
-      font-size: calc(#{$font-size} * 0.3);
-    }
-  }
+// @mixin skills-spacing(
+//   $font-size,
+//   $link-size-unit: $font-size,
+//   $grid-gap: $font-size
+// ) {
+//   $unitless-size: $font-size;
+//   $font-size: calc(min(#{$unitless-size}vw, 5.5em));
+//   .#{$namespace}-media-content {
+//     .#{$namespace}-media-img-container {
+//       font-size: calc(#{$font-size} * 0.5);
+//     }
+//   }
+//   .#{$namespace}-text-content {
+//     p {
+//       font-size: calc(#{$font-size} * 0.5);
+//     }
+//     $link-size: calc(min(#{$link-size-unit}vw, 5.5em));
+//     a,
+//     button {
+//       font-size: calc(#{$link-size} * 0.25);
+//       margin: calc(#{$link-size} / 2) 0;
+//       padding: calc(#{$link-size} * 0.3 / 3) calc(#{$link-size} * 0.3);
+//     }
+//   }
+//   .#{$namespace}-skills-list {
+//     h3 {
+//       font-size: calc(#{$font-size} * 0.8);
+//       line-height: 1.375em;
+//     }
+//   }
+//   .#{$namespace}-skills-list-inner {
+//     grid-gap: calc(#{$grid-gap} * 0.5); /* optional */
+//     .#{$namespace}-skills-list-item {
+//       font-size: calc(#{$font-size} * 0.3);
+//     }
+//   }
+// }
+@mixin skills-xxl {
+  @include s.skills-banner;
+}
+@mixin skills-xl {
+  @include s.skills-banner($img-width: 18.23rem);
 }
 @mixin skills-lg {
-  @include skills-spacing(6);
-  ##{$namespace}-inner {
-    box-sizing: border-box;
-  }
-  .#{$namespace}-media-content {
-    padding: 0 10%;
-    padding-left: 15%;
-  }
-  .#{$namespace}-text-content {
-    padding-right: 10%;
-  }
+  @include s.skills-banner(
+    $img-width: 14.58rem,
+    $container-top-padding: 3rem,
+    $container-bottom-padding: 3.6rem,
+    $container-horizontal-padding: 1.8rem,
+    $container-heading-font-size: 3.2rem,
+    $container-heading-vertial-spacing: 1.8rem,
+    $text-content-font-size: 1.2rem,
+    $skills-list-container-padding-left: 0.6rem,
+    $skills-list-container-padding-right: 1.8rem,
+    $view-all-btn-font-size: 1.8rem,
+    $view-all-btn-padding-top: 1.6rem,
+    $sticky-label-font-size: 3.2rem,
+    $mobile: "false"
+  );
 }
 @mixin skills-md {
-  @include skills-spacing(10);
-  ##{$namespace}-inner {
-    box-sizing: border-box;
+  @include s.skills-banner(
+    $img-width: 14.58rem,
+    $container-top-padding: 2.7rem,
+    $container-bottom-padding: 3rem,
+    $container-horizontal-padding: 1.8rem,
+    $container-heading-font-size: 3rem,
+    $container-heading-vertial-spacing: 1.8rem,
+    $text-content-font-size: 1rem,
+    $skills-list-container-padding-left: 1.8rem,
+    $skills-list-container-padding-right: 1.8rem,
+    $view-all-btn-font-size: 1.35rem,
+    $view-all-btn-padding-top: 1.6rem,
+    $sticky-label-font-size: 3rem,
+    $mobile: "false"
+  );
+  .#{$namespace}-skills-list {
+    display: flex;
     flex-direction: column;
-  }
-  .#{$namespace}-media-content {
     align-items: center;
-    width: 100%;
-    padding: 10% 0;
-  }
-  .#{$namespace}-media-img-container {
-    & > svg {
-      width: 60%;
-      height: auto;
+    & > .sticky-label {
+      text-align: center;
+      padding-bottom: 1.8rem;
+      text-transform: none;
     }
-  }
-  .#{$namespace}-text-content {
-    padding-right: 0;
-    width: 100%;
-  }
-  .#{$namespace}-skills-list-inner {
-    $width: min(5vw, 4em);
-
-    grid-template-columns: repeat(2, 1fr);
-    padding-top: calc(#{$width} * 2);
-    // padding-bottom: calc(#{$width} * 2);
   }
 }
 @mixin skills-sm {
-  @include skills-spacing(10.5, 15);
-  .#{$namespace}-media-img-container {
-    & > svg {
-      width: 80%;
+  @include s.skills-banner(
+    $img-width: 14.58rem,
+    $container-top-padding: 2.25rem,
+    $container-bottom-padding: 3.5rem,
+    $container-horizontal-padding: 1rem,
+    $container-heading-font-size: 3rem,
+    $container-heading-vertial-spacing: 1rem,
+    $text-content-font-size: 1.125rem,
+    $skills-list-container-padding-left: 1rem,
+    $skills-list-container-padding-right: 1rem,
+    $view-all-btn-font-size: 1.35rem,
+    $view-all-btn-padding-top: 1.2rem,
+    $sticky-label-font-size: 3rem,
+    $mobile: "true"
+  );
+  .#{$namespace}-text-content {
+    h2 {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: flex-end;
     }
   }
-  // .#{$namespace}-skills-list-inner {
-  //   grid-template-columns: repeat(2, 1fr);
-  // }
+  .#{$namespace}-media-content {
+    margin-right: 0.625rem;
+    padding-bottom: 0.3em;
+    .#{$namespace}-media-img-container {
+      height: 1.4em;
+      width: auto;
+    }
+  }
+  .#{$namespace}-skills-list-inner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .#{$namespace}-skills-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > .sticky-label {
+      text-align: center;
+      padding-bottom: 2rem;
+      text-transform: none;
+    }
+  }
 }
 @mixin skills-hover {
   .#{$namespace}-text-content {
