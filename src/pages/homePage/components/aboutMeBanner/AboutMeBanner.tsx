@@ -5,7 +5,13 @@ import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
 import { MediaCollagePlaceholderSVG, MediaCollageSVG } from "./SVGComponents";
 import LinkBtn from "../../../../utilities/actionBtn/LinkBtn";
 const namespace = "about-me-pg";
-const AboutMeHeader = ({ isVisible }: { isVisible: boolean }) => {
+const AboutMeHeader = ({
+  isVisible,
+  headerRef,
+}: {
+  isVisible: boolean;
+  headerRef: React.MutableRefObject<HTMLDivElement | null>;
+}) => {
   useEffect(() => {
     const initialDelayTime = 500;
     if (isVisible)
@@ -23,6 +29,7 @@ const AboutMeHeader = ({ isVisible }: { isVisible: boolean }) => {
   const words = title.split(" ");
   return (
     <h2
+      ref={headerRef}
       className={`${namespace}-text-header`}
       aria-label={title}
       style={{ position: "relative" }}
@@ -104,11 +111,12 @@ const MediaContent = () => {
 const AboutMeBanner = () => {
   const smallWindowWidth = useWindowWidth(576);
   const media = <MediaContent />;
-  const { ref: textRef, isVisible } = useIntersectionWrapper();
+  const { ref: headerRef, isVisible } = useIntersectionWrapper();
+
   return (
     <div id={namespace}>
-      <AboutMeHeader isVisible={isVisible} />
-      <div id={`${namespace}-inner-container`} ref={textRef}>
+      <AboutMeHeader isVisible={isVisible} headerRef={headerRef} />
+      <div id={`${namespace}-inner-container`}>
         {smallWindowWidth && media}
         <TextContent isVisible={isVisible} />
       </div>

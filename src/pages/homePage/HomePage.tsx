@@ -6,9 +6,9 @@ import AboutMeBanner from "./components/aboutMeBanner/AboutMeBanner";
 const HomePage = () => {
   return (
     <div className={"home-pg-container"}>
-      {/* <IntroBanner /> */}
-      {/* <ProjectBanner /> */}
-      {/* <SkillsBanner /> */}
+      <IntroBanner />
+      <ProjectBanner />
+      <SkillsBanner />
       <AboutMeBanner />
       {/* <ContactMeBanner /> */}
     </div>
