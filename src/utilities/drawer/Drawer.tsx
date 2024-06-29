@@ -48,7 +48,7 @@ const Drawer = ({
     right: "0",
     zIndex: "1",
     backgroundColor: "rgba(0,0,0,0.5)",
-    transition: `opacity ${animationTime}ms cubic- bezier(0.4, 0, 0.2, 1) 0ms`,
+    transition: `opacity ${animationTime}ms cubic-bezier(0.4, 0, 0.2, 1) 0ms`,
   };
   const buttonContainerTransitionStyles: {
     [key: string]: React.CSSProperties;

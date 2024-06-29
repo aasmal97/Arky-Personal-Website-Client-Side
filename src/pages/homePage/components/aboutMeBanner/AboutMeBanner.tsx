@@ -4,6 +4,8 @@ import anime from "animejs";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
 import { MediaCollagePlaceholderSVG, MediaCollageSVG } from "./SVGComponents";
 import LinkBtn from "../../../../utilities/actionBtn/LinkBtn";
+import { Transition } from "react-transition-group";
+
 const namespace = "about-me-pg";
 const AboutMeHeader = ({
   isVisible,
@@ -13,7 +15,7 @@ const AboutMeHeader = ({
   headerRef: React.MutableRefObject<HTMLDivElement | null>;
 }) => {
   useEffect(() => {
-    const initialDelayTime = 500;
+    const initialDelayTime = 100;
     if (isVisible)
       anime.timeline().add({
         targets: `.${namespace}-text-header .${namespace}-letter`,
@@ -101,11 +103,36 @@ const TextContent = ({ isVisible }: { isVisible: boolean }) => {
 
 const MediaContent = () => {
   const { ref: mediaRef, isVisible } = useIntersectionWrapper();
+
+  const mediaContainerStyle = {
+    transition: `opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1) 0ms`,
+  };
+  const mediaContainerTransitionStyles: {
+    [key: string]: React.CSSProperties;
+  } = {
+    entering: { opacity: 1 },
+    entered: { opacity: 1 },
+    exiting: { opacity: 0 },
+    exited: { opacity: 0 },
+  };
   return (
-    <div ref={mediaRef} className={`${namespace}-media-content`}>
-      {isVisible && <MediaCollageSVG />}
-      {!isVisible && <MediaCollagePlaceholderSVG />}
-    </div>
+    <Transition in={isVisible} nodeRef={mediaRef} timeout={300}>
+      {(state) => (
+        <div
+          ref={mediaRef}
+          className={`${namespace}-media-content`}
+          style={{
+            ...mediaContainerStyle,
+            ...mediaContainerTransitionStyles[state],
+          }}
+        >
+          {/* {isVisible && <MediaCollageSVG />}
+      {!isVisible && <MediaCollagePlaceholderSVG />} */}
+
+          <MediaCollageSVG />
+        </div>
+      )}
+    </Transition>
   );
 };
 const AboutMeBanner = () => {

@@ -87,10 +87,6 @@ $namespace: "about-me-pg";
         transform: translateY(100%);
         opacity: 0;
       }
-      50% {
-        opacity: 0;
-        transform: translateY(100%);
-      }
       100% {
         opacity: 1;
         transform: translateY(0%);
@@ -107,7 +103,8 @@ $namespace: "about-me-pg";
       line-height: 2.485em;
       &.visible {
         opacity: 1;
-        animation: 2.2s ease-in-out 0s fade-in;
+        animation: 1s ease-in-out 0s fade-in;
+        animation-delay: 0ms;
       }
       span {
         line-height: 1em;

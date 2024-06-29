@@ -6,11 +6,10 @@ import AboutMeBanner from "./components/aboutMeBanner/AboutMeBanner";
 const HomePage = () => {
   return (
     <div className={"home-pg-container"}>
-      {/* <IntroBanner /> */}
+      {/* <IntroBanner />
       <ProjectBanner />
-      {/* <SkillsBanner />
-      <AboutMeBanner /> */}
-      {/* <ContactMeBanner /> */}
+      <SkillsBanner /> */}
+      <AboutMeBanner /> 
     </div>
   );
 };
