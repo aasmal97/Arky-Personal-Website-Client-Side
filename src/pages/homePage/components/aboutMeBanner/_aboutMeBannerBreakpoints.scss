@@ -43,7 +43,8 @@ $namespace: a.$namespace;
 }
 @mixin about-sm {
   @include a.about-banner(
-    $img-width: calc(min(100%, 21.875rem)),
+    // $img-width: calc(min(100%, 21.875rem)),
+    $img-width: 100%,
     $container-top-padding: 2.25rem,
     $container-bottom-padding: 3.5rem,
     $container-horizontal-padding: 1rem,
