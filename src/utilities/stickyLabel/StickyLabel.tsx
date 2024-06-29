@@ -14,6 +14,7 @@ const RotatedStickyLabel = ({ children }: { children: string }) => {
       const lineHeight = parseInt(style.getPropertyValue("line-height"), 10);
       const height = container.offsetWidth;
       const width = container.offsetHeight;
+      console.log(height, lineHeight);
       if (height > lineHeight) {
         setOneLine(false);
       } else {
@@ -42,7 +43,7 @@ const RotatedStickyLabel = ({ children }: { children: string }) => {
         display: "flex",
         justifyContent: "end",
         maxHeight: "100vh",
-        height: height ? `${height}px` : "auto",
+        height: height ? `calc(${height + 1}px, 100%)` : "auto",
         // overflow: "hidden",
       }}
     >
