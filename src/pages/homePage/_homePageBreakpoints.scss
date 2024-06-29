@@ -2,41 +2,38 @@
 @use "./components/projectBanner/projectBannerBreakpoints" as project;
 @use "./components/skillsBanner/skillsBannerBreakpoints" as skills;
 @use "./components/aboutMeBanner/aboutMeBannerBreakpoints" as about;
-@use "./components/contactBanner/contactMeBannerBreakpoints" as contact-me;
-@mixin home-xxl{
+
+@mixin home-xxl {
   @include intro.intro-xxl;
   @include project.project-xxl;
-  @include skills.skills-xxl; 
+  @include skills.skills-xxl;
+  @include about.about-xxl;
 }
 @mixin home-xl {
   @include intro.intro-xl;
   @include project.project-xl;
-  @include skills.skills-xl; 
-
+  @include skills.skills-xl;
+  @include about.about-xl;
 }
 @mixin home-lg {
   @include intro.intro-lg;
   @include project.project-lg;
   @include skills.skills-lg;
   @include about.about-lg;
-  @include contact-me.contact-me-lg
 }
 @mixin home-md {
   @include intro.intro-md;
   @include project.project-md;
   @include skills.skills-md;
   @include about.about-md;
-  @include contact-me.contact-me-md;
 }
 @mixin home-sm {
   @include intro.intro-sm;
   @include project.project-sm;
   @include skills.skills-sm;
   @include about.about-sm;
-  @include contact-me.contact-me-sm
 }
-@mixin home-hover{
-  @include contact-me.contact-me-hover;
+@mixin home-hover {
   @include skills.skills-hover;
   @include intro.intro-hover;
   @include project.project-hover;

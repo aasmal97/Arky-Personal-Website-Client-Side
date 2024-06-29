@@ -29,6 +29,12 @@ $namespace: a.$namespace;
     }
   }
 }
+@mixin about-xxl{
+  
+}
+@mixin about-xl{
+
+}
 @mixin about-lg {
   ##{$namespace} {
     display: flex;
