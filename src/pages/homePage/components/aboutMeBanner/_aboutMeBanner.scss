@@ -29,6 +29,7 @@ $namespace: "about-me-pg";
     box-sizing: border-box;
   }
   .#{$namespace}-text-header {
+    width: 100%;
     color: v.$off-white;
     display: flex;
     line-height: 1.625em;
@@ -40,6 +41,18 @@ $namespace: "about-me-pg";
     margin: 0;
     padding: 0;
     padding-bottom: $container-heading-vertical-spacing;
+    .#{$namespace}-letters {
+      width: 100%;
+      justify-content: center;
+      display: flex;
+      flex-wrap: wrap;
+      & > * {
+        padding-right: 0.5em;
+        &:last-child{
+          padding-right: 0;
+        }
+      }
+    }
     .#{$namespace}-letter {
       transform: rotateY(-90deg);
     }

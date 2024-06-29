@@ -1,6 +1,5 @@
 import { useEffect, createElement } from "react";
 import LazyImage from "../../../../utilities/lazyComponents/LazyImg";
-import useElementSize from "../../../../hooks/useElementSize";
 import DownloadButton from "../../../../utilities/downloadBtn/DownloadButton";
 import anime from "animejs";
 import { v4 as uuid } from "uuid";

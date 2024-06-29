@@ -2,10 +2,7 @@ import { useEffect } from "react";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
 import anime from "animejs";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
-import {
-  MediaCollagePlaceholderSVG,
-  MediaCollageSVG,
-} from "./SVGComponents";
+import { MediaCollagePlaceholderSVG, MediaCollageSVG } from "./SVGComponents";
 import LinkBtn from "../../../../utilities/actionBtn/LinkBtn";
 const namespace = "about-me-pg";
 const AboutMeHeader = ({ isVisible }: { isVisible: boolean }) => {
@@ -23,6 +20,7 @@ const AboutMeHeader = ({ isVisible }: { isVisible: boolean }) => {
     };
   }, [isVisible]);
   const title = "I’m also human :)";
+  const words = title.split(" ");
   return (
     <h2
       className={`${namespace}-text-header`}
@@ -38,22 +36,34 @@ const AboutMeHeader = ({ isVisible }: { isVisible: boolean }) => {
         }}
       >
         <span className={`${namespace}-letters`}>
-          {Array(title.length)
+          {Array(words.length)
             .fill(0)
-            .map((e, idx) => {
-              return title[idx] !== " " ? (
-                <span
-                  key={`${title[idx]}-${idx}`}
-                  className={`${namespace}-letter`}
-                  style={{
-                    transformOrigin: "0 0",
-                    display: "inline-block",
-                  }}
-                >
-                  {title[idx]}
-                </span>
-              ) : (
-                <span key={`${title[idx]}-${idx}`}>{title[idx]}</span>
+            .map((_, idx) => {
+              const currLetters = words[idx];
+              const letters = Array(currLetters.length)
+                .fill(0)
+                .map((e, idx) => {
+                  return currLetters[idx] !== " " ? (
+                    <span
+                      key={`${currLetters[idx]}-${idx}`}
+                      className={`${namespace}-letter`}
+                      style={{
+                        transformOrigin: "0 0",
+                        display: "inline-block",
+                      }}
+                    >
+                      {currLetters[idx]}
+                    </span>
+                  ) : (
+                    <span key={`${currLetters[idx]}-${idx}`}>
+                      {currLetters[idx]}
+                    </span>
+                  );
+                });
+              return (
+                <div key={`${currLetters}-${idx}`} style={{ display: "flex" }}>
+                  {letters}
+                </div>
               );
             })}
         </span>
