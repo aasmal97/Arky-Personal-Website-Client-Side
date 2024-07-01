@@ -7,6 +7,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import { LinkedIn } from "@mui/icons-material";
+import { useNavbarTheme } from "../../hooks/useNavbarTheme";
 const namespace = "navbar";
 type LinkData = {
   name: string;
@@ -74,7 +75,6 @@ const NavLinks = ({
           )
         )}
       </div>
-      
     </>
   );
 };
@@ -122,8 +122,9 @@ const NavDrawer = () => {
 };
 const Navbar = () => {
   const smallWindowWidth = useWindowWidth(576);
+  const { currTheme } = useNavbarTheme();
   return (
-    <nav id={namespace}>
+    <nav id={namespace} className={currTheme || "dark"}>
       <Link to="/" id={`${namespace}-logo`}>
         <div
           style={{
