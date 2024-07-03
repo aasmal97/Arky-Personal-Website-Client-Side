@@ -12,7 +12,7 @@ import LoadingIcon, {
 } from "../../utilities/loadingIcon/LoadingIcon";
 import { ComingSoonBanner } from "../../utilities/comingSoon/ComingSoonBanner";
 import useWindowWidth from "../../hooks/useWindowWidth";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { LinkIcon } from "../../utilities/icons/LinkIcon";
 import { Button, createTheme, ThemeProvider } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +21,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { ProjectCard } from "./ProjectCard";
+import { useNavbarTheme } from "../../hooks/useNavbarTheme";
 const materialUITheme = createTheme({
   palette: {
     primary: {
@@ -304,6 +305,10 @@ const ProjectPageBody = memo(() => {
 const ProjectPage = () => {
   const [waveRef, waveSize] = useElementSize();
   const [headerRef, headerSize] = useElementSize();
+  const { setCurrTheme } = useNavbarTheme();
+  useEffect(() => {
+    if (setCurrTheme) setCurrTheme("color");
+  }, []);
   return (
     <ThemeProvider theme={materialUITheme}>
       <div id={`${namespace}`}>

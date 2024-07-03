@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-export type NavbarTheme = "dark" | "light";
+export type NavbarTheme = "dark" | "color";
 
 const NavbarThemeContext = createContext<{
   currTheme: NavbarTheme;
