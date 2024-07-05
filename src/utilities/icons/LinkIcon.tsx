@@ -2,7 +2,7 @@ export const LinkIcon = ({
     linkColor,
     background
 }: {
-  linkColor: string;
+  linkColor?: string;
   background?: {
     color: string;
   };

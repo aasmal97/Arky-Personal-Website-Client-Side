@@ -1,71 +1,13 @@
-import { useEffect, createElement } from "react";
 import LazyImage from "../../../../utilities/lazyComponents/LazyImg";
 import DownloadButton from "../../../../utilities/downloadBtn/DownloadButton";
-import anime from "animejs";
 import { v4 as uuid } from "uuid";
 import ActionBtn from "../../../../utilities/actionBtn/ActionBtn";
+import { AnimateHeaders } from "../../../../utilities/animateHeaders/animateHeaders";
 const namespace = "home-pg-intro-banner";
 const uuidArr = Array(3)
   .fill(0)
   .map(() => uuid());
-const AnimateHeaders = ({
-  id,
-  htmlTag,
-  children,
-}: {
-  id: string;
-  htmlTag: string;
-  children: string;
-}) => {
-  useEffect(() => {
-    anime.timeline().add({
-      targets: `.${namespace}-header .${namespace}-letter-${id}`,
-      translateX: [40, 0],
-      translateZ: 0,
-      opacity: [0, 1],
-      easing: "easeOutExpo",
-      duration: 4000,
-      delay: (el, i) => 500 + 40 * i,
-    });
-    return () => {
-      anime.remove(`.${namespace}-header .${namespace}-letter-${id}`);
-    };
-  }, [id]);
-  const words = children.split(" ");
-  const el = createElement(
-    htmlTag,
-    { className: `${namespace}-header` },
-    <>
-      {Array(words.length)
-        .fill(0)
-        .map((_, idx) => {
-          const currLetters = words[idx];
-          const letters = Array(currLetters.length)
-            .fill(0)
-            .map((_, i) => currLetters[i])
-            .map((letter, idx) => {
-              return currLetters !== " " ? (
-                <span
-                  key={`${currLetters}-${idx}`}
-                  className={`${namespace}-letter-${id}`}
-                  style={{ display: "inline-block" }}
-                >
-                  {currLetters[idx]}
-                </span>
-              ) : (
-                <span key={`${currLetters}-${idx}`}>{currLetters}</span>
-              );
-            });
-          return (
-            <div key={`${currLetters}-${idx}`} style={{ display: "flex" }}>
-              {letters}
-            </div>
-          );
-        })}
-    </>
-  );
-  return el;
-};
+
 const IntroBanner = () => {
   return (
     <div id={namespace}>
@@ -81,10 +23,10 @@ const IntroBanner = () => {
       </div>
       <div className={`${namespace}-content`}>
         <div className={`${namespace}-title`}>
-          <AnimateHeaders id={uuidArr[0]} htmlTag="h2">
+          <AnimateHeaders id={uuidArr[0]} htmlTag="h2" namespace={namespace}>
             Welcome! I'm Arky
           </AnimateHeaders>
-          <AnimateHeaders id={uuidArr[2]} htmlTag="h3">
+          <AnimateHeaders id={uuidArr[2]} htmlTag="h3" namespace={namespace}>
             A Software Developer
           </AnimateHeaders>
         </div>

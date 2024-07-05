@@ -20,8 +20,14 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { ProjectCard } from "./ProjectCard";
 import { useNavbarTheme } from "../../hooks/useNavbarTheme";
+import ProjectItem from "../../utilities/projectItem/ProjectItem";
+import { AnimateHeaders } from "../../utilities/animateHeaders/animateHeaders";
+import { v4 as uuid } from "uuid";
+
+const uuidArr = Array(3)
+  .fill(0)
+  .map(() => uuid());
 const materialUITheme = createTheme({
   palette: {
     primary: {
@@ -114,7 +120,7 @@ const ProjectUrls = ({
         target="_blank"
         rel="noopener noreferrer"
       >
-        <LinkIcon linkColor="black" background={{ color: "white" }} />
+        <LinkIcon />
       </a>
     </>
   );
@@ -122,47 +128,20 @@ const ProjectUrls = ({
 
 const ProjectSlideTextContent = ({
   slide,
-  responsive,
 }: {
   slide: ProjectDocument;
-  responsive?: boolean;
 }) => {
-  const smallWindowWidth = useWindowWidth(576);
-  const [parentElRef, parentSize] = useElementSize();
-  const responsiveStyles = {
-    titleStyles: {
-      fontSize: responsive ? `${parentSize.width * 0.038}px` : "",
-    },
-    subTitleStyles: {
-      fontSize: responsive ? `${parentSize.width * 0.03}px` : "",
-    },
-  };
-  const titleStyles = {
-    fontSize: smallWindowWidth ? "" : `${parentSize.width * 0.038}px`,
-  };
-  const subTitleStyles = {
-    fontSize: smallWindowWidth ? "" : `${parentSize.width * 0.03}px`,
-  };
   return (
-    <div ref={parentElRef} className={`${namespace}-slide-text-content`}>
+    <div className={`${namespace}-slide-text-content`}>
       <div className={`${namespace}-slide-first-row`}>
-        <h4
-          style={responsiveStyles ? responsiveStyles.titleStyles : titleStyles}
-        >
-          {seperateToWords(slide.projectName)}
-        </h4>
+        <h4>{seperateToWords(slide.projectName)}</h4>
         <div className={`${namespace}-slide-project-urls`}>
           <ProjectUrls githubURL={slide.githubURL} appURL={slide.appURL} />
         </div>
       </div>
 
       {(slide.endDate || slide.startDate) && (
-        <div
-          className={`${namespace}-slide-dates`}
-          style={
-            responsiveStyles ? responsiveStyles.subTitleStyles : subTitleStyles
-          }
-        >
+        <div className={`${namespace}-slide-dates`}>
           {slide.startDate && (
             <span>Started on {toLocale(slide.startDate)} </span>
           )}
@@ -200,7 +179,7 @@ export const ProjectSlide = ({
           </Carousel>
         )}
       </div>
-      <ProjectSlideTextContent slide={slide} responsive={responsive} />
+      <ProjectSlideTextContent slide={slide} />
     </>
   );
 };
@@ -211,13 +190,29 @@ const ExploreAllBanner = ({
   slides: ProjectDocument[];
   status: "loading" | "success" | "failed";
 }) => {
+  const smallWindowWidth = useWindowWidth(576);
   return (
     <>
-      <h3 id={`${namespace}-explore-more-header`}>Explore All</h3>
+      <AnimateHeaders
+        id={uuidArr[1]}
+        namespace={`${namespace}-explore-more`}
+        htmlTag="h3"
+      >
+        Explore
+      </AnimateHeaders>
+      {/* <h3 id={`${namespace}-explore-more-header`}>Explore</h3> */}
       <div id={`${namespace}-explore-more`}>
         {status === "success" &&
-          slides.map((slide) => {
-            return <ProjectCard key={slide.id} {...slide} />;
+          slides.map((slide, idx) => {
+            return (
+              <ProjectItem
+                key={slide.id}
+                data={slide}
+                slim={false}
+                imgOrientation={idx % 2 === 0 ? "left" : "right"}
+                smallWindowWidth={smallWindowWidth}
+              />
+            );
           })}
         {status === "loading" && (
           <LoadingIcon
@@ -237,15 +232,8 @@ const ExploreAllBanner = ({
     </>
   );
 };
-const ProjectPageIntroSlides = ({
-  waveSize,
-  headerSize,
-}: {
-  waveSize: Size;
-  headerSize: Size;
-}) => {
+const ProjectPageIntroSlides = ({ waveSize }: { waveSize: Size }) => {
   const smallWindowWidth = useWindowWidth(576);
-  const caroHeight = calculateImgHeight(waveSize.height, headerSize.height);
   const countPerPage = 9;
   const { slides: presentationSlides, status: presentationSlidesStatus } =
     useProjectDocs({
@@ -253,10 +241,7 @@ const ProjectPageIntroSlides = ({
       saveQueryInParams: false,
     });
   return (
-    <div
-      id={`${namespace}-carousel`}
-      style={{ minHeight: smallWindowWidth ? caroHeight : caroHeight / 1.5 }}
-    >
+    <div id={`${namespace}-carousel`}>
       {presentationSlidesStatus === "success" && (
         <Carousel numSlidesPerView={1} namespace={namespace}>
           {presentationSlides.map((slide) => {
@@ -293,18 +278,18 @@ const ProjectPageBody = memo(() => {
   return (
     <>
       <ExploreAllBanner slides={slides} status={status} />
-      <ProjectsPagination
+      {/* <ProjectsPagination
         startKey={startKey}
         prevStartKey={prevStartKey}
         onNext={nextPage}
         onPrev={previousPage}
-      />
+      /> */}
     </>
   );
 });
 const ProjectPage = () => {
   const [waveRef, waveSize] = useElementSize();
-  const [headerRef, headerSize] = useElementSize();
+  // const [headerRef, headerSize] = useElementSize();
   const { setCurrTheme } = useNavbarTheme();
   useEffect(() => {
     if (setCurrTheme) setCurrTheme("color");
@@ -316,8 +301,10 @@ const ProjectPage = () => {
           <WaveBg id="project-wave" />
         </div>
         <div id={`${namespace}-inner`}>
-          <h2 ref={headerRef}>Projects</h2>
-          <ProjectPageIntroSlides waveSize={waveSize} headerSize={headerSize} />
+          <AnimateHeaders namespace={namespace} htmlTag="h2" id={uuidArr[0]}>
+            Projects
+          </AnimateHeaders>
+          <ProjectPageIntroSlides waveSize={waveSize} />
           <ProjectPageBody />
         </div>
       </div>

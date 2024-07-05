@@ -1,159 +1,182 @@
 @use "../../../public/variables" as v;
+@use "../../utilities/projectItem/projectItem" as projectItem;
 @use "sass:math";
 $namespace: "project-pg";
 $project-bg-height: 100vh;
-$project-wave-bg-height: math.div($project-bg-height * 2, 3);
+$project-wave-bg-height: 52.125rem;
+$project-pg-horizontal-spacing: 2.25rem;
+$project-pg-main-heading-font-size: 6.75rem;
+$project-pg-explore-heading-font-size: 4rem;
+$project-pg-explore-heading-vertical-spacing: 4.5rem;
+$project-pg-carousel-height: 40rem;
+$project-pg-carousel-nav-btn-size: 2.5rem;
+$project-pg-carousel-heading-font-size: 2.25rem;
+$project-pg-carousel-text-font-size: 1.625rem;
+$project-pg-carousel-text-vertical-spacing: 0.875rem;
+$project-pg-carousel-pagination-height: 2.625rem;
+$project-pg-carousel-pagination-spacing: 1rem;
+$project-pg-carousel-spacing: 4.5rem;
+$project-item-container-vertical-spacing: 6.25rem;
+$project-item-content-horizontal-padding: 3rem;
+$project-item-content-title-font-size: 2.25rem;
+$project-item-content-description-font-size: 1.125rem;
+$project-item-description-slim-top-padding: 1.75rem;
+$project-item-description-bottom-padding: 1.625rem;
+$project-item-action-btns-spacing: 1.625rem;
+$project-item-action-btns-font-size: 1.375rem;
+$project-item-container-min-height: 25rem;
+$project-item-container-mobile: "false";
+$project-item-content-width: 35%;
 ##{$namespace} {
   display: flex;
+  box-sizing: border-box;
   width: 100%;
-  min-height: 100vh;
   justify-content: center;
-  background-color: v.$darker-black;
+  padding-left: $project-pg-horizontal-spacing;
+  padding-right: $project-pg-horizontal-spacing;
+  padding-bottom: $project-pg-horizontal-spacing * 2;
 }
 ##{$namespace}-wave-bg {
   height: $project-wave-bg-height;
-  min-height: 30em;
-  max-height: 35em;
   #wave-bg-rotate-wave-project-wave {
-    background: v.$blue;
+    background: v.$light-red;
   }
 }
 ##{$namespace}-inner {
-  $padding: 10%;
-  // padding: 0 math.div($padding , 2);
-  padding-top: v.$navbar-height;
+  padding: 0;
+  width: 100%;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  // width: 100% - $padding * 2;
-  max-width: 1300px;
   display: flex;
   flex-direction: column;
   z-index: 1;
   font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  align-items: start;
   h2 {
-    padding: 1em 0;
-    margin: 0;
-    color: v.$white;
-    font-weight: 500;
-    font-size: 4.5em;
-    display: flex;
+    @include v.sub-heading($project-pg-main-heading-font-size, $bold: "true");
+    padding: 0.925em 0;
     justify-content: center;
-    text-align: center;
+    text-transform: uppercase;
+    color: v.$white;
   }
 }
-$width: 3em;
-.#{$namespace}-project-urls {
-  position: absolute;
-  z-index: 1;
-  top: math.div(-$width, 2);
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  justify-content: end;
-}
-.#{$namespace}-project-url {
-  text-decoration: none;
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  background-color: v.$darkest-black;
-  width: $width;
-  aspect-ratio: 1/1;
-  margin: 0 1%;
-  color: v.$black;
-  &:last-child {
-    margin-right: 2%;
-  }
-  svg {
-    position: relative;
-    z-index: 1;
-    width: 60%;
-  }
-}
-$pagination-height: 1.2rem;
 
 ##{$namespace}-carousel {
-  width: 80%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   .#{$namespace}-carousel-wrapper {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
   }
   .#{$namespace}-carousel-inner-wrapper {
     height: 100%;
     width: 100%;
+    padding-bottom: $project-pg-carousel-pagination-height +
+      $project-pg-carousel-spacing;
+  }
+  .swiper-wrapper {
+    padding: 0;
+    margin: 0;
   }
   .swiper-slide {
-    height: calc(100% - (#{$pagination-height} * 3.5));
-    background-color: v.$darkest-black;
-    border-radius: 0.3em;
+    border: none;
+    margin: 0;
+    padding: 0;
+    height: $project-pg-carousel-height;
   }
   .swiper-pagination {
+    bottom: 0;
     height: auto;
   }
   .swiper-pagination-bullet {
-    width: $pagination-height;
-    height: $pagination-height;
+    border-color: v.$gray;
+    border-style: solid;
+    border-width: $project-pg-carousel-pagination-height * 0.08;
+    width: $project-pg-carousel-pagination-height;
+    height: $project-pg-carousel-pagination-height;
+    margin: 0 $project-pg-carousel-pagination-spacing;
     aspect-ratio: 1/1;
-    border: 1px solid v.$blue;
     opacity: 1;
     background: transparent;
   }
   .swiper-pagination-bullet-active {
-    background-color: v.$blue !important;
+    background-color: v.$gray;
+  }
+  .swiper-pagination-bullet-active-prev-prev {
+    transform: scale(0.8);
+  }
+  .swiper-pagination-bullet-active-prev {
+    transform: scale(0.8);
+  }
+  .swiper-pagination-bullet-active-next {
+    transform: scale(0.8);
+  }
+  .swiper-pagination-bullet-active-next-next {
+    transform: scale(0.8);
   }
 }
 .#{$namespace}-slide {
   position: relative;
-  color: v.$white;
+  color: v.$off-white;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 }
 .#{$namespace}-slide-inner {
+  display: flex;
+  align-items: flex-end;
   position: relative;
   height: 100%;
   width: 100%;
 }
 
 .#{$namespace}-slide-img-container {
-  @include v.abs-pos-fill();
+  @include v.abs-pos-fill(1);
+  &::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0.5%;
+    width: 100% - 1%;
+    height: 100%;
+    background-color: v.$dark-black;
+    z-index: 0;
+  }
 }
 
 .#{$namespace}-slide-text-content {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  $padding: 5%;
-  padding: 3% $padding;
   box-sizing: border-box;
-  width: 100% ;
+  position: relative;
+  padding: 2% 3%;
+  width: 100%;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  min-height: 6em;
-  justify-content: center;
+  height: 100%;
+  justify-content: flex-end;
   align-items: center;
+
   background: linear-gradient(
     180deg,
     rgba(80, 80, 80, 0) 0%,
-    v.$darkest-black 100%
+    rgba(80, 80, 80, 0) 45%,
+    v.$black 100%
   );
 }
 .#{$namespace}-slide-first-row {
   display: flex;
-  //justify-content: space-between;
   width: 100%;
-  margin-bottom: 2%;
-  align-items: center;
+  margin-bottom: 0.02em;
+  box-sizing: border-box;
+}
+.#{$namespace}-slide-first-row {
   h4 {
-    font-weight: 500;
-    font-size: 150%;
+    @include v.sub-heading($project-pg-carousel-heading-font-size);
+    width: auto;
+    font-size: $project-pg-carousel-heading-font-size;
     margin: 0;
     padding: 0;
     flex-grow: 1;
@@ -161,180 +184,80 @@ $pagination-height: 1.2rem;
 }
 .#{$namespace}-slide-project-urls {
   display: flex;
-  align-items: center;
+  width: auto;
   margin-left: 3%;
-  .#{$namespace}-project-url {
-    margin: 0 3%;
+  box-sizing: border-box;
+}
+.#{$namespace}-project-url {
+  box-sizing: border-box;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: $project-pg-carousel-heading-font-size;
+  height: 1.625em;
+  width: 1.625em;
+  background-color: v.$off-black;
+  aspect-ratio: 1/1;
+  color: v.$black;
+  &:last-child {
+    background-color: v.$light-red;
+    & > svg {
+      fill: v.$off-white;
+    }
+    color: v.$off-white;
+    margin-left: 0.3em;
+  }
+  & > svg {
+    position: relative;
+    z-index: 1;
+    height: 60%;
+    width: auto;
   }
 }
 .#{$namespace}-slide-dates {
+  @include v.sub-heading($project-pg-carousel-text-font-size);
+  padding-top: $project-pg-carousel-text-vertical-spacing;
+  letter-spacing: normal;
   text-decoration: none;
+  text-transform: none;
   display: flex;
   width: 100%;
   justify-content: space-between;
   color: v.$gray;
   text-align: center;
 }
-##{$namespace}-explore-more-header {
-  font-weight: 500;
-  color: v.$white;
-  font-size: 4.5rem;
-  display: flex;
-  width: 100%;
-  margin: 6.25rem 0;
-  // font-size: 2.7em;
-  // margin-top: 1.3em;
-  // margin-bottom: 1.5em;
+
+.#{$namespace}-explore-more-header {
+  @include v.section-heading($project-pg-explore-heading-font-size);
+  width: auto;
+  color: v.$light-red;
+  margin-top: $project-pg-explore-heading-vertical-spacing;
+  margin-bottom: $project-pg-explore-heading-vertical-spacing;
 }
 ##{$namespace}-explore-more {
   display: flex;
   flex-direction: column;
-  // flex-wrap: wrap;
-  // justify-content: space-between;
   width: 100%;
-}
-.#{$namespace}-project-card {
-  width: 100%;
-  height: 26rem;
-  // height: 15rem;
-  // width: 47.5%;
-  // min-width: 16em;
-  display: flex;
-  // flex-direction: column;
-  border: 2px solid v.$light-black;
-  border-radius: 0.5em;
-  margin-bottom: 5%;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.29);
-  &:nth-last-child(2) {
-    margin-bottom: 0;
+  @include projectItem.project-item(
+    $project-item-content-horizontal-padding,
+    $project-item-content-title-font-size,
+    $project-item-content-description-font-size,
+    $project-item-description-slim-top-padding,
+    $project-item-description-bottom-padding,
+    $project-item-action-btns-spacing,
+    $project-item-action-btns-font-size,
+    $project-item-container-min-height,
+    $project-item-container-mobile,
+    $project-item-content-width
+  );
+  & > * {
+    margin-bottom: $project-item-container-vertical-spacing;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
-  &:nth-last-child(1) {
-    margin-bottom: 0;
-  }
-}
-.#{$namespace}-project-card-img {
-  border-radius: 0.4em 0.4em 0 0;
-  width: 100%;
-  aspect-ratio: 16/9;
-  background-color: v.$white;
-  @include v.img-fill;
-  color: v.$white;
-  overflow: hidden;
-  .#{$namespace}-coming-soon-banner {
-    width: 90%;
-    padding: 5%;
-  }
-}
-.#{$namespace}-text-content {
-  flex-grow: 1;
-  position: relative;
-  z-index: 1;
-  color: v.$white;
-  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.#{$namespace}-text-content-inner {
-  //max-height: 20em;
-  overflow: overlay;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: v.$light-black;
-  padding: 0 math.div($width, 2);
-  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  @include v.scrollbar-styles(v.$blue, 0.3em);
-
-  p {
-    color: #d0d0d0;
-    font-size: 0.9em;
-    line-height: 140%;
-    padding: 0;
-    margin: 0;
-    margin-bottom: math.div($width, 2);
-  }
-}
-.#{$namespace}-project-header {
-  padding-top: math.div($width, 2);
-  position: sticky;
-  background-color: v.$light-black;
-  padding-bottom: 0.9em;
-  top: 0;
-  left: 0;
-  h4 {
-    font-size: 1.3em;
-    padding: 0;
-    margin: 0;
-    font-weight: 500;
-    z-index: 0;
-    padding-bottom: 0.4em;
-  }
-  .#{$namespace}-project-topics-btn {
-    font-size: 0.8em;
-    line-height: 1em;
-    //line-height: 0.8em;
-    padding: 0.7em;
-  }
-}
-.#{$namespace}-project-topics {
-  .#{$namespace}-project-topic {
-    border-radius: 1000px;
-    font-size: 0.7em;
-    padding: 0.5em;
-    line-height: 0.7em;
-    margin: 0.3em;
-    margin-left: 0;
-  }
-}
-.#{$namespace}-project-topics-inner {
-  padding-bottom: 0.5em;
-}
-
-.#{$namespace}-pagination {
-  width: 100%;
-  margin: 4.5em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 2em;
-  font-size: 0.8em;
-  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.#{$namespace}-pagination-btns {
-  @include v.remove-btn-default;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 0.5em;
-  border: 1px solid v.$blue;
-  color: v.$blue;
-  height: 100%;
-  padding: 0.5em;
-  aspect-ratio: 1/1;
-  &.active {
-    background-color: v.$blue;
-    color: v.$white;
-  }
-}
-.#{$namespace}-pagination-btns-next,
-.#{$namespace}-pagination-btns-prev {
-  @include v.remove-btn-default;
-  margin: 0 0.5em;
-  font-size: 1.2em;
-  aspect-ratio: unset;
-  padding: 0.5em 0.8em;
-  height: 100%;
-  svg{
-    margin:0 5%;
-  }
-}
-.#{$namespace}-pagination-ellipsis {
-  height: 100%;
-  display: flex;
-  color: v.$blue;
-  font-size: 1.5em;
-  letter-spacing: 0.3em;
-  align-items: flex-end;
-  align-items: end;
 }

@@ -12,7 +12,6 @@ $lighter-black: #5a5a5a;
 $light-black: #4e4e4e;
 $dark-black: #2e2e2e;
 $darker-black: #232323;
-// $darker-black: #303030;
 $black: #313131;
 $off-black: #3b3b3b;
 $darkest-black: #161616;
@@ -142,8 +141,6 @@ $navbar-height: 3.3em;
   position: relative;
   padding-bottom: 0.25em;
   &::after {
-    @keyframes animate-title {
-    }
     content: "";
     background-color: $darker-gray;
     position: absolute;
@@ -151,13 +148,6 @@ $navbar-height: 3.3em;
     left: 0;
     bottom: 0;
     height: 0.12em;
-    // &.visible {
-    //   opacity: 1;
-    //   animation: 1.2s ease-in-out 0s slide-in;
-    // }
-    // transition-duration: 1s;
-    // transition-timing-function: ease-in-out;
-    // transition-property: all
   }
 }
 @mixin action-btn($font-size) {
