@@ -70,13 +70,13 @@ $namespace: p.$namespace;
     & > .sticky-label {
       text-align: center;
       padding-bottom: 1.8rem * 2;
-      text-transform: none
+      text-transform: none;
     }
   }
 }
 
 @mixin project-sm {
-    @include p.project-banner(
+  @include p.project-banner(
     $container-spacing-top: 2.25rem,
     $container-spacing-bottom: 3.5rem,
     $container-heading-font-size: 3rem,
@@ -106,13 +106,12 @@ $namespace: p.$namespace;
     align-items: center;
     & > .sticky-label {
       padding-bottom: 1rem * 2;
-      text-transform: none
+      text-transform: none;
     }
-  }
-  .#{project-item.$namespace}-img{
-    margin-top: 1.7rem;
-    margin-bottom: 2rem;
-    aspect-ratio: 3/2
+    .#{project-item.$namespace}-img {
+      margin-top: 1.7rem;
+      margin-bottom: 2rem;
+    }
   }
 }
 @mixin project-hover {

@@ -138,6 +138,7 @@ $namespace: "project-item";
       width: 100% - $content-width;
     } @else {
       width: 100%;
+      aspect-ratio: 3/2;
     }
   }
 }

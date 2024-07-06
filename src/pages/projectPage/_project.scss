@@ -10,14 +10,13 @@ $namespace: "project-pg";
   $project-pg-explore-heading-font-size: 4rem,
   $project-pg-explore-heading-vertical-spacing: 4.5rem,
   $project-pg-carousel-height: 40rem,
-  $project-pg-carousel-nav-btn-size: 2.5rem,
   $project-pg-carousel-heading-font-size: 2.25rem,
   $project-pg-carousel-text-font-size: 1.625rem,
   $project-pg-carousel-text-vertical-spacing: 0.875rem,
   $project-pg-carousel-pagination-height: 2.625rem,
   $project-pg-carousel-pagination-spacing: 1rem,
   $project-pg-carousel-spacing: 4.5rem,
-  
+
   $project-item-container-vertical-spacing: 6.25rem,
   $project-item-label-font-size: 1rem,
   $project-item-content-horizontal-padding: 3rem,
@@ -191,6 +190,8 @@ $namespace: "project-pg";
     width: auto;
     margin-left: 3%;
     box-sizing: border-box;
+    align-items: flex-end;
+    align-items: end;
   }
   .#{$namespace}-project-url {
     box-sizing: border-box;
