@@ -1,4 +1,4 @@
-import { Button, Chip } from "@mui/material";
+import { Chip } from "@mui/material";
 import seperateToWords from "../../helpers/seperateToWords";
 import { sortMixedStrings } from "../../helpers/sortMixedStrings";
 import Carousel from "../carousel/Carousel";
@@ -14,7 +14,10 @@ const ProjectTopic = ({ topic }: { topic: string }) => {
     <Chip
       clickable
       className={`${namespace}-project-topic`}
-      sx={{ textTransform: "none" }}
+      sx={{
+        textTransform: "none",
+        fontSize: "inherit",
+      }}
       aria-label={`open-github-topic-${topic}`}
       onClick={() => {
         window.open(`https://github.com/topics/${topic}`, "_blank");
@@ -90,7 +93,7 @@ const ProjectItem = ({
   data,
   slim = false,
   imgOrientation = "left",
-  smallWindowWidth =false ,
+  smallWindowWidth = false,
 }: {
   data: ProjectDocument;
   slim?: boolean;

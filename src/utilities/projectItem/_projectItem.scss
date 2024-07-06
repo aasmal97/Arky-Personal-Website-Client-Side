@@ -10,7 +10,8 @@ $namespace: "project-item";
   $action-btns-font-size: 1.375rem,
   $container-min-height: 25rem,
   $container-mobile: "false",
-  $content-width: 50%
+  $content-width: 50%,
+  $labels-font-size: 1rem
 ) {
   .#{$namespace} {
     display: flex;
@@ -42,6 +43,30 @@ $namespace: "project-item";
     }
     text-transform: none;
     width: fit-content;
+  }
+  .#{$namespace}-labels {
+    font-size: $labels-font-size;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1em;
+    padding-top: 0.4em;
+    & > * {
+      margin-right: 1em;
+      margin-bottom: 1em;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+  .#{$namespace}-project-topic {
+    color: v.$light-red;
+    background-color: transparent;
+    border: 0.2em solid v.$light-red;
+    padding-bottom: 0.05em;
+    padding-right: 0.77em;
+    padding-left: 0.77em;
+    padding-top: 0;
   }
   .#{$namespace}-description {
     font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;

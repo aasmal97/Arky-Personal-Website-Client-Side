@@ -31,10 +31,10 @@ const uuidArr = Array(3)
 const materialUITheme = createTheme({
   palette: {
     primary: {
-      main: "#3ac2ff",
+      main: "#ff5050",
     },
     secondary: {
-      main: "#4e4e4e",
+      main: "#3b3b3b",
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
@@ -200,7 +200,6 @@ const ExploreAllBanner = ({
       >
         Explore
       </AnimateHeaders>
-      {/* <h3 id={`${namespace}-explore-more-header`}>Explore</h3> */}
       <div id={`${namespace}-explore-more`}>
         {status === "success" &&
           slides.map((slide, idx) => {
