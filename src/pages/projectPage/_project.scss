@@ -234,8 +234,18 @@ $namespace: "project-pg";
     justify-content: space-between;
     color: v.$gray;
     text-align: center;
+    flex-wrap: nowrap;
   }
-
+  .#{$namespace}-slide-date {
+    width: 100%;
+    box-sizing: border-box;
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    &:last-child {
+      justify-content: flex-end;
+    }
+  }
   .#{$namespace}-explore-more-header {
     @include v.section-heading($project-pg-explore-heading-font-size);
     width: auto;

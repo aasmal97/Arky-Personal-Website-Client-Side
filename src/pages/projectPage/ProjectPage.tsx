@@ -34,18 +34,21 @@ const materialUITheme = createTheme({
       main: "#ff5050",
     },
     secondary: {
-      main: "#3b3b3b",
+      main: "##3b3b3b",
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
 });
 const toLocale = (date: string | Date) =>
-  new Date(date).toLocaleDateString("en-us", {
-    month: "short",
-    day: "2-digit",
-    year: "numeric",
-  });
+  new Date(date).toLocaleDateString(
+    (navigator && navigator.languages && navigator.languages?.[0]) || "en-us",
+    {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    }
+  );
 const namespace = "project-pg";
 const waveStyles: { [key: string]: string } = {
   top: "0",
@@ -126,11 +129,7 @@ const ProjectUrls = ({
   );
 };
 
-const ProjectSlideTextContent = ({
-  slide,
-}: {
-  slide: ProjectDocument;
-}) => {
+const ProjectSlideTextContent = ({ slide }: { slide: ProjectDocument }) => {
   return (
     <div className={`${namespace}-slide-text-content`}>
       <div className={`${namespace}-slide-first-row`}>
@@ -143,9 +142,23 @@ const ProjectSlideTextContent = ({
       {(slide.endDate || slide.startDate) && (
         <div className={`${namespace}-slide-dates`}>
           {slide.startDate && (
-            <span>Started on {toLocale(slide.startDate)} </span>
+            <div className={`${namespace}-slide-date`}>
+              <span>Started on </span> &nbsp;
+              <span>{toLocale(slide.startDate)}</span>
+            </div>
           )}
-          {slide.endDate && <span>Finished on {toLocale(slide.endDate)}</span>}
+          {slide.startDate && (
+            <div className={`${namespace}-slide-date`}>
+              <span>Started on </span> &nbsp;
+              <span>{toLocale(slide.startDate)}</span>
+            </div>
+          )}
+          {/* {slide.endDate && (
+            <div className={`${namespace}-slide-date`}>
+              <span>Finished on </span>&nbsp;{" "}
+              <span>{toLocale(slide.endDate)}</span>
+            </div>
+          )} */}
         </div>
       )}
     </div>
