@@ -3,11 +3,13 @@
 @use "../src/pages/aboutPage/aboutBreakpoints" as about;
 @use "../src/pages/projectPage/projectBreakpoints" as projects;
 @media (min-width: 1200px) {
+  @include util.utilities-xxl ;
   @include home.home-xxl;
   @include projects.project-xxl;
+
 }
 @media (max-width: 1200px) {
-  // @include util.utilities-lg;
+  @include util.utilities-xl ;
   @include home.home-xl;
   @include projects.project-xl;
 

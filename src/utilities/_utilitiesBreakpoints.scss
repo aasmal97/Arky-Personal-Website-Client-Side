@@ -1,15 +1,21 @@
 @use "../utilities/navbar/navbarBreakpoints" as nav;
 @use "../utilities/footer/footerBreakpoints" as footer;
 @use "../utilities/projectItem/projectItemBreakpoints" as project-item;
-@mixin utilties-xl {
+@mixin utilities-xxl {
+  @include nav.navbar-xxl;
+}
+@mixin utilities-xl {
+  @include nav.navbar-xl;
   @include project-item.project-item-xl;
 }
 @mixin utilities-lg {
+  @include nav.navbar-lg;
   @include project-item.project-item-lg;
 }
 @mixin utilities-md {
-  @include project-item.project-item-md;
   @include nav.navbar-md;
+
+  @include project-item.project-item-md;
 }
 @mixin utilities-sm {
   @include project-item.project-item-sm;

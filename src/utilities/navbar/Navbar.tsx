@@ -31,6 +31,7 @@ const NavLinks = ({
     open: boolean
   ) => (event: React.KeyboardEvent | React.MouseEvent) => void;
 }) => {
+  const smallWindowWidth = useWindowWidth(576);
   return (
     <>
       <div id={`${namespace}-links`}>
@@ -46,10 +47,14 @@ const NavLinks = ({
               }}
             >
               {l.name}
-              <div className="link-animation-container"></div>
-              <svg viewBox="0 0 13 20">
-                <polyline points="0.5 19.5 3 19.5 12.5 10 3 0.5" />
-              </svg>
+              {smallWindowWidth && (
+                <>
+                  <div className="link-animation-container"></div>
+                  <svg viewBox="0 0 13 20">
+                    <polyline points="0.5 19.5 3 19.5 12.5 10 3 0.5" />
+                  </svg>
+                </>
+              )}
             </Link>
           ) : l.hashLink ? (
             <HashLink
@@ -136,7 +141,7 @@ const Navbar = () => {
           }}
         >
           <Avatar
-            sx={{ height: "70%", aspectRatio: "1/1", width: "auto" }}
+            sx={{ height: "100%", aspectRatio: "1/1", width: "auto" }}
             alt="Arky Asmal"
             src={`${process.env.REACT_APP_MEDIA_FILES_URL}/appLogo.jpg`}
           />
