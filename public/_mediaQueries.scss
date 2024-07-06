@@ -4,12 +4,14 @@
 @use "../src/pages/projectPage/projectBreakpoints" as projects;
 @media (min-width: 1200px) {
   @include home.home-xxl;
+  @include projects.project-xxl;
 }
-@media(max-width: 1200px){
+@media (max-width: 1200px) {
   // @include util.utilities-lg;
   @include home.home-xl;
+  @include projects.project-xl;
+
   // @include about.about-lg;
-  // @include projects.project-lg;
 }
 @media (max-width: 992px) {
   @include util.utilities-lg;
