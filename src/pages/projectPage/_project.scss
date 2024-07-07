@@ -7,6 +7,7 @@ $namespace: "project-pg";
   $project-wave-bg-height: 52.125rem,
   $project-pg-horizontal-spacing: 2.25rem,
   $project-pg-main-heading-font-size: 6.75rem,
+
   $project-pg-explore-heading-font-size: 4rem,
   $project-pg-explore-heading-vertical-spacing: 4.5rem,
   $project-pg-carousel-height: 40rem,
@@ -60,7 +61,7 @@ $namespace: "project-pg";
       padding: 0.925em 0;
       justify-content: center;
       text-transform: uppercase;
-      color: v.$white;
+      color: v.$off-white;
     }
   }
 

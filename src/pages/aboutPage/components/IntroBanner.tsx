@@ -7,8 +7,11 @@ import text from "./introTextContent.txt";
 import useLoadingState from "../../../hooks/useLoadingState";
 import { v4 as uuid } from "uuid";
 import LoadingIcon from "../../../utilities/loadingIcon/LoadingIcon";
+import { AnimateHeaders } from "../../../utilities/animateHeaders/animateHeaders";
 const namespace = "about-pg";
-
+const uuidArr = Array(3)
+  .fill(0)
+  .map((e) => uuid());
 const IntroLineDivider = () => (
   <div id={`${namespace}-intro-divider`}>
     <LineDividerSVG
@@ -110,11 +113,6 @@ const fetchTextFile = () =>
     .then((res) => res.split(/\n/));
 
 const IntroBanner = () => {
-  const [waveRef, waveSize] = useElementSize();
-  const [headerRef, headerSize] = useElementSize();
-  const [imgHeight, setImageHeight] = useState(
-    calculateImgHeight(waveSize.height, headerSize.height)
-  );
   const {
     status: textStatus,
     result: textResult,
@@ -123,15 +121,11 @@ const IntroBanner = () => {
     asyncFunc: fetchTextFile,
   });
   useEffect(() => {
-    setImageHeight(calculateImgHeight(waveSize.height, headerSize.height));
-  }, [waveSize.height, headerSize.height]);
-  useEffect(() => {
     textCallFunction();
   }, [textCallFunction]);
   return (
     <div id={`${namespace}-intro`}>
       <div
-        ref={waveRef}
         id={`${namespace}-wave-bg`}
         style={{
           top: "0",
@@ -145,15 +139,16 @@ const IntroBanner = () => {
         <WaveBg id={"intro-wave"} />
       </div>
       <div id={`${namespace}-intro-inner`}>
-        <h2 ref={headerRef}>About</h2>
-        <div id={`${namespace}-intro-img`} style={{ minHeight: imgHeight }}>
+        <AnimateHeaders id={uuidArr[0]} namespace={namespace} htmlTag="h2">
+          About Me
+        </AnimateHeaders>
+        <div id={`${namespace}-intro-img`}>
           <LazyImage
             src={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro.jpg`}
             placeholderSrc={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro-placeholder.jpg`}
             alt="Arky sitting on a ledge in Guayquil, Ecuador"
           />
         </div>
-        <IntroLineDivider />
       </div>
       {textStatus === "loading" && <LoadingIcon />}
       {textStatus === "success" && (

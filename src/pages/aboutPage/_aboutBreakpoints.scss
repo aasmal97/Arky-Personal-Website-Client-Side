@@ -4,7 +4,10 @@ $namespace: a.$namespace;
 $intro-namespace: a.$intro-namespace;
 $education-namespace: a.$education-namespace;
 $hobbies-namespace: a.$hobbies-namespace;
-
+@mixin about-xxl {
+}
+@mixin about-xl {
+}
 @mixin about-lg {
   ##{$intro-namespace}-intro-divider {
     width: 60%;

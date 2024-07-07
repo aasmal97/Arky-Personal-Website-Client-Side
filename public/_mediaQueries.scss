@@ -6,6 +6,7 @@
   @include util.utilities-xxl ;
   @include home.home-xxl;
   @include projects.project-xxl;
+    @include about.about-xxl;
 
 }
 @media (max-width: 1200px) {
@@ -13,7 +14,7 @@
   @include home.home-xl;
   @include projects.project-xl;
 
-  // @include about.about-lg;
+  @include about.about-xl;
 }
 @media (max-width: 992px) {
   @include util.utilities-lg;
