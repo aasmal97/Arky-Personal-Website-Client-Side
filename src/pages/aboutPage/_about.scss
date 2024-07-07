@@ -1,13 +1,28 @@
+@use "../../../public/variables" as v;
 @use "./components/education" as education;
 @use "./components/introBanner" as intro;
 @use "./components/hobbies" as hobbies;
 $namespace: "about-pg";
-$hobbies-namespace: hobbies.$namespace;
-$intro-namespace: intro.$namespace;
-$education-namespace: education.$namespace;
-##{$namespace} {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
+
+@mixin about-pg(
+  $intro-wave-bg-height: 52.125rem,
+  $main-heading-font-size: 6.75rem,
+  $intro-container-horizontal-spacing: 2.25rem,
+  $intro-img-height: 40rem,
+  $intro-img-vertical-spacing: 4.5rem,
+  $intro-banner-font-size: 1.375rem
+) {
+  ##{$namespace} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @include intro.intro-banner(
+    $intro-wave-bg-height,
+    $main-heading-font-size,
+    $intro-container-horizontal-spacing,
+    $intro-img-height,
+    $intro-img-vertical-spacing,
+    $intro-banner-font-size
+  );
 }

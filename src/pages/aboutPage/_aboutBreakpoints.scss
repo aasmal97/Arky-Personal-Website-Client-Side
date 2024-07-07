@@ -1,122 +1,156 @@
+@use "../aboutPage/about" as a;
 @use "../../../public/variables" as v;
-@use "./about" as a;
-$namespace: a.$namespace;
-$intro-namespace: a.$intro-namespace;
-$education-namespace: a.$education-namespace;
-$hobbies-namespace: a.$hobbies-namespace;
+@use "./components/education" as education;
+@use "./components/introBanner" as intro;
+// @use "./components/hobbies" as hobbies;
+$education-namespace: education.$namespace;
+$intro-namespace: intro.$namespace;
 @mixin about-xxl {
+  @include a.about-pg();
 }
 @mixin about-xl {
+  @include a.about-pg();
 }
 @mixin about-lg {
-  ##{$intro-namespace}-intro-divider {
-    width: 60%;
-  }
-  ##{$intro-namespace}-intro-text-content {
-    $intro-bg-height: 100vh;
-    $intro-bg-min-height: 50rem;
-    padding-bottom: calc(
-      max($intro-bg-height/12, $intro-bg-min-height/12) * 1.5 + min(15vh, 2.5em)
-    );
-  }
-  ##{$education-namespace}-explore {
-    align-items: center;
-    h3 {
-      margin-bottom: 0.5em;
-      margin-left: 0;
-    }
-  }
-  ##{$education-namespace}-explore-inner {
-    justify-content: center;
-  }
-  ##{$hobbies-namespace} {
-    padding-top: min(15vh, 2.5em);
-  }
+  @include a.about-pg(
+    $intro-wave-bg-height: 40.9rem,
+    $main-heading-font-size: 5.4rem,
+    $intro-container-horizontal-spacing: 1.8rem,
+    $intro-img-height: 32rem,
+    $intro-img-vertical-spacing: 3.6rem,
+    $intro-banner-font-size: 1.375rem
+  );
+
+  // ##{$intro-namespace}-intro-divider {
+  //   width: 60%;
+  // }
+  // ##{$intro-namespace}-intro-text-content {
+  //   $intro-bg-height: 100vh;
+  //   $intro-bg-min-height: 50rem;
+  //   padding-bottom: calc(
+  //     max($intro-bg-height/12, $intro-bg-min-height/12) * 1.5 + min(15vh, 2.5em)
+  //   );
+  // }
+  // ##{$education-namespace}-explore {
+  //   align-items: center;
+  //   h3 {
+  //     margin-bottom: 0.5em;
+  //     margin-left: 0;
+  //   }
+  // }
+  // ##{$education-namespace}-explore-inner {
+  //   justify-content: center;
+  // }
+  // ##{$hobbies-namespace} {
+  //   padding-top: min(15vh, 2.5em);
+  // }
 }
 @mixin about-md {
-  ##{$intro-namespace}-wave-bg {
-    min-height: 20em;
-    max-height: 25em;
-  }
+  @include a.about-pg(
+    $intro-wave-bg-height: 31.275rem,
+    $main-heading-font-size: 4rem,
+    $intro-container-horizontal-spacing: 1.35rem,
+    $intro-img-height: 24rem,
+    $intro-img-vertical-spacing: 2.7rem,
+    $intro-banner-font-size: 1.125rem
+  );
+  // ##{$intro-namespace}-wave-bg {
+  //   min-height: 20em;
+  //   max-height: 25em;
+  // }
 }
 @mixin about-sm {
-  ##{$intro-namespace}-intro {
-    h2 {
-      font-size: 3em;
+  @include a.about-pg(
+    $intro-wave-bg-height: 25rem,
+    $main-heading-font-size: 3rem,
+    $intro-container-horizontal-spacing: 1rem,
+    $intro-img-height: 18rem,
+    $intro-img-vertical-spacing: 2.7rem,
+    $intro-banner-font-size: 1rem
+  );
+  ##{$intro-namespace}-intro-inner {
+    &::after {
+      width: 80%;
+      height: 0.5em;
     }
   }
-  ##{$intro-namespace}-intro-divider {
-    width: 80%;
-  }
-  ##{$intro-namespace}-intro-text-content {
-    $font-size: 1.2em;
-    font-size: $font-size;
-    p {
-      margin-bottom: $font-size * 2;
-    }
+  // ##{$intro-namespace}-intro {
+  //   h2 {
+  //     font-size: 3em;
+  //   }
+  // }
+  // ##{$intro-namespace}-intro-divider {
+  //   width: 80%;
+  // }
+  // ##{$intro-namespace}-intro-text-content {
+  //   $font-size: 1.2em;
+  //   font-size: $font-size;
+  //   p {
+  //     margin-bottom: $font-size * 2;
+  //   }
 
-    .#{$namespace}-text-first-letter {
-      font-size: $font-size * 2;
-    }
-  }
+  //   .#{$namespace}-text-first-letter {
+  //     font-size: $font-size * 2;
+  //   }
+  // }
 
-  ##{$education-namespace}-header {
-    text-align: center;
-    font-size: 2.5em;
-  }
-  ##{$education-namespace}-display {
-    a {
-      width: 30%;
-      margin: 7%;
-    }
-  }
-  ##{$education-namespace}-action {
-    margin-bottom: 12%;
-    font-size: 1em;
-    a {
-      margin-top: 10%;
-    }
-  }
-  ##{$education-namespace}-explore {
-    h3 {
-      font-size: 1.8em;
-    }
-  }
-  ##{$education-namespace}-explore-inner {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    flex: 1;
-  }
-  .#{$education-namespace}-explore-item {
-    position: relative;
-    min-height: 4em;
-  }
-  .#{$education-namespace}-explore-item-icon {
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 2em;
-    z-index: 1;
-  }
-  .#{$education-namespace}-explore-item-description {
-    padding-left: calc(7% + 4em);
-    height: 70%;
-    h4 {
-      font-size: 1.3em;
-    }
-    p {
-      font-size: 0.8em;
-    }
-  }
-  ##{$hobbies-namespace}-inner {
-    h2 {
-      span {
-        font-size: 2em;
-      }
-    }
-  }
+  // ##{$education-namespace}-header {
+  //   text-align: center;
+  //   font-size: 2.5em;
+  // }
+  // ##{$education-namespace}-display {
+  //   a {
+  //     width: 30%;
+  //     margin: 7%;
+  //   }
+  // }
+  // ##{$education-namespace}-action {
+  //   margin-bottom: 12%;
+  //   font-size: 1em;
+  //   a {
+  //     margin-top: 10%;
+  //   }
+  // }
+  // ##{$education-namespace}-explore {
+  //   h3 {
+  //     font-size: 1.8em;
+  //   }
+  // }
+  // ##{$education-namespace}-explore-inner {
+  //   flex-direction: column;
+  //   justify-content: center;
+  //   align-items: center;
+  //   height: 100%;
+  //   flex: 1;
+  // }
+  // .#{$education-namespace}-explore-item {
+  //   position: relative;
+  //   min-height: 4em;
+  // }
+  // .#{$education-namespace}-explore-item-icon {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   font-size: 2em;
+  //   z-index: 1;
+  // }
+  // .#{$education-namespace}-explore-item-description {
+  //   padding-left: calc(7% + 4em);
+  //   height: 70%;
+  //   h4 {
+  //     font-size: 1.3em;
+  //   }
+  //   p {
+  //     font-size: 0.8em;
+  //   }
+  // }
+  // ##{$hobbies-namespace}-inner {
+  //   h2 {
+  //     span {
+  //       font-size: 2em;
+  //     }
+  //   }
+  // }
 }
 @mixin hover-action {
   transition: transform ease-out 0.2s;

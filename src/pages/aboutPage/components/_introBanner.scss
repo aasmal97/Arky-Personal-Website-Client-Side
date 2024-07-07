@@ -1,85 +1,88 @@
 @use "../../../../public/variables" as v;
 @use "sass:math";
 $namespace: "about-pg";
-$intro-wave-bg-height: 52.125rem;
-$main-heading-font-size: 6.75rem;
-$intro-container-horizontal-spacing: 2.25rem;
-$intro-img-height: 40rem;
-$intro-img-vertical-spacing: 4.5rem;
-$intro-banner-font-size: 1.375rem;
-##{$namespace}-wave-bg {
-  height: $intro-wave-bg-height;
-  #wave-bg-rotate-wave-intro-wave {
-    background: v.$corner-gradient-reverse;
-  }
-}
-##{$namespace}-intro {
-  padding-left: $intro-container-horizontal-spacing;
-  padding-right: $intro-container-horizontal-spacing;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  & > * {
-    position: relative;
-    z-index: 1;
-  }
-}
-##{$namespace}-intro-inner {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  & > h2 {
-    @include v.sub-heading($main-heading-font-size, $bold: "true");
-    justify-content: center;
-    padding: 0.925em 0;
-    color: v.$off-white;
-  }
-  &::after {
-    margin-top: $intro-img-vertical-spacing;
-    margin-bottom: $intro-img-vertical-spacing -
-      ($intro-banner-font-size * 1.125);
-    content: "";
-    width: 50%;
-    height: 0.8em;
-    background-color: v.$darker-gray;
-  }
-}
-##{$namespace}-intro-img {
-  width: 100%;
-  height: $intro-img-height;
-  display: flex;
-  flex-direction: column;
-  @include v.img-fill;
-  .lazy-img-wrapper {
-    width: 100%;
-    height: 100%;
-  }
-  .lazy-load-image-background {
-    position: relative;
-  }
-}
-
-##{$namespace}-intro-text-content {
-  color: v.$white;
-  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-size: $intro-banner-font-size;
-  line-height: 2.2em;
-  p {
-    margin-bottom: 1em;
-    margin-top: 0;
-    &:last-child {
-      margin-bottom: 0;
+@mixin intro-banner(
+  $intro-wave-bg-height: 52.125rem,
+  $main-heading-font-size: 6.75rem,
+  $intro-container-horizontal-spacing: 2.25rem,
+  $intro-img-height: 40rem,
+  $intro-img-vertical-spacing: 4.5rem,
+  $intro-banner-font-size: 1.375rem
+) {
+  ##{$namespace}-wave-bg {
+    height: $intro-wave-bg-height;
+    #wave-bg-rotate-wave-intro-wave {
+      background: v.$corner-gradient-reverse;
     }
   }
-  a {
-    text-decoration: none;
-    color: v.$yellow;
+  ##{$namespace}-intro {
+    padding-left: $intro-container-horizontal-spacing;
+    padding-right: $intro-container-horizontal-spacing;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
   }
-  .#{$namespace}-text-first-letter {
-    font-size: $intro-banner-font-size * 2.4;
-    line-height: 1em;
-    color: v.$yellow;
-    font-family: "Tinos", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  ##{$namespace}-intro-inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > h2 {
+      @include v.sub-heading($main-heading-font-size, $bold: "true");
+      justify-content: center;
+      padding: 0.925em 0;
+      color: v.$off-white;
+    }
+    &::after {
+      margin-top: $intro-img-vertical-spacing;
+      margin-bottom: $intro-img-vertical-spacing -
+        ($intro-banner-font-size * 1.125);
+      content: "";
+      width: 50%;
+      height: 0.8em;
+      background-color: v.$darker-gray;
+    }
+  }
+  ##{$namespace}-intro-img {
+    width: 100%;
+    height: $intro-img-height;
+    display: flex;
+    flex-direction: column;
+    @include v.img-fill;
+    .lazy-img-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+    .lazy-load-image-background {
+      position: relative;
+    }
+  }
+
+  ##{$namespace}-intro-text-content {
+    color: v.$white;
+    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: $intro-banner-font-size;
+    line-height: 2.2em;
+    p {
+      margin-bottom: 1em;
+      margin-top: 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    a {
+      text-decoration: none;
+      color: v.$yellow;
+    }
+    .#{$namespace}-text-first-letter {
+      font-size: $intro-banner-font-size * 2.4;
+      line-height: 1em;
+      color: v.$yellow;
+      font-family: "Tinos", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
   }
 }
