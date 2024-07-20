@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
 import anime from "animejs";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
-import { MediaCollagePlaceholderSVG, MediaCollageSVG } from "./SVGComponents";
+import { MediaCollageSVG } from "./SVGComponents";
 import LinkBtn from "../../../../utilities/actionBtn/LinkBtn";
 import { Transition } from "react-transition-group";
 
@@ -126,9 +126,6 @@ const MediaContent = () => {
             ...mediaContainerTransitionStyles[state],
           }}
         >
-          {/* {isVisible && <MediaCollageSVG />}
-      {!isVisible && <MediaCollagePlaceholderSVG />} */}
-
           <MediaCollageSVG />
         </div>
       )}

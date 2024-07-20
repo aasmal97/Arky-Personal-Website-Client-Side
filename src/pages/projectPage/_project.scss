@@ -56,6 +56,7 @@ $namespace: "project-pg";
     font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     box-sizing: border-box;
     align-items: start;
+    max-width: v.$max-width;
     h2 {
       @include v.sub-heading($project-pg-main-heading-font-size, $bold: "true");
       padding: 0.925em 0;

@@ -1,14 +1,16 @@
 @use "./components/introBanner/introBanner";
 @use "./components/projectBanner/projectBanner";
 @use "./components/skillsBanner/skillsBanner";
+@use "../../../public/variables" as v;
 .home-pg-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-    box-sizing: border-box;
+  box-sizing: border-box;
   & > * {
     flex-grow: 1;
     width: 100%;
+    max-width: v.$max-width;
   }
 }

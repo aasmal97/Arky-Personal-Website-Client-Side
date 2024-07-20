@@ -1,33 +1,15 @@
-import useElementSize from "../../../hooks/useElementSize";
-import LazyImage from "../../../utilities/lazyComponents/LazyImg";
-import LineDividerSVG from "../../../utilities/lineDivider/LineDivider";
 import WaveBg from "../../../utilities/waveBg/WaveBg";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import text from "./introTextContent.txt";
 import useLoadingState from "../../../hooks/useLoadingState";
 import { v4 as uuid } from "uuid";
 import LoadingIcon from "../../../utilities/loadingIcon/LoadingIcon";
 import { AnimateHeaders } from "../../../utilities/animateHeaders/animateHeaders";
+import { ImageCollageSVG } from "./HobbiesBanner";
 const namespace = "about-pg";
 const uuidArr = Array(3)
   .fill(0)
   .map((e) => uuid());
-const IntroLineDivider = () => (
-  <div id={`${namespace}-intro-divider`}>
-    <LineDividerSVG
-      numOfCircles={4}
-      circleRadius={2}
-      styles={{
-        lineColor: "white",
-        circleColors: ["#3ac2ff", "#ff5050", "#FFC83A"],
-        lineHeight: 0.5,
-      }}
-    />
-  </div>
-);
-const calculateImgHeight = (waveHeight: number, headerHeight: number) => {
-  return (waveHeight - headerHeight) * 1.5;
-};
 const extractLinksFromText = (text: string) => {
   // eslint-disable-next-line
   const matches = text.match(/\([^\(\)]+\)\[[^\[\]]+\]/g);
@@ -142,12 +124,8 @@ const IntroBanner = () => {
         <AnimateHeaders id={uuidArr[0]} namespace={namespace} htmlTag="h2">
           About Me
         </AnimateHeaders>
-        <div id={`${namespace}-intro-img`}>
-          <LazyImage
-            src={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro.jpg`}
-            placeholderSrc={`${process.env.REACT_APP_MEDIA_FILES_URL}/aboutPg/intro-placeholder.jpg`}
-            alt="Arky sitting on a ledge in Guayquil, Ecuador"
-          />
+        <div id={`${namespace}-image-collage`}>
+          <ImageCollageSVG />
         </div>
       </div>
       {textStatus === "loading" && <LoadingIcon />}

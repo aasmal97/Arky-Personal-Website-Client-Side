@@ -21,10 +21,7 @@ $namespace: "about-pg";
     display: flex;
     flex-direction: column;
     align-items: center;
-    & > * {
-      position: relative;
-      z-index: 1;
-    }
+    max-width: v.$max-width;
   }
   ##{$namespace}-intro-inner {
     width: 100%;
@@ -47,21 +44,15 @@ $namespace: "about-pg";
       background-color: v.$darker-gray;
     }
   }
-  ##{$namespace}-intro-img {
+  ##{$namespace}-image-collage {
+    z-index: 1;
+    box-sizing: border-box;
     width: 100%;
-    height: $intro-img-height;
-    display: flex;
-    flex-direction: column;
-    @include v.img-fill;
-    .lazy-img-wrapper {
+    svg {
       width: 100%;
-      height: 100%;
-    }
-    .lazy-load-image-background {
-      position: relative;
+      margin: auto;
     }
   }
-
   ##{$namespace}-intro-text-content {
     color: v.$white;
     font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;

@@ -2,7 +2,6 @@
 @use "../../../public/variables" as v;
 @use "./components/education" as education;
 @use "./components/introBanner" as intro;
-// @use "./components/hobbies" as hobbies;
 $education-namespace: education.$namespace;
 $intro-namespace: intro.$namespace;
 @mixin about-xxl {
@@ -13,60 +12,53 @@ $intro-namespace: intro.$namespace;
 }
 @mixin about-lg {
   @include a.about-pg(
-    $intro-wave-bg-height: 40.9rem,
+    $intro-wave-bg-height: 35rem,
     $main-heading-font-size: 5.4rem,
     $intro-container-horizontal-spacing: 1.8rem,
     $intro-img-height: 32rem,
     $intro-img-vertical-spacing: 3.6rem,
-    $intro-banner-font-size: 1.375rem
-  );
+    $intro-banner-font-size: 1.375rem,
 
-  // ##{$intro-namespace}-intro-divider {
-  //   width: 60%;
-  // }
-  // ##{$intro-namespace}-intro-text-content {
-  //   $intro-bg-height: 100vh;
-  //   $intro-bg-min-height: 50rem;
-  //   padding-bottom: calc(
-  //     max($intro-bg-height/12, $intro-bg-min-height/12) * 1.5 + min(15vh, 2.5em)
-  //   );
-  // }
-  // ##{$education-namespace}-explore {
-  //   align-items: center;
-  //   h3 {
-  //     margin-bottom: 0.5em;
-  //     margin-left: 0;
-  //   }
-  // }
-  // ##{$education-namespace}-explore-inner {
-  //   justify-content: center;
-  // }
-  // ##{$hobbies-namespace} {
-  //   padding-top: min(15vh, 2.5em);
-  // }
+    $edu-heading-font-size: 4rem * 0.8,
+    $edu-container-spacing: 4.5rem * 0.8,
+    $edu-grid-row-spacing: 3.5rem,
+    $edu-grid-item-size: 12.5rem * 0.8,
+    $edu-action-description-font-size: 1.5rem,
+    $edu-action-btn-font-size: 2.25rem,
+  );
 }
 @mixin about-md {
   @include a.about-pg(
-    $intro-wave-bg-height: 31.275rem,
+    $intro-wave-bg-height: 28rem,
     $main-heading-font-size: 4rem,
     $intro-container-horizontal-spacing: 1.35rem,
     $intro-img-height: 24rem,
     $intro-img-vertical-spacing: 2.7rem,
-    $intro-banner-font-size: 1.125rem
+    $intro-banner-font-size: 1.125rem,
+
+    $edu-heading-font-size: 4rem * 0.8,
+    $edu-container-spacing: 4.5rem * 0.6,
+    $edu-grid-row-spacing: 3.5rem * 0.6,
+    $edu-grid-item-size: 12.5rem * 0.6,
+    $edu-action-description-font-size: 1.5rem * 0.8,
+    $edu-action-btn-font-size: 2.25rem * 0.8,
   );
-  // ##{$intro-namespace}-wave-bg {
-  //   min-height: 20em;
-  //   max-height: 25em;
-  // }
 }
 @mixin about-sm {
   @include a.about-pg(
-    $intro-wave-bg-height: 25rem,
+    $intro-wave-bg-height: 21rem,
     $main-heading-font-size: 3rem,
     $intro-container-horizontal-spacing: 1rem,
     $intro-img-height: 18rem,
     $intro-img-vertical-spacing: 2.7rem,
-    $intro-banner-font-size: 1rem
+    $intro-banner-font-size: 1rem,
+
+    $edu-heading-font-size: 2.25rem,
+    $edu-container-spacing: 3rem,
+    $edu-grid-row-spacing: 2rem,
+    $edu-grid-item-size: 7.125rem,
+    $edu-action-description-font-size: 1rem,
+    $edu-action-btn-font-size: 1.5rem,
   );
   ##{$intro-namespace}-intro-inner {
     &::after {
@@ -74,83 +66,9 @@ $intro-namespace: intro.$namespace;
       height: 0.5em;
     }
   }
-  // ##{$intro-namespace}-intro {
-  //   h2 {
-  //     font-size: 3em;
-  //   }
-  // }
-  // ##{$intro-namespace}-intro-divider {
-  //   width: 80%;
-  // }
-  // ##{$intro-namespace}-intro-text-content {
-  //   $font-size: 1.2em;
-  //   font-size: $font-size;
-  //   p {
-  //     margin-bottom: $font-size * 2;
-  //   }
-
-  //   .#{$namespace}-text-first-letter {
-  //     font-size: $font-size * 2;
-  //   }
-  // }
-
-  // ##{$education-namespace}-header {
-  //   text-align: center;
-  //   font-size: 2.5em;
-  // }
-  // ##{$education-namespace}-display {
-  //   a {
-  //     width: 30%;
-  //     margin: 7%;
-  //   }
-  // }
-  // ##{$education-namespace}-action {
-  //   margin-bottom: 12%;
-  //   font-size: 1em;
-  //   a {
-  //     margin-top: 10%;
-  //   }
-  // }
-  // ##{$education-namespace}-explore {
-  //   h3 {
-  //     font-size: 1.8em;
-  //   }
-  // }
-  // ##{$education-namespace}-explore-inner {
-  //   flex-direction: column;
-  //   justify-content: center;
-  //   align-items: center;
-  //   height: 100%;
-  //   flex: 1;
-  // }
-  // .#{$education-namespace}-explore-item {
-  //   position: relative;
-  //   min-height: 4em;
-  // }
-  // .#{$education-namespace}-explore-item-icon {
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   font-size: 2em;
-  //   z-index: 1;
-  // }
-  // .#{$education-namespace}-explore-item-description {
-  //   padding-left: calc(7% + 4em);
-  //   height: 70%;
-  //   h4 {
-  //     font-size: 1.3em;
-  //   }
-  //   p {
-  //     font-size: 0.8em;
-  //   }
-  // }
-  // ##{$hobbies-namespace}-inner {
-  //   h2 {
-  //     span {
-  //       font-size: 2em;
-  //     }
-  //   }
-  // }
+  ##{$education-namespace}-display {
+    width: 100%;
+  }
 }
 @mixin hover-action {
   transition: transform ease-out 0.2s;

@@ -20,7 +20,7 @@ $namespace: "navbar";
   ##{$namespace} {
     box-sizing: border-box;
     padding: $navbar-spacing;
-    max-width: 1500px;
+    max-width: v.$max-width;
     width: 100%;
     height: $navbar-height;
     display: flex;
@@ -54,9 +54,11 @@ $namespace: "navbar";
     height: 100%;
     justify-content: start;
     justify-content: flex-start;
+    box-sizing: border-box;
     & > button,
     & > a {
       @include v.remove-btn-default;
+      box-sizing: border-box;
       text-align: center;
       position: relative;
       font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;

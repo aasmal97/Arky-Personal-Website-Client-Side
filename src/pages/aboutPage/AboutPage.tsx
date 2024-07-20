@@ -13,7 +13,7 @@ const AboutPage = () => {
     <div id={`${namespace}`}>
       <IntroBanner />
       <EducationBanner />
-      <HobbiesBanner />
+      {/* <HobbiesBanner /> */}
     </div>
   );
 };
