@@ -56,9 +56,16 @@ $namespace: a.$namespace;
     $action-btns-padding-top: 2.5rem,
     $action-btns-font-size: 1.35rem
   );
-  
-    .#{$namespace}-media-content {
-      align-self: center;
-      margin-top: 2.5rem;
+
+  .#{$namespace}-media-content {
+    align-self: center;
+    margin-top: 2.5rem;
+  }
+}
+@mixin about-hover {
+  .#{$namespace}-action-btns {
+    & > a {
+      @include v.hover-action;
     }
+  }
 }

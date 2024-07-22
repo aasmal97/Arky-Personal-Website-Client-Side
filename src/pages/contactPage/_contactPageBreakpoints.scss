@@ -83,4 +83,10 @@ $namespace: c.$namespace;
   );
 }
 @mixin contact-hover {
+  .#{$namespace}-contact-form-btn {
+    @include v.hover-action;
+  }
+  .#{$namespace}-content-resume-link {
+    @include v.hover-action;
+  }
 }

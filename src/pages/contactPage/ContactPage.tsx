@@ -3,6 +3,8 @@ import { ArrowOutward } from "@mui/icons-material";
 import { IntroBannerImage } from "./IntroBannerImage";
 import ActionBtn from "../../utilities/actionBtn/ActionBtn";
 import useWindowWidth from "../../hooks/useWindowWidth";
+import { useNavbarTheme } from "../../hooks/useNavbarTheme";
+import { useEffect } from "react";
 
 const namespace = "contact-pg";
 const materialUITheme = createTheme({
@@ -70,7 +72,15 @@ const ContactForm = () => {
         variant="standard"
         multiline
         fullWidth
-        rows={largeWindowWidth ? 8 : mediumWindowWidth ? 5 : smallWindowWidth ? 5 : 6}
+        rows={
+          largeWindowWidth
+            ? 8
+            : mediumWindowWidth
+            ? 5
+            : smallWindowWidth
+            ? 5
+            : 6
+        }
       />
       <ActionBtn
         props={{
@@ -118,6 +128,10 @@ const ContactDescription = () => {
   );
 };
 const ContactPage = () => {
+  const { setCurrTheme } = useNavbarTheme();
+  useEffect(() => {
+    if (setCurrTheme) setCurrTheme("dark");
+  }, []);
   return (
     <ThemeProvider theme={materialUITheme}>
       <div id={`${namespace}`}>

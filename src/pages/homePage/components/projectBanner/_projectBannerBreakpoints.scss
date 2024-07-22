@@ -118,4 +118,9 @@ $namespace: p.$namespace;
   .#{$namespace}-text-content a {
     @include v.hover-action;
   }
+  .#{$namespace}-view-all-btn {
+    & > a {
+      @include v.hover-action;
+    }
+  }
 }

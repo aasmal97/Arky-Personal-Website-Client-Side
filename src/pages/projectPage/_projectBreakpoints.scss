@@ -130,4 +130,7 @@ $namespace: p.$namespace;
   .#{$namespace}-project-url {
     @include hover-effect();
   }
+  .#{project-item.$namespace}-project-url {
+    @include v.hover-action($scale:1.1);
+  }
 }
