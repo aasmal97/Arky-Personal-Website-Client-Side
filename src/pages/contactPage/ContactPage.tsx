@@ -134,12 +134,12 @@ const ContactPage = () => {
   }, []);
   return (
     <ThemeProvider theme={materialUITheme}>
-      {/* <div id={`${namespace}`}>
+      <div id={`${namespace}`}>
         <div id={`${namespace}-inner`}>
           <ContactDescription />
           <ContactForm />
         </div>
-      </div> */}
+      </div>
     </ThemeProvider>
   );
 };
