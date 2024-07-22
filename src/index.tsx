@@ -65,7 +65,6 @@ const FallbackElement = () => {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={
-      // <FallbackElement />
       <Root />
     }>
       <Route index element={<HomePage />} />

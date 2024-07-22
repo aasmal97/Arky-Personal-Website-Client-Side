@@ -3,21 +3,25 @@
 @use "../utilities/projectItem/projectItemBreakpoints" as project-item;
 @mixin utilities-xxl {
   @include nav.navbar-xxl;
+  @include footer.footer-xxl;
 }
 @mixin utilities-xl {
   @include nav.navbar-xl;
+  @include footer.footer-xl;
   @include project-item.project-item-xl;
 }
 @mixin utilities-lg {
   @include nav.navbar-lg;
+  @include footer.footer-lg;
   @include project-item.project-item-lg;
 }
 @mixin utilities-md {
+  @include footer.footer-md;
   @include nav.navbar-md;
-
   @include project-item.project-item-md;
 }
 @mixin utilities-sm {
+  @include footer.footer-sm;
   @include project-item.project-item-sm;
   @include nav.navbar-sm;
   @include footer.footer-sm;

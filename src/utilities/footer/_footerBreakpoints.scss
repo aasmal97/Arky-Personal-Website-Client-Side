@@ -1,28 +1,66 @@
 @use "./footer" as f;
 $namespace: f.$namespace;
+@mixin footer-xxl {
+  @include f.footer;
+}
+@mixin footer-xl {
+  @include f.footer;
+}
+@mixin footer-lg {
+  @include f.footer(
+    $footer-description-font-size: 1.5rem * 0.8,
+    $footer-row-font-size: 1.125rem * 0.8,
+    $footer-row-data-font-size: 1.75rem * 0.8,
+    $footer-item-spacing: 1.5rem * 0.8,
+    $footer-horizontal-spacing: 2.25rem * 0.8,
+    $footer-vertical-spacing: 2.25rem * 0.8
+  );
+}
+@mixin footer-md {
+  @include f.footer(
+    $footer-description-font-size: 1.5rem * 0.8,
+    $footer-row-font-size: 1.125rem * 0.8,
+    $footer-row-data-font-size: 1.75rem * 0.8,
+    $footer-item-spacing: 1.5rem * 0.8,
+    $footer-horizontal-spacing: 2.25rem * 0.6,
+    $footer-vertical-spacing: 2.25rem * 0.8
+  );
+}
 @mixin footer-sm {
-  .#{$namespace}-row-container {
-    &:last-child {
-      padding-right: 2.4em;
-    }
-  }
+  @include f.footer(
+    $footer-description-font-size: 1.5rem * 0.7,
+    $footer-row-font-size: 1.125rem * 0.7,
+    $footer-row-data-font-size: 1.75rem * 0.7,
+    $footer-item-spacing: 1.5rem * 0.8,
+    $footer-horizontal-spacing: 1rem,
+    $footer-vertical-spacing: 2.25rem * 0.8
+  );
   .#{$namespace}-row-container-inner {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    margin-left: 1.5em;
+  }
+  .#{$namespace}-row-container {
+    &:last-child {
+      padding-right: 2.4em;
+    }
+    // width: 100%;
   }
   .#{$namespace}-row-item {
-    font-size: 1em;
-    display: flex;
-    text-decoration: none;
-    align-items: flex-end;
-    align-items: end;
+    margin-left: 0.9em;
     &:first-child {
-      margin-left: 0em;
-      margin-right: 1em;
+      margin-bottom: 0.6em;
     }
   }
+  // .#{$namespace}-row-item {
+  //   font-size: 1em;
+  //   display: flex;
+  //   text-decoration: none;
+  //   align-items: flex-end;
+  //   align-items: end;
+  //   &:first-child {
+  //     margin-left: 0em;
+  //     margin-right: 1em;
+  //   }
+  // }
 }

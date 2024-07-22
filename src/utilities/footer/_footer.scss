@@ -1,116 +1,144 @@
 @use "../../../public/variables" as v;
 $namespace: "footer";
-##{$namespace} {
-  display: flex;
-  width: 100%;
-  background-color: v.$darkest-black;
-  color: v.$white;
-  justify-content: center;
-  padding: 2em 0;
-  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-##{$namespace}-inner {
-  max-width: 500px;
-  flex-direction: column;
-  display: flex;
-  width: 100%;
-  align-items: center;
-  margin: 0 1em;
-}
-.#{$namespace}-rows {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1.5em 0;
-}
-.#{$namespace}-row-container {
-  margin-bottom: 1.5em;
-  font-size: 0.8em;
-  display: flex;
-  text-decoration: none;
-  & > svg {
-    width: 3em;
-  }
-  &:last-child {
-    margin: 0;
-    $width: 2.5em;
-    & > svg {
-      width: $width;
-    }
-  }
-}
-.#{$namespace}-row-container-inner {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-.#{$namespace}-row-item {
-  font-size: 1em;
-  display: flex;
-  align-items: flex-end;
-  align-items: end;
-  text-decoration: none;
-
-  &:first-child {
-    margin-left: 1.5em;
-    margin-right: 1em;
-  }
-
-  span {
+@mixin footer(
+  $footer-description-font-size: 1.5rem,
+  $footer-row-font-size: 1.125rem,
+  $footer-row-data-font-size: 1.75rem,
+  $footer-item-spacing: 1.5rem,
+  $footer-horizontal-spacing: 2.25rem,
+  $footer-vertical-spacing: 2.25rem
+) {
+  ##{$namespace} {
     display: flex;
-    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    color: v.$gray;
+    justify-content: center;
+    padding-left: $footer-horizontal-spacing;
+    padding-right: $footer-horizontal-spacing;
+    padding-top: $footer-vertical-spacing;
+    padding-bottom: $footer-vertical-spacing;
     font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    text-decoration: none;
-    &:first-child {
-      font-size: 2.2em;
-      font-weight: 600;
-      color: v.$yellow;
-      margin-right: 0.2em;
-      svg {
-        width: 0.6em;
-        height: 0.6em;
-        margin-right: 0.2em;
+    border-top: 1px solid v.$light-black;
+  }
+  ##{$namespace}-inner {
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    font-size: $footer-description-font-size;
+    & > * {
+      margin-bottom: $footer-item-spacing;
+      &:last-child {
+        margin-bottom: 0;
       }
     }
-    &:last-child {
-      font-weight: 400;
-      color: v.$gray;
-      margin-bottom: 0.4em;
+    & > span {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.625em;
     }
   }
-}
-##{$namespace}-bottom-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  text-align: center;
-  $spacing: 1em;
-  span {
-    padding-top: $spacing;
+  .#{$namespace}-rows {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  span:first-child {
-    position: relative;
-    padding-top: calc(#{$spacing} + 0.2em);
-    &:after {
-      $line-width: 100%;
-      position: absolute;
-      top: -0.5px;
-      left: calc((100% - #{$line-width}) / 2);
-      width: $line-width;
-      content: "";
-      height: 1px;
-      background-color: v.$light-black;
-    }
-  }
-  span:last-child{
-    color: v.$gray;
-    font-size: 0.85em;
-  }
-  a {
+  .#{$namespace}-row-container {
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    color: v.$yellow;
+    margin-bottom: $footer-item-spacing;
+    & > svg {
+      width: 2em;
+    }
+    &:last-child {
+      margin-bottom: 0;
+      & > svg {
+        width: 2em;
+      }
+    }
+  }
+  .#{$namespace}-row-container-inner {
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+  }
+  .#{$namespace}-row-item {
+    font-size: $footer-row-font-size;
+    display: flex;
+    align-items: flex-end;
+    align-items: end;
+    text-decoration: none;
+
+    &:first-child {
+      margin-left: 0.9em;
+      margin-right: 0.9em;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      font-family: "JetBrains Mono", "Segoe UI", Tahoma, Geneva, Verdana,
+        sans-serif;
+      text-decoration: none;
+
+      &:first-child {
+        font-size: $footer-row-data-font-size;
+        font-weight: 600;
+        color: v.$yellow;
+        margin-right: 0.2em;
+        svg {
+          width: 0.6em;
+          height: 0.6em;
+          margin-right: 0.2em;
+        }
+      }
+      &:last-child {
+        font-weight: 400;
+        color: v.$gray;
+        margin-bottom: 0.16em;
+      }
+    }
+  }
+  ##{$namespace}-bottom-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    $spacing: 1em;
+    span {
+      // display: flex;
+      // justify-content: center;
+      text-align: center;
+      line-height: 1.625em;
+      padding-top: $footer-item-spacing;
+    }
+    span:first-child {
+      position: relative;
+      &:after {
+        $line-width: 100%;
+        position: absolute;
+        top: -0.5px;
+        left: calc((100% - #{$line-width}) / 2);
+        width: $line-width;
+        content: "";
+        height: 1px;
+        background-color: v.$light-black;
+      }
+    }
+    span:last-child {
+      color: v.$light-black;
+      font-size: 0.85em;
+      font-weight: 600;
+    }
+    a {
+      margin-left: 0.05em;
+      text-decoration: none;
+      color: v.$yellow;
+    }
   }
 }
