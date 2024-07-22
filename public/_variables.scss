@@ -6,7 +6,10 @@ $yellow: #ffc83a;
 $dark-yellow: #d47c00;
 $dark-blue: #0068e0;
 $gray: #afafaf;
+$dark-gray: #868686;
+
 $darker-gray: #6b6b6b;
+
 $lightest-gray: #c5c5c5;
 $lighter-black: #5a5a5a;
 $light-black: #4e4e4e;
@@ -151,7 +154,7 @@ $max-width: 1500px;
     height: 0.12em;
   }
 }
-@mixin action-btn($font-size) {
+@mixin action-btn($font-size, $bgColor: $light-red) {
   @include remove-btn-default;
   position: relative;
   width: auto;
@@ -164,18 +167,18 @@ $max-width: 1500px;
     left: 0.24em;
     height: 100%;
     width: 100%;
-    background-color: $light-red;
+    background-color: $bgColor;
     z-index: 0;
   }
   & > .action-btn-content {
-    border: 0.083em solid $light-red;
-    color: $light-red;
-    line-height: 2.3em;
+    border: 0.083em solid $bgColor;
+    color: $bgColor;
+    line-height: 2.5em;
     font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
     background-color: $dark-black;
-    padding-right: 0.5em;
-    padding-left: 0.5em;
+    padding-right: 0.75em;
+    padding-left: 0.75em;
     position: relative;
     z-index: 1;
   }

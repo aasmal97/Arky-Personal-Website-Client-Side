@@ -4,8 +4,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  RouterProvider,
-  Navigate,
+  RouterProvider
 } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import Root from "./root";
@@ -15,6 +14,7 @@ const AboutPage = React.lazy(() => import("./pages/aboutPage/AboutPage"));
 const HomePage = React.lazy(() => import("./pages/homePage/HomePage"));
 const ProjectPage = React.lazy(() => import("./pages/projectPage/ProjectPage"));
 const SkillsPage = React.lazy(() => import("./pages/skillsPage/SkillsPage"));
+const ContactPage = React.lazy(() => import("./pages/contactPage/ContactPage"));
 const FallbackElement = () => {
   const smallWindowWidth = useWindowWidth(576);
   return (
@@ -53,9 +53,8 @@ const router = createBrowserRouter(
       <Route index element={<HomePage />} />
       <Route path="home/*" element={<HomePage />} />
       <Route path="projects" element={<ProjectPage />} />
-      <Route path="about" element={<AboutPage />}>
-        <Route index element={<Navigate to={"/about"} />}></Route>
-      </Route>
+      <Route path="about" element={<AboutPage />} />
+      <Route path="contact" element={<ContactPage />} />
       <Route path="skills" element={<SkillsPage />} />
     </Route>
   )

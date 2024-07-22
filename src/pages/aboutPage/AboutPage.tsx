@@ -1,6 +1,5 @@
 import IntroBanner from "./components/IntroBanner";
 import EducationBanner from "./components/EducationBanner";
-import HobbiesBanner from "./components/HobbiesBanner";
 import { useEffect } from "react";
 import { useNavbarTheme } from "../../hooks/useNavbarTheme";
 const namespace = "about-pg";
@@ -13,7 +12,6 @@ const AboutPage = () => {
     <div id={`${namespace}`}>
       <IntroBanner />
       <EducationBanner />
-      {/* <HobbiesBanner /> */}
     </div>
   );
 };

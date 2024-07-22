@@ -27,18 +27,6 @@ import //createTheme, //ThemeProvider
 import "react-phone-input-2/lib/style.css";
 const animationProgess = 88;
 const namespace = "contact-me-banner";
-// const materialUITheme = createTheme({
-//   palette: {
-//     primary: {
-//       main: "#b2292c",
-//     },
-//     secondary: {
-//       main: "#00658a",
-//     },
-//     contrastThreshold: 3,
-//     tonalOffset: 0.2,
-//   },
-// });
 const MessageBoxLine = ({
   setRef,
   size,

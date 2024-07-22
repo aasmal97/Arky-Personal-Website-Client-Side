@@ -1,0 +1,22 @@
+@use "./contactPage" as c;
+@use "../../../public/variables" as v;
+@use "sass:math";
+$namespace: c.$namespace;
+@mixin contact-xxl {
+}
+@mixin contact-xl {
+ 
+}
+
+@mixin contact-lg {
+ 
+}
+@mixin contact-md {
+
+}
+@mixin contact-sm {
+  
+}
+@mixin contact-hover {
+  
+}

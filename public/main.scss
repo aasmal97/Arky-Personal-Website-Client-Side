@@ -4,6 +4,7 @@
 @use "../src/pages/aboutPage/about";
 @use "../src/pages/projectPage/project";
 @use "../src/pages/skillsPage/skills";
+@use "../src/pages/contactPage/contactPage";
 //last import since it must override previous styles
 @use "./mediaQueries";
 html,
@@ -23,6 +24,5 @@ body {
 #app-container {
   width: 100%;
 
-    box-sizing: border-box;
-
+  box-sizing: border-box;
 }

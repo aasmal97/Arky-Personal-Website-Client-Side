@@ -2,9 +2,6 @@ import ImageInCollage from "../../../utilities/imageInCollage/ImageInCollage";
 import useHobbiesImages, {
   matchElWithImage,
 } from "../../../hooks/useHobbiesImageInterval";
-import { AnimateHeaders } from "../../../utilities/animateHeaders/animateHeaders";
-import { v4 as uuid } from "uuid";
-const animateUUID = uuid();
 const namespace = "about-pg-hobbies";
 const rectArr = [
   { rect: <rect width="143" height="200" fill="transparent" /> },
@@ -71,19 +68,3 @@ export const ImageCollageSVG = () => {
     </svg>
   );
 };
-const HobbiesBanner = () => {
-  return (
-    <div id={`${namespace}`}>
-      <div id={`${namespace}-inner`}>
-        <AnimateHeaders id={animateUUID} namespace={namespace} htmlTag="h2">
-          Hobbies
-        </AnimateHeaders>
-
-        <div id={`${namespace}-image-collage`}>
-          <ImageCollageSVG />
-        </div>
-      </div>
-    </div>
-  );
-};
-export default HobbiesBanner;

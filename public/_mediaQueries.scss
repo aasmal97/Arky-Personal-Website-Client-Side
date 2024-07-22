@@ -2,25 +2,28 @@
 @use "../src/pages/homePage/homePageBreakpoints" as home;
 @use "../src/pages/aboutPage/aboutBreakpoints" as about;
 @use "../src/pages/projectPage/projectBreakpoints" as projects;
+@use "../src/pages/contactPage/contactPageBreakpoints" as contact;
 @media (min-width: 1200px) {
-  @include util.utilities-xxl ;
+  @include util.utilities-xxl;
   @include home.home-xxl;
   @include projects.project-xxl;
-    @include about.about-xxl;
-
+  @include about.about-xxl;
+  @include contact.contact-xxl;
 }
 @media (max-width: 1200px) {
-  @include util.utilities-xl ;
+  @include util.utilities-xl;
   @include home.home-xl;
   @include projects.project-xl;
 
   @include about.about-xl;
+  @include contact.contact-xl;
 }
 @media (max-width: 992px) {
   @include util.utilities-lg;
   @include home.home-lg;
   @include about.about-lg;
   @include projects.project-lg;
+  @include contact.contact-lg;
 }
 
 @media (max-width: 768px) {
@@ -28,6 +31,7 @@
   @include home.home-md;
   @include about.about-md;
   @include projects.project-md;
+  @include contact.contact-md;
 }
 
 @media (max-width: 575px) {
@@ -35,6 +39,7 @@
   @include home.home-sm;
   @include about.about-sm;
   @include projects.project-sm;
+  @include contact.contact-sm;
 }
 
 @media (any-hover: hover) {
@@ -42,4 +47,5 @@
   @include projects.project-hover;
   @include home.home-hover;
   @include util.utilities-hover;
+  @include contact.contact-hover;
 }

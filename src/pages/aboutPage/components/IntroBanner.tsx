@@ -5,7 +5,7 @@ import useLoadingState from "../../../hooks/useLoadingState";
 import { v4 as uuid } from "uuid";
 import LoadingIcon from "../../../utilities/loadingIcon/LoadingIcon";
 import { AnimateHeaders } from "../../../utilities/animateHeaders/animateHeaders";
-import { ImageCollageSVG } from "./HobbiesBanner";
+import { ImageCollageSVG } from "./ImageCollageSVG";
 const namespace = "about-pg";
 const uuidArr = Array(3)
   .fill(0)
