@@ -64,7 +64,7 @@ $namespace: "skills-banner";
     h2 {
       @include v.section-heading($container-heading-font-size);
       width: auto;
-      color: v.$yellow;
+      color: transparent;
     }
     p {
       padding-top: $container-heading-vertial-spacing;

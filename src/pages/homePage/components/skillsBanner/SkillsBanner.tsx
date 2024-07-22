@@ -6,6 +6,9 @@ import SkillsImage from "./SkillsImage";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import RotatedStickyLabel from "../../../../utilities/stickyLabel/StickyLabel";
+import anime from "animejs";
+import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
+
 const namespace = "skills-banner";
 const BubblesSVGIcon = () => {
   return (
@@ -38,13 +41,40 @@ const TextContent = ({
 }: {
   showSkills: boolean;
   setShowSkills: React.Dispatch<React.SetStateAction<boolean>>;
-  }) => {
-  const smallWindowWidth = useWindowWidth(576)
+}) => {
+  const smallWindowWidth = useWindowWidth(576);
+  const { ref: textRef, isVisible } = useIntersectionWrapper();
+  const title = "Skills";
+  useEffect(() => {
+    if (isVisible)
+      anime.timeline().add({
+        targets: `.${namespace}-letter`,
+        opacity: [0, 1],
+        color: ["#000", "#ffc83a"],
+        easing: "easeInOutQuad",
+        duration: 1000,
+        delay: (el, i) => 50 * (i + 1),
+      });
+    return () => anime.remove(`.${namespace}-letter`);
+  }, [isVisible]);
   return (
     <div className={`${namespace}-text-content`}>
-      <h2>
+      <h2 ref={(el) => (textRef.current = el)} aria-label={title}>
         {!smallWindowWidth && <MediaContent />}
-        Skills
+        {Array(title.length)
+          .fill(0)
+          .map((e, idx) => {
+            return title[idx] ? (
+              <span
+                key={`${title[idx]}-${idx}`}
+                className={`${namespace}-letter`}
+              >
+                {title[idx]}
+              </span>
+            ) : (
+              <span key={`${title[idx]}-${idx}`}>{title[idx]}</span>
+            );
+          })}
       </h2>
       <p>
         Pursing knowledge is my strongest attribute. After all, good work is
@@ -85,12 +115,8 @@ export const SkillsList = () => {
   }, []);
   return (
     <div className={`${namespace}-skills-list`}>
-      {mediumWindowWidth && (
-        <RotatedStickyLabel>Skills</RotatedStickyLabel>
-      )}
-      {!mediumWindowWidth && (
-        <div className="sticky-label">Skills</div>
-      )}
+      {mediumWindowWidth && <RotatedStickyLabel>Skills</RotatedStickyLabel>}
+      {!mediumWindowWidth && <div className="sticky-label">Skills</div>}
       <div className={`${namespace}-skills-list-inner`}>
         {skills.map((item) => {
           return (
@@ -107,7 +133,7 @@ export const SkillsList = () => {
 };
 const SkillsBanner = memo(() => {
   const [showSkills, setShowSkills] = useState(false);
-  const smallWindowWidth = useWindowWidth(576)
+  const smallWindowWidth = useWindowWidth(576);
   return (
     <div id={namespace}>
       <div id={`${namespace}-inner`}>

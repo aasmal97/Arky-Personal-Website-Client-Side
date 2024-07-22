@@ -50,7 +50,7 @@ $namespace: "project-banner";
     & > h2 {
       @include v.section-heading($container-heading-font-size);
       width: auto;
-      color: v.$light-red;
+      color: transparent
     }
 
     & > p {

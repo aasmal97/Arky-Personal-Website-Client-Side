@@ -19,6 +19,7 @@ const TextContent = () => {
       anime.timeline().add({
         targets: `.${namespace}-letter`,
         opacity: [0, 1],
+        color: ["#000", "#ff5050"],
         easing: "easeInOutQuad",
         duration: 1000,
         delay: (el, i) => 50 * (i + 1),
