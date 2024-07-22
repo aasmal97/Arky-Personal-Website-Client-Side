@@ -2,6 +2,7 @@ import { TextField, createTheme, ThemeProvider } from "@mui/material";
 import { ArrowOutward } from "@mui/icons-material";
 import { IntroBannerImage } from "./IntroBannerImage";
 import ActionBtn from "../../utilities/actionBtn/ActionBtn";
+import useWindowWidth from "../../hooks/useWindowWidth";
 
 const namespace = "contact-pg";
 const materialUITheme = createTheme({
@@ -33,6 +34,10 @@ const ContactFormWrapper = ({ children }: { children: React.ReactNode }) => {
   );
 };
 const ContactForm = () => {
+  const largeWindowWidth = useWindowWidth(1200);
+  const mediumWindowWidth = useWindowWidth(992);
+  const smallWindowWidth = useWindowWidth(768);
+
   return (
     <ContactFormWrapper>
       <div className={`${namespace}-contact-form-header`}>
@@ -65,7 +70,7 @@ const ContactForm = () => {
         variant="standard"
         multiline
         fullWidth
-        rows={8}
+        rows={largeWindowWidth ? 8 : mediumWindowWidth ? 5 : smallWindowWidth ? 5 : 6}
       />
       <ActionBtn
         props={{
