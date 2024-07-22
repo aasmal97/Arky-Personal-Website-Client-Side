@@ -70,6 +70,7 @@ $namespace: "project-pg";
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-height: $project-pg-carousel-height;
     .#{$namespace}-carousel-wrapper {
       display: flex;
       flex-direction: column;

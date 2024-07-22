@@ -91,6 +91,17 @@ $namespace: "skills-banner";
     & > .sticky-label {
       @include v.sticky-label($sticky-label-font-size);
     }
+    &.sidebar-disabled {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      & > .sticky-label {
+        text-align: center;
+        padding-bottom: 2rem;
+        text-transform: none;
+      }
+    }
   }
   .#{$namespace}-skills-list-inner {
     flex-grow: 1;

@@ -91,7 +91,11 @@ const TextContent = ({
     </div>
   );
 };
-export const SkillsList = () => {
+export const SkillsList = ({
+  disableVerticalSidebar,
+}: {
+  disableVerticalSidebar?: boolean;
+}) => {
   const [skills, setSkills] = useState<Skills[]>([]);
   const mediumWindowWidth = useWindowWidth(768);
   useEffect(() => {
@@ -114,9 +118,17 @@ export const SkillsList = () => {
     return () => {};
   }, []);
   return (
-    <div className={`${namespace}-skills-list`}>
-      {mediumWindowWidth && <RotatedStickyLabel>Skills</RotatedStickyLabel>}
-      {!mediumWindowWidth && <div className="sticky-label">Skills</div>}
+    <div
+      className={`${namespace}-skills-list ${
+        disableVerticalSidebar ? "sidebar-disabled" : ""
+      }`}
+    >
+      {!disableVerticalSidebar && mediumWindowWidth && (
+        <RotatedStickyLabel>Skills</RotatedStickyLabel>
+      )}
+      {(!mediumWindowWidth || disableVerticalSidebar) && (
+        <div className="sticky-label">Skills</div>
+      )}
       <div className={`${namespace}-skills-list-inner`}>
         {skills.map((item) => {
           return (

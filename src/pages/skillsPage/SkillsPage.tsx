@@ -1,9 +1,16 @@
+import { useEffect } from "react";
+import { useNavbarTheme } from "../../hooks/useNavbarTheme";
 import { SkillsList } from "../homePage/components/skillsBanner/SkillsBanner";
-const namespace = 'skills-pg'
+const namespace = "skills-pg";
 const SkillsPage = () => {
-  return <div className={`${namespace}-container`}>
-    <SkillsList />
-  </div>;
-  
+  const { setCurrTheme } = useNavbarTheme();
+  useEffect(() => {
+    if (setCurrTheme) setCurrTheme("dark");
+  }, []);
+  return (
+    <div className={`${namespace}-container`}>
+      <SkillsList disableVerticalSidebar/>
+    </div>
+  );
 };
 export default SkillsPage;

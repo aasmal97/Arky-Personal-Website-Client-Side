@@ -1,5 +1,6 @@
 import anime from "animejs";
 import { useEffect, createElement } from "react";
+import useIntersectionWrapper from "../../hooks/useIntersectionWrapper";
 
 export const AnimateHeaders = ({
   id,
@@ -12,20 +13,23 @@ export const AnimateHeaders = ({
   children: string;
   namespace: string;
 }) => {
+  const { ref: boxRef, isVisible } = useIntersectionWrapper();
+
   useEffect(() => {
-    anime.timeline().add({
-      targets: `.${namespace}-header .${namespace}-letter-${id}`,
-      translateX: [40, 0],
-      translateZ: 0,
-      opacity: [0, 1],
-      easing: "easeOutExpo",
-      duration: 4000,
-      delay: (el, i) => 500 + 40 * i,
-    });
+    if (isVisible)
+      anime.timeline().add({
+        targets: `.${namespace}-header .${namespace}-letter-${id}`,
+        translateX: [40, 0],
+        translateZ: 0,
+        opacity: [0, 1],
+        easing: "easeOutExpo",
+        duration: 4000,
+        delay: (el, i) => 500 + 40 * i,
+      });
     return () => {
       anime.remove(`.${namespace}-header .${namespace}-letter-${id}`);
     };
-  }, [id]);
+  }, [id, isVisible]);
   const words = children.split(" ");
   const el = createElement(
     htmlTag,
@@ -52,7 +56,11 @@ export const AnimateHeaders = ({
               );
             });
           return (
-            <div key={`${currLetters}-${idx}`} style={{ display: "flex" }}>
+            <div
+              ref={boxRef}
+              key={`${currLetters}-${idx}`}
+              style={{ display: "flex", color: isVisible ? "" : "transparent" }}
+            >
               {letters}
             </div>
           );

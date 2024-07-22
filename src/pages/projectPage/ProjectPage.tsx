@@ -153,12 +153,6 @@ const ProjectSlideTextContent = ({ slide }: { slide: ProjectDocument }) => {
               <span>{toLocale(slide.startDate)}</span>
             </div>
           )}
-          {/* {slide.endDate && (
-            <div className={`${namespace}-slide-date`}>
-              <span>Finished on </span>&nbsp;{" "}
-              <span>{toLocale(slide.endDate)}</span>
-            </div>
-          )} */}
         </div>
       )}
     </div>
