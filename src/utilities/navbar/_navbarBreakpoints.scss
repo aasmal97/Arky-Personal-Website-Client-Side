@@ -49,6 +49,9 @@ $namespace: n.$namespace;
   }
 }
 @mixin navbar-hover {
+  ##{$namespace}-linkedIn {
+    @include v.hover-action($scale: 1.1);
+  }
   ##{$namespace} {
     ##{$namespace}-links {
       button,
