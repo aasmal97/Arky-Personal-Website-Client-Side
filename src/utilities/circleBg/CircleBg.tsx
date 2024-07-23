@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const CircleBg = ({
   primaryStrokeColor = "#464646",
-  fillStrokeColor = "#ff5050",
+  fillStrokeColor = "#7e631d",
 }: {
   fillStrokeColor?: string;
   primaryStrokeColor?: string;

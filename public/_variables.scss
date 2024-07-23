@@ -2,14 +2,14 @@ $light-red: #ff5050;
 $red: #d24040;
 $dark-red: #ae0000;
 $blue: #3ac2ff;
+$yellow: #7e631d;
+
 $yellow: #ffc83a;
 $dark-yellow: #d47c00;
 $dark-blue: #0068e0;
 $gray: #afafaf;
 $dark-gray: #868686;
-
 $darker-gray: #6b6b6b;
-
 $lightest-gray: #c5c5c5;
 $lighter-black: #5a5a5a;
 $light-black: #4e4e4e;
@@ -28,7 +28,7 @@ $corner-gradient: linear-gradient(
 );
 $corner-gradient-reverse: linear-gradient(
   138.2deg,
-  $blue 1.06%,
+
   $light-red 49.26%,
   $yellow 93.61%
 );
