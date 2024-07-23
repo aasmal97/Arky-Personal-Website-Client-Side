@@ -20,6 +20,7 @@ $namespace: "footer";
     padding-bottom: $footer-vertical-spacing;
     font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     border-top: 1px solid v.$light-black;
+    z-index: 1;
   }
   ##{$namespace}-inner {
     flex-direction: column;
