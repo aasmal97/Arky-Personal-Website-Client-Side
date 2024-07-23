@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import anime from "animejs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  //faEnvelope,
   faPaperPlane,
-  //faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 import useIntersectionWrapper from "../../../../hooks/useIntersectionWrapper";
 import { postContactMeMessage } from "../../../../utilities/asyncActions/ContactMeActions";
@@ -18,13 +16,9 @@ import { capitalizeFirstLetter } from "../../../../helpers/capitalizeFirstLetter
 import {
   Alert,
   AlertTitle,
-  // ToggleButton,
-  // ToggleButtonGroup,
 } from "@mui/material";
-import //createTheme, //ThemeProvider
-"@mui/material/styles";
-// import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+
 const animationProgess = 88;
 const namespace = "contact-me-banner";
 const MessageBoxLine = ({

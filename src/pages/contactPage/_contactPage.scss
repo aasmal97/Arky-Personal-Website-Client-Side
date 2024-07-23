@@ -170,7 +170,11 @@ $namespace: "contact-pg";
     .Mui-active {
       color: v.$yellow;
     }
-
+    .MuiFormHelperText-root {
+      &.Mui-error {
+        color: rgb(211, 47, 47);
+      }
+    }
     & > * {
       margin-top: $form-inner-container-spacing;
     }
