@@ -104,15 +104,15 @@ $namespace: "navbar";
     &.color {
       ##{$namespace}-links {
         svg {
-          stroke: v.$white;
+          stroke: v.$off-white;
         }
-        color: v.$white;
+        color: v.$off-white;
       }
       ##{$namespace}-linkedIn {
-        color: v.$white;
+        color: v.$off-white;
       }
       ##{$namespace}-open-drawer-button {
-        color: v.$white;
+        color: v.$off-white;
       }
     }
   }

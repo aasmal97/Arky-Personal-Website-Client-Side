@@ -1,8 +1,5 @@
-import { set } from "lodash";
 import useElementSize from "../../hooks/useElementSize";
-import useWindowWidth from "../../hooks/useWindowWidth";
 import { useEffect, useState } from "react";
-import { unstable_batchedUpdates } from "react-dom";
 
 const CircleBg = ({
   primaryStrokeColor = "#464646",
@@ -25,7 +22,7 @@ const CircleBg = ({
       const currY = document.body.clientHeight - window.innerHeight;
       const currPercentage = scrollY / currY;
       const fillInWidth = circleDiameter * currPercentage;
-      const offset = Math.max(0, circleDiameter - fillInWidth);
+      const offset = Math.max(0, circleDiameter - fillInWidth - 1);
       setOffset(offset); // Adjust this value to change the speed of the fill
       if (offset === 0) return setCurrPercentage(3);
       if (currPercentage > 0.66) return setCurrPercentage(2);
@@ -52,6 +49,9 @@ const CircleBg = ({
     stroke: fillStrokeColor,
     "transform-origin": `${circleCenterX} ${circleCenterY}`,
     transform: `rotate(-90)`,
+  };
+  const linePropsStyles = {
+    transition: "stroke 0.3s ease-in-out",
   };
   return (
     <div
@@ -82,6 +82,7 @@ const CircleBg = ({
         <circle {...circleGeneralProps} stroke={primaryStrokeColor} />
         <circle {...circleGeneralProps} {...circleStrokeProps} />
         <line
+          style={linePropsStyles}
           y1={-verticalSize}
           x1={1200 / 2}
           x2={1200 / 2}
@@ -89,6 +90,7 @@ const CircleBg = ({
           stroke={currPercentage >= 3 ? fillStrokeColor : primaryStrokeColor}
         />
         <line
+          style={linePropsStyles}
           y1="-0.5"
           x2="775.99"
           y2="-0.5"
@@ -96,6 +98,7 @@ const CircleBg = ({
           stroke={currPercentage >= 1 ? fillStrokeColor : primaryStrokeColor}
         />
         <line
+          style={linePropsStyles}
           x1={1200 / 2}
           y1={940 / 1.71}
           x2={1200 / 2 - 671.11}

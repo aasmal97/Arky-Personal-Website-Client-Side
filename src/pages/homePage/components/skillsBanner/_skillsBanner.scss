@@ -68,7 +68,7 @@ $namespace: "skills-banner";
     }
     p {
       padding-top: $container-heading-vertial-spacing;
-      color: v.$white;
+      color: v.$off-white;
       line-height: 2em;
       margin: 0;
       width: 100%;
@@ -77,6 +77,15 @@ $namespace: "skills-banner";
     }
     button,
     a {
+      @if ($mobile == "true") {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+      } @else {
+        width: auto;
+        display: block;
+        justify-content: unset;
+      }
       @include v.link-btn($view-all-btn-font-size, v.$yellow);
       padding-top: $view-all-btn-padding-top;
     }

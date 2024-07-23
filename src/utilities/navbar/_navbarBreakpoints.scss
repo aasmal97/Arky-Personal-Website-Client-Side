@@ -73,8 +73,8 @@ $namespace: n.$namespace;
             &:after {
               background-image: linear-gradient(
                 0deg,
-                v.$white 0%,
-                v.$white 100%
+                v.$off-white 0%,
+                v.$off-white 100%
               );
             }
           }
@@ -126,7 +126,7 @@ $namespace: n.$namespace;
           }
         }
         svg {
-          stroke: v.$white;
+          stroke: v.$off-white;
           stroke-dashoffset: 26;
           transition: stroke-dashoffset 0.3s cubic-bezier(0.3, 1.5, 0.5, 1)
             0.195s;
