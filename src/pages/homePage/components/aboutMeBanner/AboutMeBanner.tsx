@@ -136,7 +136,6 @@ const AboutMeBanner = () => {
   const smallWindowWidth = useWindowWidth(576);
   const media = <MediaContent />;
   const { ref: headerRef, isVisible } = useIntersectionWrapper();
-  console.log(smallWindowWidth, "hello");
   return (
     <div id={namespace}>
       <AboutMeHeader isVisible={isVisible} headerRef={headerRef} />
