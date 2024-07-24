@@ -2,75 +2,51 @@ import { TextField, Alert, AlertTitle } from "@mui/material";
 import ActionBtn from "../../utilities/actionBtn/ActionBtn";
 import useWindowWidth from "../../hooks/useWindowWidth";
 import { useState } from "react";
-import z from "zod";
 import { MuiTelInput } from "mui-tel-input";
-import parsePhoneNumber, { AsYouType } from "libphonenumber-js";
 import { useFormStatus } from "../../hooks/useFormStatus";
 import { capitalizeFirstLetter } from "../../helpers/capitalizeFirstLetter";
 import { useFormInputValidation } from "../../hooks/useFormInputValidation";
+import { postContactMeMessage } from "../../utilities/asyncActions/ContactMeActions";
+import {
+  ContactFormEmailSchema,
+  ContactFormMessageSchema,
+  ContactFormNameSchema,
+  ContactFormPhoneSchema,
+  ContactFormSchema,
+  ContactFormSubjectSchema,
+} from "../../utilities/types/RestApiTypes";
 const namespace = "contact-pg";
 
-function isOnlyCountryCode(number: string) {
-  const currNumber = new AsYouType();
-  currNumber.input(number);
-  const nationalNumber = currNumber.getNationalNumber();
-  const result = nationalNumber.length > 0;
-  return !result;
-}
-const NameSchema = z.string().min(1, { message: "Name is required" });
-const PhoneSchema = z
-  .string()
-  .transform((arg) => (!isOnlyCountryCode(arg) ? arg : undefined))
-  .optional()
-  .refine(
-    (arg) => {
-      if (!arg) return true;
-      return parsePhoneNumber(arg)?.isValid();
-    },
-    {
-      message: "Invalid phone number",
-    }
-  );
-const EmailSchema = z.string().email({ message: "Invalid email address" });
-const MessageSchema = z
-  .string()
-  .min(10, { message: "Message should be >10 charaters long" });
-const ContactFormSchema = z
-  .object({
-    name: NameSchema,
-    email: EmailSchema,
-    phone: PhoneSchema,
-    contact_message_content: MessageSchema,
-  })
-  .refine(
-    (arg) => {
-      return arg.email || arg.phone;
-    },
-    {
-      message: "Either email or phone number is required",
-    }
-  );
 const ContactFormWrapper = ({ children }: { children: React.ReactNode }) => {
   const { formStatus, setFormStatus, setFormMessage } = useFormStatus();
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!setFormMessage || !setFormStatus) return;
     if (formStatus === "loading") return;
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
     const result = ContactFormSchema.safeParse(data);
     if (result.error) {
-      if (setFormStatus) setFormStatus("error");
-      if (setFormMessage) setFormMessage(result.error.errors[0].message);
+      setFormStatus("error");
+      setFormMessage(result.error.errors[0].message);
       return;
     }
     const parsedData = result.data;
-    const { name, email, phone, contact_message_content } = parsedData;
-    // console.log(result.data);
-    // const result = await postContactMeMessage({
-    //   subject: message_subject.toString(),
-    //   contact: message_contact.toString(),
-    //   content: message_content.toString(),
-    // });
+    const { name, email, phone, subject, contact_message_content } = parsedData;
+    const messageResult = await postContactMeMessage({
+      name,
+      email,
+      phone,
+      subject,
+      contact_message_content,
+    });
+    if (messageResult?.error) {
+      setFormStatus("error");
+      setFormMessage(messageResult?.data);
+    } else {
+      setFormStatus("success");
+      setFormMessage("Message Successfully Sent!");
+    }
   };
   return (
     <form id={`${namespace}-form`} onSubmit={onSubmit}>
@@ -95,7 +71,9 @@ const ContactFormErrorMessageContainer = () => {
       severity={formStatus === "success" ? "success" : "error"}
     >
       <AlertTitle>
-        {capitalizeFirstLetter(formStatus) + ": Could not send"}
+        {capitalizeFirstLetter(formStatus) + formStatus === "error"
+          ? ": Could not send"
+          : ""}
       </AlertTitle>
       {formMessage && formMessage}
     </Alert>
@@ -103,8 +81,9 @@ const ContactFormErrorMessageContainer = () => {
 };
 const ContactFormNameFormInput = () => {
   const [name, setName] = useState("");
-  const { validateSchema, helperText, error } =
-    useFormInputValidation(NameSchema);
+  const { validateSchema, helperText, error } = useFormInputValidation(
+    ContactFormNameSchema
+  );
   return (
     <TextField
       error={error}
@@ -120,10 +99,12 @@ const ContactFormNameFormInput = () => {
     />
   );
 };
+
 const ContactFormEmailInput = () => {
   const [email, setEmail] = useState("");
-  const { validateSchema, helperText, error } =
-    useFormInputValidation(EmailSchema);
+  const { validateSchema, helperText, error } = useFormInputValidation(
+    ContactFormEmailSchema
+  );
   return (
     <TextField
       error={error}
@@ -141,8 +122,9 @@ const ContactFormEmailInput = () => {
 };
 const ContactFormPhoneInput = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
-  const { validateSchema, helperText, error } =
-    useFormInputValidation(PhoneSchema);
+  const { validateSchema, helperText, error } = useFormInputValidation(
+    ContactFormPhoneSchema
+  );
   return (
     <MuiTelInput
       error={error}
@@ -159,13 +141,34 @@ const ContactFormPhoneInput = () => {
     />
   );
 };
+const ContactFormSubjectFormInput = () => {
+  const [subject, setSubject] = useState("");
+  const { validateSchema, helperText, error } = useFormInputValidation(
+    ContactFormSubjectSchema
+  );
+  return (
+    <TextField
+      error={error}
+      helperText={helperText}
+      value={subject}
+      onBlur={() => validateSchema(subject)}
+      onChange={(e) => setSubject(e.target.value)}
+      id="subject"
+      name="subject"
+      label="Subject"
+      variant="standard"
+      fullWidth
+    />
+  );
+};
 const ContactFormMessageInput = () => {
   const largeWindowWidth = useWindowWidth(1200);
   const mediumWindowWidth = useWindowWidth(992);
   const smallWindowWidth = useWindowWidth(768);
   const [message, setMessage] = useState("");
-  const { validateSchema, helperText, error } =
-    useFormInputValidation(MessageSchema);
+  const { validateSchema, helperText, error } = useFormInputValidation(
+    ContactFormMessageSchema
+  );
   return (
     <TextField
       error={error}
@@ -180,7 +183,7 @@ const ContactFormMessageInput = () => {
       multiline
       fullWidth
       rows={
-        largeWindowWidth ? 8 : mediumWindowWidth ? 5 : smallWindowWidth ? 5 : 6
+        largeWindowWidth ? 7 : mediumWindowWidth ? 5 : smallWindowWidth ? 5 : 7
       }
     />
   );
@@ -198,6 +201,8 @@ const ContactForm = () => {
         <ContactFormEmailInput />
         <ContactFormPhoneInput />
       </div>
+      <ContactFormSubjectFormInput />
+
       <ContactFormMessageInput />
       <ActionBtn
         props={{

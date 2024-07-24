@@ -1,4 +1,7 @@
 import { QueryCommandOutput } from "@aws-sdk/client-dynamodb";
+import { z } from "zod";
+import parsePhoneNumber, { AsYouType } from "libphonenumber-js";
+
 export type Image = {
   pk: {
     googleResourceId: string;
@@ -94,3 +97,47 @@ export type HobbiesQueryProps = {
     dateTaken?: 1 | -1;
   };
 };
+
+export function isOnlyCountryCode(number: string) {
+  const currNumber = new AsYouType();
+  currNumber.input(number);
+  const nationalNumber = currNumber.getNationalNumber();
+  const result = nationalNumber.length > 0;
+  return !result;
+}
+export const ContactFormNameSchema = z.string().min(1, { message: "Name is required" });
+export const ContactFormSubjectSchema=z.string().min(1,{message:"Subject is required"})
+export const ContactFormPhoneSchema = z
+  .string()
+  .transform((arg) => (!isOnlyCountryCode(arg) ? arg : undefined))
+  .optional()
+  .refine(
+    (arg) => {
+      if (!arg) return true;
+      return parsePhoneNumber(arg)?.isValid();
+    },
+    {
+      message: "Invalid phone number",
+    }
+  );
+export const ContactFormEmailSchema = z.string().email({ message: "Invalid email address" });
+export const ContactFormMessageSchema = z
+  .string()
+  .min(10, { message: "Message should be >10 charaters long" });
+export const ContactFormSchema = z
+  .object({
+    name: ContactFormNameSchema,
+    email: ContactFormEmailSchema,
+    phone: ContactFormPhoneSchema,
+    contact_message_content: ContactFormMessageSchema,
+    subject:ContactFormSubjectSchema
+  })
+  .refine(
+    (arg) => {
+      return arg.email || arg.phone;
+    },
+    {
+      message: "Either email or phone number is required",
+    }
+);
+  export type ContactFormSchemaType = z.infer<typeof ContactFormSchema>;
