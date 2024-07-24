@@ -1,7 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { validate } from "email-validator";
 import { ContactFormSchemaType } from "../types/RestApiTypes";
-import { error } from "console";
 export type ContactMeInputProps = {
   sender: string;
   subject: string;
