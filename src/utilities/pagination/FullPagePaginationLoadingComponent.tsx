@@ -9,7 +9,7 @@ export const FullPagePaginationLoadingComponent = ({
   const mediumWidth = useWindowWidth(768);
   const largeWidth = useWindowWidth(992);
   return (
-    <Box className="flex justify-center w-full p-6 sm:p-10 lg:p-14">
+    <Box className="full-pg-loading-icon">
       <CircularProgress
         size={largeWidth ? "3.5rem" : mediumWidth ? "3rem" : "2.5rem"}
         ref={setRef}

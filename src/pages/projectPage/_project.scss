@@ -64,6 +64,12 @@ $namespace: "project-pg";
       text-transform: uppercase;
       color: v.$off-white;
     }
+    .full-pg-loading-icon{
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding-top: $project-pg-horizontal-spacing * 2;
+    }
   }
 
   ##{$namespace}-carousel {
