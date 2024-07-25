@@ -49,7 +49,7 @@ function DownloadButton({
         ref={linkRef}
         target="_blank"
         rel="noreferrer"
-        href=" "
+        href="#"
         download
         style={{ display: "none" }}
       />

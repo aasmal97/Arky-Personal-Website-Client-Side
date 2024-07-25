@@ -1,4 +1,3 @@
-import useElementSize from "../../../../hooks/useElementSize";
 import { useEffect } from "react";
 import anime from "animejs";
 import useWindowWidth from "../../../../hooks/useWindowWidth";
@@ -12,7 +11,7 @@ import LinkBtn from "../../../../utilities/actionBtn/LinkBtn";
 const namespace = "project-banner";
 const TextContent = () => {
   const { ref: textRef, isVisible } = useIntersectionWrapper();
-  const [squareRef, _] = useElementSize();
+  // const [squareRef, _] = useElementSize();
   const title = "Projects";
   useEffect(() => {
     if (isVisible)
@@ -30,7 +29,7 @@ const TextContent = () => {
     <div className={`${namespace}-text-content`}>
       <h2
         ref={(el) => {
-          squareRef(el);
+          // squareRef(el);
           textRef.current = el;
         }}
         aria-label={title}

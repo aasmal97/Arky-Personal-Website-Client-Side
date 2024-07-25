@@ -7,49 +7,6 @@ export type EducationInstitution = {
   placeholderURL: string;
   degree: string;
 };
-//const educationData: EducationInstitution[] = [];
-const Ellipse = ({
-  setRef,
-  orientation,
-  height,
-  heightUnit,
-  style,
-  maxHeight,
-}: {
-  setRef?: (node: HTMLDivElement | null) => void;
-  orientation: "top" | "bottom";
-  height: number;
-  heightUnit: string;
-  maxHeight?: string;
-  style?: { [key: string]: string };
-}) => {
-  const styles: {
-    [key: string]: string;
-  } = {
-    position: "absolute",
-    borderRadius: "50%",
-    width: "100%",
-    height: `${height}${heightUnit}`,
-    maxHeight: maxHeight ? maxHeight : "",
-    zIndex: "0",
-    ...style,
-  };
-
-  const position = `${height / 2}${heightUnit}`;
-  if (orientation === "top")
-    styles["top"] = maxHeight
-      ? `calc(max(-${position}, -${maxHeight}/2))`
-      : `-${position}`;
-  else
-    styles["bottom"] = maxHeight
-      ? `calc(max(-${position}, -${maxHeight}/2))`
-      : `-${position}`;
-  return (
-    <>
-      <div ref={setRef} style={styles} />
-    </>
-  );
-};
 const displayData = [
   {
     name: "P.S. 503",
@@ -118,10 +75,6 @@ const EducationBannerContent = () => {
   );
 };
 const EducationBanner = () => {
-  const mediumWindowWidth = useWindowWidth(992);
-  const ellipseHeight = 30;
-  const ellipseUnit = "vh";
-  const ellipseMaxHeight = !mediumWindowWidth ? "6em" : "8em";
   return (
     <div id={`${namespace}`}>
       <h2 id={`${namespace}-header`}>Education</h2>
@@ -130,16 +83,6 @@ const EducationBanner = () => {
           <EducationBannerContent />
         </div>
       </div>
-      {/* <Ellipse
-        maxHeight={ellipseMaxHeight}
-        heightUnit={ellipseUnit}
-        orientation="bottom"
-        height={ellipseHeight}
-        style={{
-          backgroundColor: "#2e2e2e",
-          zIndex: "1",
-        }}
-      /> */}
     </div>
   );
 };

@@ -39,7 +39,7 @@ const CircleBg = ({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [circleDiameter]);
   const circleCenterX = svgWidth / 2;
   const circleCenterY = svgHeight - 2 - (svgHeight * 0.98) / 2;
 

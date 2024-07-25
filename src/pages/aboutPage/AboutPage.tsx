@@ -7,7 +7,7 @@ const AboutPage = () => {
   const { setCurrTheme } = useNavbarTheme();
   useEffect(() => {
     if (setCurrTheme) setCurrTheme("color");
-  }, []);
+  }, [setCurrTheme]);
   return (
     <div id={`${namespace}`}>
       <IntroBanner />

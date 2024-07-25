@@ -20,6 +20,7 @@ const ContactDescription = ({ namespace }: { namespace: string }) => {
             className={`${namespace}-content-resume-link`}
             href={`${process.env.REACT_APP_MEDIA_FILES_URL}/homePg/ArkyAsmalCV.pdf`}
             target="_blank"
+            rel="noreferrer"
           >
             <div>View Resume</div>
             <ArrowOutward />
