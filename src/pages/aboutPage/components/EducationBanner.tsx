@@ -1,4 +1,3 @@
-import useWindowWidth from "../../../hooks/useWindowWidth";
 import LinkBtn from "../../../utilities/actionBtn/LinkBtn";
 const namespace = "about-pg-education";
 export type EducationInstitution = {
