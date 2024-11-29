@@ -49,10 +49,12 @@ function DownloadButton({
         ref={linkRef}
         target="_blank"
         rel="noreferrer"
-        href=" "
+        href={typeof data === "string" ? data : URL.createObjectURL(data)}
         download
         style={{ display: "none" }}
-      />
+      >
+        Download
+      </a>
     </>
   );
 }

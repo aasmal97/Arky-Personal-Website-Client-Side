@@ -29,7 +29,7 @@ export const AnimateHeaders = ({
     return () => {
       anime.remove(`.${namespace}-header .${namespace}-letter-${id}`);
     };
-  }, [id, isVisible]);
+  }, [id, isVisible, namespace]);
   const words = children.split(" ");
   const el = createElement(
     htmlTag,

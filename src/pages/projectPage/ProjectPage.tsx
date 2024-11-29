@@ -1,30 +1,28 @@
-import useElementSize, { Size } from "../../hooks/useElementSize";
 import Carousel from "../../utilities/carousel/Carousel";
 import GithubIcon from "../../utilities/icons/Github";
 import LazyImage from "../../utilities/lazyComponents/LazyImg";
 import WaveBg from "../../utilities/waveBg/WaveBg";
-import { ProjectDocument } from "../../utilities/types/RestApiTypes";
+import {
+  ProjectDocument,
+  ProjectQueryProps,
+} from "../../utilities/types/RestApiTypes";
 import { sortMixedStrings } from "../../helpers/sortMixedStrings";
 import useProjectDocs from "../../hooks/useProjectDocs";
 import seperateToWords from "../../helpers/seperateToWords";
-import LoadingIcon, {
-  LoadingIconCircleRotation,
-} from "../../utilities/loadingIcon/LoadingIcon";
+import { LoadingIconCircleRotation } from "../../utilities/loadingIcon/LoadingIcon";
 import { ComingSoonBanner } from "../../utilities/comingSoon/ComingSoonBanner";
 import useWindowWidth from "../../hooks/useWindowWidth";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import { LinkIcon } from "../../utilities/icons/LinkIcon";
-import { Button, createTheme, ThemeProvider } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { useNavbarTheme } from "../../hooks/useNavbarTheme";
 import ProjectItem from "../../utilities/projectItem/ProjectItem";
 import { AnimateHeaders } from "../../utilities/animateHeaders/animateHeaders";
 import { v4 as uuid } from "uuid";
-
+import PaginationWrapper from "../../utilities/pagination/PaginationWrapper";
+import FullPagePaginationLoadingComponent from "../../utilities/pagination/FullPagePaginationLoadingComponent";
+import { paginateProjectData } from "../../utilities/asyncActions/ProjectActions";
+import { SearchParamsProps } from "../../utilities/pagination/types";
 const uuidArr = Array(3)
   .fill(0)
   .map(() => uuid());
@@ -57,48 +55,6 @@ const waveStyles: { [key: string]: string } = {
   width: "100%",
   overflow: "hidden",
   zIndex: "0",
-};
-const calculateImgHeight = (waveHeight: number, headerHeight: number) => {
-  return (waveHeight - headerHeight) * 1.8;
-};
-
-const ProjectsPagination = ({
-  onPrev,
-  onNext,
-  prevStartKey,
-  startKey,
-}: {
-  onPrev: () => void;
-  onNext: () => void;
-  prevStartKey: string | null | undefined;
-  startKey: string | null;
-}) => {
-  return (
-    <div className={`${namespace}-pagination`}>
-      <Button
-        style={{ textTransform: "none" }}
-        variant="text"
-        className={`${namespace}-pagination-btns-prev`}
-        onClick={onPrev}
-        aria-label="previous"
-        disabled={typeof prevStartKey === "undefined"}
-      >
-        <FontAwesomeIcon icon={faChevronLeft} />
-        Prev
-      </Button>
-      <Button
-        style={{ textTransform: "none" }}
-        variant="text"
-        className={`${namespace}-pagination-btns-next`}
-        onClick={onNext}
-        aria-label="next"
-        disabled={!startKey}
-      >
-        Next
-        <FontAwesomeIcon icon={faChevronRight} />
-      </Button>
-    </div>
-  );
 };
 const ProjectUrls = ({
   githubURL,
@@ -161,11 +117,9 @@ const ProjectSlideTextContent = ({ slide }: { slide: ProjectDocument }) => {
 export const ProjectSlide = ({
   slide,
   namespace = "project-pg",
-  responsive,
 }: {
   slide: ProjectDocument;
   namespace?: string;
-  responsive?: boolean;
 }) => {
   const sortedImages = slide.images
     ? sortMixedStrings(slide.images, "name")
@@ -190,13 +144,7 @@ export const ProjectSlide = ({
     </>
   );
 };
-const ExploreAllBanner = ({
-  slides,
-  status,
-}: {
-  slides: ProjectDocument[];
-  status: "loading" | "success" | "failed";
-}) => {
+const ExploreAllBanner = ({ slides }: { slides: ProjectDocument[] }) => {
   const smallWindowWidth = useWindowWidth(576);
   return (
     <>
@@ -208,38 +156,22 @@ const ExploreAllBanner = ({
         Explore
       </AnimateHeaders>
       <div id={`${namespace}-explore-more`}>
-        {status === "success" &&
-          slides.map((slide, idx) => {
-            return (
-              <ProjectItem
-                key={slide.id}
-                data={slide}
-                slim={false}
-                imgOrientation={idx % 2 === 0 ? "left" : "right"}
-                smallWindowWidth={smallWindowWidth}
-              />
-            );
-          })}
-        {status === "loading" && (
-          <LoadingIcon
-            primaryFillColor={"#3AC2FF"}
-            secondaryFillColor={"#909090"}
-            faceFillColor={"#2e2e2e"}
-            strokeColor={"#2e2e2e"}
-            backgroundArmColor={"#2e2e2e"}
-            laptopLogoColor={"white"}
-            textColor={"white"}
-            width="40%"
-            background={{ color: "black" }}
-            center
-          />
-        )}
+        {slides.map((slide, idx) => {
+          return (
+            <ProjectItem
+              key={slide.id}
+              data={slide}
+              slim={false}
+              imgOrientation={idx % 2 === 0 ? "left" : "right"}
+              smallWindowWidth={smallWindowWidth}
+            />
+          );
+        })}
       </div>
     </>
   );
 };
-const ProjectPageIntroSlides = ({ waveSize }: { waveSize: Size }) => {
-  const smallWindowWidth = useWindowWidth(576);
+const ProjectPageIntroSlides = () => {
   const countPerPage = 9;
   const { slides: presentationSlides, status: presentationSlidesStatus } =
     useProjectDocs({
@@ -274,43 +206,60 @@ const ProjectPageIntroSlides = ({ waveSize }: { waveSize: Size }) => {
     </div>
   );
 };
+const countPerPage = 9;
+const defaultParams: Partial<ProjectQueryProps & SearchParamsProps> = {
+  recordType: "projects",
+  sortBy: {
+    startDate: -1,
+  },
+};
 const ProjectPageBody = memo(() => {
-  const countPerPage = 9;
-  const { slides, prevStartKey, startKey, status, previousPage, nextPage } =
-    useProjectDocs({
-      countPerPage,
-      saveQueryInParams: true,
-    });
+  const [defaultData, setDefaultData] = useState<{
+    items: ProjectDocument[];
+    newStartKey?: string | null;
+  } | null>(null);
+  useEffect(() => {
+    paginateProjectData({ ...defaultParams, take: countPerPage }).then(
+      (data) => {
+        if (data) setDefaultData(data);
+      }
+    );
+  }, []);
   return (
-    <>
-      <ExploreAllBanner slides={slides} status={status} />
-      {/* <ProjectsPagination
-        startKey={startKey}
-        prevStartKey={prevStartKey}
-        onNext={nextPage}
-        onPrev={previousPage}
-      /> */}
-    </>
+    <PaginationWrapper
+      paginate={paginateProjectData}
+      take={countPerPage}
+      defaultData={defaultData}
+      defaultParams={defaultParams}
+      loadingComponent={(ref) => (
+        <FullPagePaginationLoadingComponent setRef={ref} />
+      )}
+    >
+      {(props) => (
+        <>
+          <ExploreAllBanner slides={props.data?.items || []} />
+        </>
+      )}
+    </PaginationWrapper>
   );
 });
 const ProjectPage = () => {
-  const [waveRef, waveSize] = useElementSize();
-  // const [headerRef, headerSize] = useElementSize();
   const { setCurrTheme } = useNavbarTheme();
   useEffect(() => {
     if (setCurrTheme) setCurrTheme("color");
-  }, []);
+  }, [setCurrTheme]);
   return (
     <ThemeProvider theme={materialUITheme}>
       <div id={`${namespace}`}>
-        <div ref={waveRef} id={`${namespace}-wave-bg`} style={waveStyles}>
+        <div id={`${namespace}-wave-bg`} style={waveStyles}>
           <WaveBg id="project-wave" />
         </div>
         <div id={`${namespace}-inner`}>
           <AnimateHeaders namespace={namespace} htmlTag="h2" id={uuidArr[0]}>
             Projects
           </AnimateHeaders>
-          <ProjectPageIntroSlides waveSize={waveSize} />
+          <ProjectPageIntroSlides />
+
           <ProjectPageBody />
         </div>
       </div>

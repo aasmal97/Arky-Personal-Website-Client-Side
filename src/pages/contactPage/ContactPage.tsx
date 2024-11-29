@@ -28,7 +28,7 @@ const ContactPage = () => {
   const { setCurrTheme } = useNavbarTheme();
   useEffect(() => {
     if (setCurrTheme) setCurrTheme("dark");
-  }, []);
+  }, [setCurrTheme]);
   return (
     <ThemeProvider theme={materialUITheme}>
       <div id={`${namespace}`}>

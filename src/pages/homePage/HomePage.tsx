@@ -8,7 +8,7 @@ const HomePage = () => {
   const { setCurrTheme } = useNavbarTheme();
   useEffect(() => {
     if (setCurrTheme) setCurrTheme("dark");
-  }, []);
+  }, [setCurrTheme]);
   return (
     <div className={"home-pg-container"}>
       <IntroBanner />
