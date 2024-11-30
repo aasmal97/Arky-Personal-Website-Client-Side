@@ -101,7 +101,7 @@ const ProjectSection = () => {
           className={`${namespace}-loading-dots`}
           nested={false}
           durationInterval={500}
-          textColor="#3AC2FF"
+          textColor="#ff5050"
           width="20%"
           center
         />
