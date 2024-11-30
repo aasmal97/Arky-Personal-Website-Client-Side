@@ -141,14 +141,13 @@ const Footer = memo(() => {
         <div id={`${namespace}-bottom-footer`}>
           <span>Built using React and SCSS. Hosted on AWS</span>
           <span>
-            Source code is{" "}
             <a
               target="_blank"
               href="https://github.com/aasmal97/Personal-Website"
               rel="noopener noreferrer"
               aria-label="View Source code on Githib"
             >
-              here
+              View source code
             </a>
           </span>
           <span>By Arky Asmal</span>

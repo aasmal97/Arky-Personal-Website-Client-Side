@@ -1,13 +1,12 @@
-@use "../../../public/variables" as v;
+@use "../../../public/variables"as v;
 $namespace: "footer";
-@mixin footer(
-  $footer-description-font-size: 1.5rem,
+
+@mixin footer($footer-description-font-size: 1.5rem,
   $footer-row-font-size: 1.125rem,
   $footer-row-data-font-size: 1.75rem,
   $footer-item-spacing: 1.5rem,
   $footer-horizontal-spacing: 2.25rem,
-  $footer-vertical-spacing: 2.25rem
-) {
+  $footer-vertical-spacing: 2.25rem) {
   ##{$namespace} {
     display: flex;
     width: 100%;
@@ -22,51 +21,62 @@ $namespace: "footer";
     border-top: 1px solid v.$light-black;
     z-index: 1;
   }
+
   ##{$namespace}-inner {
     flex-direction: column;
     display: flex;
     width: 100%;
     align-items: center;
     font-size: $footer-description-font-size;
-    & > * {
+
+    &>* {
       margin-bottom: $footer-item-spacing;
+
       &:last-child {
         margin-bottom: 0;
       }
     }
-    & > span {
+
+    &>span {
       display: flex;
       justify-content: center;
       text-align: center;
       line-height: 1.625em;
     }
   }
+
   .#{$namespace}-rows {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
   .#{$namespace}-row-container {
     display: flex;
     align-items: center;
     text-decoration: none;
     margin-bottom: $footer-item-spacing;
-    & > svg {
+
+    &>svg {
       width: 2em;
     }
+
     &:last-child {
       margin-bottom: 0;
-      & > svg {
+
+      &>svg {
         width: 2em;
       }
     }
   }
+
   .#{$namespace}-row-container-inner {
     width: 100%;
     display: flex;
     text-decoration: none;
   }
+
   .#{$namespace}-row-item {
     font-size: $footer-row-font-size;
     display: flex;
@@ -91,12 +101,14 @@ $namespace: "footer";
         font-weight: 600;
         color: v.$yellow;
         margin-right: 0.2em;
+
         svg {
           width: 0.6em;
           height: 0.6em;
           margin-right: 0.2em;
         }
       }
+
       &:last-child {
         font-weight: 400;
         color: v.$gray;
@@ -104,6 +116,7 @@ $namespace: "footer";
       }
     }
   }
+
   ##{$namespace}-bottom-footer {
     display: flex;
     flex-direction: column;
@@ -111,6 +124,7 @@ $namespace: "footer";
     width: 100%;
     text-align: center;
     $spacing: 1em;
+
     span {
       // display: flex;
       // justify-content: center;
@@ -118,8 +132,10 @@ $namespace: "footer";
       line-height: 1.625em;
       padding-top: $footer-item-spacing;
     }
+
     span:first-child {
       position: relative;
+
       &:after {
         $line-width: 100%;
         position: absolute;
@@ -131,13 +147,16 @@ $namespace: "footer";
         background-color: v.$light-black;
       }
     }
+
     span:last-child {
-      color: v.$gray; 
+      color: v.$gray;
       font-size: 0.85em;
       // font-weight: 600;
     }
+
     a {
       margin-left: 0.05em;
+      font-size: 0.85em;
       text-decoration: none;
       color: v.$yellow;
       padding-top: 0.1em;
