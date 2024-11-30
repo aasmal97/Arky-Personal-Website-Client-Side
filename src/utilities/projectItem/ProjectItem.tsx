@@ -27,7 +27,7 @@ const ProjectTopic = ({ topic }: { topic: string }) => {
   );
 };
 const ProjectTitle = ({ title }: { title: string }) => {
-  return <h4 className={`${namespace}-title`}>{seperateToWords(title)}</h4>;
+  return <h2 className={`${namespace}-title`}>{seperateToWords(title)}</h2>;
 };
 const ProjectDescription = ({ description }: { description: string }) => {
   return <p className={`${namespace}-description`}>{description}</p>;
