@@ -146,6 +146,7 @@ const Footer = memo(() => {
               target="_blank"
               href="https://github.com/aasmal97/Personal-Website"
               rel="noopener noreferrer"
+              aria-label="View Source code on Githib"
             >
               here
             </a>

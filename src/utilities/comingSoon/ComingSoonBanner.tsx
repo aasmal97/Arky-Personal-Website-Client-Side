@@ -52,10 +52,10 @@ export const ComingSoonBanner = memo(
               />
             </div>
 
-            <h6 style={subTitleStyles}>
+            <p style={subTitleStyles}>
               This project is still a work in progress. Check back periodically
               to see if it's ready for production!
-            </h6>
+            </p>
           </div>
         </div>
       </div>

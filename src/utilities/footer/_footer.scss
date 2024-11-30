@@ -132,14 +132,17 @@ $namespace: "footer";
       }
     }
     span:last-child {
-      color: v.$dark-gray; 
+      color: v.$gray; 
       font-size: 0.85em;
-      font-weight: 600;
+      // font-weight: 600;
     }
     a {
       margin-left: 0.05em;
       text-decoration: none;
       color: v.$yellow;
+      padding-top: 0.1em;
+      border-bottom: 1px solid v.$yellow;
+      padding-bottom: 0.1em;
     }
   }
 }
