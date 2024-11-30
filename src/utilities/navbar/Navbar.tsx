@@ -153,6 +153,7 @@ const Navbar = () => {
           href="https://www.linkedin.com/in/arky-asmal"
           target="_blank"
           rel="noreferrer noopener"
+          aria-label="Open up Arky's LinkedIn"
         >
           <LinkedIn />
         </a>
