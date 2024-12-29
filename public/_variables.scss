@@ -11,6 +11,7 @@ $dark-yellow: #d47c00;
 $dark-blue: #0068e0;
 $gray: #afafaf;
 $dark-gray: #a6a6a6;
+$off-darker-gray: #6E6E6E;
 $darker-gray: #6b6b6b;
 $lightest-gray: #c5c5c5;
 $lighter-black: #5a5a5a;
@@ -207,8 +208,8 @@ $max-width: 1500px;
   }
 }
 
-@mixin sticky-label($font-size) {
-  color: $lighter-black;
+@mixin sticky-label($font-size, $color:$off-darker-gray) {
+  color: $color;
   font-weight: 500;
   text-transform: uppercase;
   font-size: $font-size;
