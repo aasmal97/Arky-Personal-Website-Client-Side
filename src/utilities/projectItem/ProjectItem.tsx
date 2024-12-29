@@ -1,4 +1,5 @@
 import { Chip } from "@mui/material";
+import SlideshowIcon from "@mui/icons-material/Slideshow";
 import seperateToWords from "../../helpers/seperateToWords";
 import { sortMixedStrings } from "../../helpers/sortMixedStrings";
 import Carousel from "../carousel/Carousel";
@@ -34,38 +35,49 @@ const ProjectDescription = ({ description }: { description: string }) => {
 };
 const ProjectActionBtns = ({
   githubURL,
+  slideDeckURL,
   projectURL,
 }: {
+  slideDeckURL?: string;
   githubURL?: string;
   projectURL?: string;
-}) => {
-  return (
-    <div className={`${namespace}-action-btns`}>
-      <a
-        className={`${namespace}-project-url`}
-        href={githubURL}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div>
-          <GithubIcon />
-        </div>
-        <div>Repo</div>
-      </a>
-      <a
-        className={`${namespace}-project-url`}
-        href={projectURL ? projectURL : githubURL}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div>
-          <LinkIcon linkColor="#f2f2f2" background={{ color: "transparent" }} />
-        </div>
-        <div>Deploy</div>
-      </a>
-    </div>
-  );
-};
+  }) => {
+    return (
+      <div className={`${namespace}-action-btns`}>
+        <a
+          className={`${namespace}-project-url`}
+          href={githubURL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="open-github-repo"
+        >
+          <div>
+            {!slideDeckURL && githubURL && <GithubIcon />}
+            {slideDeckURL && <SlideshowIcon />}
+          </div>
+          <div>
+            {!slideDeckURL && githubURL && "Repo"}
+            {slideDeckURL && "Slides"}
+          </div>
+        </a>
+        <a
+          className={`${namespace}-project-url`}
+          href={projectURL ? projectURL : githubURL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="open-project-url"
+        >
+          <div>
+            <LinkIcon
+              linkColor="#f2f2f2"
+              background={{ color: "transparent" }}
+            />
+          </div>
+          <div>Deploy</div>
+        </a>
+      </div>
+    );
+  };
 const ProjectImageBanner = ({
   images,
 }: {

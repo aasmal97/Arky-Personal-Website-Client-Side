@@ -43,7 +43,7 @@ $namespace: "project-pg";
   ##{$namespace}-wave-bg {
     height: $project-wave-bg-height;
     #wave-bg-rotate-wave-project-wave {
-      background: v.$light-red;
+      background: v.$off-red;
     }
   }
   ##{$namespace}-inner {
@@ -216,9 +216,9 @@ $namespace: "project-pg";
     width: 1.625em;
     background-color: v.$off-black;
     aspect-ratio: 1/1;
-    color: v.$black;
+    color: v.$lightest-gray;
     &:last-child {
-      background-color: v.$light-red;
+      background-color: v.$off-red;
       & > svg {
         fill: v.$off-white;
       }

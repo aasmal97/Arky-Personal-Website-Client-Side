@@ -23,6 +23,8 @@ import PaginationWrapper from "../../utilities/pagination/PaginationWrapper";
 import FullPagePaginationLoadingComponent from "../../utilities/pagination/FullPagePaginationLoadingComponent";
 import { paginateProjectData } from "../../utilities/asyncActions/ProjectActions";
 import { SearchParamsProps } from "../../utilities/pagination/types";
+import SlideshowIcon from "@mui/icons-material/Slideshow";
+
 const uuidArr = Array(3)
   .fill(0)
   .map(() => uuid());
@@ -57,12 +59,14 @@ const waveStyles: { [key: string]: string } = {
   zIndex: "0",
 };
 const ProjectUrls = ({
+  slideDeckURL,
   githubURL,
   appURL,
 }: {
+  slideDeckURL?: string;
   githubURL?: string;
   appURL?: string;
-}) => {
+  }) => {
   return (
     <>
       <a
@@ -70,14 +74,17 @@ const ProjectUrls = ({
         href={githubURL}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="open-github-repo"
       >
-        <GithubIcon />
+        {!slideDeckURL && githubURL && <GithubIcon />}
+        {slideDeckURL && <SlideshowIcon />}
       </a>
       <a
         className={`${namespace}-project-url`}
         href={appURL ? appURL : githubURL}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="open-project-url"
       >
         <LinkIcon />
       </a>
@@ -232,7 +239,7 @@ const ProjectPageBody = memo(() => {
       defaultData={defaultData}
       defaultParams={defaultParams}
       loadingComponent={(ref) => (
-        <FullPagePaginationLoadingComponent setRef={ref} />
+        <FullPagePaginationLoadingComponent setRef={ref} ariaLabel="loading-more-project-items"/>
       )}
     >
       {(props) => (
