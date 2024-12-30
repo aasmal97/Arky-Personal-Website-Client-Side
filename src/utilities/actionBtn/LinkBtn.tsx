@@ -1,5 +1,5 @@
 import { ArrowOutward } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const LinkBtn = ({
   children,

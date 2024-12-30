@@ -109,7 +109,7 @@ $namespace: "project-banner";
     padding-right: $featured-container-padding-right;
     box-sizing: border-box;
     & > .sticky-label {
-      @include v.sticky-label($sticky-label-font-size, v.$off-darker-gray);
+      @include v.sticky-label($sticky-label-font-size, v.$off-dark-gray);
     }
   }
   .#{$namespace}-featured-container {

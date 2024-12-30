@@ -1,5 +1,5 @@
 import { Avatar, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { HashLink } from "react-router-hash-link";
 import useWindowWidth from "../../hooks/useWindowWidth";
 import Drawer from "../drawer/Drawer";

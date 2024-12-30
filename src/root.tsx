@@ -1,5 +1,4 @@
-import { Outlet } from "react-router-dom";
-import { ScrollRestoration } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router";
 import Navbar from "./utilities/navbar/Navbar";
 import Footer from "./utilities/footer/Footer";
 import { NavbarThemeProvider } from "./hooks/useNavbarTheme";

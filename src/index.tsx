@@ -5,7 +5,7 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
-} from "react-router-dom";
+} from "react-router";
 import reportWebVitals from "./reportWebVitals";
 import Root from "./root";
 import LoadingIcon from "./utilities/loadingIcon/LoadingIcon";
@@ -68,7 +68,7 @@ const router = createBrowserRouter(
       <Root />
     }>
       <Route index element={<HomePage />} />
-      <Route path="home/*" element={<HomePage />} />
+      <Route path="home" element={<HomePage />} />
       <Route path="projects" element={<ProjectPage />} />
       <Route path="about" element={<AboutPage />} />
       <Route path="contact" element={<ContactPage />} />
