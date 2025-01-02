@@ -1,0 +1,91 @@
+---
+import { SEO, type Props as SEOProps } from "astro-seo";
+import AppLayout from "../components/layout";
+import FallbackElement from "../components/utilities/fallbackEl/fallback";
+interface Props {
+  seo?: SEOProps;
+}
+const props = Astro.props;
+const seo = props.seo || {};
+const title = seo.title ?? "Arky's Portfolio";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon/favicon-32x32.png"
+    />
+    <link
+      rel="mask-icon"
+      href="./favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon/favicon-16x16.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin="anonymous"
+    />
+    <link rel="manifest" href="./manifest.json" />
+    <link
+      rel="preload"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet'"
+    />
+    <link
+      rel="preload"
+      href="./main.css"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet'"
+    />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;700;900&family=Tinos:wght@400;700&display=swap"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet'"
+    />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..700;1,300..700&display=swap"
+      as="style"
+      onload="this.onload=null; this.rel='stylesheet'"
+    />
+    <SEO {...seo} title={title} />
+  </head>
+  <body style="height: auto;">
+    <div id="root">
+      <AppLayout client:only="react">
+        <div slot="fallback"><FallbackElement client:load /></div>
+        <slot />
+      </AppLayout>
+    </div>
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

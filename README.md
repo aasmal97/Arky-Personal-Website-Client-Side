@@ -24,7 +24,7 @@ This app uses a series of dependencies and you can check the list in the followi
 #### Build 
 This project uses doppler to manage enviroment secrets, therefore, for full functionality, you must request access to frontend doppler secrets for this project prior to starting this project on your local machine. 
 
-1. To start this project, run ```npm start```
+1. To start this project, run ```npm run dev```
 2. To build this project, run ```npm build```
 
 #### Deployment

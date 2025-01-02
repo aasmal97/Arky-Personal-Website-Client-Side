@@ -1,0 +1,42 @@
+@use "../../../../public/variables" as v;
+@use "./components/education" as education;
+@use "./components/introBanner" as intro;
+$namespace: "about-pg";
+
+@mixin about-pg(
+  $intro-wave-bg-height: 48rem,
+  $main-heading-font-size: 6.75rem,
+  $intro-container-horizontal-spacing: 2.25rem,
+  $intro-img-height: 40rem,
+  $intro-img-vertical-spacing: 4.5rem,
+  $intro-banner-font-size: 1.375rem,
+
+  $edu-heading-font-size: 4rem,
+  $edu-container-spacing: 4.5rem,
+  $edu-grid-row-spacing: 3.5rem,
+  $edu-grid-item-size: 12.5rem,
+  $edu-action-description-font-size: 1.5rem,
+  $edu-action-btn-font-size: 2.25rem
+) {
+  ##{$namespace} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @include intro.intro-banner(
+    $intro-wave-bg-height,
+    $main-heading-font-size,
+    $intro-container-horizontal-spacing,
+    $intro-img-height,
+    $intro-img-vertical-spacing,
+    $intro-banner-font-size
+  );
+  @include education.education-banner(
+    $edu-heading-font-size,
+    $edu-container-spacing,
+    $edu-grid-row-spacing,
+    $edu-grid-item-size,
+    $edu-action-description-font-size,
+    $edu-action-btn-font-size
+  );
+}
