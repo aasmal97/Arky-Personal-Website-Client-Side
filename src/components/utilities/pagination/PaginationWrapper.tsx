@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import {
+import type {
   PaginationWrapperProps,
   PaginationProviderProps,
   SearchParamsProps,

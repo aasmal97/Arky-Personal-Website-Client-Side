@@ -20,8 +20,10 @@ $namespace: "about-pg-education";
   ##{$namespace}-header {
     align-self: center;
     color: v.$light-red;
-    margin-bottom: $edu-container-spacing;
     @include v.section-heading($edu-heading-font-size, $width: auto);
+  }
+  h2##{$namespace}-header {
+    margin-bottom: $edu-container-spacing;
   }
   ##{$namespace}-container {
     position: relative;

@@ -6,7 +6,6 @@ export type EducationInstitution = {
   placeholderURL: string;
   degree: string;
 };
-console.log(process.env)
 const displayData = [
   {
     name: "P.S. 503",

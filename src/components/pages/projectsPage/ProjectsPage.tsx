@@ -255,6 +255,7 @@ const ProjectPage = () => {
   useEffect(() => {
     if (setCurrTheme) setCurrTheme("color");
   }, [setCurrTheme]);
+  
   return (
     <ThemeProvider theme={materialUITheme}>
       <div id={`${namespace}`}>
