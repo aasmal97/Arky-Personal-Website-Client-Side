@@ -61,6 +61,11 @@ $namespace: a.$namespace;
     align-self: center;
     margin-top: 2.5rem;
   }
+  .#{$namespace}-action-btns {
+    & > a {
+      justify-content: center;
+    }
+  }
 }
 @mixin about-hover {
   .#{$namespace}-action-btns {
