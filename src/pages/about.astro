@@ -1,10 +1,27 @@
 ---
+import { generateMetaTags } from "../components/generateMetaTags";
 import AboutPage from "../components/pages/aboutPage/AboutPage.astro";
 import Layout from "../layouts/Layout.astro";
+const siteName = "Arky's Portfolio";
+const currentPage = "About Me";
+const title = `${currentPage} | ${siteName}`;
+const description =
+  "Hi, I'm Arky! I have a strong foundation in frontend & backend web development, and have been growing my cloud & data analytics knowledge over the years. I have worked extensively with a variety of frontend, backend, testing, & data libraries to implement various solutions. I have also worked with collection of CI/CD tools & databases, but despite that, I’m always excited to learn more. After all, I’m a firm believer that life is story of continuous learning";
+const url = Astro.url;
+const profileImg = `${process.env.REACT_APP_MEDIA_FILES_URL}/appLogo.jpg`;
+const seo = generateMetaTags({
+  title,
+  siteName,
+  description,
+  site: url.toString(),
+  image: profileImg,
+  imageAlt: "Profile Photo of Arky Asmal",
+  determiner: currentPage,
+});
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout defaultTheme="color">
+<Layout defaultTheme="color" seo={seo}>
   <AboutPage />
 </Layout>

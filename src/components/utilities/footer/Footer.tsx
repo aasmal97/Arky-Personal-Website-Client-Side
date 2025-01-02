@@ -139,7 +139,7 @@ const Footer = memo(() => {
         </div>
 
         <div id={`${namespace}-bottom-footer`}>
-          <span>Built using React and SCSS. Hosted on AWS</span>
+          <span>Built using Astro, React & SCSS. Hosted on AWS</span>
           <span>
             <a
               target="_blank"
