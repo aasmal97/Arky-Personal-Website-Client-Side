@@ -15,7 +15,6 @@ import useWindowWidth from "../../hooks/useWindowWidth";
 import { memo, useEffect, useState } from "react";
 import { LinkIcon } from "../../utilities/icons/LinkIcon";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { useNavbarTheme } from "../../hooks/useNavbarTheme";
 import ProjectItem from "../../utilities/projectItem/ProjectItem";
 import { AnimateHeaders } from "../../utilities/animateHeaders/animateHeaders";
 import { v4 as uuid } from "uuid";
@@ -251,11 +250,6 @@ const ProjectPageBody = memo(() => {
   );
 });
 const ProjectPage = () => {
-  const { setCurrTheme } = useNavbarTheme();
-  useEffect(() => {
-    if (setCurrTheme) setCurrTheme("color");
-  }, [setCurrTheme]);
-  
   return (
     <ThemeProvider theme={materialUITheme}>
       <div id={`${namespace}`}>

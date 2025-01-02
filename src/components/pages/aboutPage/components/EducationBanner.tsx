@@ -56,7 +56,7 @@ const EducationDisplay = () => {
     </div>
   );
 };
-const EducationAction = () => {
+export const EducationAction = () => {
   return (
     <div id={`${namespace}-action`}>
       <div>Interested in working together?</div>
@@ -65,21 +65,25 @@ const EducationAction = () => {
   );
 };
 
-const EducationBannerContent = () => {
+export const EducationBannerContent = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   return (
     <>
       <EducationDisplay />
-      <EducationAction />
+      {children}
     </>
   );
 };
-const EducationBanner = () => {
+const EducationBanner = ({ children }: { children: React.ReactNode }) => {
   return (
     <div id={`${namespace}`}>
       <h2 id={`${namespace}-header`}>Education</h2>
       <div id={`${namespace}-container`}>
         <div id={`${namespace}-container-inner`}>
-          <EducationBannerContent />
+          <EducationBannerContent>{children}</EducationBannerContent>
         </div>
       </div>
     </div>

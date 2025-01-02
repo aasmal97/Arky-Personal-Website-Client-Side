@@ -9,6 +9,15 @@ export default defineConfig({
   site: "https://arkyasmal.com",
   integrations: [react(), sitemap()],
   vite: {
+    resolve: {
+      alias: {
+        // alias icons to their ESM version
+        "@mui/icons-material": "@mui/icons-material/esm",
+      },
+    },
+    ssr: {
+      noExternal: /@mui\/.*?/,
+    },
     define: {
       "process.env": JSON.stringify(secrets),
     },

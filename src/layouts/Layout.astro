@@ -2,8 +2,10 @@
 import { SEO, type Props as SEOProps } from "astro-seo";
 import AppLayout from "../components/layout";
 import FallbackElement from "../components/utilities/fallbackEl/fallback";
+import type { NavbarTheme } from "../components/hooks/useNavbarTheme";
 interface Props {
   seo?: SEOProps;
+  defaultTheme?: NavbarTheme;
 }
 const props = Astro.props;
 const seo = props.seo || {};
@@ -75,7 +77,7 @@ const title = seo.title ?? "Arky's Portfolio";
   </head>
   <body style="height: auto;">
     <div id="root">
-      <AppLayout client:only="react">
+      <AppLayout defaultTheme={props.defaultTheme} client:only="react">
         <div slot="fallback"><FallbackElement client:load /></div>
         <slot />
       </AppLayout>

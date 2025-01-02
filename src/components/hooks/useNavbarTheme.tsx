@@ -9,12 +9,13 @@ const NavbarThemeContext = createContext<{
   setCurrTheme: null,
 });
 export const NavbarThemeProvider = ({
+  defaultTheme = "dark",
   children,
 }: {
+  defaultTheme?: NavbarTheme;
   children: React.ReactNode;
 }) => {
-  const [currTheme, setCurrTheme] = useState<NavbarTheme>("dark");
-
+  const [currTheme, setCurrTheme] = useState<NavbarTheme>(defaultTheme);
   return (
     <NavbarThemeContext.Provider
       value={{
@@ -27,6 +28,6 @@ export const NavbarThemeProvider = ({
   );
 };
 export const useNavbarTheme = () => {
-    const context = useContext(NavbarThemeContext);
-    return context
+  const context = useContext(NavbarThemeContext);
+  return context;
 };
