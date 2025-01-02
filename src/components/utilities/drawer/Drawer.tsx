@@ -123,61 +123,57 @@ const Drawer = ({
       if (timeout) clearTimeout(timeout);
     };
   }, [open, scrollbarWidth, animationTime]);
-  try {
-    createPortal(
-      <Transition
-        nodeRef={nodeRef}
-        in={open}
-        timeout={animationTime}
-        //   mountOnEnter
-        //   unmountOnExit
-      >
-        {(state) => (
+  return createPortal(
+    <Transition
+      nodeRef={nodeRef}
+      in={open}
+      timeout={animationTime}
+      //   mountOnEnter
+      //   unmountOnExit
+    >
+      {(state) => (
+        <div
+          ref={nodeRef}
+          id={id}
+          className={`drawer-container MuiPaper-root ${
+            className ? className : ""
+          }`}
+          style={{
+            ...overallContainerStyles,
+            ...overallTransitionStyles[state],
+          }}
+        >
           <div
-            ref={nodeRef}
-            id={id}
-            className={`drawer-container MuiPaper-root ${
-              className ? className : ""
-            }`}
             style={{
-              ...overallContainerStyles,
-              ...overallTransitionStyles[state],
+              width: "100%",
+              height: "100%",
+              position: "relative",
             }}
           >
-            <div
+            <button
               style={{
-                width: "100%",
-                height: "100%",
-                position: "relative",
+                ...buttonContainerStyles,
+                ...buttonContainerTransitionStyles[state],
               }}
+              onClick={onClose}
+              aria-label="close-drawer"
+            ></button>
+            <div
+              ref={setRef}
+              style={{
+                ...innerDrawerContainerStyles,
+                ...innerTransitionStyles[state],
+              }}
+              className="drawer-content MuiPaper-root"
             >
-              <button
-                style={{
-                  ...buttonContainerStyles,
-                  ...buttonContainerTransitionStyles[state],
-                }}
-                onClick={onClose}
-                aria-label="close-drawer"
-              ></button>
-              <div
-                ref={setRef}
-                style={{
-                  ...innerDrawerContainerStyles,
-                  ...innerTransitionStyles[state],
-                }}
-                className="drawer-content MuiPaper-root"
-              >
-                {children}
-              </div>
+              {children}
             </div>
-            {children}
           </div>
-        )}
-      </Transition>,
-      document.body
-    );
-  } catch (err) {
-    return <></>;
-  }
+          {children}
+        </div>
+      )}
+    </Transition>,
+    document.body
+  );
 };
 export default Drawer;
