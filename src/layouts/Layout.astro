@@ -75,7 +75,7 @@ const title = seo.title ?? "Arky's Portfolio";
     />
     <SEO {...seo} title={title} />
   </head>
-  <body style="height: auto;">
+  <body style="height: auto; width: auto">
     <div id="root">
       <AppLayout defaultTheme={props.defaultTheme} client:only="react">
         <div slot="fallback"><FallbackElement client:load /></div>
