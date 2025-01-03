@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-// import { useSearchParams } from "react-router";
 import { unstable_batchedUpdates } from "react-dom";
 import type {
   ProjectDocument,
