@@ -1,0 +1,12 @@
+---
+import IntroBanner from "./components/IntroBanner";
+import EducationBanner, { EducationAction } from "./components/EducationBanner";
+const namespace = "about-pg";
+---
+
+<div id={`${namespace}`}>
+  <IntroBanner client:only="react" />
+  <EducationBanner client:load>
+    <EducationAction client:only />
+  </EducationBanner>
+</div>

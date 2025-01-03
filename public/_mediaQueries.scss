@@ -1,8 +1,8 @@
-@use "../src/utilities/utilitiesBreakpoints" as util;
-@use "../src/pages/homePage/homePageBreakpoints" as home;
-@use "../src/pages/aboutPage/aboutBreakpoints" as about;
-@use "../src/pages/projectPage/projectBreakpoints" as projects;
-@use "../src/pages/contactPage/contactPageBreakpoints" as contact;
+@use "../src/components/utilities/utilitiesBreakpoints" as util;
+@use "../src/components/pages/homePage/homePageBreakpoints" as home;
+@use "../src/components/pages/aboutPage/aboutBreakpoints" as about;
+@use "../src/components/pages/projectsPage/projectBreakpoints" as projects;
+@use "../src/components/pages/contactPage/contactPageBreakpoints" as contact;
 @media (min-width: 1200px) {
   @include util.utilities-xxl;
   @include home.home-xxl;
