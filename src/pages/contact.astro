@@ -1,0 +1,27 @@
+---
+import { generateMetaTags } from "../components/generateMetaTags";
+import ContactPage from "../components/pages/contactPage/ContactPage";
+import Layout from "../layouts/Layout.astro";
+const siteName = "Arky's Portfolio";
+const currentPage = "Contact Me";
+const title = `${currentPage} | ${siteName}`;
+const description =
+  "Connect with Arky today, and take the first step towards improving & creating any software idea. Whether you're looking for a consultation, project inquiry, or technical assistance, he's here to help. Reach out via email, or use the contact form & let's start exploring solutions";
+const url = Astro.url;
+const profileImg = `${process.env.REACT_APP_MEDIA_FILES_URL}/appLogo.jpg`;
+const seo = generateMetaTags({
+  title,
+  siteName,
+  description,
+  site: url.toString(),
+  image: profileImg,
+  imageAlt: "Profile Photo of Arky Asmal",
+  determiner: currentPage,
+});
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout seo={seo}>
+  <ContactPage client:only="react" />
+</Layout>

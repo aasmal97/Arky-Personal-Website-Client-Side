@@ -1,0 +1,139 @@
+@use "../../../../public/variables" as v;
+@use "./navbar" as n;
+$namespace: n.$namespace;
+@mixin navbar-xxl {
+  @include n.navbar;
+}
+@mixin navbar-xl {
+  @include n.navbar;
+}
+@mixin navbar-lg {
+  @include n.navbar(
+    $navbar-height: 4.8rem,
+    $link-font-size: 1.3rem,
+    $navbar-spacing: 1rem
+  );
+}
+
+@mixin navbar-md {
+  @include n.navbar(
+    $navbar-height: 4.5rem,
+    $link-font-size: 1.2rem,
+    $navbar-spacing: 1rem
+  );
+}
+
+@mixin navbar-sm {
+  $namespace: "navbar";
+  ##{$namespace}-linkedIn {
+    flex-grow: 1;
+    justify-content: end;
+    a {
+      width: auto;
+    }
+  }
+  ##{$namespace}-links {
+    justify-content: center;
+    button,
+    a {
+      width: 100%;
+      padding: 0 5%;
+      margin: 0;
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        background: transparent;
+      }
+    }
+  }
+}
+@mixin navbar-hover {
+  ##{$namespace}-linkedIn {
+    a {
+      @include v.hover-action($scale: 1.1);
+    }
+  }
+  ##{$namespace} {
+    ##{$namespace}-links {
+      button,
+      a {
+        .link-animation-container {
+          &:after {
+            background-image: linear-gradient(0deg, v.$gray 0%, v.$gray 100%);
+          }
+        }
+      }
+    }
+  }
+  ##{$namespace} {
+    &.color {
+      ##{$namespace}-links {
+        button,
+        a {
+          .link-animation-container {
+            &:after {
+              background-image: linear-gradient(
+                0deg,
+                v.$off-white 0%,
+                v.$off-white 100%
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+
+  ##{$namespace}-links {
+    button,
+    a {
+      //needed for hover animation
+      @keyframes navbar-anchor-background-animation {
+        0% {
+          transform: translateX(-100%);
+        }
+        50% {
+          transform: translateX(0%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+      .link-animation-container {
+        position: absolute;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        &:after {
+          position: absolute;
+          content: "";
+          bottom: 10%;
+          height: 0.05em;
+          width: 100%;
+          left: 0;
+          transform: translateX(-100%);
+          background-position: 100% 85%;
+          background-repeat: no-repeat;
+          background-size: 100% 0.2em;
+        }
+      }
+
+      &:hover {
+        .link-animation-container {
+          &::after {
+            animation: navbar-anchor-background-animation 1s linear 0.15s;
+          }
+        }
+        svg {
+          stroke: v.$off-white;
+          stroke-dashoffset: 26;
+          transition: stroke-dashoffset 0.3s cubic-bezier(0.3, 1.5, 0.5, 1)
+            0.195s;
+        }
+      }
+    }
+  }
+}

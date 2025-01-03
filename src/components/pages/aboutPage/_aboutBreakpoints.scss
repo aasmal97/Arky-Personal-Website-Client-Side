@@ -1,0 +1,93 @@
+@use "../aboutPage/about" as a;
+@use "../../../../public/variables" as v;
+@use "./components/education" as education;
+@use "./components/introBanner" as intro;
+$education-namespace: education.$namespace;
+$intro-namespace: intro.$namespace;
+@mixin about-xxl {
+  @include a.about-pg();
+}
+@mixin about-xl {
+  @include a.about-pg();
+}
+@mixin about-lg {
+  @include a.about-pg(
+    $intro-wave-bg-height: 35rem,
+    $main-heading-font-size: 5.4rem,
+    $intro-container-horizontal-spacing: 1.8rem,
+    $intro-img-height: 32rem,
+    $intro-img-vertical-spacing: 3.6rem,
+    $intro-banner-font-size: 1.375rem,
+
+    $edu-heading-font-size: 4rem * 0.8,
+    $edu-container-spacing: 4.5rem * 0.8,
+    $edu-grid-row-spacing: 3.5rem,
+    $edu-grid-item-size: 12.5rem * 0.8,
+    $edu-action-description-font-size: 1.5rem,
+    $edu-action-btn-font-size: 2.25rem
+  );
+}
+@mixin about-md {
+  @include a.about-pg(
+    $intro-wave-bg-height: 28rem,
+    $main-heading-font-size: 4rem,
+    $intro-container-horizontal-spacing: 1.35rem,
+    $intro-img-height: 24rem,
+    $intro-img-vertical-spacing: 2.7rem,
+    $intro-banner-font-size: 1.125rem,
+
+    $edu-heading-font-size: 4rem * 0.8,
+    $edu-container-spacing: 4.5rem * 0.6,
+    $edu-grid-row-spacing: 3.5rem * 0.6,
+    $edu-grid-item-size: 12.5rem * 0.6,
+    $edu-action-description-font-size: 1.5rem * 0.8,
+    $edu-action-btn-font-size: 2.25rem * 0.8
+  );
+}
+@mixin about-sm {
+  @include a.about-pg(
+    $intro-wave-bg-height: 21rem,
+    $main-heading-font-size: 3rem,
+    $intro-container-horizontal-spacing: 1rem,
+    $intro-img-height: 18rem,
+    $intro-img-vertical-spacing: 2.7rem,
+    $intro-banner-font-size: 1rem,
+
+    $edu-heading-font-size: 2.25rem,
+    $edu-container-spacing: 3rem,
+    $edu-grid-row-spacing: 2rem,
+    $edu-grid-item-size: 7.125rem,
+    $edu-action-description-font-size: 1rem,
+    $edu-action-btn-font-size: 1.5rem
+  );
+  ##{$intro-namespace}-intro-inner {
+    &::after {
+      width: 80%;
+      height: 0.5em;
+    }
+  }
+  ##{$education-namespace}-display {
+    width: 100%;
+  }
+}
+@mixin hover-action {
+  transition: transform ease-out 0.2s;
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+@mixin about-hover {
+  ##{$education-namespace}-display {
+    a {
+      @include hover-action();
+    }
+  }
+  ##{$education-namespace}-action {
+    a {
+      @include hover-action();
+    }
+  }
+  .#{$education-namespace}-explore-item {
+    @include hover-action();
+  }
+}

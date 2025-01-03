@@ -1,0 +1,126 @@
+@use "./projectBanner" as p;
+@use "../../../../../../public/variables" as v;
+@use "../../../../utilities/projectItem/projectItem" as project-item;
+@use "sass:math";
+$namespace: p.$namespace;
+@mixin project-xxl {
+  @include p.project-banner;
+}
+@mixin project-xl {
+  @include p.project-banner(
+    $project-item-content-horizontal-padding: 2.5rem,
+    $project-item-content-width: 45%
+  );
+}
+@mixin project-lg {
+  @include p.project-banner(
+    $container-spacing-top: 3rem,
+    $container-spacing-bottom: 3.6rem,
+    $container-heading-font-size: 3.2rem,
+    $text-container-padding: 1.8rem,
+    $text-container-font-size: 1.2rem,
+    $featured-container-padding-left: 0.6rem,
+    $featured-container-padding-right: 1.8rem,
+    $featured-container-spacing: 7.2rem,
+    $sticky-label-font-size: 3.2rem,
+    $view-all-banner-font-size: 1.2rem,
+    $view-all-banner-spacing: 1.4rem,
+    $view-all-btn-font-size: 1.8rem,
+    $project-item-content-horizontal-padding: 2rem,
+    $project-item-content-title-font-size: 1.8rem,
+    $project-item-content-description-font-size: 1rem,
+    $project-item-description-slim-top-padding: 1.4rem,
+    $project-item-description-bottom-padding: 1.625rem,
+    $project-item-action-btns-spacing: 1.625rem,
+    $project-item-action-btns-font-size: 1.175rem,
+    $project-item-container-min-height: 20rem,
+    $project-item-container-mobile: "false",
+    $project-item-content-width: 45%
+  );
+}
+@mixin project-md {
+  @include p.project-banner(
+    $container-spacing-top: 2.25rem,
+    $container-spacing-bottom: 2.7rem,
+    $container-heading-font-size: 3rem,
+    $text-container-padding: 1.8rem,
+    $text-container-font-size: 1rem,
+    $featured-container-padding-left: 1.8rem,
+    $featured-container-padding-right: 1.8rem,
+    $featured-container-spacing: 5.4rem,
+    $sticky-label-font-size: 3rem,
+    $view-all-banner-font-size: 1rem,
+    $view-all-banner-spacing: 1rem,
+    $view-all-btn-font-size: 1.35rem,
+    $project-item-content-horizontal-padding: 2rem,
+    $project-item-content-title-font-size: 1.35rem,
+    $project-item-content-description-font-size: 1rem,
+    $project-item-description-slim-top-padding: 1rem,
+    $project-item-description-bottom-padding: 1.2rem,
+    $project-item-action-btns-spacing: 1rem,
+    $project-item-action-btns-font-size: 1rem,
+    $project-item-container-min-height: 15rem,
+    $project-item-container-mobile: "false",
+    $project-item-content-width: 45%
+  );
+  .#{$namespace}-featured {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > .sticky-label {
+      text-align: center;
+      padding-bottom: 1.8rem * 2;
+      text-transform: none;
+    }
+  }
+}
+
+@mixin project-sm {
+  @include p.project-banner(
+    $container-spacing-top: 2.25rem,
+    $container-spacing-bottom: 3.5rem,
+    $container-heading-font-size: 3rem,
+    $text-container-padding: 1rem,
+    $text-container-font-size: 1.125rem,
+    $featured-container-padding-left: 1rem,
+    $featured-container-padding-right: 1rem,
+    $featured-container-spacing: 5.4rem,
+    $sticky-label-font-size: 3rem,
+    $view-all-banner-font-size: 1.25rem,
+    $view-all-banner-spacing: 1.125rem,
+    $view-all-btn-font-size: 1.75rem,
+    $project-item-content-horizontal-padding: 0rem,
+    $project-item-content-title-font-size: 1.75rem,
+    $project-item-content-description-font-size: 1rem,
+    $project-item-description-slim-top-padding: 0,
+    $project-item-description-bottom-padding: 2.25rem,
+    $project-item-action-btns-spacing: 1rem,
+    $project-item-action-btns-font-size: 1rem,
+    $project-item-container-min-height: 0rem,
+    $project-item-container-mobile: "true",
+    $project-item-content-width: 100%
+  );
+  .#{$namespace}-featured {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > .sticky-label {
+      padding-bottom: 1rem * 2;
+      text-transform: none;
+    }
+    .#{project-item.$namespace}-img {
+      margin-top: 1.7rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
+@mixin project-hover {
+  .#{$namespace}-text-content a {
+    @include v.hover-action;
+  }
+  .#{$namespace}-view-all-btn {
+    & > a {
+      @include v.hover-action;
+    }
+  }
+}

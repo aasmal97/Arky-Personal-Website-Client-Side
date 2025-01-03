@@ -1,0 +1,6 @@
+@use "../loadingIcon/loadingIcon" as loading;
+.fallback-inner-wrapper {
+  .#{loading.$namespace} {
+    width: 40%;
+  }
+}

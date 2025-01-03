@@ -1,0 +1,22 @@
+@use "../loadingIcon/loadingIcon" as loading;
+@mixin fallback-el-sm {
+  .fallback-inner-wrapper {
+    .#{loading.$namespace} {
+      width: 80%;
+    }
+  }
+}
+@mixin fallback-el-md {
+  .fallback-inner-wrapper {
+    .#{loading.$namespace} {
+      width: 50%;
+    }
+  }
+}
+@mixin fallback-el-xl {
+  .fallback-inner-wrapper {
+    .#{loading.$namespace} {
+      width: 40%;
+    }
+  }
+}

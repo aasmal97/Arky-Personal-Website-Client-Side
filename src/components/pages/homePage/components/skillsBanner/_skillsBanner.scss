@@ -1,0 +1,131 @@
+@use "../../../../../../public/variables" as v;
+$namespace: "skills-banner";
+
+@mixin skills-banner(
+  $img-width: 21.875rem,
+  $container-top-padding: 3.75rem,
+  $container-bottom-padding: 4.5rem,
+  $container-horizontal-padding: 2.25rem,
+  $container-heading-font-size: 4rem,
+  $container-heading-vertial-spacing: 2.25rem,
+  $text-content-font-size: 1.5rem,
+  $skills-list-container-padding-left: 0.75rem,
+  $skills-list-container-padding-right: 2.25rem,
+  $view-all-btn-font-size: 2.25rem,
+  $view-all-btn-padding-top: 2rem,
+  $sticky-label-font-size: 4rem,
+  $mobile: "false"
+) {
+  ##{$namespace} {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: $container-top-padding;
+    padding-bottom: $container-bottom-padding;
+  }
+  ##{$namespace}-inner {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    box-sizing: border-box;
+    padding-left: $container-horizontal-padding;
+    padding-right: $container-horizontal-padding;
+    width: 100%;
+  }
+
+  .#{$namespace}-media-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    box-sizing: border-box;
+    @if ($mobile != "true ") {
+      padding-right: $container-horizontal-padding;
+    } @else {
+      padding-right: 0;
+    }
+    .#{$namespace}-media-img-container {
+      width: $img-width;
+      & > svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .#{$namespace}-text-content {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: start;
+    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    h2 {
+      color: transparent;
+      @include v.section-heading($container-heading-font-size, $width: auto);
+    }
+    p {
+      padding-top: $container-heading-vertial-spacing;
+      color: v.$off-white;
+      line-height: 2em;
+      margin: 0;
+      width: 100%;
+      font-size: $text-content-font-size;
+      flex-grow: 1;
+    }
+    button,
+    a {
+      @if ($mobile == "true") {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+      } @else {
+        width: auto;
+        display: block;
+        justify-content: unset;
+      }
+      @include v.link-btn($view-all-btn-font-size, v.$yellow);
+      padding-top: $view-all-btn-padding-top;
+    }
+  }
+  .#{$namespace}-skills-list {
+    padding-top: $container-top-padding;
+    display: flex;
+    width: 100%;
+    padding-left: $skills-list-container-padding-left;
+    padding-right: $skills-list-container-padding-right;
+    box-sizing: border-box;
+    & > .sticky-label {
+      @include v.sticky-label($sticky-label-font-size);
+    }
+    &.sidebar-disabled {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      & > .sticky-label {
+        text-align: center;
+        padding-bottom: 2rem;
+        text-transform: none;
+      }
+    }
+  }
+  .#{$namespace}-skills-list-inner {
+    flex-grow: 1;
+    font-size: $text-content-font-size;
+    width: 100%;
+    display: grid;
+    grid-gap: 2em; /* optional */
+    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    grid-template-columns: repeat(3, 1fr);
+    color: v.$yellow;
+    .#{$namespace}-skills-list-item {
+      display: flex;
+      align-items: center;
+      line-height: 1.625em;
+      text-align: center;
+      justify-content: center;
+    }
+  }
+}

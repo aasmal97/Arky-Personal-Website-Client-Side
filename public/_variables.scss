@@ -1,5 +1,5 @@
 $light-red: #ff5050;
-$off-red: #D93A3A;
+$off-red: #d93a3a;
 
 $red: #d24040;
 $dark-red: #ae0000;
@@ -11,8 +11,8 @@ $dark-yellow: #d47c00;
 $dark-blue: #0068e0;
 $gray: #afafaf;
 $dark-gray: #a6a6a6;
-$off-dark-gray: #8A8A8A;
-$off-darker-gray: #6E6E6E;
+$off-dark-gray: #8a8a8a;
+$off-darker-gray: #6e6e6e;
 $darker-gray: #6b6b6b;
 $lightest-gray: #c5c5c5;
 $lighter-black: #5a5a5a;
@@ -32,7 +32,6 @@ $corner-gradient: linear-gradient(
 );
 $corner-gradient-reverse: linear-gradient(
   138.2deg,
-
   $light-red 49.26%,
   $yellow 93.61%
 );
@@ -106,48 +105,87 @@ $max-width: 1500px;
   }
 }
 
-@mixin title-heading($font-size, $bold: "false") {
+@mixin title-heading(
+  $font-size: 1em,
+  $bold: "false",
+  $font-weight: "false",
+  $line-height: 1.35em,
+  $padding: "true",
+  $width: 100%
+) {
+  font-family: "JetBrains Mono", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: $font-size;
+  width: $width;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  line-height: $line-height;
   @if $bold != "true" and $bold != "false" {
     @error "Expected $bold to be a true or false";
   }
   @if $bold != "true" {
     font-weight: 400;
   } @else {
-    font-weight: 600;
+    @if ($font-weight != "false") {
+      font-weight: $font-weight;
+    } @else {
+      font-weight: 600;
+    }
   }
-  font-family: "JetBrains Mono", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  font-size: $font-size;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0;
-  line-height: 1.35em;
-  & > * {
-    padding-right: 0.4em;
-    &:last-child {
-      padding-right: 0;
+  @if ($padding == "true") {
+    & > * {
+      padding-right: 0.4em;
+      &:last-child {
+        padding-right: 0;
+      }
     }
   }
 }
 
-@mixin sub-heading($font-size, $bold: "false") {
-  @include title-heading($font-size, $bold);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  line-height: 1.64em;
-  & > * {
-    padding-right: 0.3em;
+@mixin sub-heading(
+  $font-size: 1em,
+  $bold: "false",
+  $font-weight: "false",
+  $padding: "true",
+  $width: 100%,
+  $text-transform: uppercase,
+  $letter-spacing: 0.12em
+) {
+  text-transform: $text-transform;
+  letter-spacing: $letter-spacing;
+  @include title-heading(
+    $font-size,
+    $bold,
+    $font-weight,
+    $line-height: 1.64em,
+    $padding: "false",
+    $width: $width
+  );
+  @if ($padding == "true") {
+    & > * {
+      padding-right: 0.3em;
+    }
   }
 }
-@mixin section-heading($font-size) {
-  @include sub-heading($font-size);
-  font-weight: 500;
+@mixin section-heading(
+  $font-size: 1em,
+  $width: 100%,
+  $text-transform: uppercase,
+  $padding-bottom: 0.25em
+) {
+  position: relative;
+  padding-bottom: $padding-bottom;
+  @include sub-heading(
+    $font-size: $font-size,
+    $font-weight: 500,
+    $width: $width,
+    $text-transform: $text-transform,
+    $padding: "false"
+  );
   & > * {
     padding-right: 0;
     padding-left: 0;
   }
-  position: relative;
-  padding-bottom: 0.25em;
   &::after {
     content: "";
     background-color: $darker-gray;
@@ -209,7 +247,7 @@ $max-width: 1500px;
   }
 }
 
-@mixin sticky-label($font-size, $color:$off-darker-gray) {
+@mixin sticky-label($font-size, $color: $off-darker-gray) {
   color: $color;
   font-weight: 500;
   text-transform: uppercase;

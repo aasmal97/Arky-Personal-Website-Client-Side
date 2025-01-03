@@ -1,10 +1,10 @@
 @use "./variables" as v;
-@use "../src/utilities/utilities";
-@use "../src/pages/homePage/homePage";
-@use "../src/pages/aboutPage/about";
-@use "../src/pages/projectPage/project";
-@use "../src/pages/skillsPage/skills";
-@use "../src/pages/contactPage/contactPage";
+@use "../src/components/utilities/utilities";
+@use "../src/components/pages/homePage/homePage";
+@use "../src/components/pages/aboutPage/about";
+@use "../src/components/pages/projectsPage/project";
+@use "../src/components/pages/skillsPage/skills";
+@use "../src/components/pages/contactPage/contactPage";
 //last import since it must override previous styles
 @use "./mediaQueries";
 html,
@@ -13,6 +13,7 @@ body {
   padding: 0;
   margin: 0;
   background-color: v.$dark-black;
+  height: auto;
 }
 #root {
   display: flex;
