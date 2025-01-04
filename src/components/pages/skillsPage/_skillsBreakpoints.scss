@@ -1,0 +1,70 @@
+@use "./skills" as s;
+@use "../homePage/components/skillsBanner/skillsBanner" as skillsBanner;
+@use "../../../../public/variables" as v;
+$namespace: s.$namespace;
+@mixin skills-xxl() {
+  @include s.skills-pg;
+  .#{$namespace}-container {
+    @include skillsBanner.skills-list(
+      $container-top-padding: 1.5rem,
+      $container-bottom-padding: 3.5rem,
+      $skills-list-container-padding-left: 2.25rem,
+      $skills-list-container-padding-right: 2.25rem,
+      $sticky-label-font-size: 4rem,
+      $text-content-font-size: 1.5rem
+    );
+  }
+}
+@mixin skills-xl() {
+  @include s.skills-pg;
+  .#{$namespace}-container {
+    @include skillsBanner.skills-list(
+      $container-top-padding: 1.5rem,
+      $container-bottom-padding: 3.5rem,
+      $skills-list-container-padding-left: 2.25rem,
+      $skills-list-container-padding-right: 2.25rem,
+      $sticky-label-font-size: 4rem,
+      $text-content-font-size: 1.5rem
+    );
+  }
+}
+@mixin skills-lg() {
+  @include s.skills-pg;
+  .#{$namespace}-container {
+    @include skillsBanner.skills-list(
+      $container-top-padding: 1rem,
+      $container-bottom-padding: 3rem,
+      $skills-list-container-padding-left: 1.8rem,
+      $skills-list-container-padding-right: 1.8rem,
+      $sticky-label-font-size: 3.2rem,
+      $text-content-font-size: 1.2rem
+    );
+  }
+}
+
+@mixin skills-md() {
+  .#{$namespace}-container {
+    @include skillsBanner.skills-list(
+      $container-top-padding: 0.5rem,
+      $container-bottom-padding: 2.5rem,
+      $skills-list-container-padding-left: 1.8rem,
+      $skills-list-container-padding-right: 1.8rem,
+      $sticky-label-font-size: 3rem,
+      $text-content-font-size: 1rem
+    );
+  }
+}
+
+@mixin skills-sm() {
+  .#{$namespace}-container {
+    @include skillsBanner.skills-list(
+      $container-top-padding: 0.5rem,
+      $container-bottom-padding: 2.5rem,
+      $skills-list-container-padding-left: 1rem,
+      $skills-list-container-padding-right: 1rem,
+      $sticky-label-font-size: 3rem,
+      $text-content-font-size: 1.125rem,
+      $mobile: "true"
+    );
+  }
+}

@@ -3,20 +3,22 @@
 @use "../src/components/pages/aboutPage/aboutBreakpoints" as about;
 @use "../src/components/pages/projectsPage/projectBreakpoints" as projects;
 @use "../src/components/pages/contactPage/contactPageBreakpoints" as contact;
+@use "../src/components/pages/skillsPage/skillsBreakpoints" as skills;
 @media (min-width: 1200px) {
   @include util.utilities-xxl;
   @include home.home-xxl;
   @include projects.project-xxl;
   @include about.about-xxl;
   @include contact.contact-xxl;
+  @include skills.skills-xxl;
 }
 @media (max-width: 1200px) {
   @include util.utilities-xl;
   @include home.home-xl;
   @include projects.project-xl;
-
   @include about.about-xl;
   @include contact.contact-xl;
+    @include skills.skills-xl;
 }
 @media (max-width: 992px) {
   @include util.utilities-lg;
@@ -24,6 +26,7 @@
   @include about.about-lg;
   @include projects.project-lg;
   @include contact.contact-lg;
+  @include skills.skills-lg;
 }
 
 @media (max-width: 768px) {
@@ -32,6 +35,7 @@
   @include about.about-md;
   @include projects.project-md;
   @include contact.contact-md;
+  @include skills.skills-md;
 }
 
 @media (max-width: 575px) {
@@ -40,6 +44,7 @@
   @include about.about-sm;
   @include projects.project-sm;
   @include contact.contact-sm;
+  @include skills.skills-sm;
 }
 
 @media (any-hover: hover) {

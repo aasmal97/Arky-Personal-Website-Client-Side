@@ -247,7 +247,7 @@ $max-width: 1500px;
   }
 }
 
-@mixin sticky-label($font-size, $color: $off-darker-gray) {
+@mixin sticky-label($font-size, $color: $off-dark-gray) {
   color: $color;
   font-weight: 500;
   text-transform: uppercase;

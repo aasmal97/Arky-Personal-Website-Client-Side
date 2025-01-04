@@ -1,6 +1,70 @@
 @use "../../../../../../public/variables" as v;
 $namespace: "skills-banner";
+@mixin skills-list(
+  $container-top-padding: 3.75rem,
+  $container-bottom-padding: 0rem,
+  $skills-list-container-padding-left: 0.75rem,
+  $skills-list-container-padding-right: 2.25rem,
+  $sticky-label-font-size: 4rem,
+  $text-content-font-size: 1.5rem,
+  $mobile: "false"
+) {
+  .#{$namespace}-skills-list {
+    padding-top: $container-top-padding;
+    padding-bottom: $container-bottom-padding;
+    display: flex;
+    width: 100%;
+    padding-left: $skills-list-container-padding-left;
+    padding-right: $skills-list-container-padding-right;
+    box-sizing: border-box;
+    & > .sticky-label {
+      @include v.sticky-label($sticky-label-font-size);
+    }
+    &.sidebar-disabled {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      & > .sticky-label {
+        text-align: center;
+        padding-bottom: 0.5em;
+        text-transform: none;
+      }
+    }
+  }
+  .#{$namespace}-skills-list-inner {
+    flex-grow: 1;
+    font-size: $text-content-font-size;
+    width: 100%;
+    display: grid;
+    grid-gap: 2em; /* optional */
+    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    grid-template-columns: repeat(3, 1fr);
+    color: v.$yellow;
+    .#{$namespace}-skills-list-item {
+      display: flex;
+      align-items: center;
+      line-height: 1.625em;
+      text-align: center;
+      justify-content: center;
+    }
+  }
+  @if ($mobile == "true") {
+    .#{$namespace}-skills-list-inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .#{$namespace}-skills-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
+      & > .sticky-label {
+        text-align: center;
+        padding-bottom: 2rem;
+        text-transform: none;
+      }
+    }
+  }
+}
 @mixin skills-banner(
   $img-width: 21.875rem,
   $container-top-padding: 3.75rem,
@@ -11,9 +75,9 @@ $namespace: "skills-banner";
   $text-content-font-size: 1.5rem,
   $skills-list-container-padding-left: 0.75rem,
   $skills-list-container-padding-right: 2.25rem,
+  $sticky-label-font-size: 4rem,
   $view-all-btn-font-size: 2.25rem,
   $view-all-btn-padding-top: 2rem,
-  $sticky-label-font-size: 4rem,
   $mobile: "false"
 ) {
   ##{$namespace} {
@@ -89,43 +153,12 @@ $namespace: "skills-banner";
       padding-top: $view-all-btn-padding-top;
     }
   }
-  .#{$namespace}-skills-list {
-    padding-top: $container-top-padding;
-    display: flex;
-    width: 100%;
-    padding-left: $skills-list-container-padding-left;
-    padding-right: $skills-list-container-padding-right;
-    box-sizing: border-box;
-    & > .sticky-label {
-      @include v.sticky-label($sticky-label-font-size);
-    }
-    &.sidebar-disabled {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      & > .sticky-label {
-        text-align: center;
-        padding-bottom: 2rem;
-        text-transform: none;
-      }
-    }
-  }
-  .#{$namespace}-skills-list-inner {
-    flex-grow: 1;
-    font-size: $text-content-font-size;
-    width: 100%;
-    display: grid;
-    grid-gap: 2em; /* optional */
-    font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    grid-template-columns: repeat(3, 1fr);
-    color: v.$yellow;
-    .#{$namespace}-skills-list-item {
-      display: flex;
-      align-items: center;
-      line-height: 1.625em;
-      text-align: center;
-      justify-content: center;
-    }
-  }
+  @include skills-list(
+    $container-top-padding: $container-top-padding,
+    $skills-list-container-padding-left: $skills-list-container-padding-left,
+    $skills-list-container-padding-right: $skills-list-container-padding-right,
+    $sticky-label-font-size: $sticky-label-font-size,
+    $text-content-font-size: $text-content-font-size,
+    $mobile: $mobile
+  );
 }

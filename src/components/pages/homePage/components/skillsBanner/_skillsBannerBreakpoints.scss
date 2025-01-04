@@ -42,6 +42,7 @@ $namespace: s.$namespace;
     $mobile: "false"
   );
   .#{$namespace}-skills-list {
+    padding-top: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,20 +82,6 @@ $namespace: s.$namespace;
     padding-bottom: 0.3em;
     .#{$namespace}-media-img-container {
       height: 1.4em;
-    }
-  }
-  .#{$namespace}-skills-list-inner {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .#{$namespace}-skills-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    & > .sticky-label {
-      text-align: center;
-      padding-bottom: 2rem;
-      text-transform: none;
     }
   }
 }
