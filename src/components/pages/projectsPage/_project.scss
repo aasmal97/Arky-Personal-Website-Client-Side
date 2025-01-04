@@ -245,7 +245,7 @@ $namespace: "project-pg";
     flex-wrap: nowrap;
     @include v.sub-heading(
       $project-pg-carousel-text-font-size,
-      $text-transform: "none",
+      $text-transform: none,
       $letter-spacing: normal
     );
   }
@@ -261,12 +261,15 @@ $namespace: "project-pg";
   }
   .#{$namespace}-explore-more-header {
     color: v.$light-red;
-    margin-top: $project-pg-explore-heading-vertical-spacing;
-    margin-bottom: $project-pg-explore-heading-vertical-spacing;
     @include v.section-heading(
       $project-pg-explore-heading-font-size,
       $width: auto
     );
+  }
+  .#{$namespace}-explore-more-header {
+    //override margin
+    margin-top: $project-pg-explore-heading-vertical-spacing;
+    margin-bottom: $project-pg-explore-heading-vertical-spacing;
   }
   ##{$namespace}-explore-more {
     display: flex;

@@ -39,12 +39,16 @@ $namespace: "project-item";
     @include v.section-heading(
       $font-size: $content-title-font-size,
       $width: fit-content,
-      $text-transform: "none",
+      $text-transform: none,
       $padding-bottom: 0.55em
     );
     &:after {
       height: 0.25em;
     }
+  }
+  .#{$namespace}-title{
+    padding-top: 0;
+    margin-top: -0.3em;
   }
   .#{$namespace}-labels {
     font-size: $labels-font-size;

@@ -82,7 +82,7 @@ $namespace: p.$namespace;
     $project-pg-horizontal-spacing: 1rem,
     $project-pg-main-heading-font-size: 3rem,
     $project-pg-explore-heading-font-size: 3rem,
-    $project-pg-explore-heading-vertical-spacing: 4rem,
+    $project-pg-explore-heading-vertical-spacing: 2.25rem,
     $project-pg-carousel-height: 18rem,
     $project-pg-carousel-heading-font-size: 1rem,
     $project-pg-carousel-text-font-size: 0.875rem,
@@ -117,6 +117,9 @@ $namespace: p.$namespace;
     }
     .#{project-item.$namespace}-labels {
       margin-bottom: 0.5rem;
+    }
+    .#{project-item.$namespace}:first-child {
+      margin-top: 1.25rem;
     }
   }
 }
