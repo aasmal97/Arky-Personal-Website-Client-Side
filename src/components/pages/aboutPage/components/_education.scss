@@ -16,6 +16,7 @@ $namespace: "about-pg-education";
     width: 100%;
     position: relative;
     padding-top: $edu-container-spacing;
+    max-width: v.$max-width;
   }
   ##{$namespace}-header {
     align-self: center;
@@ -49,7 +50,7 @@ $namespace: "about-pg-education";
     justify-content: center;
     row-gap: $edu-grid-row-spacing;
     @include v.img-fill;
-    width: 80%;
+    width: 100%;
     align-self: center;
     a {
       box-sizing: border-box;

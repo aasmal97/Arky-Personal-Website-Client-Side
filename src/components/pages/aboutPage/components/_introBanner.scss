@@ -30,7 +30,7 @@ $namespace: "about-pg";
     align-items: center;
     & > h2 {
       justify-content: center;
-      padding: 0.925em 0;
+      padding: 0.525em 0;
       color: v.$off-white;
       @include v.sub-heading($main-heading-font-size, $bold: "true");
     }
