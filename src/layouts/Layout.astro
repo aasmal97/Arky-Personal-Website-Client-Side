@@ -3,6 +3,7 @@ import { SEO, type Props as SEOProps } from "astro-seo";
 import AppLayout from "../components/app";
 import FallbackElement from "../components/utilities/fallbackEl/fallback";
 import type { NavbarTheme } from "../components/hooks/useNavbarTheme";
+import InnerPage from "./innerPage/InnerPage.astro";
 interface Props {
   seo?: SEOProps;
   defaultTheme?: NavbarTheme;
@@ -47,7 +48,7 @@ const title = seo.title ?? "Arky's Portfolio";
       href="https://fonts.gstatic.com"
       crossorigin="anonymous"
     />
-    <link rel="manifest" href="./manifest.json" />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
     <link
       rel="preload"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
@@ -77,8 +78,10 @@ const title = seo.title ?? "Arky's Portfolio";
   <body style="height: auto; width: auto">
     <div id="root">
       <AppLayout defaultTheme={props.defaultTheme} client:only="react">
-        <div slot="fallback"><FallbackElement client:load /></div>
-        <slot />
+        <InnerPage>
+          <div slot="fallback"><FallbackElement client:load /></div>
+          <slot />
+        </InnerPage>
       </AppLayout>
     </div>
   </body>

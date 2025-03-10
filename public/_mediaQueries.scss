@@ -4,6 +4,7 @@
 @use "../src/components/pages/projectsPage/projectBreakpoints" as projects;
 @use "../src/components/pages/contactPage/contactPageBreakpoints" as contact;
 @use "../src/components/pages/skillsPage/skillsBreakpoints" as skills;
+@use "../src/layouts/innerPage/innerPageBreakpoints" as inner;
 @media (min-width: 1200px) {
   @include util.utilities-xxl;
   @include home.home-xxl;
@@ -11,6 +12,8 @@
   @include about.about-xxl;
   @include contact.contact-xxl;
   @include skills.skills-xxl;
+  @include inner.inner-page-wrapper-xxl;
+  
 }
 @media (max-width: 1200px) {
   @include util.utilities-xl;
@@ -18,7 +21,8 @@
   @include projects.project-xl;
   @include about.about-xl;
   @include contact.contact-xl;
-    @include skills.skills-xl;
+  @include skills.skills-xl;
+  @include inner.inner-page-wrapper-xl;
 }
 @media (max-width: 992px) {
   @include util.utilities-lg;
@@ -27,6 +31,7 @@
   @include projects.project-lg;
   @include contact.contact-lg;
   @include skills.skills-lg;
+  @include inner.inner-page-wrapper-lg;
 }
 
 @media (max-width: 768px) {
@@ -36,6 +41,7 @@
   @include projects.project-md;
   @include contact.contact-md;
   @include skills.skills-md;
+  @include inner.inner-page-wrapper-md;
 }
 
 @media (max-width: 575px) {

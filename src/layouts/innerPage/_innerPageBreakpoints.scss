@@ -1,0 +1,13 @@
+@use "./innerPage" as inner;
+@mixin inner-page-wrapper-xxl{
+    @include inner.inner-page-wrapper;
+}
+@mixin inner-page-wrapper-xl{
+    @include inner.inner-page-wrapper;
+}
+@mixin inner-page-wrapper-lg{
+    @include inner.inner-page-wrapper($navbar-height: 4.8rem);
+}
+@mixin inner-page-wrapper-md{
+    @include inner.inner-page-wrapper($navbar-height: 4.5rem);
+}

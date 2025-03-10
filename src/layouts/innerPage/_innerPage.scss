@@ -1,0 +1,6 @@
+@mixin inner-page-wrapper($navbar-height: 6rem) {
+  #inner-page-wrapper {
+    min-height: calc(100vh - $navbar-height);
+    width: 100%;
+  }
+}

@@ -4,11 +4,13 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "npm run scss && astro dev",
+    "dev:astro": "concurrently \"npm run scss:watch\" \"astro dev\"",
+    "dev": "docker compose up client-app --watch --build",
     "build": "npm run scss && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "secrets": "doppler secrets download --no-file --format env > .env",
+    "scss:watch": "sass --watch ./public/main.scss ./public/main.css",
     "scss": "sass ./public/main.scss ./public/main.css"
   },
   "dependencies": {
@@ -54,6 +56,7 @@
     "@types/react-transition-group": "^4.4.5",
     "@types/uuid": "^9.0.0",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
     "sass": "^1.57.1",
     "typescript": "^5.7.2"

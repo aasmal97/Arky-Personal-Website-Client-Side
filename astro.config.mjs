@@ -8,6 +8,10 @@ const secrets = loadEnv(import.meta.env.MODE, process.cwd(), "REACT_APP");
 export default defineConfig({
   site: "https://arkyasmal.com",
   integrations: [react(), sitemap()],
+  server: {
+    port: 3400,
+    host: true,
+  },
   vite: {
     resolve: {
       alias: {

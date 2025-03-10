@@ -1,0 +1,10 @@
+package-lock.json
+node_modules
+.vscode
+.codegpt
+dist
+lib
+docker-compose.yaml
+Dockerfile
+.gitignore
+.git
